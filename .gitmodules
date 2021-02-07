@@ -1,0 +1,6 @@
+[submodule "themes/er"]
+	path = themes/er
+	url = https://github.com/lingxz/er
+[submodule "er"]
+	path = er
+	url = https://github.com/lingxz/er

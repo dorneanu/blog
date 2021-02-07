@@ -1,0 +1,119 @@
+Title =  "blog.dornea.nu"
+defaultContentLanguage = "en"
+languageCode = "en-us"
+BaseUrl = "http://blog.dornea.nu"
+Theme =  "er"
+MetaDataFormat =  "yaml"
+CanonifyUrls =  true
+BuildDrafts =  false
+PaginatePath =  "p"
+Paginate = 8
+DisablePathToLower =  false
+HasCJKLanguage = true
+PreserveTaxonomyNames = false
+UglyUrls = false
+PygmentsStyle = "native"
+pygmentsCodefences = true
+pygmentsCodefencesGuessSyntax = true
+DefaultContentLanguage = "en"
+# publishDir = "docs"
+
+[permalinks]
+posts = "/:year/:month/:day/:title"
+notes = "/:year/:month/:day/:title"
+
+[Params]
+  Introduce = "blog.dornea.nu"
+  Description = "Hack, code and drink some țuică. Personal blog of Victor Dorneanu."
+  Keywords =  ""
+  Subtitle = ""
+  Imglogo = "/img/logo.png"
+  AuthorImg = "/img/author.jpg"
+  DateFormat = "2006-01-02"
+  YearFormat = "2006"
+  MonthFormat = "01-02"
+  #BaiduStatsId = "0b07433b4ab8d587dae7d34e71973839"
+  #QQStatsId = "58416275"
+  #RevolverMapId = "5b4f2ucxar6"
+  Fancybox = true
+  # showTagCloud = true
+  # showtoc = true
+
+  # For hermit theme
+  dateform        = "Jan 2, 2006"
+  dateformShort   = "Jan 2"
+  dateformNum     = "2006-01-02"
+  dateformNumTime = "2006-01-02 15:04 -0700"
+
+  # Metadata mostly used in document's head
+  # description = ""
+  # images = [""]
+  themeColor = "#494f5c"
+
+  homeSubtitle = "braindumps about almost everything"
+  footerCopyright = ' &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>'
+  # bgImg = ""  # Homepage background-image URL
+
+  # Prefix of link to the git commit detail page. GitInfo must be enabled.
+  # gitUrl = "https://github.com/username/repository/commit/"
+
+  # Toggling this option needs to rebuild SCSS, requires Hugo extended version
+  justifyContent = false  # Set "text-align: justify" to `.content`.
+  relatedPosts = true  # Add a related content section to all single posts page
+  code_copy_button = false # Turn on/off the code-copy-button for code-fields
+  customCSS = ["css/custom.css"]
+ 
+
+[Author]
+  Name = "brainfck.org"
+
+[[Menu.Main]]
+  Name = "Home"
+  Pre = "home"
+  URL = "/"
+  Weight = 1
+[[Menu.Main]]
+  Name = "About"
+  Pre = "code"
+  URL = "http://dornea.nu"
+  Weight = 5
+[[Menu.Main]]
+  Name = "Tags"
+  Pre = "book"
+  URL = "/tags"
+  Weight = 6
+[[Menu.Main]]
+  Name = "Zettelkasten"
+  Pre = "sticky-note"
+  URL = "https://brainfck.org"
+  Weight = 8
+[[Menu.Main]]
+  Name = "Bookmarks"
+  Pre = "code"
+  URL = "https://brainfck.org/bookmarks.html"
+  Weight = 10
+[[Menu.Main]]
+  Name = "Books"
+  Pre = "book"
+  URL = "https://brainfck.org/bib.html"
+  Weight = 15
+[[Menu.Main]]
+  Name = "Notes"
+  Pre = "sticky-note"
+  URL = "/notes"
+  Weight = 20
+
+
+[deployment]
+order = [".jpg$", ".gif$"]
+
+[[deployment.targets]]
+name = "brainfck"
+URL="s3://brainfck.org?region=eu-central-1"
+
+[[deployment.matchers]]
+pattern = "^.+\\.(html|xml|json)$"
+gzip = true
+
+[outputs]
+home = [ "HTML", "JSON"]
