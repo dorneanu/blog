@@ -88,21 +88,21 @@ notes = "/:year/:month/:day/:title"
   Pre = "sticky-note"
   URL = "https://brainfck.org"
   Weight = 8
-[[Menu.Main]]
-  Name = "Bookmarks"
-  Pre = "code"
-  URL = "https://brainfck.org/bookmarks.html"
-  Weight = 10
-[[Menu.Main]]
-  Name = "Books"
-  Pre = "book"
-  URL = "https://brainfck.org/bib.html"
-  Weight = 15
-[[Menu.Main]]
-  Name = "Notes"
-  Pre = "sticky-note"
-  URL = "/notes"
-  Weight = 20
+# [[Menu.Main]]
+#   Name = "Bookmarks"
+#   Pre = "code"
+#   URL = "https://brainfck.org/bookmarks.html"
+#   Weight = 10
+# [[Menu.Main]]
+#   Name = "Books"
+#   Pre = "book"
+#   URL = "https://brainfck.org/bib.html"
+#   Weight = 15
+# [[Menu.Main]]
+#   Name = "Notes"
+#   Pre = "sticky-note"
+#   URL = "/notes"
+#   Weight = 20
 
 
 [deployment]
