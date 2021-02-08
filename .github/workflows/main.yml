@@ -19,13 +19,13 @@ jobs:
       - name: Build
         # remove --minify tag if you do not need it
         # docs: https://gohugo.io/hugo-pipes/minification/
-        run: hugo --gc --minify --cleanDestinationDir  
+        run: hugo --gc --cleanDestinationDir  
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.BLOG_TOKEN }}
-          external_repository: dorneanu/dorneanu.github.io
+          external_repository: dorneanu/blog.dornea.nu
           publish_branch: master
           publish_dir: ./public
           keep_files: true
