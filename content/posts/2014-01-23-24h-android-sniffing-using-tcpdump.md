@@ -6,6 +6,10 @@ tags = ["android", "hacking", "networking", "security", "appsec", "python", "ipt
 category = "blog"
 +++
 
+{{% notice tip %}}
+For better display results you can also have a look at the [24h Android Monitoring Jupyter Notebook](https://github.com/dorneanu/blog/blob/master/content/jupyter/24h-Android-Monitoring.ipynb).
+{{% /notice %}}
+
 ## Motivation
 
 I've started this little project since I was mainly interested in the data my smartphone is ending all the time without my knowledge. I have a bunch of apps installed on my phone and I have absolutely no ideea which (kind of) data is beeing transfered to the Internet all day long. I thought I'd be a great ideea to monitor/sniff my data interface (3G, Edge etc. NOT Wifi) for 24h during my normal daily phone usage.

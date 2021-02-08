@@ -16,6 +16,7 @@ PygmentsStyle = "native"
 pygmentsCodefences = true
 pygmentsCodefencesGuessSyntax = true
 DefaultContentLanguage = "en"
+disqusShortname = "dorneanu"
 # publishDir = "docs"
 
 [permalinks]
@@ -65,7 +66,7 @@ notes = "/:year/:month/:day/:title"
  
 
 [Author]
-  Name = "brainfck.org"
+  Name = "blog.dornea.nu"
 
 [[Menu.Main]]
   Name = "Home"
@@ -107,13 +108,13 @@ notes = "/:year/:month/:day/:title"
 [deployment]
 order = [".jpg$", ".gif$"]
 
-[[deployment.targets]]
-name = "brainfck"
-URL="s3://brainfck.org?region=eu-central-1"
+# [[deployment.targets]]
+# name = "brainfck"
+# URL="s3://brainfck.org?region=eu-central-1"
 
 [[deployment.matchers]]
 pattern = "^.+\\.(html|xml|json)$"
 gzip = true
 
 [outputs]
-home = [ "HTML", "JSON"]
+home = [ "HTML" ] 
