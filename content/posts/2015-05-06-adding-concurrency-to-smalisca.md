@@ -166,7 +166,7 @@ I didn't have to write a lot of code. In my case the concurrency has been implem
 
 So basically you'll have a list of directory paths:
 
-{% graphviz 
+{{< expand "Graphviz code" >}}
     dot {
         digraph G {
             graph [splines=curve, rankdir = LR, pad=".15", ranksep="1.25", nodesep="2.25"];
@@ -186,11 +186,13 @@ So basically you'll have a list of directory paths:
             }", width=8];
         }
     }
-%}
+{{< /expand >}}
+
+![paths](/posts/img/2015/smalisca-concurrency/paths.dot.png)
 
 And some workers to do the job:
 
-{% graphviz 
+{{< expand "Graphviz code" >}}
     dot {
         digraph G {
             graph [splines=curve, rankdir = LR, pad=".15", ranksep="1.25", nodesep="2.25"];
@@ -208,12 +210,13 @@ And some workers to do the job:
             }", width=8];
         }
     }
-%}
+{{< /expand >}}
 
+![workers](/posts/img/2015/smalisca-concurrency/workers.dot.png)
 
 In my case the paths have to be distributed to the workers:
 
-{% graphviz 
+{{< expand "Graphviz code" >}}
     dot {
         digraph G {
             graph [splines=curve, rankdir = LR, pad=".15", ranksep="1.25", nodesep="2.25"];
@@ -248,9 +251,9 @@ In my case the paths have to be distributed to the workers:
             Bar:p5 -> Workers:w2;
         }
     }
-%}
+{{< /expand >}}
 
-
+![paths-workers](/posts/img/2015/smalisca-concurrency/paths-workers.dot.png)
 
 So let's continue with some code examples. A typical **parser process** would look like this:
 
@@ -288,7 +291,7 @@ class SmaliParserProcess(multiprocessing.Process):
 A process will have a list of directories to scan plus a results queue where to put
 its individual results.
 
-{% graphviz 
+{{< expand "Graphviz code" >}}
     dot {
         digraph G {
             graph [splines=curve, rankdir = LR, pad=".15", ranksep="1.25", nodesep="2.25"];
@@ -313,8 +316,9 @@ its individual results.
             Workers:w4 -> Queue;
         }
     }
-%}
+{{< /expand >}}
 
+![queue](/posts/img/2015/smalisca-concurrency/queue.dot.png)
 
 A **controller** should create and create the workers. Afterwards it should collect the 
 results:
@@ -459,18 +463,20 @@ $ for i in {1..10};do eval ${CMD} 2>&1 /dev/null | grep total; done
 **5.5 seconds**!!! It takes **longer**! Obviously the `Queue` processing and starting new processes increases 
 execution time. Ok, now let's try with more **jobs** (=8):
 
-    $ export CMD="time ./smalisca-test.py parser --depth 3 -j 8 -l /home/victor/work/Projects/XXX/source/smali -s java -f sqlite  -o ~/work/Projects/XXXX/db.sqlite"
-    $ for i in {1..10};do eval ${CMD} 2>&1 /dev/null | grep total; done
-    ./smalisca-test.py parser --depth 3 -j 8 -l  -s java -f sqlite -o   5.66s user 0.36s system 161% cpu 3.730 total
-    ./smalisca-test.py parser --depth 3 -j 8 -l  -s java -f sqlite -o   5.80s user 0.29s system 161% cpu 3.761 total
-    ./smalisca-test.py parser --depth 3 -j 8 -l  -s java -f sqlite -o   5.57s user 0.40s system 158% cpu 3.756 total
-    ./smalisca-test.py parser --depth 3 -j 8 -l  -s java -f sqlite -o   5.49s user 0.32s system 156% cpu 3.700 total
-    ./smalisca-test.py parser --depth 3 -j 8 -l  -s java -f sqlite -o   5.76s user 0.30s system 162% cpu 3.741 total
-    ./smalisca-test.py parser --depth 3 -j 8 -l  -s java -f sqlite -o   5.62s user 0.28s system 162% cpu 3.641 total
-    ./smalisca-test.py parser --depth 3 -j 8 -l  -s java -f sqlite -o   5.54s user 0.30s system 161% cpu 3.627 total
-    ./smalisca-test.py parser --depth 3 -j 8 -l  -s java -f sqlite -o   5.63s user 0.31s system 159% cpu 3.724 total
-    ./smalisca-test.py parser --depth 3 -j 8 -l  -s java -f sqlite -o   5.73s user 0.35s system 162% cpu 3.747 total
-    ./smalisca-test.py parser --depth 3 -j 8 -l  -s java -f sqlite -o   5.43s user 0.34s system 153% cpu 3.764 total
+```shell
+$ export CMD="time ./smalisca-test.py parser --depth 3 -j 8 -l /home/victor/work/Projects/XXX/source/smali -s java -f sqlite  -o ~/work/Projects/XXXX/db.sqlite"
+$ for i in {1..10};do eval ${CMD} 2>&1 /dev/null | grep total; done
+./smalisca-test.py parser --depth 3 -j 8 -l  -s java -f sqlite -o   5.66s user 0.36s system 161% cpu 3.730 total
+./smalisca-test.py parser --depth 3 -j 8 -l  -s java -f sqlite -o   5.80s user 0.29s system 161% cpu 3.761 total
+./smalisca-test.py parser --depth 3 -j 8 -l  -s java -f sqlite -o   5.57s user 0.40s system 158% cpu 3.756 total
+./smalisca-test.py parser --depth 3 -j 8 -l  -s java -f sqlite -o   5.49s user 0.32s system 156% cpu 3.700 total
+./smalisca-test.py parser --depth 3 -j 8 -l  -s java -f sqlite -o   5.76s user 0.30s system 162% cpu 3.741 total
+./smalisca-test.py parser --depth 3 -j 8 -l  -s java -f sqlite -o   5.62s user 0.28s system 162% cpu 3.641 total
+./smalisca-test.py parser --depth 3 -j 8 -l  -s java -f sqlite -o   5.54s user 0.30s system 161% cpu 3.627 total
+./smalisca-test.py parser --depth 3 -j 8 -l  -s java -f sqlite -o   5.63s user 0.31s system 159% cpu 3.724 total
+./smalisca-test.py parser --depth 3 -j 8 -l  -s java -f sqlite -o   5.73s user 0.35s system 162% cpu 3.747 total
+./smalisca-test.py parser --depth 3 -j 8 -l  -s java -f sqlite -o   5.43s user 0.34s system 153% cpu 3.764 total
+```
 
 Pretty much the **same** results. And here is the overall results table:
 
@@ -497,7 +503,7 @@ Pretty much the **same** results. And here is the overall results table:
 * Have a look at the [commit details](https://github.com/dorneanu/smalisca/commit/a48a1b9e3eb648baf6547658e06bfe32c094551c) in the [develop](https://github.com/dorneanu/smalisca/tree/develop) branch.
 
 
-##References
+## References
 
 * [Multiprocessing with Python](http://everydayimlearning.blogspot.de/2013/03/multiprocessing-with-python.html)
 * [Parallel Directory Tree Compare with Python](https://moinakg.wordpress.com/2013/07/01/parallel-directory-tree-compare-in-python/)

@@ -312,22 +312,22 @@ Obviously we have found some devices. And because the requests were sent on `des
 
 Using *iptables* I'll re-route the traffic destinated to some specific *port* directly to *burp*.Without any proxies the connection "flows" between the client and the server. Using a proxy between them you'll have sth like this:
 
-{% graphviz 
-    dot {
-        digraph G {
-            graph [rankdir = LR];
-            node[shape=record];
-            
-            Proxy  [label="{ { <i1> Input: Port | <i2>Input: Data } | <proxy>proxy | { <o1> Output: Port | <o2> Output: Data } }"];
-            Client [label="{ { <p1> Source Port | <p2> Data | <p3> Other Headers} | <client>android-client }"];
-            Server [label="{ webserver | { <p1> Destination Port | <p2> Data | <p3> Other Headers } }"];
+{{< expand "Graphviz code" >}}
+digraph G {
+      graph [rankdir = LR];
+      node[shape=record];
+
+      Proxy  [label="{ { <i1> Input: Port | <i2>Input: Data } | <proxy>proxy | { <o1> Output: Port | <o2> Output: Data } }"];
+      Client [label="{ { <p1> Source Port | <p2> Data | <p3> Other Headers} | <client>android-client }"];
+      Server [label="{ webserver | { <p1> Destination Port | <p2> Data | <p3> Other Headers } }"];
 
 
-            Client:client -> Proxy [color=red];
-            Proxy -> Server [color=red];
-        }
-    }
-%}
+      Client:client -> Proxy [color=red];
+      Proxy -> Server [color=red];
+  }
+{{< /expand >}}
+
+![](/posts/img/2014/howto-non-proxy-aware-android-burp/proxy.dot.png)
 
 And this is where **NAT** comes into play. The 3 major NAT types are described below:
 
@@ -450,7 +450,7 @@ On *burp* you won't see anything. How comes? And this is the point where we come
 
 It's all about Burps [invisible proxying](http://portswigger.net/burp/help/proxy_options_invisible.html). It basically enables proxy support for non-proxy-aware clients to be able to connect directly to the listener (Burp). Editing the proxy options (Request Handling) you'll find these options:
 
-![Burp non-proxy-aware support](/posts/img/2014/6899841c0a375a2a5ad1f5108ac0d62efab8fd79.png)
+![Burp non-proxy-aware support](/img/2014/6899841c0a375a2a5ad1f5108ac0d62efab8fd79.png)
 
 Make sure you activate "Support invisible proxying". Afterwards you can trigger `curl` again to see if it works:
 

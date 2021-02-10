@@ -158,7 +158,7 @@ RETURN VALUE
 Since we're dealing with `x86` ([this site](http://wiki.osdev.org/Calling_Conventions) is very good) the
 arguments for `memset` are being pushed into the stack:
 
-{% graphviz 
+{{< expand "Graphviz code" >}}
     dot {
 		digraph G {
 		 
@@ -208,8 +208,9 @@ arguments for `memset` are being pushed into the stack:
 			rsp_8:p -> stack:8 [style=invis];
 		}
     }
-%}
+{{< /expand >}}
 
+![stack](/posts/img/2016/r0-binaries/stack.dot.png)
 
 So `memset` will set the value "0" 8 times at the address pointed by `eax`. Afterwards
 some values will be `mov`ed into the previously allocated memory range:
@@ -249,7 +250,7 @@ gef> r
 Now from `0x080484aa` through `0x080484fc` you can `s` (step) the opcodes. Then pay attention to the stack. You
 should have sth like:
  
-{% graphviz 
+{{< expand "Graphviz code" >}}
     dot {
 		digraph G {
 		 
@@ -313,7 +314,8 @@ should have sth like:
 			stack:0 -> val:1 [color=red];
 			stack:12 -> val:2;
 		}
-    }
-%}
+{{< /expand >}}
+
+![stack](/posts/img/2016/r0-binaries/stack-values.dot.png)
 
 Bingo. So the flag is `FLAG-4092849uio2jf`. 

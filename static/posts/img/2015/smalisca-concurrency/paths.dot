@@ -1,0 +1,11 @@
+
+        digraph G {
+            graph [splines=curve, rankdir = LR, pad=".15", ranksep="1.25", nodesep="2.25"];
+            node[fontname="FreeSans",fontsize="14",shape=Mrecord,width=7, height=.5];
+
+            compound = true;
+
+            Bar[label="{                  {PATHS  |                   <p1>/smali/com/android \l|                   <p2>/smali/com/android/support \l|                   <p3>/smali/com/gmail/framework \l|                   <p4>/smali/com/gmail/calender/user \l|                   <p5>/smali/de/bla/bla/ble \l |                   <pn>... \l                   }            }", width=8];
+        }
+
+

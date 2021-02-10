@@ -39,49 +39,52 @@ This is some minimal example:
 
 which will be rendered to:
 
-{% graphviz 
-	dot { 
-			digraph graphname { 
-				a -> b -> c; 
-				b -> d; 
-				e -> f;	
-			} 
-		}
-%}
+{{< expand "Graphviz code" >}}
+dot {
+    digraph graphname { 
+        a -> b -> c; 
+        b -> d; 
+        e -> f;	
+    } 
+}
+{{< /expand >}}
+
+![example1](/posts/img/2014/pelican-graphviz-liquid-tags/example1.dot.png)
 
 You could then use `neato` instead of `dot`:
 
 ```
 {% graphviz 
-	neato { 
-			digraph graphname { 
-				a -> b -> c; 
-				b -> d; 
-				e -> f;	
-			} 
-		}
+neato { 
+        digraph graphname { 
+            a -> b -> c; 
+            b -> d; 
+            e -> f;	
+        } 
+    }
 %}
 ```
 
 ...which will be rendered to:
 
-{% graphviz 
-	neato { 
-			digraph graphname { 
-				a -> b -> c; 
-				b -> d; 
-				e -> f;	
-			} 
-		}
-%}
+{{< expand "Graphviz code" >}}
+neato { 
+        digraph graphname { 
+            a -> b -> c; 
+            b -> d; 
+            e -> f;	
+        } 
+    }
+{{< /expand >}}
 
+![example2](/posts/img/2014/pelican-graphviz-liquid-tags/example2.dot.png)
 
 Some other examples:
 
 * dot
-	- digraph
+  - digraph
 
-{% graphviz 
+{{< expand "Graphviz code" >}}
 	dot {
 		digraph g {
 			node [fontname=Verdana,fontsize=12]
@@ -109,12 +112,15 @@ Some other examples:
 			"node4":f0 -> "node5":f1;
 		}
 	}
-%}
+{{< /expand >}}
+
+![example3](/posts/img/2014/pelican-graphviz-liquid-tags/example3.dot.png)
+
 
 * dot
 	- subgraphs
 
-{% graphviz
+{{< expand "Graphviz code" >}}
 	dot {
 		digraph G {
 			node [fontname=Verdana,fontsize=12]
@@ -145,11 +151,13 @@ Some other examples:
 			y -> b;
 		}
 	}
-%}
+{{< /expand >}}
+
+![example4](/posts/img/2014/pelican-graphviz-liquid-tags/example4.dot.png)
 
 * neato
 
-{% graphviz 
+{{< expand "Graphviz code" >}}
 	neato {
 		graph G
 		{
@@ -255,9 +263,11 @@ Some other examples:
 		  p12 -- p13
 		}
 	}
-%}
+{{< /expand >}}
 
-{% graphviz
+![example5](/posts/img/2014/pelican-graphviz-liquid-tags/example5.dot.png)
+
+{{< expand "Graphviz code" >}}
 	neato {
 		graph ER {
 			node [shape=box]; course; institute; student;
@@ -282,13 +292,13 @@ Some other examples:
 			fontsize=20;
 		}
 	}
-%}
+{{< /expand >}}
 
-
+![example6](/posts/img/2014/pelican-graphviz-liquid-tags/example6.dot.png)
 
 * twopi
 
-{% graphviz
+{{< expand "Graphviz code" >}}
 	twopi {
 		digraph G
 		{
@@ -315,12 +325,13 @@ Some other examples:
 		        v33 -> v43;
 		}
 	}
-%}
+{{< /expand >}}
 
+![example7](/posts/img/2014/pelican-graphviz-liquid-tags/example7.dot.png)
 
 * circo
 
-{%graphviz
+{{< expand "Graphviz code" >}}
 	circo {
 		digraph g1 {
 		    node [shape = doublecircle]; N4 N6;
@@ -329,12 +340,13 @@ Some other examples:
 		    N0 -> N1 -> N2 -> N3 -> N4 -> N5 -> N6 -> N0;
 		}
 	}
-%}
+{{< /expand >}}
 
+![example8](/posts/img/2014/pelican-graphviz-liquid-tags/example8.dot.png)
 
 * misc
 
-{%graphviz
+{{< expand "Graphviz code" >}}
 	dot {
 		digraph G {
 		 node [fontname=Verdana,fontsize=12]
@@ -353,4 +365,6 @@ Some other examples:
 		 execute -> compare
 		}
 	}
-%}
+{{< /expand >}}
+
+![example9](/posts/img/2014/pelican-graphviz-liquid-tags/example9.dot.png)

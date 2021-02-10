@@ -1,0 +1,7 @@
+
+		digraph g1 {
+		    node [shape = doublecircle]; N4 N6;
+		    node [shape = circle];
+		    edge[label="{1,0}"];
+		    N0 -> N1 -> N2 -> N3 -> N4 -> N5 -> N6 -> N0;
+		}

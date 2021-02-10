@@ -1,0 +1,18 @@
+
+		digraph G {
+		 node [fontname=Verdana,fontsize=12]
+		 node [style=filled]
+		 node [fillcolor="#EEEEEE"]
+		 node [color="#EEEEEE"]
+		 edge [color="#31CEF0"]
+		 
+		 main -> parse -> execute
+		 main -> init
+		 main -> cleanup
+		 execute -> make_string
+		 execute -> printf
+		 init -> make_string
+		 main -> printf
+		 execute -> compare
+		}
+

@@ -1,0 +1,76 @@
+
+		digraph G {
+		 
+			// Define layout
+			graph [pad=".75", ranksep="0.95", nodesep="0.05"];
+			rankdir=LR;
+			node [shape="record"];
+			rank=same;
+		 
+			// Define pointers
+			rsp [
+				label="<p> $rsp \l", height="0.1",
+				color=white, fontcolor=black,fontsize=9,style=filled, fillcolor=white
+			];
+			rbp [
+				label="<p> $rbp \l", height="0.1",
+				color=white, fontcolor=black,fontsize=9,style=filled, fillcolor=white
+			];
+		 
+			rsp_4 [
+				label="<p> $rsp + 4 \l", height="0.01",
+				color=white, fontcolor=black,fontsize=9,style=filled, fillcolor=white
+			];
+		 
+		 
+			rsp_8 [
+				label="<p> $rsp + 8 \l", height="0.01",
+				color=white, fontcolor=black,fontsize=9,style=filled, fillcolor=white,
+			];
+		 
+			rsp_12 [
+				label="<p> $rsp + 12 \l", height="0.01",
+				color=white, fontcolor=black,fontsize=9,style=filled, fillcolor=white,
+			];
+		 
+			// Define stack
+			stack [
+				width="3",
+				label="<p>
+Stack
+
+ | <bp>
+...
+
+ | <12>0x080485b2  \l | <8>0x18 \l | <4>0x0  \l | <0>0x0804b008 \l"
+			];
+		   
+			// Define values
+			val [
+				width="5",color=blue,
+				label="<p>
+Values
+
+ | 
+...
+
+ | <1>FLAG-4092849uio2jf \l | <2>(__libc_csu_init+82): add esi,0x1 \l"
+			];
+		   
+		   
+			// Pointer -> Stack edges
+			rbp:p -> stack:bp [style=dotted];
+			rsp:p -> stack:0 [style=dotted];
+			rsp_4:p -> stack:4 [style=invis];
+			rsp_8:p -> stack:8 [style=invis];
+			rsp_12:p -> stack:12 [style=invis];
+		 
+			// Trick to have everything horizontally aligned
+			stack:p -> val:p [style=invis];
+		   
+			// Stack -> Values edges
+			edge[style=dotted];
+			stack:0 -> val:1 [color=red];
+			stack:12 -> val:2;
+		}
+

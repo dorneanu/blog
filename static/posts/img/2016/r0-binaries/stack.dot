@@ -1,0 +1,54 @@
+
+digraph G {
+
+    // Define layout
+    graph [pad=".75", ranksep="0.95", nodesep="0.05"];
+    rankdir=LR;
+    node [shape="record"];
+    rank=same;
+
+    // Define pointers
+    rsp [
+        label="<p> $rsp \l", height="0.1",
+        color=white, fontcolor=black,fontsize=9,style=filled, fillcolor=white
+    ];
+    rbp [
+        label="<p> $rbp \l", height="0.1",
+        color=white, fontcolor=black,fontsize=9,style=filled, fillcolor=white
+    ];
+
+    rsp_4 [
+        label="<p> $rsp + 4 \l", height="0.01",
+        color=white, fontcolor=black,fontsize=9,style=filled, fillcolor=white
+    ];
+
+
+    rsp_8 [
+        label="<p> $rsp + 8 \l", height="0.01",
+        color=white, fontcolor=black,fontsize=9,style=filled, fillcolor=white,
+    ];
+
+    // rsp_12 [
+    // 	label="<p> $rsp + 12 \l", height="0.01",
+    // 	color=white, fontcolor=black,fontsize=9,style=filled, fillcolor=white,
+    // ];
+
+    // Define stack
+    stack [
+        width="3",
+        label="<p>
+Stack
+
+ | <bp>
+...
+
+ | <8>0x8 \l | <4>0x0  \l | <0>pointer to memory allocated by malloc() \l"
+    ];
+
+
+    // Pointer -> Stack edges
+    rbp:p -> stack:bp [style=dotted];
+    rsp:p -> stack:0 [style=dotted];
+    rsp_4:p -> stack:4 [style=invis];
+    rsp_8:p -> stack:8 [style=invis];
+}

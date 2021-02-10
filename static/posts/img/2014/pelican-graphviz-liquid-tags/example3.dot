@@ -1,0 +1,26 @@
+
+		digraph g {
+			node [fontname=Verdana,fontsize=12]
+			node [style=filled]
+		 	node [fillcolor="#EEEEEE"]
+		 	node [color="#EEEEEE"]
+		 	edge [color="#31CEF0"]
+			node [shape = record,height=.1];
+			node0[label = " | G| "];
+			node1[label = " | E| "];
+			node2[label = " | B| "];
+			node3[label = " | F| "];
+			node4[label = " | R| "];
+			node5[label = " | H| "];
+			node6[label = " | Y| "];
+			node7[label = " | A| "];
+			node8[label = " | C| "];
+			"node0":f2 -> "node4":f1;
+			"node0":f0 -> "node1":f1;
+			"node1":f0 -> "node2":f1;
+			"node1":f2 -> "node3":f1;
+			"node2":f2 -> "node8":f1;
+			"node2":f0 -> "node7":f1;
+			"node4":f2 -> "node6":f1;
+			"node4":f0 -> "node5":f1;
+		}

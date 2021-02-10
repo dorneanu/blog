@@ -1,0 +1,14 @@
+
+digraph G {
+      graph [rankdir = LR];
+      node[shape=record];
+
+      Proxy  [label="{ { <i1> Input: Port | <i2>Input: Data } | <proxy>proxy | { <o1> Output: Port | <o2> Output: Data } }"];
+      Client [label="{ { <p1> Source Port | <p2> Data | <p3> Other Headers} | <client>android-client }"];
+      Server [label="{ webserver | { <p1> Destination Port | <p2> Data | <p3> Other Headers } }"];
+
+
+      Client:client -> Proxy [color=red];
+      Proxy -> Server [color=red];
+  }
+
