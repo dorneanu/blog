@@ -53,7 +53,7 @@ diagram admin {↔
 
 
     
-![png](output_2_0.png)
+![png](/posts/img/2015/advanced-inter-vlan-switching-using-cisco/output_2_0.png)
     
 
 
@@ -217,7 +217,7 @@ diagram admin {↔
 
 
     
-![png](output_8_0.png)
+![png](/posts/img/2015/advanced-inter-vlan-switching-using-cisco/output_8_0.png)
     
 
 
@@ -494,7 +494,7 @@ Number of channel-groups in use: 2
 Number of aggregators:           2
 
 Group  Port-channel  Protocol    Ports
-------+-------------+-----------+----------------------------------------------
+------|-------------|-----------|----------------------------------------------
 
 1      Po1(SU)           -      Fa0/4(P) Fa0/2(P) 
 2      Po2(SD)           -      
@@ -520,7 +520,7 @@ Number of channel-groups in use: 2
 Number of aggregators:           2
 
 Group  Port-channel  Protocol    Ports
-------+-------------+-----------+----------------------------------------------
+------|-------------|-----------|----------------------------------------------
 
 1      Po1(SD)           -      
 2      Po2(SU)           -      Fa0/4(P) Fa0/5(P) 

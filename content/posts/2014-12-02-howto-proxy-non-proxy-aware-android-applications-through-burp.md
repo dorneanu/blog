@@ -446,11 +446,11 @@ While triggering the `curl` command you won't be able to see the outgoing packet
 
 On *burp* you won't see anything. How comes? And this is the point where we come the final conclusion and also the main reason I've written this post (sorry for the long prologue :)). And the reason is actually pretty "invisible" and can be found in Burps proxy options:
 
-![Burp invisible option](http://dl.dornea.nu/img/2014/38a52fceb67b54c86e46548098cd31ecee8f456c.png)
+![Burp invisible option](/posts/img/2014/38a52fceb67b54c86e46548098cd31ecee8f456c.png)
 
 It's all about Burps [invisible proxying](http://portswigger.net/burp/help/proxy_options_invisible.html). It basically enables proxy support for non-proxy-aware clients to be able to connect directly to the listener (Burp). Editing the proxy options (Request Handling) you'll find these options:
 
-![Burp non-proxy-aware support](http://dl.dornea.nu/img/2014/6899841c0a375a2a5ad1f5108ac0d62efab8fd79.png)
+![Burp non-proxy-aware support](/posts/img/2014/6899841c0a375a2a5ad1f5108ac0d62efab8fd79.png)
 
 Make sure you activate "Support invisible proxying". Afterwards you can trigger `curl` again to see if it works:
 

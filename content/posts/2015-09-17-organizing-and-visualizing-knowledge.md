@@ -19,10 +19,10 @@ I've been using [XMind](https://www.xmind.net) as my first note taking app for m
 * structuring interrelated *knowledge* domains
 
 You can easily structure your information in your desired layout:
-![XMind](http://dl.dornea.nu/img/2015/organize/73b67a8fe370adae481d579462ed3bae.png "XMind")
+![XMind](/posts/img/2015/organize/73b67a8fe370adae481d579462ed3bae.png "XMind")
 
 Attaching screenshots or notes is also allowed:
-![XMind](http://dl.dornea.nu/img/2015/organize/1d6e071a80a321d3b9c37a59e7bfc17d.png "XMind")
+![XMind](/posts/img/2015/organize/1d6e071a80a321d3b9c37a59e7bfc17d.png "XMind")
 
 ## Bookmarks and web stuff
 
@@ -36,10 +36,10 @@ I have a lot of information ressources which I try to have a look at on a daily 
 When dealing with large articles I like to **read them later** and save them to a *to-read* list. [getpocket](https://getpocket.com) has helped me organizing my links for ca. 2 years. You can structure your information using *tags* and *archive* your read articles. For a while I was using [crofflr](http://www.crofflr.com) for sending tagged articles in my *getpocket* list to my Kindle device. I also use *getpocket* for sharing links between my devices: Android, Laptop, PC. And besides that: (Almost) every modern browser has an **add-on** for this service.
 
 This is my archived list of items:
-![Pocket Archive](http://dl.dornea.nu/img/2015/organize/6da00f35bac361f6fd89c4c4c0ec2752.png "Pocket Archive")
+![Pocket Archive](/posts/img/2015/organize/6da00f35bac361f6fd89c4c4c0ec2752.png "Pocket Archive")
 
 *Pocket* can also distinguish between *articles*, *images* or *videos*. Here is my archived images list:
-![Pocket Images](http://dl.dornea.nu/img/2015/organize/a06a9acf53d24268e86b39d9be193aa3.png "Pocket Images")
+![Pocket Images](/posts/img/2015/organize/a06a9acf53d24268e86b39d9be193aa3.png "Pocket Images")
 
 
 ## Task management
@@ -47,14 +47,14 @@ This is my archived list of items:
 Since everybody has some tasks to be completed, I also had the agony of choice between Todoist, Wunderlist, Any.Do ... And then I've found [Google Keep](httphttps://play.google.com/store/apps/details?id=de.mgsimon.android.andtidwiki://www.google.com/keep/). I really love the layout and the widgets (although I'm not a hardcore *widge*list user). With Keep I can create note *lists* that can have several TODO points and just some text. Plus: I can apply different colors to the notes and share them with my contacts. I usually check out my todo list for that particular day, complete them and then just mark it as done on my smartphone.
 
 Creating a new task is very easy:
-![Google Keep - New Task](http://dl.dornea.nu/img/2015/organize/e9dda9fb2b5fcbbcac6b16b89859505d.png "Google Keep - New Task")
+![Google Keep - New Task](/posts/img/2015/organize/e9dda9fb2b5fcbbcac6b16b89859505d.png "Google Keep - New Task")
 
 You can access your tasks via web or smartphone:
-![Google Keep](http://dl.dornea.nu/img/2015/organize/31aff37cabaa520c2b54518b17e84beb.png "Google Keep")
+![Google Keep](/posts/img/2015/organize/31aff37cabaa520c2b54518b17e84beb.png "Google Keep")
 
 I have even used Google Keep for managing the release of [smalisca](https://github.com/dorneanu/smalisca) v0.1:
 
-![Google Keep - smalisca.01](http://dl.dornea.nu/img/2015/organize/9274a2db057ad874a0a462f65994f63d.png "Google Keep - smalisca 0.1")
+![Google Keep - smalisca.01](/posts/img/2015/organize/9274a2db057ad874a0a462f65994f63d.png "Google Keep - smalisca 0.1")
 
 ## Personal wiki
 
@@ -96,15 +96,15 @@ This is where [TiddlyWiki](http://tiddlywiki.com) caught my attention. I have no
 So this whole list is very promising. When I've started looking for a suitable wiki, I wanted to keep things simple and don't over-engineer stuff. Having previously used *XMind* as my primary notes taking tool, I want to keep track of my notes in a more "convenient" way. I wanted to make "relationships" between my pieces of information and be able to extend it in a uncomplicated way. Then I've found *TiddlyWiki*. And digging deeper I've also found [TiddlyMap](http://tiddlymap.org) a **really** cool way of *visualizing* the links between your tiddlers and not only. 
 
 With *TiddlyWiki* and *TiddlyMap* you'll get a nice overview not only of the content but also on inter-related topics:
-![TiddlyMap](http://dl.dornea.nu/img/2015/organize/5696b3eb316fac6e2b7460183a6dd97a.png "TiddlyMap")
+![TiddlyMap](/posts/img/2015/organize/5696b3eb316fac6e2b7460183a6dd97a.png "TiddlyMap")
 
 TiddlyMap will automatically create links between your tiddlers if it founds *links* in a tiddler:
 
-![TiddlyMap](http://dl.dornea.nu/img/2015/organize/d9d7dd9bfad825475373bc6ebc3281b7.png "Tiddly Map - Connections between interrelated tiddlers")
+![TiddlyMap](/posts/img/2015/organize/d9d7dd9bfad825475373bc6ebc3281b7.png "Tiddly Map - Connections between interrelated tiddlers")
 
 But you can also manually create links between your tiddlers: 
 
-![TiddlyMap - Connections](http://dl.dornea.nu/img/2015/organize/50359ca7124ff81f7fa5b8b1553dd517.png "TiddlyMap - Connections")
+![TiddlyMap - Connections](/posts/img/2015/organize/50359ca7124ff81f7fa5b8b1553dd517.png "TiddlyMap - Connections")
 
 ## Final thoughts
 

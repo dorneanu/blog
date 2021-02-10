@@ -819,7 +819,7 @@ seqdiag {
 
 
     
-![png](output_44_0.png)
+![png](/posts/img/2014/android-dynamic-code-analysis-mastering-droidbox/output_44_0.png)
     
 
 

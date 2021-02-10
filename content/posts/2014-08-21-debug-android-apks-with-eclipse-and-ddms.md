@@ -162,7 +162,7 @@ dex2jar classes.dex -> classes-dex2jar.jar
 
 Now open the jar file using `jd-gui` and save the sources as zip like I did:
 
-{% img  http://dl.dornea.nu/img/2014/eclipse-ddms/jd-gui.png %}
+![](/posts/img/2014/eclipse-ddms/jd-gui.png )
 
 
 ## Sign the APK
@@ -199,7 +199,7 @@ emulator-5554          device product:sdk model:sdk device:generic
 Success
 ~~~
 
-{% img http://dl.dornea.nu/img/2014/eclipse-ddms/app_installed.png %}
+![](/posts/img/2014/eclipse-ddms/app_installed.png)
 
 ## Add sources
 
@@ -255,7 +255,7 @@ source
 I had to active the debug settings for my targeted app. Go to `Device Settings` -> `Select debug app`. Also make sure you have `Wait for debugger` activated. 
 This will prevent your app starting before any debugger gets connected to it.
 
-{% img http://dl.dornea.nu/img/2014/eclipse-ddms/app_select_debug_app.png %}
+![](/posts/img/2014/eclipse-ddms/app_select_debug_app.png)
 
 ## Setup Eclipse
 
@@ -265,21 +265,21 @@ First of all make sure you have the [ADT](http://developer.android.com/tools/sdk
 
 First create a new *Java* project and use `source` as the location of the project.
 
-{% img http://dl.dornea.nu/img/2014/eclipse-ddms/eclipse_create_java_project.png %}
+![](/posts/img/2014/eclipse-ddms/eclipse_create_java_project.png)
 
 
 #### Add src folder to build path
 
 Make sure the `src` folder is added as a source location to the build path.
 
-{% img http://dl.dornea.nu/img/2014/eclipse-ddms/eclipse_project_src.png %}
+![](/posts/img/2014/eclipse-ddms/eclipse_project_src.png)
 
 
 #### Check project properties
 
 You could also check the project properties by clicking on it and then `ALT+Enter`. You should have sth similar to:
  
-{% img http://dl.dornea.nu/img/2014/eclipse-ddms/eclipse_project_properties_build_path.png %}
+![](/posts/img/2014/eclipse-ddms/eclipse_project_properties_build_path.png)
 
 
 ## Set breakpoints
@@ -298,51 +298,51 @@ So be careful whet choosing your breakpoints otherwise you might ask yourself wh
 
 First search for **onCreate** in all files:
 
-{% img http://dl.dornea.nu/img/2014/eclipse-ddms/eclipse_search_on_create.png %}
+![](/posts/img/2014/eclipse-ddms/eclipse_search_on_create.png)
 
 Eclipse found several matches:
 
-{% img http://dl.dornea.nu/img/2014/eclipse-ddms/eclipse_found_oncreate.png %}
+![](/posts/img/2014/eclipse-ddms/eclipse_found_oncreate.png)
 
 We'll now concentrate on `MainActivity.java` and set a breakpoint:
 
-{% img http://dl.dornea.nu/img/2014/eclipse-ddms/eclipse_set_breakpoint.png %}
+![](/posts/img/2014/eclipse-ddms/eclipse_set_breakpoint.png)
 
 Switching the perspective to `Debug` you should be able to see your breakpoints (marked in red):
 
-{% img http://dl.dornea.nu/img/2014/eclipse-ddms/eclipse_view_breakpoints.png %}
+![](/posts/img/2014/eclipse-ddms/eclipse_view_breakpoints.png)
 
 
 ## Run application
 
 Before running our application we'll have a look at the already running processes on the device:
 
-{% img http://dl.dornea.nu/img/2014/eclipse-ddms/eclipse_running_processes.png %}
+![](/posts/img/2014/eclipse-ddms/eclipse_running_processes.png)
 
 After starting the application in the `AVD` you'll notice a new process:
 
-{% img http://dl.dornea.nu/img/2014/eclipse-ddms/eclipse_running_processes_after_app_start.png %}
+![](/posts/img/2014/eclipse-ddms/eclipse_running_processes_after_app_start.png)
 
 The red "bug" indicates that the process isn't being debugged yet. Meanwhile the app waits for some debugger
 to get connected:
 
-{% img http://dl.dornea.nu/img/2014/eclipse-ddms/app_waiting_for_debugger.png %}
+![](/posts/img/2014/eclipse-ddms/app_waiting_for_debugger.png)
 
 
 #### Debug configuration
 
 In order to be able to debug process you'll have to add a new debug configuration:
 
-{% img http://dl.dornea.nu/img/2014/eclipse-ddms/eclipse_debug_configuration.png %}
+![](/posts/img/2014/eclipse-ddms/eclipse_debug_configuration.png) 
 
 When setting up the configuration pay attention to the **port** your debugger should connect to. Make sure it matches with the port pair previously 
 seen in the running process list (marked in red):
 
-{% img http://dl.dornea.nu/img/2014/eclipse-ddms/eclipse_debug_set_port.png %}
+![](/posts/img/2014/eclipse-ddms/eclipse_debug_set_port.png)
 
 Now click on **Debug** and you're ready to go. Take a look at the running processes. You'll notice sth changed:
 
-{% img http://dl.dornea.nu/img/2014/eclipse-ddms/eclipse_debug_running.png %}
+![](/posts/img/2014/eclipse-ddms/eclipse_debug_running.png)
 
 The bug is now "green" meaning you're ready to debug your application.
 
@@ -353,15 +353,15 @@ The bug is now "green" meaning you're ready to debug your application.
 We've previously set a breakpoint at the `onCreate` method. Now that the application is running I had to "trigger" that breakpoint. Switching to my AVD I took 
 a look at the application and filled in the fields:
 
-{% img http://dl.dornea.nu/img/2014/eclipse-ddms/app_enter_click.png %}
+![](/posts/img/2014/eclipse-ddms/app_enter_click.png)
 
 Afterwards I've clicked *Enter*. Switching back to Eclipse I got following picture:
 
-{% img http://dl.dornea.nu/img/2014/eclipse-ddms/eclipse_hold_on_breakpoint.png %}
+![](/posts/img/2014/eclipse-ddms/eclipse_hold_on_breakpoint.png)
 
 The execution stopped at the breakpoint. Success! Now I've typed F6 (Step over) and the execution moved on:
 
-{% img http://dl.dornea.nu/img/2014/eclipse-ddms/eclipse_debug_stepin.png %}
+![](/posts/img/2014/eclipse-ddms/eclipse_debug_stepin.png)
 
  
 ## Conclusion

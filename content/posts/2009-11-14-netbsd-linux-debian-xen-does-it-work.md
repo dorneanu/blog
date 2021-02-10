@@ -1,5 +1,5 @@
 +++
-title = "NetBSD, Linux &#038; Xen - Does it work?"
+title = "NetBSD, Linux, Xen - Does it work?"
 author = "Victor"
 date = "2009-11-14"
 tags = ["networking", "virtualization", "linux", "netbsd", "admin", "howto", "xen"]

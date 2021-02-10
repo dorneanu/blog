@@ -1,5 +1,5 @@
 +++
-title = "OpenBSD, FreeBSD, NetBSD &#8211; I do love beasts!"
+title = "OpenBSD, FreeBSD, NetBSD - I do love beasts!"
 author = "Victor"
 date = "2011-03-21"
 tags = ["virtualization", "openbsd", "freebsd", "netbsd", "virtualbox", "admin"]
@@ -11,24 +11,24 @@ It all starts with virtualisation! Since there is no BSD at all on my laptop, I 
 
 ## VirtualBox
 
-![Virtualbox](http://dl.dornea.nu/img/2011/237/virtualbox.png)
+![Virtualbox](/posts/img/2011/237/virtualbox.png)
 
 <!--break-->
 
 ## OpenBSD
 
-![OpenBSD 1](http://dl.dornea.nu/img/2011/237/openbsd_1.png)
+![OpenBSD 1](/posts/img/2011/237/openbsd_1.png)
 
-![OpenBSD 2](http://dl.dornea.nu/img/2011/237/openbsd_2.png)
+![OpenBSD 2](/posts/img/2011/237/openbsd_2.png)
 
 ## NetBSD
 
-![NetBSD 1](http://dl.dornea.nu/img/2011/237/netbsd_1.png)
+![NetBSD 1](/posts/img/2011/237/netbsd_1.png)
 
-![NetBSD 2](http://dl.dornea.nu/img/2011/237/netbsd_2.png)
+![NetBSD 2](/posts/img/2011/237/netbsd_2.png)
 
 ## FreeBSD
 
-![FreeBSD 1](http://dl.dornea.nu/img/2011/237/freebsd_1.png)
+![FreeBSD 1](/posts/img/2011/237/freebsd_1.png)
 
-![FreeBSD 2](http://dl.dornea.nu/img/2011/237/freebsd_1.png)
+![FreeBSD 2](/posts/img/2011/237/freebsd_1.png)

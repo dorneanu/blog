@@ -109,7 +109,7 @@ blockdiag {↔
 
 
     
-![png](output_1_0.png)
+![png](/posts/img/2015/manage-a-pki-using-openssl/output_1_0.png)
     
 
 
@@ -141,7 +141,7 @@ blockdiag {
 
 
     
-![png](output_3_0.png)
+![png](/posts/img/2015/manage-a-pki-using-openssl/output_3_0.png)
     
 
 
@@ -190,7 +190,7 @@ blockdiag {
 
 
     
-![png](output_5_0.png)
+![png](/posts/img/2015/manage-a-pki-using-openssl/output_5_0.png)
     
 
 
@@ -320,7 +320,7 @@ blockdiag {
 
 
     
-![png](output_14_0.png)
+![png](/posts/img/2015/manage-a-pki-using-openssl/output_14_0.png)
     
 
 
@@ -556,7 +556,7 @@ blockdiag {
 
 
     
-![png](output_20_0.png)
+![png](/posts/img/2015/manage-a-pki-using-openssl/output_20_0.png)
     
 
 
@@ -815,7 +815,7 @@ blockdiag {
 
 
     
-![png](output_30_0.png)
+![png](/posts/img/2015/manage-a-pki-using-openssl/output_30_0.png)
     
 
 
@@ -1101,7 +1101,7 @@ blockdiag {
 
 
     
-![png](output_44_0.png)
+![png](/posts/img/2015/manage-a-pki-using-openssl/output_44_0.png)
     
 
 
@@ -1294,7 +1294,7 @@ blockdiag {
 
 
     
-![png](output_52_0.png)
+![png](/posts/img/2015/manage-a-pki-using-openssl/output_52_0.png)
     
 
 
@@ -1486,7 +1486,7 @@ blockdiag {↔
 
 
     
-![png](output_60_0.png)
+![png](/posts/img/2015/manage-a-pki-using-openssl/output_60_0.png)
     
 
 
@@ -1686,7 +1686,7 @@ blockdiag {
 
 
     
-![png](output_65_0.png)
+![png](/posts/img/2015/manage-a-pki-using-openssl/output_65_0.png)
     
 
 

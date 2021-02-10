@@ -156,26 +156,26 @@ $ xm console debianinstall
 
 You should now have an attached console to Debian's installer.
 
-![debian installer](http://dl.dornea.nu/img/2010/147/11ae9eb.jpg)
+![debian installer](/posts/img/2010/147/11ae9eb.jpg)
 
 The Debian installer should also configure network automatically by DHCP.
 
-![DHCP](http://dl.dornea.nu/img/2010/147/2rdyl2g.jpg)
+![DHCP](/posts/img/2010/147/2rdyl2g.jpg)
 
 If this fails, then you should go back to the main installer menu and **Execute a shell**. Afterwards run `dhclient eth0` as shown below:
 
-![DHCP](http://dl.dornea.nu/img/2010/147/5oz5zn.jpg)
+![DHCP](/posts/img/2010/147/5oz5zn.jpg)
 
 
-![Configure network manually](http://dl.dornea.nu/img/2010/147/2d9r3it.jpg)
+![Configure network manually](/posts/img/2010/147/2d9r3it.jpg)
 
 Then proceed with the installation process...
 
-![Successful network setup](http://dl.dornea.nu/img/2010/147/29mklm1.jpg)
+![Successful network setup](/posts/img/2010/147/29mklm1.jpg)
 
 Attention: When configuring the virtual disk, have in mind that you should format your disk as ext2 and **not as ext3**. Ext3 is currently not supported by NetBSD. When you have reached the partitioning step, select the partition marked as ext3, press enter and change afterwards the file system type to ext2. Then you should select `Done setting up the partition` and press enter.
 
-![Ext3fs](http://dl.dornea.nu/img/2010/147/m79cgk.jpg)
+![Ext3fs](/posts/img/2010/147/m79cgk.jpg)
 
 You should now go through the installation process without experiencing any troubles. At the end of the installation you won't have to install grub nor any boot loader, so simply ignore the error messages and select `Continue`. Even if you should go back to the main installation menu, select `Continue without any boot loader` and everything will be alright.
 

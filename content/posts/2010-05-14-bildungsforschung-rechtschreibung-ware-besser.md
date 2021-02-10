@@ -6,4 +6,4 @@ tags = ["wtf", "german", "misc"]
 category = "blog"
 +++
 
-![Bildungsforschung](http://dl.dornea.nu/img/2010/163/2zgrpe1.jpg)
+![Bildungsforschung](/posts/img/2010/163/2zgrpe1.jpg)

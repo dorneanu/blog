@@ -10,7 +10,7 @@ I use `Python` on daily basis. I love `IPython` and use it as my main *shell* fo
 
 This book is not only about data analysis. It teaches you how to organize data bit by bit in order to get your data analyzed. It's like "hacking" data the scientific way. Especially `numpy` has great features to re-structure data on your own needs. And because I'm a very visual personI like to visualize things and make relations between data components more evident. A whole chapter is dedicated to *plotting and visualization*.
 
-{% img http://dl.dornea.nu/img/2014/82130fa5ef04488358dd08b0a22542cf.jpg %}
+![](/posts/img/2014/82130fa5ef04488358dd08b0a22542cf.jpg)
 
 I also liked the examples - you'll get a lots of them - which range from small explanatory ones to entire financial analysis. That way I was able to apply my newly acquired knowledge and see real-world usage of the techniques.
 

@@ -1,5 +1,5 @@
 +++
-title = "My own cheap NAS &#8211; the OpenWRT way"
+title = "My own cheap NAS - the OpenWRT way"
 author = "Victor"
 date = "2011-03-19"
 tags = ["howto", "networking", "openwrt", "linux", "iptables", "admin"]
@@ -9,7 +9,7 @@ category = "blog"
 Introducing my **TP-Link TL-WR1043ND**:
 
 
-![TP Link](http://dl.dornea.nu/img/2011/236/tp-link-TL-WR1043ND_2.jpg)
+![TP Link](/posts/img/2011/236/tp-link-TL-WR1043ND_2.jpg)
 
 ## Summary
 
@@ -33,7 +33,7 @@ mini_fo:/overlay          2.1M      2.1M         0 100% /
 
 As you can see a USB-Hub is attached along with a 2GB USB-Stick. I used it to store my rootfs on external storage [1]. Additionally my 2TB external hard drived is attached to the device so I can access the data per NFS [2].
 
-![TP Link](http://dl.dornea.nu/img/2011/236/tp-link-TL-WR1043ND_1.jpg)
+![TP Link](/posts/img/2011/236/tp-link-TL-WR1043ND_1.jpg)
 
 
 ## Firewall
@@ -68,7 +68,7 @@ $IPT -I INPUT -j ACCEPT -i eth0.2 -s $NET_LAN -p udp --dport 8200
 
 ## What about speed?
 
-![TP Link speed](http://dl.dornea.nu/img/2011/236/tp-link_speed-test.png)
+![TP Link speed](/posts/img/2011/236/tp-link_speed-test.png)
 
 In general you won't get more than **5.60MB/s**. It depends on your drives read/write speed and the connection. In my case I was using WLAN which was slower than normal LAN connectivity.  But that's fine with me.
 

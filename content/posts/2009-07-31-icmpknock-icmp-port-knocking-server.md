@@ -42,8 +42,8 @@ $ ping -p hex2 [host]
 
 **Download [here!][1]**
 
-![icmpknock](http://dl.dornea.nu/img/2010/200/icmpknock1.png)
+![icmpknock](/posts/img/2010/200/icmpknock1.png)
 
-![icmpknock actions](http://dl.dornea.nu/img/2010/200/icmpknock2.png)
+![icmpknock actions](/posts/img/2010/200/icmpknock2.png)
 
 [1]: https://github.com/dorneanu/icmpKNOCK

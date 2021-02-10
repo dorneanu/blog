@@ -6,7 +6,7 @@ tags = ["books", "android", "mobile"]
 category = "blog"
 +++
 
-{% img http://dl.dornea.nu/img/2015/18add683b7e400d63d7172be60eb564a.jpg %}
+![book](/posts/img/2015/18add683b7e400d63d7172be60eb564a.jpg)
 
 What should I say about this book? A lot has been said and this uppon reasonable grounds. This book is meant to give
 you an overview of the most important security topics related to Android. Not only you'll

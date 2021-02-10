@@ -6,7 +6,7 @@ tags = ["wtf", "german", "studium"]
 category = "blog"
 +++
 
-![Eintritt nur geduscht](http://dl.dornea.nu/img/2011/263/eintritt_nur_geduscht.jpg)
+![Eintritt nur geduscht](/posts/img/2011/263/eintritt_nur_geduscht.jpg)
 
 Ich musste das veröffentlichen. Ich habe mir gestern einen abgelacht. Lest euch das selber durch:
 

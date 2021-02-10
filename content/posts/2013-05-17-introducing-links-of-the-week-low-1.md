@@ -1,5 +1,5 @@
 +++
-title = "Introducing Links of the Week (LOW) #1"
+title = "Introducing Links of the Week (LOW) 1"
 author = "Victor"
 date = "2013-05-17"
 tags = ["malware", "linux", "skype", "xss", "tools"]

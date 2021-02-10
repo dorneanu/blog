@@ -16,7 +16,7 @@ I have some videos taken with my **Panasonic Lumix DMC-TZ10** in AVCHD Lite form
 
 I've used **tsMuxeR** from SmartLabs to demux the files. Here's what I did:
 
-![tsmuxer](http://dl.dornea.nu/img/2011/253/tsmuxer.png)
+![tsmuxer](/posts/img/2011/253/tsmuxer.png)
 
 Now you should have following files on your disk:
 

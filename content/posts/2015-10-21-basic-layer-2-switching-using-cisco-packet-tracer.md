@@ -26,7 +26,7 @@ diagram admin {
 
 
     
-![png](output_2_0.png)
+![png](/posts/img/2015/basic-layer-2-switching-using-cisco-packet-tracer/output_2_0.png)
     
 
 
@@ -171,7 +171,7 @@ diagram admin {
 
 
     
-![png](output_5_0.png)
+![png](/posts/img/2015/basic-layer-2-switching-using-cisco-packet-tracer/output_5_0.png)
     
 
 
@@ -414,7 +414,7 @@ diagram admin {
 
 
     
-![png](output_7_0.png)
+![png](/posts/img/2015/basic-layer-2-switching-using-cisco-packet-tracer/output_7_0.png)
     
 
 

@@ -292,7 +292,7 @@ adb shell am start -n com.example.jni_debug_demo/com.example.jni_debug_demo.Main
     Starting: Intent { cmp=com.example.jni_debug_demo/.MainActivity }
 
 
-![JNI Debug Demo Application](http://dl.dornea.nu/img/2015/android-solib/a74f0e9adca736086c2834fb63c793ad.png)
+![JNI Debug Demo Application](/posts/img/2015/android-solib/a74f0e9adca736086c2834fb63c793ad.png)
 
 Greping for the **logcat messages** shows:
 
@@ -519,7 +519,7 @@ From        To          Syms Read   Shared Object Library
 
 From last output you can see that `libsquared.so` starts at address **0x60b5bbe4**. Let's see what we can find there:
 
-![jni_debug_demo libsquared](http://dl.dornea.nu/img/2015/android-solib/b85df1e566b46ed748e315c3d4f043ed.png)
+![jni_debug_demo libsquared](/posts/img/2015/android-solib/b85df1e566b46ed748e315c3d4f043ed.png)
 
 Bingo! So `Java_com_example_jni_1debug_1demo_SquaredWrapper_squared` starts at **0x60b5bc28**. We'll definitely set a **breakpoint** at that address:
 
@@ -582,8 +582,8 @@ Breakpoint 1, Java_com_example_jni_1debug_1demo_SquaredWrapper_squared (je=0x418
 
 You can see that the execution currently stopped at **0x60b5bc40**. Now you can inspect the *registers*, set *additional* breakpoints, *step* into routines etc. 
 
-![GDB GEF](http://dl.dornea.nu/img/2015/android-solib/1c34d2da522b2a450b603cf8cd6a965a.png)
-![GDB GEF](http://dl.dornea.nu/img/2015/android-solib/18d6146e96dbb21ceed498ae1cdd92f4.png)
+![GDB GEF](/posts/img/2015/android-solib/1c34d2da522b2a450b603cf8cd6a965a.png)
+![GDB GEF](/posts/img/2015/android-solib/18d6146e96dbb21ceed498ae1cdd92f4.png)
 
 At this point you should now be equipped with enough knowledge to dissect shared libraries and get some reverse engineering job done. Although this was a quite easy one due to the fact that we had debug symbols and were able to compile the library, the same techniques should also work on *stripped* binaries. In the post I'll some *binary analysis* on some random Android shared library using [radare](http://www.radare.org/r/).
 

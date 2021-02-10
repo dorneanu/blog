@@ -432,11 +432,11 @@ Percentage of the requests served within a certain time (ms)
 
 #### lighttpd
 
-![lighttpd](http://dl.dornea.nu/img/2012/270/pingdom_nl_dornea.nu_lighttpd.png)
+![lighttpd](/posts/img/2012/pingdom_nl_dornea.nu_lighttpd.png)
 
 ### nginx
 
-![lighttpd](http://dl.dornea.nu/img/2012/270/pingdom_nl_dornea.nu_nginx.png)
+![lighttpd](/posts/img/2012/pingdom_nl_dornea.nu_nginx.png)
 
 ## Literature
 

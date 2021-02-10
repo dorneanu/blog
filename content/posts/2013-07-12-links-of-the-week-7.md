@@ -1,5 +1,5 @@
 +++
-title = "Links of the week #7"
+title = "Links of the week 7"
 author = "Victor"
 date = "2013-07-12"
 tags = ["sploitfun", "nginx", "java", "re", "android"]

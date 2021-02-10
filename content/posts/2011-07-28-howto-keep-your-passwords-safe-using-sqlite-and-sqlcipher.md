@@ -100,7 +100,7 @@ id          created     expires     user                    passwd      host    
 
 This is for the ER-Modell freaks among you...
 
-![ER model](http://dl.dornea.nu/img/2011/255/er-modell.png)
+![ER model](/posts/img/2011/255/er-modell.png)
 
 Graphviz code:
 

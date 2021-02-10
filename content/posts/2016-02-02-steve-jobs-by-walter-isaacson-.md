@@ -5,7 +5,7 @@ tags = ["books", "apple"]
 category = "blog"
 +++
 
-![Steve Jobs](http://dl.dornea.nu/img/2016/d704a2159c59405830720a21211a90e6.jp)g
+![Steve Jobs](/posts/img/2016/d704a2159c59405830720a21211a90e6.jpg)
 
 From time to time I like to read about great personalities and how their handling and decisions
 changed the world. I'm not an Apple fan and I do have something against Apple's closed platform 

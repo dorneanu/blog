@@ -5,16 +5,16 @@ tags = ["events", "aws", "amazon", "berlin"]
 category = "blog"
 +++
 
-![AWS Summit 2016 in Berlin](http://dl.dornea.nu/img/2016/670b3b02c8945633d069ba2ecd353870.jpg)
+![AWS Summit 2016 in Berlin](/posts/img/2016/670b3b02c8945633d069ba2ecd353870.jpg)
 
 For the first time I've attended the [AWS Summit in Berlin](https://aws.amazon.com/de/campaigns/summit2016/) which against my expectations was very interesting. Not having much in common with 
 AWS (at least not yet), from a [security](http://blog.dornea.nu/tag/security/) perspective the cloud still remains a very neglected threat to companies. As we all know there is some "rain"
 coming down from the cloud  from time to time. And by "rain" I mean sensitive data which gets exposed due to misconfigured APIs, weak credentials or 
 **insecure** applications.
 
-![AWS Summit 2016 Berlin](http://dl.dornea.nu/img/2016/de3a6b18a864216637b801f9c11bd138.jpg)
+![AWS Summit 2016 Berlin](/posts/img/2016/de3a6b18a864216637b801f9c11bd138.jpg)
 
-![AWS Summit 2016 Berlin](http://dl.dornea.nu/img/2016/80864ceb309319c31cad519e8e52f8e0.jpg)
+![AWS Summit 2016 Berlin](/posts/img/2016/80864ceb309319c31cad519e8e52f8e0.jpg)
 
 ## Cloud trends 
 
@@ -107,15 +107,15 @@ Among some (Siemens, Air Berlin, ProSiebenSat1, Dubsmash) companies already usin
 
 ### Berliner Philarmoniker
 
-![AWS Use Cases](http://dl.dornea.nu/img/2016/6a1f993a91fc78d7ce549d1088099ddc.jpg)
+![AWS Use Cases](/posts/img/2016/6a1f993a91fc78d7ce549d1088099ddc.jpg)
 
 ### BitDefener
 
-![AWS Use Cases](http://dl.dornea.nu/img/2016/8b55bd58d7fc270537f738ed335f9d79.jpg)
+![AWS Use Cases](/posts/img/2016/8b55bd58d7fc270537f738ed335f9d79.jpg)
 
 ### SoundCloud
 
-![AWS Use Cases](http://dl.dornea.nu/img/2016/8d8d673196bc5b15765f94e8799432b8.jpg)
+![AWS Use Cases](/posts/img/2016/8d8d673196bc5b15765f94e8799432b8.jpg)
 
 ## Microservices
 

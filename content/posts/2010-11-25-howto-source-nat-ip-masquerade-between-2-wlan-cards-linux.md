@@ -10,7 +10,7 @@ Although this is a quite minimalistic howto you should be able to do IP masquera
 
 ## The Big picture
 
-![The big picture](http://dl.dornea.nu/img/2010/220/snat-ip-masquerade.png)
+![The big picture](/posts/img/2010/220/snat-ip-masquerade.png)
 
 As you see you have 2 networks:
 

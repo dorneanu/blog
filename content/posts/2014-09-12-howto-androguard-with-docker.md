@@ -307,7 +307,7 @@ blockdiag admin {
 
 
     
-![png](output_23_0.png)
+![png](/posts/img/2014/howto-androguard-with-docker/output_23_0.png)
     
 
 

@@ -49,10 +49,10 @@ I use **proxychains** (but there is also socat, socksify, tsocks etc.) for traff
 
 ## Screenshots
 
-![](http://dl.dornea.nu/img/2011/261/iodine1.png)
+![](/posts/img/2011/261/iodine1.png)
 
-![](http://dl.dornea.nu/img/2011/261/iodine2.png)
+![](/posts/img/2011/261/iodine2.png)
 
-![](http://dl.dornea.nu/img/2011/261/iodine3.png)
+![](/posts/img/2011/261/iodine3.png)
 
 [1]: http://code.kryo.se/iodine/

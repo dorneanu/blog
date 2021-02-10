@@ -65,7 +65,7 @@ Having to implement *certificate pinning* most developers have a poor knowledge 
 
 
     
-![png](output_3_0.png)
+![png](/posts/img/2015/validating-and-pinning-x509-certificates/output_3_0.png)
     
 
 
@@ -99,7 +99,7 @@ After the successfull validation the **authenticity** of the server is guarantee
 
 
     
-![png](output_5_0.png)
+![png](/posts/img/2015/validating-and-pinning-x509-certificates/output_5_0.png)
     
 
 
@@ -475,7 +475,7 @@ digraph trie {
 
 
     
-![svg](output_41_0.svg)
+![svg](/posts/img/2015/validating-and-pinning-x509-certificates/output_41_0.svg)
     
 
 

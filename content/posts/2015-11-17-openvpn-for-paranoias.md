@@ -78,7 +78,7 @@ blockdiag {
 
 
     
-![png](output_2_0.png)
+![png](/posts/img/2015/openvpn-for-paranoias/output_2_0.png)
     
 
 
@@ -709,7 +709,7 @@ So `tls-auth` seems to work.
 
 
     
-![png](output_7_0.png)
+![png](/posts/img/2015/openvpn-for-paranoias/output_7_0.png)
     
 
 
@@ -761,7 +761,7 @@ We have a typical **road-warrior** use case where a single client connects to a 
 
 
     
-![png](output_9_0.png)
+![png](/posts/img/2015/openvpn-for-paranoias/output_9_0.png)
     
 
 

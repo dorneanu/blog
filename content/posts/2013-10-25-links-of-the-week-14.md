@@ -1,5 +1,5 @@
 +++
-title = "Links of the Week #14"
+title = "Links of the Week 14"
 author = "Victor"
 date = "2013-10-25"
 tags = ["malware", "re", "sploitfun"]

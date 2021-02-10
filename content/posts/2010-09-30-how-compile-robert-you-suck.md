@@ -6,7 +6,7 @@ tags = ["wtf"]
 category = "blog"
 +++
 
-![How to compile robert you suck](http://dl.dornea.nu/img/2010/209/howto_compile_robert_you_suck.png)
+![How to compile robert you suck](/posts/img/2010/209/howto_compile_robert_you_suck.png)
 
 This is was too funny not to be posted
 

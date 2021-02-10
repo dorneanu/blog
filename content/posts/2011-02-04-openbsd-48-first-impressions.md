@@ -10,9 +10,9 @@ Today I had the big opportunity to setup an OpenBSD based gateway. I've never us
 
 Here some pics:
 
-![](http://dl.dornea.nu/img/2011/230/04022011268.jpg)
+![](/posts/img/2011/230/04022011268.jpg)
 
-![](http://dl.dornea.nu/img/2011/230/04022011269.jpg)
+![](/posts/img/2011/230/04022011269.jpg)
 
 Then my first ipf configuration:
 

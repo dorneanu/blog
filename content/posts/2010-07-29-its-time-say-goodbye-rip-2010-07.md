@@ -6,8 +6,8 @@ tags = ["misc", "hardware"]
 category = "blog"
 +++
 
-![](http://dl.dornea.nu/img/2010/193/348j3ue.jpg)
+![](/posts/img/2010/193/348j3ue.jpg)
 
-![](http://dl.dornea.nu/img/2010/193/swckeu.jpg)
+![](/posts/img/2010/193/swckeu.jpg)
 
-![](http://dl.dornea.nu/img/2010/193/x3ssx0.jpg)
+![](/posts/img/2010/193/x3ssx0.jpg)

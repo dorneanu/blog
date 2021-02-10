@@ -286,31 +286,18 @@ for p in media_paths:
 
 
     
-![png](output_23_1.png)
+![png](/posts/img/2014/disect-android-apks-like-a-pro-sca/output_23_1.png)
     
-
-
-
+![png](/posts/img/2014/disect-android-apks-like-a-pro-sca/output_23_2.png)
     
-![png](output_23_2.png)
     
-
-
-
+![png](/posts/img/2014/disect-android-apks-like-a-pro-sca/output_23_3.png)
     
-![png](output_23_3.png)
     
-
-
-
+![png](/posts/img/2014/disect-android-apks-like-a-pro-sca/output_23_4.png)
     
-![png](output_23_4.png)
     
-
-
-
-    
-![png](output_23_5.png)
+![png](/posts/img/2014/disect-android-apks-like-a-pro-sca/output_23_5.png)
     
 
 
@@ -1258,7 +1245,7 @@ Image(graph.create_png())
 
 
     
-![png](output_79_0.png)
+![png](/posts/img/2014/disect-android-apks-like-a-pro-sca/output_79_0.png)
     
 
 
@@ -1278,7 +1265,7 @@ Image(graph.create_png())
 
 
     
-![png](output_81_0.png)
+![png](/posts/img/2014/disect-android-apks-like-a-pro-sca/output_81_0.png)
     
 
 
@@ -1378,7 +1365,7 @@ Image(graph.create_png())
 
 
     
-![png](output_86_0.png)
+![png](/posts/img/2014/disect-android-apks-like-a-pro-sca/output_86_0.png)
     
 
 

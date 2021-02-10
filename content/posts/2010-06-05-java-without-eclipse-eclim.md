@@ -13,7 +13,7 @@ communicate with Eclipse over that interface." (Source: <http://eclim.org>)
 
 So give it a try and enjoy coding.
 
-![Eclim](http://dl.dornea.nu/img/2010/164/eclim-screenshot.jpg)
+![Eclim](/posts/img/2010/164/eclim-screenshot.jpg)
 
  [1]: http://eclim.org "Eclim"
 

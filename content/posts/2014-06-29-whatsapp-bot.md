@@ -6,7 +6,7 @@ author = "Victor Dorneanu"
 tags = ["whatsapp", "wtf", "misc"]
 +++
 
-{% img http://dl.dornea.nu/img/2014/9435906d7dc8d3f01b92cebc191eb9ab.png %}
+![](/posts/img/2014/9435906d7dc8d3f01b92cebc191eb9ab.png)
 
 This is what I've received yesterday from some phone number I don't really know. BTW: Which countrys prefix is that? The crazy thing about it: Every time I was sending a message to it, it responded with:
 

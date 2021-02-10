@@ -1,5 +1,5 @@
 +++
-title = "Links of the Week #6"
+title = "Links of the Week 6"
 author = "Victor"
 date = "2013-06-28"
 tags = ["netbsd", "raspberry", "google", "git", "defcon"]
