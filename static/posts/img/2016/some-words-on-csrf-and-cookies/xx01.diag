@@ -1,0 +1,7 @@
+
+    seqdiag {
+        Attacker;
+        Client [label="Client/Browser"];
+        Server;
+    }
+

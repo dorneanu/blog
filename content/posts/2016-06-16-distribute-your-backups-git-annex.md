@@ -14,7 +14,7 @@ Well this post is where the link between `git-annex` and `ownCloud` should be em
 
 # Backup setup
 
-{% blockdiag
+{{< expand "blockdiag code" >}}
     blockdiag {
       R [label="Raspberry Pi (central repo)", color="lightblue", width=192];
       S [label="External Server (git + data)", width=192];
@@ -28,8 +28,10 @@ Well this post is where the link between `git-annex` and `ownCloud` should be em
       R -> S [label="enc"];
       R -> G ; 
       S -> C [label="enc"];
-    }   
-%}                                                                                                                                                   
+    }
+{{< /expand >}}
+
+![png](/posts/img/2016/distribute-your-backups-git-annex/xx01.png)
 
 There is one **centralized** repo on my raspberry pi where my HDD is attached to. Usually I *push* stuff to the HDD using `rsync` from my laptop or `ownCloud` using my mobile clients. Afterwards the **encrypted** repo **and** the data itself is being pushed to some **external server**. Data is being encrypted using my private GPG key. From the server I could then replicate the repo+data stuff to some **cloud** provider like *AWS*, *DropBox* or whatever. 
 
@@ -37,7 +39,7 @@ Additionally one could push the git repo to GitHub in an encrypted form - withou
 
 ## Using ownCloud with git-annex
 
-{% blockdiag
+{{< expand "blockdiag code" >}}
     blockdiag {
      C [label="ownCloud client", width=192];
      S [label="Server"];
@@ -54,7 +56,9 @@ Additionally one could push the git repo to GitHub in an encrypted form - withou
      G -> S;
      S -> Cloud;
     } 
-%}
+{{< /expand >}}
+
+![png](/posts/img/2016/distribute-your-backups-git-annex/xx02.png)
 
 `ownCloud` will act as a **front-end** and can be used by any ownCloud client. The data itself is then managed by `git-annex` which basically acts as a `back-end`.  One can access the data using ownCloud but you there are some restrictions:
 

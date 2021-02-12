@@ -1,0 +1,9 @@
+
+    seqdiag {
+        edge_length = 600;
+        attacker [label="attacker.nu/evil.js"];
+        server [label="bank.nu"];
+        attacker -> server [label="XMLHttpRequest('http://bank.nu/transfer')"];
+        server -> attacker [note="Server will send nothing"];
+    }
+

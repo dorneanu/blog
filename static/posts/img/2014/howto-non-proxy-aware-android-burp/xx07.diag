@@ -1,0 +1,17 @@
+
+	blockdiag {
+	  Client [label="Client\n1.1.1.1"]; 
+	  NAT [label="NAT\n2.2.2.2"];
+	  Server [label="Server\n3.3.3.3"];
+	  CN [label="Packet\n\nFrom: 1.1.1.1:4192\nTo: 3.3.3.3:8080", height=80, width=170, color="orange"];
+	  NS [label="Packet\n\nFrom: 2.2.2.2:14567\nTo: 3.3.3.3:8080", height=80, width=170, color="orange"];
+
+	  NC [label="Packet\n\nFrom: 3.3.3.3:8080\nTo: 1.1.1.1:4192", height=80, width=170, color="lightblue"];
+	  SN [label="Packet\n\nFrom: 3.3.3.3:8080\nTo: 2.2.2.2:14567", height=80, width=170, color="lightblue"];
+
+	  Client -> CN -> NAT [color="orange"];
+	  NAT -> NS -> Server [color="orange"];
+	  NAT <- SN <- Server [color="lightblue"];
+	  Client <- NC <- NAT [color="lightblue"];
+	}
+

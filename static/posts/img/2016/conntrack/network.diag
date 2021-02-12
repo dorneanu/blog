@@ -1,0 +1,10 @@
+    nwdiag
+    {
+      network nat-network {
+          address = "192.168.122.0/24"
+
+          nat01 [address = "192.168.122.242"];
+          nat02 [address = "192.168.122.252"];
+      }
+    }
+

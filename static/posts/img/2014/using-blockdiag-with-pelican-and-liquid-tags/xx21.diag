@@ -1,0 +1,12 @@
+
+	actdiag {
+	  A -> B -> C -> D -> E;
+
+	  lane {
+	    A; C; E;
+	  }
+	  lane {
+	    B; D;
+	  }
+	}
+

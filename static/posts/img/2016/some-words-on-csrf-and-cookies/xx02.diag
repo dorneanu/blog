@@ -1,0 +1,17 @@
+
+    seqdiag {
+        Attacker;
+        Client [label="Client/Browser"];
+        Server;
+        Attacker -> Client [label="Send some link"];
+        
+        // Separator
+        === User clicks on link. Browser will start ===
+        ... Client opens malicious link ...
+        
+        // Separator
+        === Malicious site will trigger some request to the server ===
+        
+        Client -> Server [label="GET /change-account-settings"];
+    }
+

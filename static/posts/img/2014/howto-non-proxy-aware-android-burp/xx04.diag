@@ -1,0 +1,22 @@
+ 
+	blockdiag {
+		packet [shape=beginpoint];
+		system;
+		prerouting;
+		is_forward [shape=flowchart.condition, label="Forward?", width="150", height="80", fontsize=18];
+        forward;
+		input;
+		output;
+		final_output [shape=dots, label="destination"];
+		postrouting;
+
+		packet -> prerouting -> is_forward [folded]; 
+		is_forward -> input [label="no", textcolor="red"];
+        input -> system -> output;
+
+        is_forward -> forward [label="yes", textcolor="green"];
+        forward -> postrouting;
+		output -> postrouting;
+		postrouting -> final_output;
+	}
+

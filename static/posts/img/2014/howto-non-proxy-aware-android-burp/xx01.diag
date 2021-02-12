@@ -1,0 +1,14 @@
+nwdiag {
+ internet;
+ internet -- router;
+
+ network internal {
+      address = "192.x.x.x/24";
+
+      router [address = "192.x.x.1"];
+      burp [address = "192.x.x.2"];
+      android-client [address = "192.x.x.3"];
+      others [address = "192.x.x.4-100"];
+  }
+}
+

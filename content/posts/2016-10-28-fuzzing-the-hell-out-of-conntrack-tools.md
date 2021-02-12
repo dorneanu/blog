@@ -45,7 +45,7 @@ to manage and synchronize the connection tracking information between 2 hosts.
 On 2 virtual machines I've downloaded the `conntrack-tools` (also includes `conntrackd`), 
 compiled the code and ran the daemons:
 
-{% blockdiag
+{{< expand "blockdiag code" >}}
 	nwdiag
 	{
 	  network nat-network {
@@ -55,7 +55,9 @@ compiled the code and ran the daemons:
 		  nat02 [address = "192.168.122.252"];
 	  }
 	}
-%}
+{{< /expand >}}
+
+![png](/posts/img/2016/conntrack/network.svg)
 
 So `nat01` and `nat02` were supposed to exchange information about their connection tracking table. 
 In a nutshell `conntrackd`:

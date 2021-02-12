@@ -1,0 +1,45 @@
+
+	nwdiag {
+	class obj_old		[color = lighgray,style = dotted];
+	class obj_new		[color = lightblue,style = dotted];
+	class obj_null		[style = dotted,stacked];
+	class obj_router	;
+	class obj_l2sw		;
+ 	class obj_fw		;
+	class obj_wlan		;
+	class obj_pc		;
+	class obj_mobile	;
+
+	network untrust {
+		address = "X.X.X.0/28"
+
+		main-router	[address = ".n",class = obj_router];
+	}
+
+	network dmz {
+		address = "192.168.X.0/24"
+
+		main-router	[address = ".n\ndmz/24 only",class = obj_router];
+		debian-fw1	[address = ".n+16",class = obj_fw];
+		debian-fw2	[address = ".m+17",class = obj_fw];
+	}
+	network trust {
+		address = "172.X.X.0/24"
+
+		VLAN-Switch	[address = ".n",class = obj_l2sw];
+		debian-fw1	[address = ".n+16\n<->VLAN-Switch only",class = obj_fw];
+		debian-fw2	[address = ".n+17\n<->VLAN-Switch only",class = obj_fw];
+		nat-router	[address = ".n+64\n<->VLAN-Switch only",class = obj_router];
+	}
+	network wlan-seg {
+		address = "10.X.X.0/24"
+
+		nat-router	[address = ".n+64\n<->wlan-router's IP only",class = obj_router];
+		wlan-router	[address = ".n\n<->sheeva-debian only\n<->note-debian only",class = obj_wlan];
+		sheeva-debian	[address = ".n+16",class = obj_pc];
+		note-debian	[address = ".n+17",class = obj_pc];
+		iPod		[address = ".n+128",class = obj_mobile];
+		Android		[address = ".n+129",class = obj_mobile];
+	}
+}
+

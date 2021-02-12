@@ -1,0 +1,18 @@
+
+    blockdiag {
+     C [label="ownCloud client", width=192];
+     S [label="Server"];
+     Cloud [label="Cloud"];
+     group {
+       label = "frontend";
+       O [label="ownCloud"];
+     }
+     group {
+       label = "backend";
+       G [label="git-annex"];
+     }
+     C -> O [folded];
+     G -> S;
+     S -> Cloud;
+    } 
+

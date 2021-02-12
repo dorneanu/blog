@@ -1,0 +1,9 @@
+
+    seqdiag {
+        edge_length = 600;
+        Client
+        Server;
+        Client -> Server [label="POST /login"];
+        Server -> Client [label="200 OK\nSet-Cookie: session=xxxx"];
+    }
+

@@ -1,0 +1,8 @@
+ 
+	diagram admin {
+	  A [shape = "cisco.router"];
+	  B [shape = "cisco.ups"];
+
+	  A -> B;
+	}
+

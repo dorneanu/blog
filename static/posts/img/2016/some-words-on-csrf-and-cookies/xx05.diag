@@ -1,0 +1,14 @@
+
+    seqdiag {
+        Attacker;
+        User; 
+        Site [label="http://attacker.nu"];
+        Bank [label="http://bank.nu"];
+        Attacker -> User [label="Send link"];
+        
+        ... User opens the link ...
+        User -> Site;
+        Site -> Bank [label="POST /transfer.do\nHost: bank.nu\nCookie: session=xxxx", note = "Request is automatically triggered"];
+        Bank -> Site [label="200 OK"];
+    }
+

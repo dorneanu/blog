@@ -1,0 +1,9 @@
+
+    seqdiag {
+        edge_length = 600;
+        Client -> Server [label="GET /transfer"];
+        Server -> Client [label="200 OK\n\n<form token='xxx'>"];
+        Client -> Server [label="POST /transfer.do\n\n[...]&token=xxx"];
+        Server -> Client [label="200 OK"];
+    }
+

@@ -1,0 +1,12 @@
+
+    seqdiag {
+        edge_length = 600;
+        Client -> Server [label="POST /login"];
+        Server -> Client [label="200 OK\nSet-Cookie: session=xxx\nSet-Cookie: token=yyy"];
+        
+        ... Client does some actions ...
+        
+        Client -> Server [label="POST /transfer.do\nCookie: token=yyy\nCookie: session=xxx\n\n[...]&token=yyy"];
+        Server -> Client [label="200 OK"];
+    }
+

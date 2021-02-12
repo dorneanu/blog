@@ -1,0 +1,8 @@
+ 
+	seqdiag {
+		android-client  -> burp [label = "GET /index.html\nHost: www.example.com"];
+	  	 				   burp  -> webserver [label = "GET /index.html\nHost: www.example.com"];
+	  	 				   burp <-- webserver [label = "HTTP/1.1 200 OK"];
+	  	android-client <-- burp [label = "HTTP/1.1 200 OK"];
+	}
+

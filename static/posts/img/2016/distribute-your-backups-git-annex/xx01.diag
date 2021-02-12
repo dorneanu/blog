@@ -1,0 +1,16 @@
+
+    blockdiag {
+      R [label="Raspberry Pi (central repo)", color="lightblue", width=192];
+      S [label="External Server (git + data)", width=192];
+      C [label="Cloud"];
+      L [label="Laptop"];
+      M [label="Mobile Clients"];
+      G [label="GitHub (only git)", width=192];
+
+      L -> R [label="plain"];
+      M -> R ; 
+      R -> S [label="enc"];
+      R -> G ; 
+      S -> C [label="enc"];
+    }   
+                                                                                                                                                   

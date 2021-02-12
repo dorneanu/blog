@@ -6,6 +6,10 @@ tags = ["ssl", "tls", "openssl", "crypto", "python", "ipython", "admin", "pki", 
 category = "blog"
 +++
 
+{{% notice tip %}}
+For better display results you can also have a look at the [Manage a PKI using OpenSSL](https://github.com/dorneanu/blog/blob/master/content/jupyter/2015-10-02-manage-a-pki-using-openssl.v3.ipynb).
+{{% /notice %}}
+
 In the previous X.509 related [post](http://blog.dornea.nu/2015/05/24/validating-and-pinning-x509-certificates/) I've had a look at the internals of a X.509 certficate. This time I want to setup my own [PKI](https://en.wikipedia.org/wiki/Public_key_infrastructure) using some *open source* software. This post is a preparation for setting up a VPN using *OpenVPN*. 
 
 Before implementing the PKI let's have a look what a PKI should definitely include (make sure you have a look at the [Wikipedia entry](https://en.wikipedia.org/wiki/Public_key_infrastructure)):
@@ -67,46 +71,42 @@ There are several [types of certificates](https://pki-tutorial.readthedocs.org/e
 
 In most modern companies you'll find a **3-tier** PKI hierarchy. 
 
-
-
-
-```python
-%%blockdiag
-# <!-- collapse=True -->
+{{< expand "blockdiag code" >}}
+```
 blockdiag {↔
 
-  // Define class (list of attributes)
-  class emphasis [color = pink, style = dashed];
-  class blackline [color = black, style = dotted];
-  class blue [color = lightblue];
+// Define class (list of attributes)
+class emphasis [color = pink, style = dashed];
+class blackline [color = black, style = dotted];
+class blue [color = lightblue];
 
-  Root_CA [class = "emphasis", label = "Root CA"];
-  Intermediate_CA1 [class = "blue", label = "Intermediate CA"];
-  Intermediate_CA2 [class = "blue", label = "Intermediate CA"];
-  Intermediate_CA3 [class = "blue", label = " ... "];
-  Signing_CA1 [label = "Signing CA"];
-  Signing_CA1_0 [label = " ... "];
-  
-  Signing_CA2 [label = "Signing CA"];
-  Signing_CA2_0 [label = " ... "];
-  
-  Signing_CA3 [label = "Signing CA"];
-  Signing_CA3_0 [label = " ... "];
+Root_CA [class = "emphasis", label = "Root CA"];
+Intermediate_CA1 [class = "blue", label = "Intermediate CA"];
+Intermediate_CA2 [class = "blue", label = "Intermediate CA"];
+Intermediate_CA3 [class = "blue", label = " ... "];
+Signing_CA1 [label = "Signing CA"];
+Signing_CA1_0 [label = " ... "];
 
-  Root_CA -> Intermediate_CA1;
-  Root_CA -> Intermediate_CA2 [class = "blackline"];
-  Root_CA -> Intermediate_CA3 [class = "blackline"];
-  Intermediate_CA1 -> Signing_CA1;
-  Intermediate_CA1 -> Signing_CA1_0 [class = "blackline"];
+Signing_CA2 [label = "Signing CA"];
+Signing_CA2_0 [label = " ... "];
 
-  Intermediate_CA2 -> Signing_CA2 [class = "blackline"];
-  Intermediate_CA2 -> Signing_CA2_0 [class = "blackline"];
+Signing_CA3 [label = "Signing CA"];
+Signing_CA3_0 [label = " ... "];
 
-  Intermediate_CA3 -> Signing_CA3 [class = "blackline"];
-  Intermediate_CA3 -> Signing_CA3_0 [class = "blackline"];
+Root_CA -> Intermediate_CA1;
+Root_CA -> Intermediate_CA2 [class = "blackline"];
+Root_CA -> Intermediate_CA3 [class = "blackline"];
+Intermediate_CA1 -> Signing_CA1;
+Intermediate_CA1 -> Signing_CA1_0 [class = "blackline"];
+
+Intermediate_CA2 -> Signing_CA2 [class = "blackline"];
+Intermediate_CA2 -> Signing_CA2_0 [class = "blackline"];
+
+Intermediate_CA3 -> Signing_CA3 [class = "blackline"];
+Intermediate_CA3 -> Signing_CA3_0 [class = "blackline"];
 }
 ```
-
+{{< /expand >}}
 
     
 ![png](/posts/img/2015/manage-a-pki-using-openssl/output_1_0.png)
@@ -116,30 +116,28 @@ blockdiag {↔
 For my purposes I'll be using only a **2-tier** hierarchy as shown below:
 
 
-```python
-%%blockdiag
-# <!-- collapse=True -->
+{{< expand "blockdiag code" >}}
+```
 blockdiag {
-  // Define orientation
-  orientation = portrait;
+// Define orientation
+orientation = portrait;
 
-  // Define class (list of attributes)
-  class emphasis [color = pink, style = dashed];
-  class blackline [color = black, style = dotted];
-  class blue [color = lightblue];
+// Define class (list of attributes)
+class emphasis [color = pink, style = dashed];
+class blackline [color = black, style = dotted];
+class blue [color = lightblue];
 
-  Root_CA [class = "emphasis", label = "Root CA"];
-  Signing_CA1 [label = "Signing CA"];
-  Signing_CA2 [label = "Signing CA"];
-  Signing_CA3 [label = "Signing CA"];
+Root_CA [class = "emphasis", label = "Root CA"];
+Signing_CA1 [label = "Signing CA"];
+Signing_CA2 [label = "Signing CA"];
+Signing_CA3 [label = "Signing CA"];
 
-  Root_CA -> Signing_CA1;
-  Root_CA -> Signing_CA2;
-  Root_CA -> Signing_CA3;
+Root_CA -> Signing_CA1;
+Root_CA -> Signing_CA2;
+Root_CA -> Signing_CA3;
 }
 ```
-
-
+{{< /expand >}}
     
 ![png](/posts/img/2015/manage-a-pki-using-openssl/output_3_0.png)
     
@@ -154,40 +152,37 @@ The level of security is increased because you separate the root CA from the iss
 And now let's make this whole hierarchy more personalized:
 
 
-
-
-```python
-%%blockdiag
-# <!-- collapse=True -->
+{{< expand "blockdiag code" >}}
+```
 blockdiag {
-  // Define orientation
-  orientation = portrait;
+// Define orientation
+orientation = portrait;
 
-  // Define class (list of attributes)
-  class emphasis [color = pink, style = dashed];
-  class blackline [color = black, style = dotted];
-  class blue [color = lightblue];
-  class inactive [color = lightgrey];
+// Define class (list of attributes)
+class emphasis [color = pink, style = dashed];
+class blackline [color = black, style = dotted];
+class blue [color = lightblue];
+class inactive [color = lightgrey];
 
-  Root_CA [class = "emphasis", label = "dornea.nu root CA"];
-  Signing_CA2 [label = "dev.dornea.nu CA"];
-  Signing_CA3 [label = "vpn.dornea.nu CA"];
-  TLS_Server_CA [label = "TLS Server Cert", shape = flowchart.terminator, style = dotted];
-  TLS_Client_CA [label = "TLS Client Cert", shape = flowchart.terminator, style = dotted];
-  VPN_Server_CA [class = inactive, label = "VPN Server Cert", shape = flowchart.terminator, style = dotted];
-  VPN_Client_CA [class = inactive, label = "VPN Client Cert", shape = flowchart.terminator, style = dotted];
+Root_CA [class = "emphasis", label = "dornea.nu root CA"];
+Signing_CA2 [label = "dev.dornea.nu CA"];
+Signing_CA3 [label = "vpn.dornea.nu CA"];
+TLS_Server_CA [label = "TLS Server Cert", shape = flowchart.terminator, style = dotted];
+TLS_Client_CA [label = "TLS Client Cert", shape = flowchart.terminator, style = dotted];
+VPN_Server_CA [class = inactive, label = "VPN Server Cert", shape = flowchart.terminator, style = dotted];
+VPN_Client_CA [class = inactive, label = "VPN Client Cert", shape = flowchart.terminator, style = dotted];
 
-  Root_CA -> Signing_CA2 [label = "issues"];
-  Root_CA -> Signing_CA3;
+Root_CA -> Signing_CA2 [label = "issues"];
+Root_CA -> Signing_CA3;
 
-  Signing_CA2 -> TLS_Server_CA [label = "issues"];
-  Signing_CA2 -> TLS_Client_CA;
-    
-  Signing_CA3 -> VPN_Server_CA [label = "issues"];
-  Signing_CA3 -> VPN_Client_CA;
+Signing_CA2 -> TLS_Server_CA [label = "issues"];
+Signing_CA2 -> TLS_Client_CA;
+
+Signing_CA3 -> VPN_Server_CA [label = "issues"];
+Signing_CA3 -> VPN_Client_CA;
 }
 ```
-
+{{< /expand >}}
 
     
 ![png](/posts/img/2015/manage-a-pki-using-openssl/output_5_0.png)
@@ -284,40 +279,38 @@ Below there is an overview of the most used *subcommands* in openssl:
 
 ### Create dornea.nu root CA
 
-
-```python
-%%blockdiag
-# <!-- collapse=True -->
+{{< expand "blockdiag code" >}}
+```
 blockdiag {
-  // Define orientation
-  orientation = portrait;
+// Define orientation
+orientation = portrait;
 
-  // Define class (list of attributes)
-  class emphasis [color = pink, style = dashed];
-  class blackline [color = black, style = dotted];
-  class blue [color = lightblue];
-  class active [color = lightgreen];
-  class inactive [color = lightgrey];  
+// Define class (list of attributes)
+class emphasis [color = pink, style = dashed];
+class blackline [color = black, style = dotted];
+class blue [color = lightblue];
+class active [color = lightgreen];
+class inactive [color = lightgrey];  
 
-  Root_CA [class = active, label = "dornea.nu root CA"];
-  Signing_CA2 [label = "dev.dornea.nu CA"];
-  Signing_CA3 [class = inactive, label = "vpn.dornea.nu CA"];
-  TLS_Server_CA [label = "TLS Server Cert", shape = flowchart.terminator, style = dotted];
-  TLS_Client_CA [label = "TLS Client Cert", shape = flowchart.terminator, style = dotted];
-  VPN_Server_CA [class = inactive, label = "VPN Server Cert", shape = flowchart.terminator, style = dotted];
-  VPN_Client_CA [class = inactive, label = "VPN Client Cert", shape = flowchart.terminator, style = dotted];
+Root_CA [class = active, label = "dornea.nu root CA"];
+Signing_CA2 [label = "dev.dornea.nu CA"];
+Signing_CA3 [class = inactive, label = "vpn.dornea.nu CA"];
+TLS_Server_CA [label = "TLS Server Cert", shape = flowchart.terminator, style = dotted];
+TLS_Client_CA [label = "TLS Client Cert", shape = flowchart.terminator, style = dotted];
+VPN_Server_CA [class = inactive, label = "VPN Server Cert", shape = flowchart.terminator, style = dotted];
+VPN_Client_CA [class = inactive, label = "VPN Client Cert", shape = flowchart.terminator, style = dotted];
 
-  Root_CA -> Signing_CA2;
-  Root_CA -> Signing_CA3;
+Root_CA -> Signing_CA2;
+Root_CA -> Signing_CA3;
 
-  Signing_CA2 -> TLS_Server_CA;
-  Signing_CA2 -> TLS_Client_CA;
-    
-  Signing_CA3 -> VPN_Server_CA;
-  Signing_CA3 -> VPN_Client_CA;
+Signing_CA2 -> TLS_Server_CA;
+Signing_CA2 -> TLS_Client_CA;
+
+Signing_CA3 -> VPN_Server_CA;
+Signing_CA3 -> VPN_Client_CA;
 }
 ```
-
+{{< /expand >}}
 
     
 ![png](/posts/img/2015/manage-a-pki-using-openssl/output_14_0.png)
@@ -520,45 +513,42 @@ Using configuration from ca/conf/root-ca.conf
 
 ### Create dev.dornea.nu CA
 
-
-```python
-%%blockdiag
-# <!-- collapse=True -->
+{{< expand "blockdiag code" >}}
+```
 blockdiag {
-  // Define orientation
-  orientation = portrait;
+// Define orientation
+orientation = portrait;
 
-  // Define class (list of attributes)
-  class emphasis [color = pink, style = dashed];
-  class blackline [color = black, style = dotted];
-  class blue [color = lightblue];
-  class active [color = lightgreen];
-  class inactive [color = lightgrey];    
+// Define class (list of attributes)
+class emphasis [color = pink, style = dashed];
+class blackline [color = black, style = dotted];
+class blue [color = lightblue];
+class active [color = lightgreen];
+class inactive [color = lightgrey];    
 
-  Root_CA [label = "dornea.nu root CA"];
-  Signing_CA2 [class = active, label = "dev.dornea.nu CA"];
-  Signing_CA3 [label = "vpn.dornea.nu CA"];
-  TLS_Server_CA [label = "TLS Server Cert", shape = flowchart.terminator, style = dotted];
-  TLS_Client_CA [label = "TLS Client Cert", shape = flowchart.terminator, style = dotted];
-  VPN_Server_CA [class = inactive, label = "VPN Server Cert", shape = flowchart.terminator, style = dotted];
-  VPN_Client_CA [class = inactive, label = "VPN Client Cert", shape = flowchart.terminator, style = dotted];
+Root_CA [label = "dornea.nu root CA"];
+Signing_CA2 [class = active, label = "dev.dornea.nu CA"];
+Signing_CA3 [label = "vpn.dornea.nu CA"];
+TLS_Server_CA [label = "TLS Server Cert", shape = flowchart.terminator, style = dotted];
+TLS_Client_CA [label = "TLS Client Cert", shape = flowchart.terminator, style = dotted];
+VPN_Server_CA [class = inactive, label = "VPN Server Cert", shape = flowchart.terminator, style = dotted];
+VPN_Client_CA [class = inactive, label = "VPN Client Cert", shape = flowchart.terminator, style = dotted];
 
-  Root_CA -> Signing_CA2;
-  Root_CA -> Signing_CA3;
+Root_CA -> Signing_CA2;
+Root_CA -> Signing_CA3;
 
-  Signing_CA2 -> TLS_Server_CA;
-  Signing_CA2 -> TLS_Client_CA;
-    
-  Signing_CA3 -> VPN_Server_CA;
-  Signing_CA3 -> VPN_Client_CA;
+Signing_CA2 -> TLS_Server_CA;
+Signing_CA2 -> TLS_Client_CA;
+
+Signing_CA3 -> VPN_Server_CA;
+Signing_CA3 -> VPN_Client_CA;
 }
 ```
-
+{{< /expand >}}
 
     
 ![png](/posts/img/2015/manage-a-pki-using-openssl/output_20_0.png)
     
-
 
 Create the directories:
 
@@ -779,10 +769,8 @@ Data Base Updated
 
 ### Create vpn.dornea.nu CA
 
-
-```python
-%%blockdiag
-# <!-- collapse=True -->
+{{< expand "blockdiag code" >}}
+```
 blockdiag {
   // Define orientation
   orientation = portrait;
@@ -810,9 +798,8 @@ blockdiag {
     
   Signing_CA3 -> VPN_Server_CA;
   Signing_CA3 -> VPN_Client_CA;
-}
 ```
-
+{{< /expand >}}
 
     
 ![png](/posts/img/2015/manage-a-pki-using-openssl/output_30_0.png)
@@ -1062,9 +1049,8 @@ We'll now create the **TLS** *server* and *client* certificates.
 ## Create TLS server certificate
 
 
-```python
-%%blockdiag
-# <!-- collapse=True -->
+{{< expand "blockdiag code" >}}
+```
 blockdiag {
   // Define orientation
   orientation = portrait;
@@ -1098,7 +1084,7 @@ blockdiag {
   TLS_Server_CA -> dev_dornea_nu;
 }
 ```
-
+{{< /expand >}}
 
     
 ![png](/posts/img/2015/manage-a-pki-using-openssl/output_44_0.png)
@@ -1255,9 +1241,8 @@ issuer=/C=NU/O=dornea.nu/OU=dornea.nu Root CA/CN=dornea.nu Root CA
 ## Create TLS client certificate
 
 
-```python
-%%blockdiag
-# <!-- collapse=True -->
+{{< expand "blockdiag code" >}}
+```
 blockdiag {
   // Define orientation
   orientation = portrait;
@@ -1291,7 +1276,7 @@ blockdiag {
   TLS_Client_CA -> dev_client_victor;
 }
 ```
-
+{{< /expand >}}
 
     
 ![png](/posts/img/2015/manage-a-pki-using-openssl/output_52_0.png)
@@ -1451,10 +1436,8 @@ We'll now create **VPN** *server* and *client* certificates.
 ## Create VPN server certificate
 
 
-
-```python
-%%blockdiag
-# <!-- collapse=True -->
+{{< expand "blockdiag code" >}}
+```
 blockdiag {↔
 
   // Define class (list of attributes)
@@ -1483,7 +1466,7 @@ blockdiag {↔
   Signing_CA3 -> VPN_Client_CA;
 }
 ```
-
+{{< /expand >}}
 
     
 ![png](/posts/img/2015/manage-a-pki-using-openssl/output_60_0.png)
@@ -1650,9 +1633,8 @@ Verifying - Enter Export Password:
 ## Create VPN client certificate
 
 
-```python
-%%blockdiag
-# <!-- collapse=True -->
+{{< expand "blockdiag code" >}}
+```
 blockdiag {
   // Define orientation
   orientation = portrait;
@@ -1683,7 +1665,7 @@ blockdiag {
   Signing_CA3 -> VPN_Client_CA;
 }
 ```
-
+{{< /expand >}}
 
     
 ![png](/posts/img/2015/manage-a-pki-using-openssl/output_65_0.png)

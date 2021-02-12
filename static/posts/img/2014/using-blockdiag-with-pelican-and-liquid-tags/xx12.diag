@@ -1,0 +1,11 @@
+
+	blockdiag {
+	  // node shapes for flowcharts
+	  condition [shape = flowchart.condition];
+	  database [shape = flowchart.database];
+	  terminator [shape = flowchart.terminator];
+	  input [shape = flowchart.input];
+
+	  condition -> database -> terminator -> input;
+	}
+

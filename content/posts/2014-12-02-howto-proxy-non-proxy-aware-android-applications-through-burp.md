@@ -23,7 +23,7 @@ In theory that's all! **BUT**: During recent mobile application pentest sessions
 
 Before getting into details let's "virtually" (rather mentally) create a network we can use as an example:
 
-{% blockdiag 
+{{< expand "blockdiag code" >}}
 	nwdiag {
 	 internet [shape = cloud];
 	 internet -- router;
@@ -37,7 +37,9 @@ Before getting into details let's "virtually" (rather mentally) create a network
           others [address = "192.x.x.4-100", shape=cisco.web_cluster];
 	  }
 	}
-%}
+{{< /expand >}}
+
+![png](/posts/img/2014/howto-non-proxy-aware-android-burp/xx01.svg)
 
 So nothing special about it. The *burp* instance is running on my local machine and it's listening on `192.x.x.1:8080` for incoming connections.
 
@@ -46,24 +48,27 @@ So nothing special about it. The *burp* instance is running on my local machine 
 Using **no** proxy at all, your client (in our case the target application) will have *no* pre-routed connections to its destinations. It will access them directly:
 
 
-{% blockdiag
+{{< expand "blockdiag code" >}}
 	seqdiag {
 	  	android-client  -> webserver [label = "GET /index.html\nHost: www.example.com"];
 	  	android-client <-- webserver [label = "HTTP/1.1 200 OK"];
 	}
-%}
+{{< /expand >}}
+
+![png](/posts/img/2014/howto-non-proxy-aware-android-burp/xx02.png)
 
 Using *burp* as a proxy it will act as an intermediate between the `webserver` and the `client`:
 
-{% blockdiag 
+{{< expand "blockdiag code" >}}
 	seqdiag {
 		android-client  -> burp [label = "GET /index.html\nHost: www.example.com"];
 	  	 				   burp  -> webserver [label = "GET /index.html\nHost: www.example.com"];
 	  	 				   burp <-- webserver [label = "HTTP/1.1 200 OK"];
 	  	android-client <-- burp [label = "HTTP/1.1 200 OK"];
 	}
-%}
+{{< /expand >}}
 
+![png](/posts/img/2014/howto-non-proxy-aware-android-burp/xx03.png)
 
 Ok, so that's no big deal and works as expected as long as your application/client *knows* how to connect to the proxy and it's *aware* of that fact. But what about the clients that are *not* aware of the fact that their connection will be proxied? Let's have a closer look at this particular case.
 
@@ -78,7 +83,7 @@ In most cases you'll have to *redirect* the packages at a lower OSI level (rathe
 
 On most *Linux* based hosts you'll have `iptables` installed which will help us out with packet filtering / redirects. By rooting your Android device you should be able to take advantage of using iptables. Otherwise I'd recommend you [Debian Kit](https://play.google.com/store/apps/details?id=org.dyndns.sven_ola.debian_kit&hl=en). The general iptables packet traversal scheme looks like this:
 
-{% blockdiag 
+{{< expand "blockdiag code" >}}
 	blockdiag {
 		packet [shape=beginpoint];
 		system;
@@ -99,13 +104,15 @@ On most *Linux* based hosts you'll have `iptables` installed which will help us 
 		output -> postrouting;
 		postrouting -> final_output;
 	}
-%}
+{{< /expand >}}
+
+![png](/posts/img/2014/howto-non-proxy-aware-android-burp/xx04.png)
 
 In reality the truth is more [complicated](http://www.adminsehow.com/wp-content/uploads/2011/09/tables_traverse.jpg). And besides that there are several [*tables*](https://wiki.archlinux.org/index.php/iptables#TablesJust) which I haven't taken into consideration. And speaking of tables: The *filter* and *nat* ones are those you'll mostly deal with. But like already mentioned: For the sake of simplicity ... :)
 
 Since we are generating packets *locally* (on **android-client**) the *output* firewall chain is our main point of interest.
 
-{% blockdiag 
+{{< expand "blockdiag code" >}}
 	blockdiag {
 		packet [shape=beginpoint];
 		system;
@@ -126,7 +133,9 @@ Since we are generating packets *locally* (on **android-client**) the *output* f
 		output -> postrouting;
 		postrouting -> final_output;
 	}
-%}
+{{< /expand >}}
+
+![png](/posts/img/2014/howto-non-proxy-aware-android-burp/xx05.png)
 
 While forwarding and re-routing packets between the **android-client** and the **webserver** through **burp** you won't be able to avoid  [*NAT*](http://en.wikipedia.org/wiki/Network_address_translation) (Network Address Translation). While modifying certain headers in the *IP* datagrams, packets are "re-mapped" from one IP address to another one. iptables can handle NAT (`-t nat`) and has 3 predefined chains: *PREROUTING*, *OUTPUT* and *POSTROUTING*.
 
@@ -212,7 +221,7 @@ REDIRECT   tcp  --  anywhere             anywhere             redir ports 8123
 
 In other words the *connection flow* looks like this:
 
-{% blockdiag 
+{{< expand "blockdiag code" >}}
 	seqdiag {
 		android-client  -> ProxyDroid;
 	  	 				   ProxyDroid  -> burp;
@@ -221,8 +230,9 @@ In other words the *connection flow* looks like this:
                            ProxyDroid <-- burp;
 	  	android-client <-- ProxyDroid;
 	}
-%}
+{{< /expand >}}
 
+![png](/posts/img/2014/howto-non-proxy-aware-android-burp/xx06.png)
 
 ### Testing the connection
 
@@ -336,7 +346,7 @@ And this is where **NAT** comes into play. The 3 major NAT types are described b
 
 **Souce NAT** changes the *source* address/port in the IP header of a packet to sth different. SNAT is commonly done in the **POSTROUTING** chain, just before the packet will be sent out. That means that everything on the box itself (routing, filtering etc.) will see the packet unchanged. For more detailed reading have a look at [netfilter - NAT Howto](http://www.netfilter.org/documentation/HOWTO/NAT-HOWTO-6.html).
 
-{% blockdiag
+{{< expand "blockdiag code" >}}
 	blockdiag {
 	  Client [label="Client\n1.1.1.1", shape=cisco.pc]; 
 	  NAT [label="NAT\n2.2.2.2", shape=cisco.router];
@@ -352,7 +362,9 @@ And this is where **NAT** comes into play. The 3 major NAT types are described b
 	  NAT <- SN <- Server [color="lightblue"];
 	  Client <- NC <- NAT [color="lightblue"];
 	}
-%}
+{{< /expand >}}
+
+![png](/posts/img/2014/howto-non-proxy-aware-android-burp/xx07.png)
 
 * Client --> Server (orange)
 
@@ -367,7 +379,7 @@ The Server (3.3.3.3) responds to the request by sending back a packet to the NAT
 
 **Destination NAT** changes the *destination* address/port in the IP header of a packet. This is usually done in the **PREROUTING** chain, right after the packet has arrived. For my purpose I'll be using the *OUTPUT* chain to do DNAT. Since the packets are modified before leaving the network interface 
 
-{% blockdiag
+{{< expand "blockdiag code" >}}
 	blockdiag {
 	  Client [label="Client\n1.1.1.1", shape=cisco.pc]; 
 	  NAT [label="NAT\n2.2.2.2", shape=cisco.router];
@@ -378,7 +390,9 @@ The Server (3.3.3.3) responds to the request by sending back a packet to the NAT
 	  Client -> CN -> NAT [color="orange"];
 	  NAT -> NS -> Server [color="orange"];
 	}
-%}
+{{< /expand >}}
+
+![png](/posts/img/2014/howto-non-proxy-aware-android-burp/xx08.png)
 
 3) **MASQUERADING**
 

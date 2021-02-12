@@ -1,0 +1,11 @@
+
+	blockdiag {
+	  plugin octicons;
+
+	  A [label = "", background = "octicon://mark-github"];
+	  B [icon = "octicon://cloud-download?color=red"];
+	  C [icon = "octicon://settings?color=green"]
+	  A -> B;
+	  B -> C;
+	}
+

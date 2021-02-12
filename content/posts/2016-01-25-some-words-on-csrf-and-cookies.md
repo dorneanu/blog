@@ -13,20 +13,21 @@ are avoided. One of those security nightmare - and in my own oppinion the most c
 
 Usually we have 3 components involved:
 
-{% blockdiag
+{{< expand "blockdiag code" >}}
     seqdiag {
         Attacker;
         Client [label="Client/Browser"];
         Server;
     }
-%}
+{{< /expand >}}
 
+![](/posts/img/2016/some-words-on-csrf-and-cookies/xx01.png)
 
 The **client/browser** communicates with the **server** and the **attacker** will try to *lure* the user to some previously **prepared site**. This can happen by sending 
 **mails** with some malicious link or injecting content into a site the user is visiting (e.g. using **iframes**). This way the attack will cause the client/browser 
 to fire requests to the server **without** any user interaction. The user behing the client/browser won't notice anything since this will happen in the background by just visiting the site and/or triggering some JavaScript to execute. 
 
-{% blockdiag
+{{< expand "blockdiag code" >}}
     seqdiag {
         Attacker;
         Client [label="Client/Browser"];
@@ -42,8 +43,9 @@ to fire requests to the server **without** any user interaction. The user behing
         
         Client -> Server [label="GET /change-account-settings"];
     }
-%}
+{{< /expand >}}
 
+![](/posts/img/2016/some-words-on-csrf-and-cookies/xx02.png)
 
 ## Some example 
 
@@ -74,7 +76,7 @@ Well first let's see **why** this kind of attacks are so powerful. Apparently Bo
 show some error message that the request is not allowed and a valid session is necessary. The authentification process usually looks like this:
 
 
-{% blockdiag
+{{< expand "blockdiag code" >}}
     seqdiag {
         edge_length = 600;
         Client
@@ -82,7 +84,9 @@ show some error message that the request is not allowed and a valid session is n
         Client -> Server [label="POST /login"];
         Server -> Client [label="200 OK\nSet-Cookie: session=xxxx"];
     }
-%}
+{{< /expand >}}
+
+![](/posts/img/2016/some-words-on-csrf-and-cookies/xx03.png)
 
 The user sends his credentials to the server, the server validates these and sends a **cookie** to the client which serves as authentification characteristic. 
 Regardless of the expiration time of the cookie, **every time** the browser/client makes a request to the server, the cookie will be sent **automatically** to the server. 
@@ -90,7 +94,7 @@ This is a very important one and **often misunderstood** by non-sec people.
 
 So next time the user wants to visit the site again, the browser will **add** the cookies received from the server to the request:
 
-{% blockdiag
+{{< expand "blockdiag code" >}}
     seqdiag {
         edge_length = 600;
         Client
@@ -98,7 +102,9 @@ So next time the user wants to visit the site again, the browser will **add** th
         Client -> Server [label="GET /myaccount\nCookie: session=xxxx\nCookie: bla=foo"];
         Server -> Client [label="200 OK"];
     }
-%}
+{{< /expand >}}
+
+![](/posts/img/2016/some-words-on-csrf-and-cookies/xx04.png)
 
 That in turn means that every time a request is conducted by your browser - whether intended by the user or not - the session cookie will be **always** be sent 
 along with the request. 
@@ -116,7 +122,7 @@ Trying to be more precise, these are the requests made:
 
 
 
-{% blockdiag
+{{< expand "blockdiag code" >}}
     seqdiag {
         Attacker;
         User; 
@@ -129,7 +135,9 @@ Trying to be more precise, these are the requests made:
         Site -> Bank [label="POST /transfer.do\nHost: bank.nu\nCookie: session=xxxx", note = "Request is automatically triggered"];
         Bank -> Site [label="200 OK"];
     }
-%}
+{{< /expand >}}
+
+![](/posts/img/2016/some-words-on-csrf-and-cookies/xx05.png)
 
 As you have noticed the **session cookie** is part of the POST request. The attackers site **can't** read the cookie due to several reasons: 
 
@@ -156,7 +164,7 @@ The **client** has to provide this token in its requests. The server will reject
 
 If the client wants to perform an action (like sending a POST request), the server will put inside the **body** content a hidden token which the client has to provide when sending the POST request:
 
-{% blockdiag
+{{< expand "blockdiag code" >}}
     seqdiag {
         edge_length = 600;
         Client -> Server [label="GET /transfer"];
@@ -164,7 +172,9 @@ If the client wants to perform an action (like sending a POST request), the serv
         Client -> Server [label="POST /transfer.do\n\n[...]&token=xxx"];
         Server -> Client [label="200 OK"];
     }
-%}
+{{< /expand >}}
+
+![](/posts/img/2016/some-words-on-csrf-and-cookies/xx06.png)
 
 The token should change every time the site is loaded again. That means that the server should **not** accept 2 POST requests with the **same** token value.
 
@@ -172,7 +182,7 @@ The token should change every time the site is loaded again. That means that the
 
 Once the client has authentificated against the server, the server will send the client a CSRF token which will be used for **every** request. The token value **doesn't change** and remains the same for the whole session.
 
-{% blockdiag
+{{< expand "blockdiag code" >}}
     seqdiag {
         edge_length = 600;
         Client -> Server [label="POST /login"];
@@ -183,7 +193,9 @@ Once the client has authentificated against the server, the server will send the
         Client -> Server [label="POST /transfer.do\nCookie: token=yyy\nCookie: session=xxx\n\n[...]&token=yyy"];
         Server -> Client [label="200 OK"];
     }
-%}
+{{< /expand >}}
+
+![](/posts/img/2016/some-words-on-csrf-and-cookies/xx07.png)
 
 The interesting thing about this approach is the fact that the token is sent **twice**. The CSRF token is being sent to the client as a *cookie*. 
 That means that this specific cookie will be sent automatically by the browser when some requests are triggered (**natural** behaviour, remember?). 
@@ -194,7 +206,7 @@ server can't distinguish between a **legitimate** and a **forged** request, the 
 However, in the *Double Submit Cookies* approach the token value **has** to be sent more than once: Either as a *GET* or *POST* parameter. So the big question here is: Why is this secure? Well due to the fact that the token value has to be submitted somewhere else, the attacker will have to **read** this value - which is **not possible**. The attacker *can* forge the request but he can't *get* the response. The reason therefore is called **SOP** (Same Origin Policy) and prevents **cross-requests** (aka from other domains) to be performed. In our case a script hosted at `attacker.nu` would **not**  be able to get "ressources" from `bank.nu` when executed in the browser. 
 
 
-{% blockdiag
+{{< expand "blockdiag code" >}}
     seqdiag {
         edge_length = 600;
         attacker [label="attacker.nu/evil.js"];
@@ -202,7 +214,9 @@ However, in the *Double Submit Cookies* approach the token value **has** to be s
         attacker -> server [label="XMLHttpRequest('http://bank.nu/transfer')"];
         server -> attacker [note="Server will send nothing"];
     }
-%}
+{{< /expand >}}
+
+![](/posts/img/2016/some-words-on-csrf-and-cookies/xx08.png)
 
 This is the reason the attacker **can't** read the token value even though he is able to *forge* requests. Providing the token value **twice** make this approach secure since the attacker can't read the token value and therefore can't forge a valid request (accepted by the server). 
 

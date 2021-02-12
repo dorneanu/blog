@@ -1,0 +1,10 @@
+ 
+	seqdiag {
+		android-client  -> ProxyDroid;
+	  	 				   ProxyDroid  -> burp;
+	  	 				                  burp  -> webserver;
+                                          burp <-- webserver;
+                           ProxyDroid <-- burp;
+	  	android-client <-- ProxyDroid;
+	}
+

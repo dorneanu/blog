@@ -1,0 +1,6 @@
+
+    blockdiag {
+        A -> B -> C;
+        B -> D;
+    }
+
