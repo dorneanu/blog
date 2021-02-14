@@ -160,7 +160,7 @@ the **ABI** requires that registers are used instead of the stack. On Linux we h
 
 Additional arguments can be passed on the stack. In our case we have:
 
-{{gravizo background-color="#fff" title="Deployment scheme" alt="Deployment scheme" }}
+{{< expand "Graphviz code" >}}
     digraph G {
         // Define layout
         graph [pad=".75", ranksep="0.95", nodesep="0.05"];
@@ -221,7 +221,9 @@ Additional arguments can be passed on the stack. In our case we have:
         rsp_16:p -> stack:16 [style=invis];
         rsp_20:p -> stack:20 [style=invis];
     }
-{{/gravizo}}
+{{< /expand >}}
+
+![](/posts/img/2016/r0-binaries-heap-allocator/stack.dot.png)
 
 As stated [here](http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html) `__libc_start_main` does
 the following:
