@@ -1,0 +1,798 @@
+#+TITLE: ORG Content
+#+AUTHOR: Victor Dorneanu
+#+STARTUP: indent
+#+HUGO_BASE_DIR: ../
+#+HUGO_SECTION: posts
+#+HUGO_AUTO_SET_LASTMOD: t
+
+* Bookmarks                                                 :bookmark:
+:PROPERTIES:
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true :noauthor true :nocomment true :nodate true :nopaging true :noread true
+:EXPORT_HUGO_SECTION: bookmarks
+:EXPORT_HUGO_WEIGHT: auto
+:END:
+** Golang                                                  :golang:
+:PROPERTIES:
+:EXPORT_FILE_NAME: golang
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true
+:END:
+
+*** Microservices
+
+- [[https://blog.gopheracademy.com/advent-2019/building-a-microservices-network][Building a global services network using Go, QUIC and Micro]]
+- [[https://sudonull.com/post/8187-Microservices-on-Go-with-the-Go-kit-Introduction][Microservices on Go with the Go Kit]]
+- [[https://ewanvalentine.io/how-im-writing-serverless-services-in-golang-these-days/][How I'm writing Serverless services in Golang]]
+  #+begin_quote
+  Service discovery allows you to register the location of services, with a user
+  friendly name, so that you can find other services by name. AWS provides a
+  Serverless offering for this, called [[https://aws.amazon.com/cloud-map/][Cloudmap]]
+  #+end_quote
+  [[https://github.com/peak-ai/ais-service-discovery-go][cloud application library]]
+
+  #+begin_quote
+  The most important lesson I hope you take away from this, however, is protecting your business logic from the sea of AWS services and technologies. Treat Lambda as an unimportant detail, treat DynamoDB as an unimportant detail
+  #+end_quote
+- [[https://blog.gopheracademy.com/advent-2019/building-a-microservices-network/][Building a global services network using Go, QUIC and Micro]]
+- [[https://ieftimov.com/post/make-resilient-golang-net-http-servers-using-timeouts-deadlines-context-cancellation/][Make resilient Go net/http servers using timeouts, deadlines and context cancellation]]
+  Initialize ~net/http~ server with timeouts:
+
+  #+begin_src
+  srv := &http.Server{
+      ReadTimeout:       1 * time.Second,
+      WriteTimeout:      1 * time.Second,
+      IdleTimeout:       30 * time.Second,
+      ReadHeaderTimeout: 2 * time.Second,
+      TLSConfig:         tlsConfig,
+      Handler:           srvMux,
+  }
+  #+end_src
+
+  - the ~net/http~ packages provide a ~TimeoutHandler~
+  - it returns a handler that runs a handler within the given time limit
+  - use ~Context~ to be aware of request
+- [[https://dev.to/ilyakaznacheev/a-clean-way-to-pass-configs-in-a-go-application-1g64][A clean way to pass configs in a Go application]]
+
+*** AppSec
+
+- [[https://www.sohamkamani.com/blog/golang/2019-01-01-jwt-authentication/][Implementing JWT based authentication in Golang]]
+
+**** Beyondcorp
+
+- [[https://github.com/ory][ory.sh]]
+  #+begin_quote
+  ORY is the open source and cloud native identity infrastructure. ORY is written
+  in Go and open standards and consensus are the foundation. It is language and
+  platform independent, extremely lightweight, starts up in seconds and doesn’t
+  interfere with your code
+
+  Inspired by Google's BeyondCorp
+  #+end_quote
+
+***** TODO [[https://www.ory.sh/docs/next/ecosystem/projects][ory ecosystem]] :read:
+*** AWS
+
+- [[https://github.com/awslabs/aws-apigateway-lambda-authorizer-blueprints/blob/master/blueprints/go/main.go][API Gateway Authorizer Blueprint in Golang]]
+- [[https://cloudnative.ly/lambdas-with-golang-a-technical-guide-6f381284897b][API Gateway Custom Authorizer]]
+- [[https://dev.to/wingkwong/a-simple-amazon-api-gateway-lambda-authoriser-in-go-4cgd][A simple AWS API Gateway Authoriser in Go]]
+- [[https://github.com/guregu/dynamo][expressive DynamoDB library for Go]]
+
+*** Books
+
+- [[https://github.com/dariubs/GoBooks][List of interesting Golang Books]]
+
+*** Configuration
+**** Spacemacs
+
+Pre-requisites to use the [[https://develop.spacemacs.org/layers/+lang/go/README.html][go-layer]] inside ~spacemacs~:
+#+begin_src
+GO111MODULE=on go get -v golang.org/x/tools/gopls@latest
+GO111MODULE=on CGO_ENABLED=0 go get -v -trimpath -ldflags '-s -w' github.com/golangci/golangci-lint/cmd/golangci-lint
+go get -u -v golang.org/x/tools/cmd/godoc
+go get -u -v golang.org/x/tools/cmd/goimports
+go get -u -v golang.org/x/tools/cmd/gorename
+go get -u -v golang.org/x/tools/cmd/guru
+go get -u -v github.com/cweill/gotests/...
+go get -u -v github.com/davidrjenni/reftools/cmd/fillstruct
+go get -u -v github.com/fatih/gomodifytags
+go get -u -v github.com/godoctor/godoctor
+go get -u -v github.com/haya14busa/gopkgs/cmd/gopkgs
+go get -u -v github.com/josharian/impl
+go get -u -v github.com/mdempsky/gocode
+go get -u -v github.com/rogpeppe/godef
+go get -u -v github.com/zmb3/gogetdoc
+#+end_src
+
+**** GTAGS
+
+~gtags~ will create ~CTAGS~ files to [[https://www.gnu.org/software/global/][global]]. For Go you can use [[https://github.com/juntaki/gogtags][gogtags]] to
+generate the files. It also works well with [[https://melpa.org/#/helm-gtags][helm-gtags]].
+
+*** Code Examples
+
+- [[http://l3x.github.io/golang-code-examples/][l3x.github.io/golang-code-examples/]]
+
+*** Design
+
+- [[https://dave.cheney.net/2016/08/20/solid-go-design][SOLID Go Design]]
+- [[https://the-zen-of-go.netlify.com/][The Zen of Go]]
+  - [[https://dave.cheney.net/2020/02/23/the-zen-of-go][more detailed version]]
+
+*** Internals
+
+- [[https://www.alexedwards.net/blog/a-recap-of-request-handling][A recap of request handling in Go]]
+- [[https://lanre.wtf/blog/2017/07/24/roundtripper-go/][Diving deep into net/http : A look at http.RoundTripper]]
+- [[https://echorand.me/posts/golang-dissecting-listen-and-serve/][Dissecting golang's HandlerFunc, Handle and DefaultServeMux]]
+- [[https://jaxenter.de/golumne-go-requests-multiplexen-81161][Requests richtig verarbeiten: Keine Sorge beim Multiplexen in Go]]
+- [[https://rafallorenz.com/go/handle-signals-to-graceful-shutdown-http-server/][How to handle signals with Go to graceful shutdown HTTP server]]
+
+*** Interviews
+
+- [[https://evrone.com/rob-pike-interview    ][2020-05 | Rob Pike interview for Evrone: “Go has become the language of cloud infrastructure”]]
+
+*** Messaging
+**** Bots
+***** Slack
+
+- [[https://github.com/slack-go/slack/tree/master/examples][slack-go/slack examples]]
+- [[https://blog.gopheracademy.com/advent-2017/go-slackbot/][Create a Slack bot using Golang]]
+- [[https://medium.com/mercari-engineering/writing-an-interactive-message-bot-for-slack-in-golang-6337d04f36b9][Write an interactive message bot for Slack in Golang]]
+  - full code: [[https://github.com/tcnksm/go-slack-interactive][go-slack-interactive]]
+- [[https://api.slack.com/docs/token-types#bot][bot tokens]]
+- [[http://davestevens.github.io/slack-message-builder/][slack-message-builder]]
+- [[https://api.slack.com/messaging/composing/layouts#attachments][message attachments]]
+- [[https://api.slack.com/tools/block-kit-builder][block kit builder]]
+- *Frameworks*
+  - [[https://github.com/shomali11/slacker][github.com/shomali11/slacker]]
+- [[https://github.com/go-chat-bot/bot][github.com/go-chat-bot/bot]]
+  - IRC, SLACK, Telegram and RocketChat bot written in Go
+- [[https://github.com/alexandre-normand/slackscot][github.com/alexandre-normand/slackscot]]
+  - Slack bot core/framework written in Go with support for reactions to message updates/deletes
+
+*** Testing
+
+- [[https://github.com/quii/learn-go-with-tests][Learn go with test-driven development (TDD)]]
+- [[https://deliveroo.engineering/2019/05/17/testing-go-services-using-interfaces.html][Testing Go services using interfaces (deliveroo)]]
+- [[https://medium.com/@kelvin_sp/building-and-testing-a-rest-api-in-golang-using-gorilla-mux-and-mysql-1f0518818ff6][Building and Testing a REST API in GoLang using Gorilla Mux and MySQL]]
+- [[https://blog.codecentric.de/en/2017/08/gomock-tutorial/][Testing with GoMock: A Tutorial - codecentric AG Blog]]
+- [[https://blog.codecentric.de/2019/07/gomock-vs-testify/][GoMock vs. Testify: Mocking frameworks for Go]]
+  - learn how to use ~mockery~ and ~testify~
+  - 3 classes fo failures:
+    - Unexpected calls
+    - Missing calls (expected, but not occurred)
+    - Expected calls with unexpected parameter values
+- [[https://blog.alexellis.io/golang-writing-unit-tests/][Golang basics - writing unit tests]]
+- [[https://lanre.wtf/blog/2017/04/08/testing-http-handlers-go/][Testing HTTP Handlers in Go]]
+- [[https://mkaz.blog/code/testing-clients-to-an-http-api-in-go/][Testing Clients to an HTTP API in Go]]
+- [[https://blog.gopheracademy.com/advent-2016/how-to-write-good-tests-for-solid-code/][Writing good unit tests for SOLID go]]
+  - structs will depend on interfaces instead of structs (easy for dependency injection)
+  - What should be tested:
+    - when testing, you can think of it as sending and receiving messages
+    - *incoming messages* refer to calls to methods
+    - *outgoing messages* refers to calls from the tested object on its dependencies
+  - most people go first to integration tests
+- [[https://getstream.io/blog/how-we-test-go-at-stream/][Testing Go at Stream]]
+- [[https://medium.com/swlh/using-go-interfaces-for-testable-code-d2e11b02dea][Using Go Interfaces for Testable Code - The Startup - Medium]]
+  - using interfaces for stubbing
+- [[https://dev.to/ilyakaznacheev/how-i-write-my-unit-tests-in-go-quickly-4bd5][2020-05 | How I write my unit tests in Go quickly]]
+
+**** Fuzzing
+
+- [[https://medium.com/a-journey-with-go/go-fuzz-testing-in-go-deb36abc971f][Go: Fuzz Testing in Go - A Journey With Go]]
+
+**** TDD
+
+- More on [[*TDD]]
+Great resources:
+- [[HTTPS://github.com/quii/learn-go-with-tests][github.com/quii/learn-go-with-tests]]
+- [[https://leanpub.com/golang-tdd/read][leanpub.com/golang-tdd/read]]
+  - really good explanations
+
+*** Tools
+
+- [[https://www.alexedwards.net/blog/an-overview-of-go-tooling][An overview of Go's tooling]]
+- [[https://arenzana.org/2019/01/emacs-go-mode/][Emacs and Go mode]]
+- [[https://github.com/ChimeraCoder/gojson][gojson]]: Automatically generate Go (golang) struct definitions from example JSON
+- [[https://godoc.org/golang.org/x/tools][golang.org/x/tools]]
+  - [[http://golang.org/s/using-guru][go-guru]]
+- [[https://github.com/davecgh/go-spew][go-spew]]: Implements a deep pretty printer for Go data structures to aid in debugging
+- [[https://zoralab.gitlab.io/godocgen/en-us/][godocgen]]
+  #+begin_quote
+  Godocgen is an app built using Go programming language to generate Go module
+  package's documentations. It parses the packages documentation data and
+  facilitates custom rendering, enabling Gopher to use other hosting solution
+  like Hugo to host the documents.
+  #+end_quote
+- [[https://github.com/aaronjanse/3mux][3mux]]: Terminal multiplexer inspired by i3
+- [[https://github.com/jumbleview/tspur][tspur]]: Terminal Screen with Protected User Records (TSPUR)
+
+*** Templates
+
+- [[https://blog.gopheracademy.com/advent-2017/using-go-templates/][Using go templates]]
+
+*** Logging
+
+- [[https://www.0value.com/about-go-logging][About Go logging for reusable packages]]
+
+  Use some global variadic function:
+
+  #+begin_src go
+  package mypkg
+
+  // LogFunc is a function that logs the provided message with optional
+  // fmt.Sprintf-style arguments. By default, logs to the default log.Logger.
+  var LogFunc func(string, ...interface{}) = log.Printf
+  #+end_src
+
+- [[https://www.reddit.com/r/golang/comments/em8uiu/how_to_start_with_logging_in_go_projects_part_2/][Some words about logging]]
+  - Some tips:
+    - Never log in a package that isn't main
+    - Don't log things if the program is operating normally
+    - only log in package main
+
+- [[https://dave.cheney.net/2015/11/05/lets-talk-about-logging][Let's talk about logging]]
+- [[https://github.com/go-kit/kit/tree/master/log][go-kit/log]]
+
+*** OO
+
+- [[https://icyapril.com/go/programming/2017/12/17/object-orientation-in-go.html][Object Oriented Go - The Basics]]
+
+*** Serialization
+
+- [[http://choly.ca/post/go-json-marshalling/][Custom JSON Marshalling in Go]]
+  - Nice elegant solution using aliases, e.g.
+
+  #+begin_src go
+  func (u *MyUser) MarshalJSON() ([]byte, error) {
+    type Alias MyUser
+    return json.Marshal(&struct {
+      LastSeen int64 `json:"lastSeen"`
+      ,*Alias
+    }{
+      LastSeen: u.LastSeen.Unix(),
+      Alias:    (*Alias)(u),
+    })
+  }
+  #+end_src
+- [[http://gregtrowbridge.com/golang-json-serialization-with-interfaces/][Golang JSON Serialization With Interfaces]]
+  - Working with plants and animals
+  - adds extra field ~type~ to know which struct to use
+- [[https://stackoverflow.com/questions/42721732/is-there-a-way-to-have-json-unmarshal-select-struct-type-based-on-type-prope][Is there a way to have json.Unmarshal() select struct type based on “type” property?]]
+  - how to do deserialization when field is a list of interfaces
+  - implement ~UnmarshalJSON~ on slice of interfaces
+  - [[https://play.golang.org/p/zQyL0JeB3b][Example with []vehicle]]
+
+*** Security
+
+- [[https://blog.trailofbits.com/2019/11/07/attacking-go-vr-ttps/][Security assessment techniques for go projects]]
+  - static analysis, fuzzing, dynamic testing etc.
+
+** Hugo                                                    :hugo:
+:PROPERTIES:
+:EXPORT_FILE_NAME: hugo
+:END:
+
+Some curated list of bookmarks related to ~hugo~.
+
+*** Themes
+
+- [[https://themes.gohugo.io/hermit/][hermit]]
+  - https://www.petersheim.net
+    - first time this theme was seen
+  - https://nicke.io/
+    - dark version
+  - https://nayak.io/
+    - light version
+  - https://jimmysong.io/
+    - clean white
+  - https://leaanthony.com/
+    - clean white, navigation bar at the top
+  - https://linuxwind.com/
+    - another clean white version
+  - https://milad.dev
+    - clean blog structure
+    - also check his [[https://milad.dev/books][books list]]
+  - https://daryl.wakatara.com
+    - really nice posts about [[https://daryl.wakatara.com/tags/gtd/][productivity]], [[https://daryl.wakatara.com/tags/emacs/][emacs]] and interesting [[https://daryl.wakatara.com/tags/books/][book]] recommendations
+
+*** Searching
+
+- [[https://www.josephearl.co.uk/post/static-sites-search-hugo/][Easily add search using lunr.js]]
+- [[https://sentamal.in/articles/static-site-search-with-lunrjs/][Static site search using lunr.js]]
+- [[https://www.forsure.dev/-/2019/09/03/add-search-functionality-to-your-hugo-static-site/][Add search functionality to your hugo static site]]
+- [[https://halfelf.org/2017/hugos-making-json/][Generate index JSON]]
+- [[https://halfelf.org/2017/hugos-lunr-search/][Generate the Lunr.JS search]]
+- Themes that implement search
+  - [[https://github.com/vjeantet/hugo-theme-docdock][hugo-theme-dockdock]]
+
+** Music
+:PROPERTIES:
+:EXPORT_FILE_NAME: music
+:END:
+
+*** Bluetooth Codecs
+
+- [[https://www.amazon.com/b?ie=UTF8&node=14070322011][Amazon Music Unlimited HD FAQ]]
+- [[https://www.androidauthority.com/bluetooth-codecs-997074/][Bluetooth codecs 101: Everything you need to know - Android Authority]]
+  https://www.androidauthority.com/bluetooth-codecs-997074/
+- [[https://www.soundguys.com/understanding-bluetooth-codecs-15352/][Understanding Bluetooth codecs - SoundGuys]]
+- [[https://www.audioholics.com/audio-technologies/bluetooth-audio-guide][2018 Bluetooth Audio Codec Comparison Guide Part2: aptX HD, AAC & LDAC | Audioholics]]
+
+*** Binaurale Beats
+
+- [[https://www.12trance.de/binaural-beats-erklaert/][https://www.12trance.de/binaural-beats-erklaert/]]
+  - Wie funktionieren binaurale Beats?
+    #+begin_quote
+    Was genau passiert in deinem Gehirn, wenn du einer binauralen Musik zuhörst?
+    Zunächst einmal erreichen dich über die Kopfhörer links und rechts jeweils
+    verschiedene Sinustöne, so genannte Trägerfrequenzen. Diese hören sich je nach
+    Frequenz unterschiedlich hoch an. Beim Anhören werden diese beiden Töne direkt
+    in deinem Gehirn vermischt und ein Binauraler Ton erzeugt. Dieser besitzt genau
+    die Schwingungsfrequenz aus der Differenz der beiden Trägerfrequenzen.
+    #+end_quote
+  - Welche Frequenzen gibt es?
+     #+begin_quote
+     Prinzipiell wird zwischen 5 verschiedenen Bewusstseinszuständen unterschieden:
+
+     - Im *Gamma-Zustand* (ab 30 Hz) fühlen wir uns gestresst. Unser Körper arbeitet
+       hier auf Hochleistung. Der Niedriggammabereich bis 38 Hz wird auch oft als
+       Beta-3-Zustand bezeichnet.
+     - Im *Beta-Zustand* (13 - 30 bzw. 38 Hz) befinden wir uns quasi im Normalmodus.
+       Hier erledigen wir normale Tagesabläufe.
+     - Im *Alpha-Zustand* (8 - 13 Hz) treten wir in die Entspannung ein. Wenn wir
+       z.B. lesen, Musik hören oder uns etwas Interessantes ansehen.
+     - Der *Theta-Zustand* (4 - 8 Hz) ist ein besonderer Zustand zwischen Wachsein
+       und Schlaf; Halbschlaf, wenn man so will. Diesen Zustand nehmen wir meist
+       nicht mehr bewusst wahr, oft nur in tiefer Trance. Dieser Zustand ist
+       besonders interessant um luzide Träume auszulösen.
+     - Als letztes gibt es dann noch den *Delta-Zustand* (0 - 4 Hz). Diesen erreichen
+       wir in unseren Tiefschlafphasen. Wer in eine Astralreise einsteigen möchte,
+       muss diesen Zustand mit wachem Bewusstsein erreichen.
+     #+end_quote
+- Playlists
+  - [[https://www.youtube.com/channel/UCCgPgZzLtaDVN9eB4LOMZlA][neobeats]]
+  - [[https://www.youtube.com/channel/UCPF-YXh4LdqA7sykdjpPrHw][Magnetic Minds]]
+- Forschung
+  - [[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6900908/][Possible Effect of Binaural Beat Combined With Autonomous Sensory Meridian Response for Inducing Sleep]]
+
+*** Djembe :djembe:
+**** Youtube
+***** Watch "Hayashi-Mamady duo. Grandmasters Mamady Keita (djembeföla) and Eitetsu Hayashi (taiko soloist)" on YouTube
+
+https://youtu.be/NCnoDfOuIKY
+
+***** Watch "Harouna Dembele djembekan in Poland 2017" on YouTube
+
+https://youtu.be/IaIQkJUeYtE
+
+***** Watch "Thomas Guei djembekan Prague 2019 03 23" on YouTube
+
+https://youtu.be/XbJQyPzyd8E
+
+***** Watch "Harouna Dembele - Djembe Kan" on YouTube
+
+https://youtu.be/jJiiAz29s5E
+
+***** Watch "Petit Adama Diarra "Djembe Kan" Vilnius ( Lituania 2019)" on YouTube
+
+https://youtu.be/t2-swp8QxmQ
+
+* Notes                                                     :note:
+:PROPERTIES:
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true :noauthor true :nocomment true :nodate true :nopaging true :noread true
+:EXPORT_HUGO_SECTION: notes
+:EXPORT_HUGO_WEIGHT: auto
+:END:
+** BeyondCorp
+:PROPERTIES:
+:EXPORT_FILE_NAME: beyondcorp
+:END:
+
+#+begin_quote
+BeyondCorp is Google's implementation of the zero trust security model that
+builds upon eight years of building zero trust networks at Google, combined with
+ideas and best practices from the community. By shifting access controls from
+the network perimeter to individual users and devices, BeyondCorp allows
+employees, contractors, and other users to work more securely from virtually any
+location without the need for a traditional VPN. -- [[https://cloud.google.com/beyondcorp][BeyondCorp at Google]]
+#+end_quote
+
+*** [[https://research.google/pubs/pub43231/][Beyond Corp: A new approach to enterprise security]]
+
+- The perimeter security model is often compared to a medieval castle
+- access depends solely on device and user credentials, regard-less of a user’s network location—be it an enterprise location, a home network, or a hotel or coffee shop
+
+*** [[https://research.google/pubs/pub44860/][Beyond Corp: Design to Deployment at Google]]
+
+- access policies are based on information about a device, its state, and its associated user
+- use of X.509 certificates as a persistent device identifier
+
+*** [[https://research.google/pubs/pub45728/][Beyond Corp: The Access proxy]]
+
+- Google implemented a centralized policy enforcement front-end Access Proxy (AP) to handle coarse-grained company policies.
+- implemented for HTTP and SSH
+  - wrap SSH traffic in HTTP over TLS (by using ProxyCommand)
+  - they developed a local proxy, similar to Corkscrew
+- The main components of Google’s front-end infrastructure are a f leet of HTTP/HTTPS reverse proxies called Google Front Ends
+- authentication:
+  - support OAUTH, OpenID connect and custom protocols
+- authorization:
+  - ACL engine queryable via RPCs
+
+** AWS                                                     :aws:
+:PROPERTIES:
+:EXPORT_FILE_NAME: aws
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true
+:END:
+
+*** AMI
+*** aws cli
+
+Some currated list of useful ~aws~  CLI commands.
+
+- API Gateway
+
+  | desc             | command                               |
+  |------------------+---------------------------------------|
+  | get-domain-names | ~$ aws apigatewayv2 get-domain-names~ |
+
+- SSM
+
+  | desc          | command                                                                                           |
+  |---------------+---------------------------------------------------------------------------------------------------|
+  | get parameter | ~$ aws --profile default ssm get-parameter --with-decryption --name "<ssm path>"~                 |
+  | put parameter | ~$ aws ssm put-parameter --name <path> --value <value> --type SecureString --key-id <KMS key ID>~ |
+
+- Cloudformation
+
+  | desc               | command                                                              |
+  |--------------------+----------------------------------------------------------------------|
+  | tail for CF events | ~$tail-stack-events -f --die -n 5 --region <region> -s <stack name>~ |
+
+- SQS
+
+  | desc                    | command                                                                                                                                                                                |
+  |-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+  | receive one message     | ~$ aws sqs receive-message --queue-url <queue url> --region <region>~                                                                                                                  |
+  | get attributes of queue | ~$ aws sqs get-queue-attributes --queue-url <queue url> --region <region> --attribute-names All~                                                                                       |
+  | purge queue             | ~$ aws sqs purge-queue --queue-url <queue url>~                                                                                                                                        |
+
+- DynamodDB
+
+  | desc                 | command                                                                                                                                                                                |
+  |----------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+  | scan with expression | ~$ aws dynamodb scan --table-name <table name> --filter-expression "repo_name = :repo" --expression-attribute-values '{":repo":{"S":"my_repo"}}' --projection-expression <table fields>~ |
+  | scan                 | ~aws dynamodb scan --table-name tiddlers --endpoint http://127.0.0.1:8000~                                                                                                             |
+
+  - Delete multiple items
+
+    Use ~scan~ to retrieve list of items and save to same file:
+    #+begin_src shell
+    $ aws dynamodb scan --table-name <table name> --filter-expression "repo_name = :repo" --expression-attribute-values '{":repo":{"S":"my_repo"}}' --projection-expression "unique_id" > results.log
+    #+end_src
+
+    Then use ~delete-item~ to delete single entries:
+
+    #+begin_src shell
+    $ cat results.log | jq -r ".Items[] | tojson" | tr '\n' '\0' | xargs -0 -I keyItem aws dynamodb delete-item --table-name <table name> --key=keyItem
+    #+end_src
+
+*** Tools
+
+| Tool   | Description                         |
+|--------+-------------------------------------|
+| [[https://github.com/wallix/awless][awless]] | A mighty CLI for AWS                |
+| [[https://github.com/donnemartin/saws][saws]]   | A supercharged CLI based on aws cli |
+
+*** SQS
+
+- [[https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-visibility-timeout.html][Amazon SQS visibility timeout]]
+
+** Static Code Analysis
+*** Articles
+**** Lessons from building static analysis tools at Google :sca:google:
+:PROPERTIES:
+:EXPORT_FILE_NAME: lessons-from-building-static-analysis-tools-at-google
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true
+:END:
+
+https://cacm.acm.org/magazines/2018/4/226371-lessons-from-building-static-analysis-tools-at-google/fulltext
+
+***** Problems to solve
+
+- tool not integrated into developer's workflow
+- users don't trust the results
+- reported bug is theoretically possible, but the problem doesn't really manifest in practice
+- findings are to expensive to fix
+- users don't understand the warnings
+- On "effective false positives":
+  - developers didn't take action after seeing the issue
+  - developers don't understand the fault and therefore don't take action
+
+#+begin_quote
+Developers, not tool authors, will determine and act on a tool's perceived false-positive rate.
+#+end_quote
+
+- Lessons learned from integrating FindBugs into CI/CD
+  - integrate vulns dashboard with devs workflow
+  - Manually triaging issues and filing bug reports is not sustainable at a large scale.
+  - post results (from scanners) as comments on the code-review thread
+  - this integration was discontinued due
+    - the presence of effective false positives caused developers to lose confidence in the tool
+
+***** [[https://research.google/pubs/pub43322/][*Tricorder*]]
+
+- Architecture
+  [[file:images/tricorder_arch.png]]
+
+  #+begin_quote
+  Tricorder. Tricorder is designed to be easily extensible and support many different kinds of program-analysis tools, including static and dynamic analyses
+  #+end_quote
+
+  #+begin_quote
+  ricorder analyzers report results for more than 30 languages, support simple
+  syntactic analyses like style checkers, leverage compiler information for Java,
+  JavaScript, and C++, and are straightforward to integrate with production data
+  (such as about jobs that are currently running).
+  #+end_quote
+
+- Scaling
+  - As of January 2018, Tricorder had analyzed approximately 50,000 code review changes per day
+  - Reviewers clicked "Please Fix" more than 5,000 times per day
+  - Tricorder analyzers received "Not useful" clicks 250 times per day.
+
+***** Lessons learned
+
+- Google's initial implementation of FindBugs relied on engineers choosing to
+  visit a central dashboard to see the issues found in their projects, though
+  few of them actually made such a visit
+- finding bugs in already check-in code is too late
+- analysis tools must be integrated into the workflow and enabled by default for everyone
+- For a static analysis project to succeed, developers must feel they benefit from and enjoy using it.
+  - there is a team behind Tricorder
+  - team performs surveys to understand developer sentiment
+  - developers need to build trust in the tools
+  - If a tool wastes developer time with false positives and low-priority issues, developers will lose faith and ignore results.
+
+**** Scaling Static Analyses at Facebook                 :sca:facebook:
+:PROPERTIES:
+:EXPORT_FILE_NAME: scaling-static-analyses-at-facebook
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true
+:END:
+
+https://cacm.acm.org/magazines/2019/8/238344-scaling-static-analyses-at-facebook/fulltext
+#+begin_quote
+To industry professionals we say: advanced static analyses, like those found in
+the research literature, can be deployed at scale and deliver value for general
+code. And to academics we say: from an industrial point of view the subject
+appears to have many unexplored avenues, and this provides research
+opportunities to inform future tools.
+#+end_quote
+
+***** Deployments
+****** "diff time" deployment
+
+  - analyzers participate as bots in code review
+  - make automatic comments when engineer submits code modification
+  - this kind of deployment lead to *70% fix rate*
+  - traditional (offline or batch) deployment saw a *0% fix rate*
+  - security related issues are pushed to the security engineer on-call for
+    commenting on code modification
+
+****** Software Development at Facebook
+
+- there is a main codebase (master)
+- this gets altered by modifications submitted by devs
+- CI/CD:
+  - anaylyses run on the code modification and participate by *commenting their
+    findings directly in the code review tool*
+
+***** Reporting
+
+#+begin_quote
+The actioned reports and missed bugs are related to the classic concepts of true
+positives and false negatives from the academic static analysis literature. A
+true positive is a report of a potential bug that can happen in a run of the
+program in question (whether or not it will happen in practice); a false
+positive is one that cannot happen.
+#+end_quote
+
+****** False positives
+
+ #+begin_quote
+ the false positive rate is challenging to measure for a large, rapidly changing
+ codebase: it would be extremely time consuming for humans to judge all reports
+ as false or true as the code is changing.
+ #+end_quote
+
+- don't focus on true positives and false negatives (even if valuable concepts)
+- pay more attention to *action rate* and the observed *missed bugs*
+
+****** Actioned reports
+****** Observable missed bugs
+
+- has been observed in some way
+- but was not reported by an analysis
+
+***** Tools
+
+Tools used by Fb to conduct static analysis
+
+****** [[https://github.com/facebook/infer][Infer]]
+
+#+begin_quote
+Infer has its roots in academic research on program analysis with separation
+logic,5 research, which led to a startup company (Monoidics Ltd.) that was
+acquired by Facebook in 2013. Infer was open sourced in 2015 (www.fbinfer.com)
+and is used at Amazon, Spotify, Mozilla, and other companies.
+#+end_quote
+- targets mobile apps
+- applied to Java, Objective C and C++
+- processes about 10s of millions of Android and Objective C code
+- uses analysis logic based on the theory of *Separation Logic*
+- finds errors related to more than 30 types of issues:
+  - memory safety
+  - concurrency (deadlocks and starvation)
+  - security (information flow)
+  - custom errors (suggested by Fb devs)
+
+****** Zocolan
+
+- mainly does "taint" analysis
+  - builds a dependency graph that related methods to their potential callers
+  - uses this graph to schedule parallel analyses of individual methods
+- deployed for more than 2 years (in 2019), first to security engineers then to
+  software engineers
+- report can trigger the security expert to create tasks
+- can process over 100-million lines of [[https://hacklang.org][Hack]] code in less than 30 minutes
+- implements new modular parallel taint analysis algorithm
+
+***** Lessons learned
+****** First run
+
+First deployment was rather batch than continous:
+- run once (per night)
+- generate list of issues
+- assign issues to devs
+
+Results:
+- devs didn't act on the issues assigned
+- Fb reduced the false positive rate (down to 20%) but devs still didn't take
+  actions on issues
+
+****** Switch to Diff time
+
+- the response of engineers was at about 70%
+- positive rate didn't change
+- but the impact was bigger when the static analysis was deployed at diff time
+
+****** Human factors
+
+The success of the diff time came as no surprise to Fb's devs:
+- mental effort of context switch+
+  - if dev is working on one problem, and the assigned issue is about another
+    one, they must swap out the mental context of the first problem and swap in
+    the second
+  - by participating as a bot in the code review process, the context switch was
+    kind of solved
+- relevance
+  - sometimes it's hard to find the right person to assign issues to
+  - by commenting on a diff that introduces an issue we have a pretty good
+    chance to find the relevant person
+
+***** Additional resources
+
+- [[https://www.youtube.com/watch?v=Vj0QVRaw8A4]["Move fast and secure things (with static analysis)" by Ibrahim Mohamed El-Sayed]]
+- [[https://engineering.fb.com/security/zoncolan/][How Facebook uses static analysis to detect and prevent static issues]]
+
+** Software Engineering
+:PROPERTIES:
+:EXPORT_FILE_NAME: software-engineering
+:END:
+
+- [[https://blog.pragmaticengineer.com/software-architecture-is-overrated/amp/][Software Architecture is Overrated, Clear and Simple Design is Underrated]]
+
+** emacs                                                   :emacs:
+:PROPERTIES:
+:EXPORT_FILE_NAME: emacs
+:END:
+
+*** Topics
+**** How to remove empty lines in region
+
+- Select what you want to change, or C-x h to select the whole buffer.
+- Then: ~M-x flush-lines RET~ followed by ~^$ RET~ or ~^[[ : space : ]]*$ RET~
+- ~^[[ : space : ]]*$~ contain the meta-characters:
+  - ^ for beginning of string,
+  - $ for end of string,
+**** Tag multiple headers in a region
+
+- Select region
+- run ~M-x org-change-tag-in-region~
+
+** docker
+:PROPERTIES:
+:EXPORT_FILE_NAME: docker
+:END:
+
+*** Commands
+
+- Run a container
+  #+begin_src sh
+  $ docker run -ti <image repository> --name <name of new container>
+  #+end_src
+- Attach to running container
+  #+begin_src sh
+  $ docker attach --name <name of container>
+  #+end_src
+- Run command inside a running container
+  #+begin_src sh
+  $ docker container exec -ti <name of container> <command>
+  #+end_src
+
+** TDD
+:PROPERTIES:
+:EXPORT_FILE_NAME: tdd
+:DATE: 2015-01-01
+:END:
+
+*** Definition
+
+https://leanpub.com/golang-tdd/read
+
+#+begin_quote
+Test-driven development is a strict discipline for creating modular,
+well-designed and testable code without doing any upfront design. It achieves
+this by making you work in extremely short cycles: create an automated test,
+write the minimum amount of code to satisfy that test, and refactor your code to improve the quality.
+#+end_quote
+
+*** Cycles
+
+There are *3 cycles*
+- Red
+  - The cycle starts by writing a test that captures the new requirement; this test is expected to fail. Many tools display test failures in red, hence the name.
+- Green
+  - The cycle continues by writing the minimal amount of code necessary to satify the tests. This name too is derived from the fact that many tools display test success in green. When you start practicing test-driven development, it is a common pitfall to write more than the minimal amount of code. Be aware of this, and keep asking yourself if you are doing more than the minimum required.
+- Refactor
+  - The latest step in the cycle is what makes test-driven development a viable process: it forces you to step back, to look at your code, and to improve its structure without adding any functionality. The refactor step is not an optional step6 – without this step your code will quickly degenerate into a well-tested but incomprehensible mess.
+
+*** Test doubles
+
+Traditionally, there are five types of *test doubles*:
+
+- Dummies :: Types without any behavior at all, provided only because the signature of the unit under test requires them.
+- Stubs :: Types implementing the minimum amount of behavior to satisfy a test.
+- Mocks :: Partial implementations for which you can define expectations on how their methods will be called.
+- Spies :: Partial implementations on which you can assert that specific methods have been called.
+- Fakes :: Full, lightweight implementations such as in-memory databases.
+
+* Gists                                                     :gist:
+:PROPERTIES:
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true :noauthor true :nocomment true :nodate true :nopaging true :noread true
+:EXPORT_HUGO_SECTION: gists
+:EXPORT_HUGO_WEIGHT: auto
+:END:
+** A JavaScript keylogger using a websocket Golang server  :golang:
+:PROPERTIES:
+:EXPORT_FILE_NAME: javascript-keylogger-websocket-golang
+:HUGO_SECTION: gist
+:END:
+
+{{< gist dorneanu 02c9c5bb83e881e7ad2c1e93c7c2fd24 >}}
+** Simple plugin architecture in Python                    :python:
+:PROPERTIES:
+:EXPORT_FILE_NAME: simple-plugin-architecture-in-python
+:END:
+
+{{< gist dorneanu cce1cd6711969d581873a88e0257e312 >}}
+** List all repos inside an organization using python and github3 :python:github:
+:PROPERTIES:
+:EXPORT_FILE_NAME: list-all-repos-inside-an-organization-using-python-and-github3
+:END:
+
+{{< gist dorneanu d25e5eb327429095285fd6552486d064 >}}
+
+* COMMENT Local Variables                                   :ARCHIVE:
+# Local Variables:
+# eval: (org-hugo-auto-export-mode)
+# End:

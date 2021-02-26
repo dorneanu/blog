@@ -21,7 +21,8 @@ disqusShortname = "dorneanu"
 
 [permalinks]
 posts = "/:year/:month/:day/:title"
-notes = "/:year/:month/:day/:title"
+notes = "/notes/:title"
+gists = "/gists/:title"
 
 [Params]
   Introduce = "blog.dornea.nu"
@@ -82,6 +83,11 @@ notes = "/:year/:month/:day/:title"
   Name = "Tags"
   Pre = "book"
   URL = "/tags"
+  Weight = 6
+[[Menu.Main]]
+  Name = "Notes"
+  Pre = "book"
+  URL = "/notes"
   Weight = 6
 [[Menu.Main]]
   Name = "Zettelkasten"
