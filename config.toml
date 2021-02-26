@@ -90,6 +90,11 @@ gists = "/gists/:title"
   URL = "/notes"
   Weight = 6
 [[Menu.Main]]
+  Name = "Bookmarks"
+  Pre = "book"
+  URL = "/bookmarks"
+  Weight = 7
+[[Menu.Main]]
   Name = "Zettelkasten"
   Pre = "sticky-note"
   URL = "https://brainfck.org"
