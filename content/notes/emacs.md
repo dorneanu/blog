@@ -1,7 +1,7 @@
 +++
 title = "emacs"
 author = ["Victor Dorneanu"]
-lastmod = 2021-02-26T11:12:19+01:00
+lastmod = 2021-02-26T20:17:44+01:00
 tags = ["note", "emacs"]
 draft = false
 weight = 2004
@@ -29,3 +29,14 @@ noread = true
 
 -   Select region
 -   run `M-x org-change-tag-in-region`
+
+
+### Remove read-only lock in a buffer {#remove-read-only-lock-in-a-buffer}
+
+`C-x C-q`
+
+
+## org-mode {#org-mode}
+
+-   [Bookmark with Org-capture | The DevOps Blog](https://blog.lazkani.io/posts/text-editors/bookmark-with-org-capture/)
+    How to capture links with own functions (for lisp beginners)

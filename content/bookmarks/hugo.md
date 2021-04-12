@@ -1,7 +1,7 @@
 +++
 title = "Hugo"
 author = ["Victor Dorneanu"]
-lastmod = 2021-02-26T11:12:13+01:00
+lastmod = 2021-03-11T09:32:02+01:00
 tags = ["bookmark", "hugo"]
 draft = false
 weight = 2002
@@ -36,6 +36,13 @@ Some curated list of bookmarks related to `hugo`.
         -   also check his [books list](https://milad.dev/books)
     -   <https://daryl.wakatara.com>
         -   really nice posts about [productivity](https://daryl.wakatara.com/tags/gtd/), [emacs](https://daryl.wakatara.com/tags/emacs/) and interesting [book](https://daryl.wakatara.com/tags/books/) recommendations
+-   [Hugo Prose](https://prose.yihui.org/)
+-   [Tract](https://tract-docs.dev/en/)
+    -   Good for documentation
+-   [Hugo Theme Pure](https://themes.gohugo.io/hugo-theme-pure/)
+    -   Also has Tocbot
+-   [bella.bc](https://bella.cc/blog/)
+    -   Customization of ER theme with Zettels.
 
 
 ## Searching {#searching}
@@ -47,3 +54,8 @@ Some curated list of bookmarks related to `hugo`.
 -   [Generate the Lunr.JS search](https://halfelf.org/2017/hugos-lunr-search/)
 -   Themes that implement search
     -   [hugo-theme-dockdock](https://github.com/vjeantet/hugo-theme-docdock)
+
+
+## [Easy "Full Hugo" simple online shop with just Netlify + Stripe](https://discourse.gohugo.io/t/easy-full-hugo-simple-online-shop-with-just-netlify-stripe/27960/6) {#easy-full-hugo-simple-online-shop-with-just-netlify-plus-stripe}
+
+k

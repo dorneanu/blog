@@ -53,3 +53,7 @@ div.notices.tip p {
 div.notices.tip p:first-child:after {
     content: 'Tip';
 }
+
+img {
+    box-shadow: none;
+}

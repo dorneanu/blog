@@ -1,7 +1,7 @@
 +++
 title = "Golang"
 author = ["Victor Dorneanu"]
-lastmod = 2021-02-26T11:12:12+01:00
+lastmod = 2021-04-12T09:25:52+02:00
 tags = ["bookmark", "golang"]
 draft = false
 weight = 2001
@@ -26,14 +26,14 @@ toc = true
     Initialize `net/http` server with timeouts:
 
     ```nil
-        srv := &http.Server{
-            ReadTimeout:       1 * time.Second,
-            WriteTimeout:      1 * time.Second,
-            IdleTimeout:       30 * time.Second,
-            ReadHeaderTimeout: 2 * time.Second,
-            TLSConfig:         tlsConfig,
-            Handler:           srvMux,
-        }
+          srv := &http.Server{
+              ReadTimeout:       1 * time.Second,
+              WriteTimeout:      1 * time.Second,
+              IdleTimeout:       30 * time.Second,
+              ReadHeaderTimeout: 2 * time.Second,
+              TLSConfig:         tlsConfig,
+              Handler:           srvMux,
+          }
     ```
 
     -   the `net/http` packages provide a `TimeoutHandler`
@@ -112,11 +112,23 @@ generate the files. It also works well with [helm-gtags](https://melpa.org/#/hel
 -   [l3x.github.io/golang-code-examples/](http://l3x.github.io/golang-code-examples/)
 
 
+## Code Style {#code-style}
+
+-   [Cleaner go code with golines](https://yolken.net/blog/cleaner-go-code-golines)
+
+
 ## Design {#design}
 
 -   [SOLID Go Design](https://dave.cheney.net/2016/08/20/solid-go-design)
 -   [The Zen of Go](https://the-zen-of-go.netlify.com/)
     -   [more detailed version](https://dave.cheney.net/2020/02/23/the-zen-of-go)
+-   [Design Patterns by refactoring.guru](https://github.com/RefactoringGuru/design-patterns-go)
+-   [Hexagonal Architecture in Go](https://medium.com/@matiasvarela/hexagonal-architecture-in-go-cfd4e436faa3)
+
+
+## Fun {#fun}
+
+-   [Evolution of a Go programmer](https://github.com/SuperPaintman/the-evolution-of-a-go-programmer)
 
 
 ## Internals {#internals}
@@ -126,6 +138,18 @@ generate the files. It also works well with [helm-gtags](https://melpa.org/#/hel
 -   [Dissecting golang's HandlerFunc, Handle and DefaultServeMux](https://echorand.me/posts/golang-dissecting-listen-and-serve/)
 -   [Requests richtig verarbeiten: Keine Sorge beim Multiplexen in Go](https://jaxenter.de/golumne-go-requests-multiplexen-81161)
 -   [How to handle signals with Go to graceful shutdown HTTP server](https://rafallorenz.com/go/handle-signals-to-graceful-shutdown-http-server/)
+
+
+### [Life of an HTTP request in a Go server - Eli Bendersky's website](https://eli.thegreenplace.net/2021/life-of-an-http-request-in-a-go-server/) {#life-of-an-http-request-in-a-go-server-eli-bendersky-s-website}
+
+
+### Context {#context}
+
+-   [Contexts and structs](https://blog.golang.org/context-and-structs)
+
+    > Context provides a means of transmitting deadlines, caller cancellations, and other request-scoped values across API boundaries and between processes. It is often used when a library interacts --- directly or transitively --- with remote servers, such as databases, APIs
+    >
+    > When designing an API with context, remember the advice: pass `context.Context` in as an argument; don't store it in structs.
 
 
 ## Interviews {#interviews}
@@ -157,6 +181,17 @@ generate the files. It also works well with [helm-gtags](https://melpa.org/#/hel
     -   Slack bot core/framework written in Go with support for reactions to message updates/deletes
 
 
+## Malware {#malware}
+
+-   [Blackrota, a heavily obfuscated backdoor written in Go](https://blog.netlab.360.com/blackrota-an-obfuscated-backdoor-written-in-go-en/amp/)
+
+
+## Modules {#modules}
+
+-   [How I Structure Go Packages](https://bencane.com/stories/2020/07/06/how-i-structure-go-packages/)
+    Some great advice about logging and package structure
+
+
 ## Testing {#testing}
 
 -   [Learn go with test-driven development (TDD)](https://github.com/quii/learn-go-with-tests)
@@ -183,6 +218,9 @@ generate the files. It also works well with [helm-gtags](https://melpa.org/#/hel
 -   [Using Go Interfaces for Testable Code - The Startup - Medium](https://medium.com/swlh/using-go-interfaces-for-testable-code-d2e11b02dea)
     -   using interfaces for stubbing
 -   [2020-05 | How I write my unit tests in Go quickly](https://dev.to/ilyakaznacheev/how-i-write-my-unit-tests-in-go-quickly-4bd5)
+    -   on dependency injection
+    -   duck typing interfaces
+    -   BDD (Behaviour Driven Development)
 
 
 ### Fuzzing {#fuzzing}
@@ -231,11 +269,11 @@ Great resources:
     Use some global variadic function:
 
     ```go
-        package mypkg
+          package mypkg
 
-        // LogFunc is a function that logs the provided message with optional
-        // fmt.Sprintf-style arguments. By default, logs to the default log.Logger.
-        var LogFunc func(string, ...interface{}) = log.Printf
+          // LogFunc is a function that logs the provided message with optional
+          // fmt.Sprintf-style arguments. By default, logs to the default log.Logger.
+          var LogFunc func(string, ...interface{}) = log.Printf
     ```
 
 -   [Some words about logging](https://www.reddit.com/r/golang/comments/em8uiu/how%5Fto%5Fstart%5Fwith%5Flogging%5Fin%5Fgo%5Fprojects%5Fpart%5F2/)
@@ -253,6 +291,15 @@ Great resources:
 -   [Object Oriented Go - The Basics](https://icyapril.com/go/programming/2017/12/17/object-orientation-in-go.html)
 
 
+## Packaging {#packaging}
+
+-   [Zombie Zen - How I packaged a Go program for Windows and Linux](https://www.zombiezen.com/blog/2020/09/how-i-packaged-go-program-windows-linux/)
+-   [Packages as layers, not groups](https://www.gobeyond.dev/packages-as-layers/amp/)
+    -   How to think of your modules as layers and not as groups
+    -   by Ben Johnson (wo wrote the [standard package layout](https://medium.com/@benbjohnson/standard-package-layout-7cdbc8391fc1))
+-   [How to Structure a Go Command-Line Project](https://bencane.com/2020/12/29/how-to-structure-a-golang-cli-project/)
+
+
 ## Serialization {#serialization}
 
 -   [Custom JSON Marshalling in Go](http://choly.ca/post/go-json-marshalling/)
@@ -262,16 +309,16 @@ Great resources:
     <!--listend-->
 
     ```go
-        func (u *MyUser) MarshalJSON() ([]byte, error) {
-          type Alias MyUser
-          return json.Marshal(&struct {
-            LastSeen int64 `json:"lastSeen"`
-            *Alias
-          }{
-            LastSeen: u.LastSeen.Unix(),
-            Alias:    (*Alias)(u),
-          })
-        }
+          func (u *MyUser) MarshalJSON() ([]byte, error) {
+            type Alias MyUser
+            return json.Marshal(&struct {
+              LastSeen int64 `json:"lastSeen"`
+              *Alias
+            }{
+              LastSeen: u.LastSeen.Unix(),
+              Alias:    (*Alias)(u),
+            })
+          }
     ```
 -   [Golang JSON Serialization With Interfaces](http://gregtrowbridge.com/golang-json-serialization-with-interfaces/)
     -   Working with plants and animals
@@ -286,3 +333,10 @@ Great resources:
 
 -   [Security assessment techniques for go projects](https://blog.trailofbits.com/2019/11/07/attacking-go-vr-ttps/)
     -   static analysis, fuzzing, dynamic testing etc.
+-   [CSRF Attacks](https://goteleport.com/blog/csrf-attacks/)
+    -   Implementing CSRF, auth handler
+
+
+## Surveys {#surveys}
+
+-   [State of Go in 2021](https://blog.jetbrains.com/go/2021/02/03/the-state-of-go/)

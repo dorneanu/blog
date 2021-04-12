@@ -1,7 +1,7 @@
 +++
 title = "List all repos inside an organization using python and github3"
 author = ["Victor Dorneanu"]
-lastmod = 2021-02-26T11:12:23+01:00
+lastmod = 2021-03-10T14:15:22+01:00
 tags = ["gist", "python", "github"]
 draft = false
 weight = 2003
