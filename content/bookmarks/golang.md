@@ -1,7 +1,7 @@
 +++
 title = "Golang"
 author = ["Victor Dorneanu"]
-lastmod = 2021-04-12T09:25:52+02:00
+lastmod = 2021-04-15T10:08:42+02:00
 tags = ["bookmark", "golang"]
 draft = false
 weight = 2001
@@ -70,6 +70,11 @@ toc = true
 -   [expressive DynamoDB library for Go](https://github.com/guregu/dynamo)
 
 
+### CDK {#cdk}
+
+-   [Getting started with CDK and Golang](https://aws.amazon.com/blogs/developer/getting-started-with-the-aws-cloud-development-kit-and-go/)
+
+
 ## Books {#books}
 
 -   [List of interesting Golang Books](https://github.com/dariubs/GoBooks)
@@ -101,6 +106,11 @@ go get -u -v github.com/zmb3/gogetdoc
 ```
 
 
+### doom emacs {#doom-emacs}
+
+-   [Ladicle Golang Doom Emacs customizations](https://qiita.com/Ladicle/items/feb5f9dce9adf89652cf)
+
+
 ### GTAGS {#gtags}
 
 `gtags` will create `CTAGS` files to [global](https://www.gnu.org/software/global/). For Go you can use [gogtags](https://github.com/juntaki/gogtags) to
@@ -115,6 +125,16 @@ generate the files. It also works well with [helm-gtags](https://melpa.org/#/hel
 ## Code Style {#code-style}
 
 -   [Cleaner go code with golines](https://yolken.net/blog/cleaner-go-code-golines)
+-   [Effective Go (golang.org)](https://golang.org/doc/effective%5Fgo)
+
+
+### Clean Code Examples {#clean-code-examples}
+
+-   [github.com/ahmetb/kubectx](https://github.com/ahmetb/kubectx)
+-   [github.com/gojek/heimdall](https://github.com/gojek/heimdall)
+-   [github.com/ethereum/go-ethereum](https://github.com/ethereum/go-ethereum)
+-   [github.com/drone/drone](https://github.com/drone/drone)
+-   [github.com/google/exposure-notifications-server](https://github.com/google/exposure-notifications-server)
 
 
 ## Design {#design}
@@ -138,9 +158,7 @@ generate the files. It also works well with [helm-gtags](https://melpa.org/#/hel
 -   [Dissecting golang's HandlerFunc, Handle and DefaultServeMux](https://echorand.me/posts/golang-dissecting-listen-and-serve/)
 -   [Requests richtig verarbeiten: Keine Sorge beim Multiplexen in Go](https://jaxenter.de/golumne-go-requests-multiplexen-81161)
 -   [How to handle signals with Go to graceful shutdown HTTP server](https://rafallorenz.com/go/handle-signals-to-graceful-shutdown-http-server/)
-
-
-### [Life of an HTTP request in a Go server - Eli Bendersky's website](https://eli.thegreenplace.net/2021/life-of-an-http-request-in-a-go-server/) {#life-of-an-http-request-in-a-go-server-eli-bendersky-s-website}
+-   [Life of an HTTP request in a Go server - Eli Bendersky's website](https://eli.thegreenplace.net/2021/life-of-an-http-request-in-a-go-server/)
 
 
 ### Context {#context}
@@ -150,6 +168,8 @@ generate the files. It also works well with [helm-gtags](https://melpa.org/#/hel
     > Context provides a means of transmitting deadlines, caller cancellations, and other request-scoped values across API boundaries and between processes. It is often used when a library interacts --- directly or transitively --- with remote servers, such as databases, APIs
     >
     > When designing an API with context, remember the advice: pass `context.Context` in as an argument; don't store it in structs.
+
+-   [How to use context in different uses cases](https://steveazz.xyz/blog/import-context/)
 
 
 ## Interviews {#interviews}
@@ -298,6 +318,7 @@ Great resources:
     -   How to think of your modules as layers and not as groups
     -   by Ben Johnson (wo wrote the [standard package layout](https://medium.com/@benbjohnson/standard-package-layout-7cdbc8391fc1))
 -   [How to Structure a Go Command-Line Project](https://bencane.com/2020/12/29/how-to-structure-a-golang-cli-project/)
+-   [Go best practices, six years in](https://peter.bourgon.org/go-best-practices-2016/#repository-structure)
 
 
 ## Serialization {#serialization}
@@ -335,6 +356,20 @@ Great resources:
     -   static analysis, fuzzing, dynamic testing etc.
 -   [CSRF Attacks](https://goteleport.com/blog/csrf-attacks/)
     -   Implementing CSRF, auth handler
+
+
+### Pentest {#pentest}
+
+-   [github.com/sysdream/hershell](https://github.com/sysdream/hershell)
+-   [github.com/sysdream/chashell](https://github.com/sysdream/chashell)
+    -   using DNS as reverse shell
+-   [github.com/sysdream/ligolo](https://github.com/sysdream/ligolo)
+
+
+### Botnets {#botnets}
+
+-   [github.com/gnxbr/Unbreakable-Botnet-C2](https://github.com/gnxbr/Unbreakable-Botnet-C2)
+    -   using Blockchains for communication channel
 
 
 ## Surveys {#surveys}
