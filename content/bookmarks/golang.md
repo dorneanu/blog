@@ -1,7 +1,7 @@
 +++
 title = "Golang"
 author = ["Victor Dorneanu"]
-lastmod = 2021-04-15T10:08:42+02:00
+lastmod = 2021-04-21T10:26:01+02:00
 tags = ["bookmark", "golang"]
 draft = false
 weight = 2001
@@ -210,6 +210,7 @@ generate the files. It also works well with [helm-gtags](https://melpa.org/#/hel
 
 -   [How I Structure Go Packages](https://bencane.com/stories/2020/07/06/how-i-structure-go-packages/)
     Some great advice about logging and package structure
+-   [Go best practices, 6 years in](https://peter.bourgon.org/go-best-practices-2016/#repository-structure)
 
 
 ## Testing {#testing}
@@ -275,6 +276,8 @@ Great resources:
     > like Hugo to host the documents.
 -   [3mux](https://github.com/aaronjanse/3mux): Terminal multiplexer inspired by i3
 -   [tspur](https://github.com/jumbleview/tspur): Terminal Screen with Protected User Records (TSPUR)
+-   [json-to-go](https://mholt.github.io/json-to-go/)
+    -   This tool instantly converts JSON into a Go type definition
 
 
 ## Templates {#templates}
@@ -375,3 +378,9 @@ Great resources:
 ## Surveys {#surveys}
 
 -   [State of Go in 2021](https://blog.jetbrains.com/go/2021/02/03/the-state-of-go/)
+
+
+## UI {#ui}
+
+-   [Vugu](https://www.vugu.org/)
+    -   A modern UI library for Go+WebAssembly

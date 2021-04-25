@@ -1,17 +1,491 @@
-#+TITLE: ORG Content
-#+AUTHOR: Victor Dorneanu
-#+STARTUP: indent
-#+HUGO_BASE_DIR: ../
-#+HUGO_SECTION: posts
-#+HUGO_AUTO_SET_LASTMOD: t
+#+title: ORG Content
+#+author: Victor Dorneanu
+#+startup: indent
+#+hugo_base_dir: ../
+#+hugo_section: posts
+#+hugo_auto_set_lastmod: t
+#+property: header-args :eval never-export
 
-* Bookmarks                                                 :bookmark:
+#+macro: zk [[https://brainfck.org/#$1][$2]]
+#+macro: bib [[https://brainfck.org/bib.html#$1][$2]]
+
+* Posts
+** DONE Implement an access key rotator :golang:architecture:aws:github:
+CLOSED: [2021-04-25]
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2021-implement-an-access-key-rotator
+:END:
+*** Introduction
+With the recent success of [[https://docs.github.com/en/actions/learn-github-actions][Github actions]] you can automate lots of things whenever something in your repos changes, e.g. automatically generate static HTML content (using [[file:/tags/hugo][hugo]]) and push it to some repository for which GitHub Pages has been configured. Check this [[https://github.com/sdras/awesome-actions][awesome actions]] list for more use cases.
+
+Using [[https://docs.github.com/en/actions/reference/encrypted-secrets][encrypted secrets]] defined either per repository or organization, you can bring your Github workflow to the next level: Authenticate against APIs, login to different services while keeping your secrets/credentials away from your repositories. As a general you should *never* store credentials in your repositories, even
+if they're private. Misconfigurations happen all the time and private repos can become public ones without further notice.
+
+In this post I want to show the [[file:/tags/golang][Golang]] way how to update Github *secrets* in some repository. These secrets (more concrete an ~AWS IAM access key ID~ and an ~AWS IAM access secret key~) should be used to interact with [[file:/tags/aws][AWS]]. Rotating these keys regularly is essential and also part of the [[https://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html][AWS access keys best practices]].
+
+{{% notice tip %}}
+Make sure you also check [[https://github.com/dorneanu/access-key-rotator][github.com/dorneanu/access-key-rotator]] for the complete project.
+{{% /notice %}}
+
+*** Clean architecture
+
+I'm obsessed with clean code, clean architecture and almost everything that has an easy to understand structure.
+First of all I'll start with the ~use cases~ which describe what the application is capabable of doing. In our case we have
+
+- Rotate keys
+  - Given a ~key manager~ the existing access keys will be rotated
+- Upload secrets
+  - using a ~secrets store~ we'll upload the *encrypted* access key to some storage for later usage
+
+The ~KeyManager~ and the ~SecretsStore~ are interfaces to be implemented by different service providers. What the both have in common is the
+~AccessKey~ data structure which holds everything we need to know about an access key.
+ 
+
+#+begin_src plantuml :file ../static/posts/img/2021/key-rotator-interfavces-entities.png :cmdline -charset UTF-8 :exports results
+allow_mixing
+
+folder Interfaces {
+    interface KeyManager {
+        + ListAccessKeys()
+        + CreateNewAccessKey()
+        + DeleteAccessKey()
+    }
+
+    interface SecretsStore {
+        + CreateSecret()
+        + UpdateSecret()
+        + DeleteSecret()
+    }
+}
+
+folder Entities {
+    class AccessKey{
+        + ID
+        + Secret
+    }
+}
+
+usecase (Use case: Rotate\nkeys) as UC1
+usecase (Use case: Upload\nsecrets) as UC2
+KeyManager -up-> AccessKey : use
+SecretsStore -up-> AccessKey : use
+
+KeyManager <-- UC1 : use
+SecretsStore <-- UC2 : use
+#+end_src
+
+#+CAPTION: Interfaces using entities
+#+RESULTS:
+[[file:../static/posts/img/2021/key-rotator-interfavces-entities.png]]
+
+
+Now that we have defined the general application design, let's go more into details and see which components have to implement the declared interfaces:
+
+- ~KeyManager~
+  - a key manager is something that holds/stores your access keys and provides functionalities (CRUD: create, read, update, delete) in order to manage those
+  - examples: AWS IAM, Google Cloud IAM, Azure IAM
+- ~SecretsStore~
+  - something that stores your access keys in a secure manner
+  - examples: GitHub Secrets, Gitlab Secrets, LastPass
+- ~ConfigStore~
+  - something related to a parameter store
+  - examples: AWS SecretsManager, Google Cloud Secret Manager
+
+Each of these components (using 3rd-party libraries etc.) will need to implement the correspondig interface.
+
+#+begin_src plantuml :file ../static/posts/img/2021/key-rotator.png :cmdline -charset UTF-8 :exports results
+folder Interfaces {
+
+    interface KeyManager {
+        + ListAccessKeys()
+        + CreateNewAccessKey()
+        + DeleteAccessKey()
+    }
+
+    interface SecretsStore {
+        + CreateSecret()
+        + UpdateSecret()
+        + DeleteSecret()
+    }
+    interface ConfigStore {
+	      + GetValue(key string) string
+    }
+}
+
+folder Entities {
+    class AccessKey{
+        + ID
+        + Secret
+    }
+}
+
+
+folder "github.com/aws/aws-sdk-go-v2" {
+    interface AWSIAM {
+        + ListAccessKeys()
+        + CreateNewAccessKey()
+        + DeleteAccessKey()
+    }
+    interface AWSSSM {
+        + GetParameter()
+    }
+}
+
+folder "cloud.google.com/go" {
+    interface GCPIAM {
+        + ListAccessKeys()
+        + CreateNewAccessKey()
+        + DeleteAccessKey()
+    }
+}
+
+folder "github.com/google/go-github" {
+    class GithubAPI
+}
+
+folder "Own code" {
+    class GCPKeyManager{
+        - client *gcp.Client
+    }
+    class AWSKeyManager{
+        - client *iam.Client
+    }
+    class AWSConfigStore {
+        - client *ssm.Client
+    }
+    class GithubSecretsStore
+    class GitlabSecretsStore
+}
+
+
+
+AWSKeyManager --> KeyManager
+AWSConfigStore --> ConfigStore
+GCPKeyManager --> KeyManager
+AWSKeyManager -up-> AWSIAM
+AWSConfigStore -up-> AWSSSM
+GCPKeyManager -up-> GCPIAM
+
+GithubSecretsStore -up-> GithubAPI :use
+
+GithubSecretsStore --> SecretsStore
+GitlabSecretsStore --> SecretsStore
+
+KeyManager -down-> AccessKey : use
+SecretsStore -down-> AccessKey : use
+#+end_src
+
+#+CAPTION: Components implementing interfaces
+#+RESULTS:
+[[file:../static/posts/img/2021/key-rotator.png]]
+
+*** AWS Golang SDK v2
+
+I'll be using the latest Golang SDK which is [[https://github.com/aws/aws-sdk-go-v2][v2]]. In order to manage the [[https://aws.github.io/aws-sdk-go-v2/docs/code-examples/iam/][IAM access]] keys we're going to need these endpoints:
+
+- list all available access keys using [[https://aws.github.io/aws-sdk-go-v2/docs/code-examples/iam/listaccesskeys/][ListAccessKeysV2]]
+- generate new IAM access key using [[https://aws.github.io/aws-sdk-go-v2/docs/code-examples/iam/createaccesskey/][CreateAccessKeyv2]]
+- delete old access keys using [[https://aws.github.io/aws-sdk-go-v2/docs/code-examples/iam/deleteaccesskey/][DeleteAccessKeyv2]]
+
+In order the make the code more *testable* I'll be using an *interface* called ~IAMAPI~ which should contain all methods an IAM API real implementation
+should provide. Generating mocks should be then also an easy task as described in [[https://aws.github.io/aws-sdk-go-v2/docs/unit-testing/][Unit Testing with the AWS SDK for Go V2]].
+
+#+begin_src go
+type IAMAPI interface {
+	ListAccessKeys() ...
+	CreateAccessKey() ...
+	DeleteAccessKey() ...
+}
+#+end_src
+
+Additionally I'll use an own ~Configuration~ type meant to hold all information my applications needs. I find [[https://github.com/kelseyhightower/envconfig][github.com/kelseyhightower/envconfig]] to be quite
+handy when you have to deal with *environment* variables:
+
+#+begin_src go
+// Config holds all relevant information for this application to run
+type Config struct {
+	IAM_User   string `envconfig:"IAM_USER", required:"true"`
+	AWS_REGION string `envconfig:"AWS_REGION" required:"true"`
+	...
+}
+#+end_src
+
+**** List/Fetch all available IAM keys
+
+First of all let's list all available IAM access keys.
+
+#+begin_src go
+package main
+
+import (
+	"context"
+	"fmt"
+	"log"
+
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/iam"
+	"github.com/kelseyhightower/envconfig"
+)
+
+// Config holds all relevant information for this application to run
+type Config struct {
+	IAM_User   string `envconfig:"IAM_USER", required:"true"`
+	AWS_REGION string `envconfig:"AWS_REGION" required:"true"`
+}
+
+// We'll define an interface fot the IAM API in order to make testing easy
+// This interface will be extended as we go through the different steps
+type IAMAPI interface {
+	ListAccessKeys(ctx context.Context, params *iam.ListAccessKeysInput, optFns ...func(*iam.Options)) (*iam.ListAccessKeysOutput, error)
+}
+
+// ListAccessKeys retrieves the IAM access keys for an user
+func ListAccessKeys(c context.Context, api IAMAPI, username string) (*iam.ListAccessKeysOutput, error) {
+	input := &iam.ListAccessKeysInput{
+		MaxItems: aws.Int32(int32(10)),
+		UserName: &username,
+	}
+	return api.ListAccessKeys(c, input)
+}
+
+// loadConfig will return an instance of Config
+func loadConfig() *Config {
+	var c Config
+	err := envconfig.Process("", &c)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	return &c
+}
+
+func main() {
+	// Get configuration
+	c := loadConfig()
+
+	// Initialize AWS
+	cfg, err := config.LoadDefaultConfig(context.TODO())
+	if err != nil {
+		panic("configuration error, " + err.Error())
+	}
+
+	// Create new IAM client
+	iam_client := iam.NewFromConfig(cfg)
+	result, err := ListAccessKeys(context.TODO(), iam_client, c.IAM_User)
+	if err != nil {
+		fmt.Println("Got an error retrieving user access keys:")
+		fmt.Println(err)
+		return
+	}
+
+	// Print available IAM access keys
+	for _, key := range result.AccessKeyMetadata {
+		fmt.Println("Status for access key " + *key.AccessKeyId + ": " + string(key.Status))
+	}
+}
+#+end_src
+
+#+begin_example
+Status for access key AKIAWSIW5AN47M5YY72J: Active
+#+end_example
+
+As you can see there is an IAM access key with the ID ~AKIAWSIW5AN47M5YY72J~ and it's active.
+
+**** Generate new IAM access key
+In the next step we'll generate a new pair of access key. Therefore we'll extend the ~IAMAPI~ interface with a 2nd method:
+
+#+begin_src go
+type IAMAPI interface {
+	ListAccessKeys(ctx context.Context, params *iam.ListAccessKeysInput, optFns ...func(*iam.Options)) (*iam.ListAccessKeysOutput, error)
+	CreateAccessKey(ctx context.Context, params *iam.CreateAccessKeyInput, optFns ...func(*iam.Options)) (*iam.CreateAccessKeyOutput, error)
+}
+#+end_src
+
+Creating a new key pair should also be straght forwards:
+
+#+begin_src go
+// CreateAccessKey will create a new IAM access key for a specified user
+func CreateAccessKey(c context.Context, api IAMAPI, username string) (*iam.CreateAccessKeyOutput, error) {
+	input := &iam.CreateAccessKeyInput{
+		UserName: &username,
+	}
+	return api.CreateAccessKey(c, input)
+}
+#+end_src
+
+And then in the ~main()~ we add:
+#+begin_src go
+	// Create new IAM access key
+	new_key, err := CreateAccessKey(context.TODO(), iam_client, c.IAM_User)
+	if err != nil {
+		fmt.Println("Couldn't create new key: " + err.Error())
+		return
+	}
+
+	// Print new key
+	fmt.Println("Created new access key with ID: " + *new_key.AccessKey.AccessKeyId + " and secret key: " + *new_key.AccessKey.SecretAccessKey)
+#+end_src
+
+And if we run it, we'll get the new key id and the secret key:
+
+#+begin_example
+...
+Created new access key with ID: AKIAWSIW5AN46DT2ENLL and secret key: ****************************************
+#+end_example
+
+**** Delete old access key
+
+We'll extend the ~IAMAPI~ interface again:
+#+begin_src go
+type IAMAPI interface {
+	ListAccessKeys(ctx context.Context, params *iam.ListAccessKeysInput, optFns ...func(*iam.Options)) (*iam.ListAccessKeysOutput, error)
+	CreateAccessKey(ctx context.Context, params *iam.CreateAccessKeyInput, optFns ...func(*iam.Options)) (*iam.CreateAccessKeyOutput, error)
+	DeleteAccessKey(ctx context.Context, params *iam.DeleteAccessKeyInput, optFns ...func(*iam.Options)) (*iam.DeleteAccessKeyOutput, error)
+}
+#+end_src
+
+The ~DeleteAccessKey~ will also need an ~access key ID~ and an ~username~:
+
+#+begin_src go
+// DeleteAccessKey disables and removes an IAM access key
+func DeleteAccessKey(c context.Context, api IAMAPI, keyID, username string) (*iam.DeleteAccessKeyOutput, error) {
+	input := &iam.DeleteAccessKeyInput{
+		AccessKeyId: &keyID,
+		UserName:    &username,
+	}
+	return api.DeleteAccessKey(c, input)
+}
+#+end_src
+
+For this example we'll just delete the previously created IAM access key:
+
+#+begin_src go
+	// Delete key
+	_, err = DeleteAccessKey(
+		context.TODO(),
+		iam_client,
+		,*new_key.AccessKey.AccessKeyId,
+		c.IAM_User,
+	)
+	if err != nil {
+		fmt.Println("Couldn't delete key: " + err.Error())
+		return
+	}
+	fmt.Printf("Deleted key: %s\n", *new_key.AccessKey.AccessKeyId)
+#+end_src
+*** Github setup
+The Github implementation will have to satisfy the ~SecretsStore~ interface:
+
+#+begin_src golang
+type SecretsStore interface {
+	EncryptKey(context.Context, entity.AccessKey) (*entity.EncryptedKey, error)
+	ListSecrets(context.Context) ([]entity.AccessKey, error)
+	CreateSecret(context.Context, entity.EncryptedKey) error
+	DeleteSecret(context.Context, entity.EncryptedKey) error
+}
+#+end_src
+
+**** SecretsStore implementation
+As we have done with *AWS* we'll try to decouple everything and have less cohesion. This will make every part of our code testable.
+The ~GithubSecretsStore~ (implementing ~SecretsStore~) will look like this:
+
+#+begin_src golang
+type GithubSecretsStore struct {
+	repo_owner    string
+	repo_name     string
+	secretsClient GithubSecretsService
+}
+#+end_src
+
+**** Make secrets service abstract
+The ~secretsClient~ is a *service* that allows us to create, upload and delete secrets using [[https://docs.github.com/en/rest/reference/actions#secrets][Github's Secrets API]]. The ~GithubSecretsService~
+will have following definition (make sure to have a look at the methods provided by the [[https://pkg.go.dev/github.com/google/go-github/v32/github#ActionsService][ActionsService]]):
+
+#+begin_src golang
+type GithubSecretsService interface {
+	GetRepoPublicKey(ctx context.Context, owner, repo string) (*github.PublicKey, *github.Response, error)
+	CreateOrUpdateRepoSecret(ctx context.Context, owner, repo string, eSecret *github.EncryptedSecret) (*github.Response, error)
+	ListRepoSecrets(ctx context.Context, owner, repo string, opts *github.ListOptions) (*github.Secrets, *github.Response, error)
+	DeleteRepoSecret(ctx context.Context, owner, repo, name string) (*github.Response, error)
+}
+#+end_src
+
+This way we can create a ~GithubSecretsStore~ with a mocked version of ~GithubSecretsService~. But there is still something missing. Of course, the ~Github client~ itself:
+
+#+begin_src golang
+type GithubClient struct {
+	client *github.Client
+}
+#+end_src
+
+**** Use a real Github client
+And how does this structure fit together with the *service* and the *store*? Following /constructor/ should provide the answer:
+
+#+begin_src golang
+func NewGithubClient(accessToken string) GithubSecretsService {
+	ctx := context.Background()
+	ts := oauth2.StaticTokenSource(
+		&oauth2.Token{AccessToken: accessToken},
+	)
+	tc := oauth2.NewClient(ctx, ts)
+	client := github.NewClient(tc)
+	return client.Actions
+}
+#+end_src
+
+Here I initialize a new ~github.Client~ by using an OAUTH2 token. Afterwards I return ~client.Actions~ which btw satisfies the ~GithubSecretsService~ interface. Now let's code a constructor for the ~GithubSecretsStore~:
+
+#+begin_src golang
+func NewGithubSecretsStore(secretsService GithubSecretsService, repoOwner, repoName string) *GithubSecretsStore {
+	return &GithubSecretsStore{
+		secretsClient: secretsService,
+		repo_owner:    repoOwner,
+		repo_name:     repoName,
+	}
+}
+#+end_src
+
+Here ~NewGithubSecretsStore~ expects a ~GithubSecretsService~ and some other additional information (repository owner/name). As the {{{zk(LSP, Liskow Substitution Principle)}}} says:
+
+#+begin_quote
+Express dependencies between packages in terms of interfaces and not concrete types
+#+end_quote
+
+in ~NewGithubSecretsStore~ we don't expect an ~ActionsService~ as it is returned by ~github.Client.Actions~. So, in order to glue everything together we'll have to
+
+- first create a concrete implementation of ~GithubSecretsService~
+- and then create a new ~GithubSecretsStore~ with that concrete implementation
+
+So in the real code this will look like this:
+
+#+begin_src golang
+accessToken, err := configStore.GetValue(context.Background(), "github-token")
+if err != nil {
+    log.Fatalf("Unable to get value from config store: %s", err)
+}
+githubSecretsClient := s.NewGithubClient(accessToken)
+secretsStore = s.NewGithubSecretsStore(githubSecretsClient, settings.RepoOwner, settings.RepoName)
+#+end_src
+
+
+*** Conclusion
+Setting up a project with clean code in mind is not an easy task. You have to abstract things
+and always keep in mind:
+
+#+begin_quote
+How can you know your code works? That’s easy. Test it. Test it again. Test it up. Test it down. Test it seven ways to Sunday -- {{{bib(The Clean Code - Note 8, Source)}}}
+#+end_quote
+
+And how do you make sure your code is /testable/? By using abstractions instead of concrete implementations and making each single part of your code /mockable/ aka testable.
+
+
+* Bookmarks :bookmark:
 :PROPERTIES:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true :noauthor true :nocomment true :nodate true :nopaging true :noread true
 :EXPORT_HUGO_SECTION: bookmarks
 :EXPORT_HUGO_WEIGHT: auto
 :END:
-** Golang                                                  :golang:
+** Golang                                                                       :golang:
 :PROPERTIES:
 :EXPORT_FILE_NAME: golang
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true
@@ -37,14 +511,14 @@
   Initialize ~net/http~ server with timeouts:
 
   #+begin_src
-  srv := &http.Server{
-      ReadTimeout:       1 * time.Second,
-      WriteTimeout:      1 * time.Second,
-      IdleTimeout:       30 * time.Second,
-      ReadHeaderTimeout: 2 * time.Second,
-      TLSConfig:         tlsConfig,
-      Handler:           srvMux,
-  }
+    srv := &http.Server{
+        ReadTimeout:       1 * time.Second,
+        WriteTimeout:      1 * time.Second,
+        IdleTimeout:       30 * time.Second,
+        ReadHeaderTimeout: 2 * time.Second,
+        TLSConfig:         tlsConfig,
+        Handler:           srvMux,
+    }
   #+end_src
 
   - the ~net/http~ packages provide a ~TimeoutHandler~
@@ -68,13 +542,15 @@
   Inspired by Google's BeyondCorp
   #+end_quote
 
-***** TODO [[https://www.ory.sh/docs/next/ecosystem/projects][ory ecosystem]] :read:
+***** TODO [[https://www.ory.sh/docs/next/ecosystem/projects][ory ecosystem]]   :read:
 *** AWS
 
 - [[https://github.com/awslabs/aws-apigateway-lambda-authorizer-blueprints/blob/master/blueprints/go/main.go][API Gateway Authorizer Blueprint in Golang]]
 - [[https://cloudnative.ly/lambdas-with-golang-a-technical-guide-6f381284897b][API Gateway Custom Authorizer]]
 - [[https://dev.to/wingkwong/a-simple-amazon-api-gateway-lambda-authoriser-in-go-4cgd][A simple AWS API Gateway Authoriser in Go]]
 - [[https://github.com/guregu/dynamo][expressive DynamoDB library for Go]]
+**** CDK
+- [[https://aws.amazon.com/blogs/developer/getting-started-with-the-aws-cloud-development-kit-and-go/][Getting started with CDK and Golang]]
 
 *** Books
 
@@ -101,29 +577,49 @@ go get -u -v github.com/mdempsky/gocode
 go get -u -v github.com/rogpeppe/godef
 go get -u -v github.com/zmb3/gogetdoc
 #+end_src
-
+**** doom emacs
+- [[https://qiita.com/Ladicle/items/feb5f9dce9adf89652cf][Ladicle Golang Doom Emacs customizations]]
 **** GTAGS
-
 ~gtags~ will create ~CTAGS~ files to [[https://www.gnu.org/software/global/][global]]. For Go you can use [[https://github.com/juntaki/gogtags][gogtags]] to
 generate the files. It also works well with [[https://melpa.org/#/helm-gtags][helm-gtags]].
 
 *** Code Examples
 
 - [[http://l3x.github.io/golang-code-examples/][l3x.github.io/golang-code-examples/]]
-
+*** Code Style
+- [[https://yolken.net/blog/cleaner-go-code-golines][Cleaner go code with golines]]
+- [[https://golang.org/doc/effective_go][Effective Go (golang.org)]]
+**** Clean Code Examples
+- [[https://github.com/ahmetb/kubectx][github.com/ahmetb/kubectx]]
+- [[https://github.com/gojek/heimdall][github.com/gojek/heimdall]]
+- [[https://github.com/ethereum/go-ethereum][github.com/ethereum/go-ethereum]]
+- [[https://github.com/drone/drone][github.com/drone/drone]]
+- [[https://github.com/google/exposure-notifications-server][github.com/google/exposure-notifications-server]]
 *** Design
 
 - [[https://dave.cheney.net/2016/08/20/solid-go-design][SOLID Go Design]]
 - [[https://the-zen-of-go.netlify.com/][The Zen of Go]]
   - [[https://dave.cheney.net/2020/02/23/the-zen-of-go][more detailed version]]
-
+- [[https://github.com/RefactoringGuru/design-patterns-go][Design Patterns by refactoring.guru]]
+- [[https://medium.com/@matiasvarela/hexagonal-architecture-in-go-cfd4e436faa3][Hexagonal Architecture in Go]]
+*** Fun
+- [[https://github.com/SuperPaintman/the-evolution-of-a-go-programmer][Evolution of a Go programmer]]
 *** Internals
-
 - [[https://www.alexedwards.net/blog/a-recap-of-request-handling][A recap of request handling in Go]]
 - [[https://lanre.wtf/blog/2017/07/24/roundtripper-go/][Diving deep into net/http : A look at http.RoundTripper]]
 - [[https://echorand.me/posts/golang-dissecting-listen-and-serve/][Dissecting golang's HandlerFunc, Handle and DefaultServeMux]]
 - [[https://jaxenter.de/golumne-go-requests-multiplexen-81161][Requests richtig verarbeiten: Keine Sorge beim Multiplexen in Go]]
 - [[https://rafallorenz.com/go/handle-signals-to-graceful-shutdown-http-server/][How to handle signals with Go to graceful shutdown HTTP server]]
+- [[https://eli.thegreenplace.net/2021/life-of-an-http-request-in-a-go-server/][Life of an HTTP request in a Go server - Eli Bendersky's website]]
+**** Context
+- [[https://blog.golang.org/context-and-structs][Contexts and structs]]
+    #+begin_quote
+    Context provides a means of transmitting deadlines, caller cancellations, and other request-scoped values across API boundaries and between processes. It is often used when a library interacts --- directly or transitively --- with remote servers, such as databases, APIs
+
+    When designing an API with context, remember the advice: pass =context.Context= in as an argument; don't store it in structs.
+    #+end_quote
+
+- [[https://steveazz.xyz/blog/import-context/][How to use context in different uses cases]]
 
 *** Interviews
 
@@ -147,6 +643,13 @@ generate the files. It also works well with [[https://melpa.org/#/helm-gtags][he
   - IRC, SLACK, Telegram and RocketChat bot written in Go
 - [[https://github.com/alexandre-normand/slackscot][github.com/alexandre-normand/slackscot]]
   - Slack bot core/framework written in Go with support for reactions to message updates/deletes
+*** Malware
+- [[https://blog.netlab.360.com/blackrota-an-obfuscated-backdoor-written-in-go-en/amp/][Blackrota, a heavily obfuscated backdoor written in Go]]
+*** Modules
+
+- [[https://bencane.com/stories/2020/07/06/how-i-structure-go-packages/][How I Structure Go Packages]]
+  Some great advice about logging and package structure
+- [[https://peter.bourgon.org/go-best-practices-2016/#repository-structure][Go best practices, 6 years in]]
 
 *** Testing
 
@@ -174,6 +677,9 @@ generate the files. It also works well with [[https://melpa.org/#/helm-gtags][he
 - [[https://medium.com/swlh/using-go-interfaces-for-testable-code-d2e11b02dea][Using Go Interfaces for Testable Code - The Startup - Medium]]
   - using interfaces for stubbing
 - [[https://dev.to/ilyakaznacheev/how-i-write-my-unit-tests-in-go-quickly-4bd5][2020-05 | How I write my unit tests in Go quickly]]
+  - on dependency injection
+  - duck typing interfaces
+  - BDD (Behaviour Driven Development)
 
 **** Fuzzing
 
@@ -204,6 +710,8 @@ Great resources:
   #+end_quote
 - [[https://github.com/aaronjanse/3mux][3mux]]: Terminal multiplexer inspired by i3
 - [[https://github.com/jumbleview/tspur][tspur]]: Terminal Screen with Protected User Records (TSPUR)
+- [[https://mholt.github.io/json-to-go/][json-to-go]]
+  - This tool instantly converts JSON into a Go type definition
 
 *** Templates
 
@@ -216,11 +724,11 @@ Great resources:
   Use some global variadic function:
 
   #+begin_src go
-  package mypkg
+    package mypkg
 
-  // LogFunc is a function that logs the provided message with optional
-  // fmt.Sprintf-style arguments. By default, logs to the default log.Logger.
-  var LogFunc func(string, ...interface{}) = log.Printf
+    // LogFunc is a function that logs the provided message with optional
+    // fmt.Sprintf-style arguments. By default, logs to the default log.Logger.
+    var LogFunc func(string, ...interface{}) = log.Printf
   #+end_src
 
 - [[https://www.reddit.com/r/golang/comments/em8uiu/how_to_start_with_logging_in_go_projects_part_2/][Some words about logging]]
@@ -235,23 +743,29 @@ Great resources:
 *** OO
 
 - [[https://icyapril.com/go/programming/2017/12/17/object-orientation-in-go.html][Object Oriented Go - The Basics]]
-
+*** Packaging
+- [[https://www.zombiezen.com/blog/2020/09/how-i-packaged-go-program-windows-linux/][Zombie Zen - How I packaged a Go program for Windows and Linux]]
+- [[https://www.gobeyond.dev/packages-as-layers/amp/][Packages as layers, not groups]]
+  - How to think of your modules as layers and not as groups
+  - by Ben Johnson (wo wrote the [[https://medium.com/@benbjohnson/standard-package-layout-7cdbc8391fc1][standard package layout]])
+- [[https://bencane.com/2020/12/29/how-to-structure-a-golang-cli-project/][How to Structure a Go Command-Line Project]]
+- [[https://peter.bourgon.org/go-best-practices-2016/#repository-structure][Go best practices, six years in]]
 *** Serialization
 
 - [[http://choly.ca/post/go-json-marshalling/][Custom JSON Marshalling in Go]]
   - Nice elegant solution using aliases, e.g.
 
   #+begin_src go
-  func (u *MyUser) MarshalJSON() ([]byte, error) {
-    type Alias MyUser
-    return json.Marshal(&struct {
-      LastSeen int64 `json:"lastSeen"`
-      ,*Alias
-    }{
-      LastSeen: u.LastSeen.Unix(),
-      Alias:    (*Alias)(u),
-    })
-  }
+    func (u *MyUser) MarshalJSON() ([]byte, error) {
+      type Alias MyUser
+      return json.Marshal(&struct {
+        LastSeen int64 `json:"lastSeen"`
+        ,*Alias
+      }{
+        LastSeen: u.LastSeen.Unix(),
+        Alias:    (*Alias)(u),
+      })
+    }
   #+end_src
 - [[http://gregtrowbridge.com/golang-json-serialization-with-interfaces/][Golang JSON Serialization With Interfaces]]
   - Working with plants and animals
@@ -265,8 +779,22 @@ Great resources:
 
 - [[https://blog.trailofbits.com/2019/11/07/attacking-go-vr-ttps/][Security assessment techniques for go projects]]
   - static analysis, fuzzing, dynamic testing etc.
-
-** Hugo                                                    :hugo:
+- [[https://goteleport.com/blog/csrf-attacks/][CSRF Attacks]]
+  - Implementing CSRF, auth handler
+**** Pentest
+- [[https://github.com/sysdream/hershell][github.com/sysdream/hershell]]
+- [[https://github.com/sysdream/chashell][github.com/sysdream/chashell]]
+  - using DNS as reverse shell
+- [[https://github.com/sysdream/ligolo][github.com/sysdream/ligolo]]
+**** Botnets
+- [[https://github.com/gnxbr/Unbreakable-Botnet-C2][github.com/gnxbr/Unbreakable-Botnet-C2]]
+  - using Blockchains for communication channel
+*** Surveys
+- [[https://blog.jetbrains.com/go/2021/02/03/the-state-of-go/][State of Go in 2021]]
+*** UI
+- [[https://www.vugu.org/][Vugu]]
+  - A modern UI library for Go+WebAssembly
+** Hugo                                                                         :hugo:
 :PROPERTIES:
 :EXPORT_FILE_NAME: hugo
 :END:
@@ -293,6 +821,13 @@ Some curated list of bookmarks related to ~hugo~.
     - also check his [[https://milad.dev/books][books list]]
   - https://daryl.wakatara.com
     - really nice posts about [[https://daryl.wakatara.com/tags/gtd/][productivity]], [[https://daryl.wakatara.com/tags/emacs/][emacs]] and interesting [[https://daryl.wakatara.com/tags/books/][book]] recommendations
+- [[https://prose.yihui.org/][Hugo Prose]]
+- [[https://tract-docs.dev/en/][Tract]]
+  - Good for documentation
+- [[https://themes.gohugo.io/hugo-theme-pure/][Hugo Theme Pure]]
+  - Also has Tocbot
+- [[https://bella.cc/blog/][bella.bc]]
+  - Customization of ER theme with Zettels.
 
 *** Searching
 
@@ -304,11 +839,15 @@ Some curated list of bookmarks related to ~hugo~.
 - Themes that implement search
   - [[https://github.com/vjeantet/hugo-theme-docdock][hugo-theme-dockdock]]
 
-** Music
+*** [[https://discourse.gohugo.io/t/easy-full-hugo-simple-online-shop-with-just-netlify-stripe/27960/6][Easy "Full Hugo" simple online shop with just Netlify + Stripe]]
+:PROPERTIES:
+:TIMESTAMP: <2021-03-02 Tue>
+:END:
+k
+** Music :music:
 :PROPERTIES:
 :EXPORT_FILE_NAME: music
 :END:
-
 *** Bluetooth Codecs
 
 - [[https://www.amazon.com/b?ie=UTF8&node=14070322011][Amazon Music Unlimited HD FAQ]]
@@ -330,31 +869,31 @@ Some curated list of bookmarks related to ~hugo~.
     die Schwingungsfrequenz aus der Differenz der beiden Trägerfrequenzen.
     #+end_quote
   - Welche Frequenzen gibt es?
-     #+begin_quote
-     Prinzipiell wird zwischen 5 verschiedenen Bewusstseinszuständen unterschieden:
+    #+begin_quote
+    Prinzipiell wird zwischen 5 verschiedenen Bewusstseinszuständen unterschieden:
 
-     - Im *Gamma-Zustand* (ab 30 Hz) fühlen wir uns gestresst. Unser Körper arbeitet
-       hier auf Hochleistung. Der Niedriggammabereich bis 38 Hz wird auch oft als
-       Beta-3-Zustand bezeichnet.
-     - Im *Beta-Zustand* (13 - 30 bzw. 38 Hz) befinden wir uns quasi im Normalmodus.
-       Hier erledigen wir normale Tagesabläufe.
-     - Im *Alpha-Zustand* (8 - 13 Hz) treten wir in die Entspannung ein. Wenn wir
-       z.B. lesen, Musik hören oder uns etwas Interessantes ansehen.
-     - Der *Theta-Zustand* (4 - 8 Hz) ist ein besonderer Zustand zwischen Wachsein
-       und Schlaf; Halbschlaf, wenn man so will. Diesen Zustand nehmen wir meist
-       nicht mehr bewusst wahr, oft nur in tiefer Trance. Dieser Zustand ist
-       besonders interessant um luzide Träume auszulösen.
-     - Als letztes gibt es dann noch den *Delta-Zustand* (0 - 4 Hz). Diesen erreichen
-       wir in unseren Tiefschlafphasen. Wer in eine Astralreise einsteigen möchte,
-       muss diesen Zustand mit wachem Bewusstsein erreichen.
-     #+end_quote
+    - Im *Gamma-Zustand* (ab 30 Hz) fühlen wir uns gestresst. Unser Körper arbeitet
+      hier auf Hochleistung. Der Niedriggammabereich bis 38 Hz wird auch oft als
+      Beta-3-Zustand bezeichnet.
+    - Im *Beta-Zustand* (13 - 30 bzw. 38 Hz) befinden wir uns quasi im Normalmodus.
+      Hier erledigen wir normale Tagesabläufe.
+    - Im *Alpha-Zustand* (8 - 13 Hz) treten wir in die Entspannung ein. Wenn wir
+      z.B. lesen, Musik hören oder uns etwas Interessantes ansehen.
+    - Der *Theta-Zustand* (4 - 8 Hz) ist ein besonderer Zustand zwischen Wachsein
+      und Schlaf; Halbschlaf, wenn man so will. Diesen Zustand nehmen wir meist
+      nicht mehr bewusst wahr, oft nur in tiefer Trance. Dieser Zustand ist
+      besonders interessant um luzide Träume auszulösen.
+    - Als letztes gibt es dann noch den *Delta-Zustand* (0 - 4 Hz). Diesen erreichen
+      wir in unseren Tiefschlafphasen. Wer in eine Astralreise einsteigen möchte,
+      muss diesen Zustand mit wachem Bewusstsein erreichen.
+    #+end_quote
 - Playlists
   - [[https://www.youtube.com/channel/UCCgPgZzLtaDVN9eB4LOMZlA][neobeats]]
   - [[https://www.youtube.com/channel/UCPF-YXh4LdqA7sykdjpPrHw][Magnetic Minds]]
 - Forschung
   - [[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6900908/][Possible Effect of Binaural Beat Combined With Autonomous Sensory Meridian Response for Inducing Sleep]]
 
-*** Djembe :djembe:
+*** Djembe                                                                      :djembe:
 **** Youtube
 ***** Watch "Hayashi-Mamady duo. Grandmasters Mamady Keita (djembeföla) and Eitetsu Hayashi (taiko soloist)" on YouTube
 
@@ -375,8 +914,49 @@ https://youtu.be/jJiiAz29s5E
 ***** Watch "Petit Adama Diarra "Djembe Kan" Vilnius ( Lituania 2019)" on YouTube
 
 https://youtu.be/t2-swp8QxmQ
+** Security
+:PROPERTIES:
+:EXPORT_FILE_NAME: security
+:END:
+*** Pentest
+**** Checklists
+- [[https://six2dez.gitbook.io/pentest-book/others/web-checklist][six2dez.gitbook.io/pentest-book/others/web-checklist]]
+- [[https://gbhackers.com/web-application-penetration-testing-checklist-a-detailed-cheat-sheet/][Web Application Penetration Testing Checklist – A Detailed Cheat Sheet]]
+  - Information Gathering
+  - Authentication
+  - Authorization
+  - Configuration Management
+  - Session Management
+  - DoS
+  -
+*** Application Security
+**** [[https://application.security/][Application Security Training For Developers | Kontra]]
+:PROPERTIES:
+:TIMESTAMP: <2021-03-02 Tue>
+:END:
+All kind of appsec related simulations/trainings.
+** Software Engineering
+:PROPERTIES:
+:EXPORT_FILE_NAME: software-engineering
+:END:
+*** Architecture
+- [[https://matklad.github.io/2021/02/06/ARCHITECTURE.md.html][Why you need an ARCHITECTURE.md to your project]]
+*** General
+- [[https://a16z.com/2011/08/20/why-software-is-eating-the-world/][Why Software is eating the world? (2011)]]
+*** CI/CD
+- [[https://www.infoq.com/articles/Continuous-Delivery-Maturity-Model/][The Continuous Delivery Maturity Model]]
 
-* Notes                                                     :note:
+** ORG Mode :org:
+:PROPERTIES:
+:EXPORT_FILE_NAME: org-mode
+:END:
+- [[http://www.howardism.org/Technical/Emacs/literate-programming-tutorial.html][Literate Programming]]
+** Rust :rust:
+:PROPERTIES:
+:EXPORT_FILE_NAME: rust
+:END:
+- [[https://academy.kerkour.com/black-hat-rust?][Black Hat Rust]]
+* Notes                                                                         :note:
 :PROPERTIES:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true :noauthor true :nocomment true :nodate true :nopaging true :noread true
 :EXPORT_HUGO_SECTION: notes
@@ -418,7 +998,7 @@ location without the need for a traditional VPN. -- [[https://cloud.google.com/b
 - authorization:
   - ACL engine queryable via RPCs
 
-** AWS                                                     :aws:
+** AWS                                                                          :aws:
 :PROPERTIES:
 :EXPORT_FILE_NAME: aws
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true
@@ -450,38 +1030,38 @@ Some currated list of useful ~aws~  CLI commands.
 
 - SQS
 
-  | desc                    | command                                                                                                                                                                                |
-  |-------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-  | receive one message     | ~$ aws sqs receive-message --queue-url <queue url> --region <region>~                                                                                                                  |
-  | get attributes of queue | ~$ aws sqs get-queue-attributes --queue-url <queue url> --region <region> --attribute-names All~                                                                                       |
-  | purge queue             | ~$ aws sqs purge-queue --queue-url <queue url>~                                                                                                                                        |
+  | desc                    | command                                                                                          |
+  |-------------------------+--------------------------------------------------------------------------------------------------|
+  | receive one message     | ~$ aws sqs receive-message --queue-url <queue url> --region <region>~                            |
+  | get attributes of queue | ~$ aws sqs get-queue-attributes --queue-url <queue url> --region <region> --attribute-names All~ |
+  | purge queue             | ~$ aws sqs purge-queue --queue-url <queue url>~                                                  |
 
 - DynamodDB
 
-  | desc                 | command                                                                                                                                                                                |
-  |----------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+  | desc                 | command                                                                                                                                                                                  |
+  |----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
   | scan with expression | ~$ aws dynamodb scan --table-name <table name> --filter-expression "repo_name = :repo" --expression-attribute-values '{":repo":{"S":"my_repo"}}' --projection-expression <table fields>~ |
-  | scan                 | ~aws dynamodb scan --table-name tiddlers --endpoint http://127.0.0.1:8000~                                                                                                             |
+  | scan                 | ~aws dynamodb scan --table-name tiddlers --endpoint http://127.0.0.1:8000~                                                                                                               |
 
   - Delete multiple items
 
     Use ~scan~ to retrieve list of items and save to same file:
     #+begin_src shell
-    $ aws dynamodb scan --table-name <table name> --filter-expression "repo_name = :repo" --expression-attribute-values '{":repo":{"S":"my_repo"}}' --projection-expression "unique_id" > results.log
+        $ aws dynamodb scan --table-name <table name> --filter-expression "repo_name = :repo" --expression-attribute-values '{":repo":{"S":"my_repo"}}' --projection-expression "unique_id" > results.log
     #+end_src
 
     Then use ~delete-item~ to delete single entries:
 
     #+begin_src shell
-    $ cat results.log | jq -r ".Items[] | tojson" | tr '\n' '\0' | xargs -0 -I keyItem aws dynamodb delete-item --table-name <table name> --key=keyItem
+        $ cat results.log | jq -r ".Items[] | tojson" | tr '\n' '\0' | xargs -0 -I keyItem aws dynamodb delete-item --table-name <table name> --key=keyItem
     #+end_src
 
 *** Tools
 
-| Tool   | Description                         |
-|--------+-------------------------------------|
-| [[https://github.com/wallix/awless][awless]] | A mighty CLI for AWS                |
-| [[https://github.com/donnemartin/saws][saws]]   | A supercharged CLI based on aws cli |
+| Tool                                          | Description                         |
+|-----------------------------------------------+-------------------------------------|
+| [[https://github.com/wallix/awless][awless]]  | A mighty CLI for AWS                |
+| [[https://github.com/donnemartin/saws][saws]] | A supercharged CLI based on aws cli |
 
 *** SQS
 
@@ -489,7 +1069,7 @@ Some currated list of useful ~aws~  CLI commands.
 
 ** Static Code Analysis
 *** Articles
-**** Lessons from building static analysis tools at Google :sca:google:
+**** Lessons from building static analysis tools at Google                      :sca:google:
 :PROPERTIES:
 :EXPORT_FILE_NAME: lessons-from-building-static-analysis-tools-at-google
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true
@@ -553,7 +1133,7 @@ Developers, not tool authors, will determine and act on a tool's perceived false
   - developers need to build trust in the tools
   - If a tool wastes developer time with false positives and low-priority issues, developers will lose faith and ignore results.
 
-**** Scaling Static Analyses at Facebook                 :sca:facebook:
+**** Scaling Static Analyses at Facebook                                        :sca:facebook:
 :PROPERTIES:
 :EXPORT_FILE_NAME: scaling-static-analyses-at-facebook
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true
@@ -571,12 +1151,12 @@ opportunities to inform future tools.
 ***** Deployments
 ****** "diff time" deployment
 
-  - analyzers participate as bots in code review
-  - make automatic comments when engineer submits code modification
-  - this kind of deployment lead to *70% fix rate*
-  - traditional (offline or batch) deployment saw a *0% fix rate*
-  - security related issues are pushed to the security engineer on-call for
-    commenting on code modification
+- analyzers participate as bots in code review
+- make automatic comments when engineer submits code modification
+- this kind of deployment lead to *70% fix rate*
+- traditional (offline or batch) deployment saw a *0% fix rate*
+- security related issues are pushed to the security engineer on-call for
+  commenting on code modification
 
 ****** Software Development at Facebook
 
@@ -598,11 +1178,11 @@ positive is one that cannot happen.
 
 ****** False positives
 
- #+begin_quote
- the false positive rate is challenging to measure for a large, rapidly changing
- codebase: it would be extremely time consuming for humans to judge all reports
- as false or true as the code is changing.
- #+end_quote
+#+begin_quote
+the false positive rate is challenging to measure for a large, rapidly changing
+codebase: it would be extremely time consuming for humans to judge all reports
+as false or true as the code is changing.
+#+end_quote
 
 - don't focus on true positives and false negatives (even if valuable concepts)
 - pay more attention to *action rate* and the observed *missed bugs*
@@ -691,23 +1271,27 @@ The success of the diff time came as no surprise to Fb's devs:
 
 - [[https://blog.pragmaticengineer.com/software-architecture-is-overrated/amp/][Software Architecture is Overrated, Clear and Simple Design is Underrated]]
 
-** emacs                                                   :emacs:
+** emacs                                                                        :emacs:
 :PROPERTIES:
 :EXPORT_FILE_NAME: emacs
 :END:
 
 *** Topics
 **** How to remove empty lines in region
-
 - Select what you want to change, or C-x h to select the whole buffer.
 - Then: ~M-x flush-lines RET~ followed by ~^$ RET~ or ~^[[ : space : ]]*$ RET~
 - ~^[[ : space : ]]*$~ contain the meta-characters:
   - ^ for beginning of string,
   - $ for end of string,
 **** Tag multiple headers in a region
-
 - Select region
 - run ~M-x org-change-tag-in-region~
+
+**** Remove read-only lock in a buffer
+~C-x C-q~
+*** org-mode
+- [[https://blog.lazkani.io/posts/text-editors/bookmark-with-org-capture/][Bookmark with Org-capture | The DevOps Blog]]
+  How to capture links with own functions (for lisp beginners)
 
 ** docker
 :PROPERTIES:
@@ -718,21 +1302,21 @@ The success of the diff time came as no surprise to Fb's devs:
 
 - Run a container
   #+begin_src sh
-  $ docker run -ti <image repository> --name <name of new container>
+    $ docker run -ti <image repository> --name <name of new container>
   #+end_src
 - Attach to running container
   #+begin_src sh
-  $ docker attach --name <name of container>
+    $ docker attach --name <name of container>
   #+end_src
 - Run command inside a running container
   #+begin_src sh
-  $ docker container exec -ti <name of container> <command>
+    $ docker container exec -ti <name of container> <command>
   #+end_src
 
 ** TDD
 :PROPERTIES:
 :EXPORT_FILE_NAME: tdd
-:DATE: 2015-01-01
+:DATE:     2015-01-01
 :END:
 
 *** Definition
@@ -765,34 +1349,738 @@ Traditionally, there are five types of *test doubles*:
 - Mocks :: Partial implementations for which you can define expectations on how their methods will be called.
 - Spies :: Partial implementations on which you can assert that specific methods have been called.
 - Fakes :: Full, lightweight implementations such as in-memory databases.
+** Hands-On Software architecture with Golang
+:PROPERTIES:
+:EXPORT_FILE_NAME: hands-on-software-architecture-golang
+:END:
+*** Summary
 
-* Gists                                                     :gist:
+#+begin_quote
+Hands-On Software Architecture with Golang starts with a brief introduction to
+architectural elements, Go, and a case study to demonstrate architectural
+principles. You'll then move on to look at code-level aspects such as
+modularity, class design, and constructs specific to Golang and implementation
+of design patterns. As you make your way through the chapters, you'll explore
+the core objectives of architecture such as effectively managing complexity,
+scalability, and reliability of software systems. You'll also work through
+creating distributed systems and their communication before moving on to
+modeling and scaling of data. In the concluding chapters, you'll learn to deploy
+architectures and plan the migration of applications from other languages. -- [[https://www.packtpub.com/eu/application-development/hands-software-architecture-golang][source]]
+#+end_quote
+
+*** Engineering principles
+**** *High-level design*
+
+#+begin_quote
+This is the decomposition of the system into high-level components. This serves
+as the blueprint that the product and code need to follow at every stage of the
+product development life cycle. For example, once we have a layered architecture
+(see the following section), then we can easily identify for any new requirement
+to which layer each new component should
+#+end_quote
+
+**** *Quality attributes*
+
+#+begin_quote
+We want high quality code, and this means no code checking would be allowed
+without unit tests and 90% code coverage
+#+end_quote
+
+**** *Product velocity*
+
+#+begin_quote
+The product has a bounded value in time and, to ensure that there is high
+developer productivity, the team should build Continuous Integration /
+Continuous Deployment (CICD) pipelines from the start.
+#+end_quote
+
+**** A/B testing
+
+#+begin_quote
+Every feature should have a flag, so that it can be shown only to an x
+percentage of users
+#+end_quote
+
+*** Software Architecture
+
+- package code into components
+  - divide system into partitions
+  - each parition has specific concern and role
+  - each component has well defined interfaces and responsabilities
+- work with the components as abstract entities
+- manage complexity
+- [[https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html][The Clean Architecture]]
+
+  #+CAPTION: The Clean Architecture / (c) Robert C. Martin
+  [[file:../static/notes/software-engineering-golang/clean-architecture.jpg]]
+  - by Rober Cecil Martin (more commonly known as Uncle Bob)
+  - the dependency rule is important
+
+    #+begin_quote
+    This rule says that source code dependencies can only point inward.
+    Nothing in an inner circle (variables, classes, data, and private functions)
+    can know anything at all about something in an outer circle
+    #+end_quote
+
+*** Role
+**** The role of the architect
+
+- define a blueprint for what needs to be built
+- ensure the team has enough details to get the job done
+- guides the rest of the team toward this design during execution
+- talks to stakeholders
+- it's possible to do the architect's job w/o coding:
+  - one must understand the low-level details, constraints and complexity
+
+*** Microservices
+
+*Definition:*
+
+#+begin_quote
+The basic concept of a microservice is simple—it's a simple, standalone application that does one thing only and does that one thing well. The objective is to retain the simplicity, isolation, and productivity of the early app. A microservice cannot live alone; no microservice is an island—it is part of a larger system, running and working alongside other microservices to accomplish what would normally be handled by one large standalone application.
+#+end_quote
+
+Each microservice is:
+- autonomous
+- independent
+- self-contained
+- and individually deployable
+- and scalable.
+
+**** Advantages
+
+- use the componentization strategy
+  - divide and rule more effectively
+  - with clear boundaries between components.
+- create the right tool for each job in a microservice
+- testability
+- improved developer productivity and feature velocity.
+
+*** Go
+
+#+begin_quote
+The Go programming language was conceived in late 2007 by Robert Griesemer, Rob Pike, and Ken Thompson, as an open source programming language that aims to simplify programming and make it fun again. It's sponsored by Google, but is a true open source project—it commits from Google first, to the open source projects, and then the public repository is imported internally.
+#+end_quote
+
+#+begin_quote
+The language was designed by and for people who write, read, debug, and maintain large software systems. It's a statically-typed, compiled language with built-in concurrency and garbage collection as first-class citizens.
+#+end_quote
+
+**** TODO Introduction
+
+Ideas how to structure a Golang intro session
+- Hello World
+- Data types and structures
+- Functions and methods
+- Flow control
+- Packaging
+- Concurrency
+- Garbage collection
+
+**** Object orientation
+
+For polymorphic behavior, Go uses *interfaces and duck typing*:
+
+#+begin_quote
+"If it looks like a duck and quacks like a duck, it's a duck."
+#+end_quote
+
+Duck typing:
+- class implements an interface if it has all methods and
+- implement these methods
+
+**** Class
+
+#+begin_quote
+A class is a blueprint, or a template for objects that share the same behavior
+and properties. Being a template, it can be used as a specification to create
+objects.
+#+end_quote
+
+**** Contracts
+
+#+begin_quote
+The individual constructs (or functions) by which you can invoke behavior on the
+object are called methods.
+#+end_quote
+
+**** Encapsulation
+
+#+begin_quote
+=Encapsulation= is the key guiding principle for class design. It implies exposing
+a contract for the behavior of objects and hiding volatile implementation
+details. The private attributes and methods are hidden inside a capsule
+according to a need-to-know basis
+#+end_quote
+#+begin_quote
+Encapsulation is defined as the wrapping up of data under a single unit. It is
+the mechanism that binds together code and the data it manipulates. In a
+different way, encapsulation is a protective shield that prevents the data from
+being accessed by the code outside this shield. -- [[https://www.geeksforgeeks.org/encapsulation-in-golang/][Encapsulation in Golang]]
+#+end_quote
+
+**** Polymorphism
+
+#+begin_quote
+This ability of an interface method to behave differently based on the actual
+object is called polymorphism and is key to many design patterns
+#+end_quote
+
+**** Composition
+
+#+begin_quote
+An alternative to inheritance is to delegate behavior, also called composition.
+Instead of an is a, this is a has a relationship. It refers to combining simple
+types to make more complex ones.
+#+end_quote
+
+***** Over Inheritance
+
+- in Java for example inheritance defines a ~is-a~ relationship between classes
+- in Golang we build class relationships using a ~has-a~ relationship
+Main concept in Golang:
+
+#+begin_quote
+Classes implement an interface—which is the contract the base class offers.
+Functionality reuse happens through having references to objects, rather than
+deriving from classes. This is why many people, including people who code in Go,
+have the Composition Over Inheritance principle
+#+end_quote
+
+[[https://golangbot.com/inheritance/][Good example]]
+#+begin_src go
+  package main
+
+  import (
+      "fmt"
+  )
+
+  type author struct {
+      firstName string
+      lastName  string
+      bio       string
+  }
+
+  func (a author) fullName() string {
+      return fmt.Sprintf("%s %s", a.firstName, a.lastName)
+  }
+
+  type post struct {
+      title   string
+      content string
+      author
+  }
+
+  func (p post) details() {
+      fmt.Println("Title: ", p.title)
+      fmt.Println("Content: ", p.content)
+      fmt.Println("Author: ", p.fullName())
+      fmt.Println("Bio: ", p.bio)
+  }
+
+  func main() {
+      author1 := author{
+          "Naveen",
+          "Ramanathan",
+          "Golang Enthusiast",
+      }
+      post1 := post{
+          "Inheritance in Go",
+          "Go supports composition instead of inheritance",
+          author1,
+      }
+      post1.details()
+  }
+#+end_src
+#+begin_quote
+Whenever one struct field is embedded in another, Go gives us the option to
+access the embedded fields as if they were part of the outer struct. This means
+that p.author.fullName() in line no. 11 of the above code can be replaced with
+p.fullName()
+#+end_quote
+
+*** Design patterns
+
+#+begin_quote
+
+Design patterns are solutions to recurring problems in software engineering. Rather than a comprehensive solution, a design pattern is a description of a problem and a template of how to solve it. This template then becomes usable in many different contexts.
+#+end_quote
+Idea:
+- study the problem and the solutions
+- goal is to identify patterns among your requirements and architecture
+- use pre-conceived solutions to the problem
+- if design is composed of well-known patterns, it's easy to:
+  - share idea
+  - communicate and discuss with other stakeholders
+
+**** Design principles
+
+- 2 aspects:
+  - What is the responsibility of each class?
+  - What other classes depend on the current one and what is the contract
+    between these classed?
+
+**** SOLID
+
+- for Go check [[https://dave.cheney.net/2016/08/20/solid-go-design][SOLID Go Design]]
+- Uncle Bob defines five principles of good class design in his book [[https://www.goodreads.com/book/show/84985.Agile_Software_Development_Principles_Patterns_and_Practices][Agile Software Development, Principles, Patterns and Pratices]]
+- *Single Responsibility Principle (S)*
+  - Key point :: Structure functions, types, methods into packages that have
+    "natural" cohesion; functions serve a single purpose
+
+  #+begin_quote
+  "One class should have one, and only one, responsibility"
+  #+end_quote
+
+  - don't chose names like ~common~, ~utils~ etc.
+  - use UNIX philosophy
+    - combine sharp tools to solve larges tasks
+    -
+- *Open/Closed Principle (O)*
+  - Key point :: compose simple types into more complex ones using embedding
+
+    #+begin_quote
+    Software entities should be open for extension, but closed for modification.
+    #+end_quote
+    #+begin_quote
+    "You should be able to extend a class's behavior without modifying it."
+    #+end_quote
+    #+begin_quote
+    This essentially means that classes should be open for extension but closed
+    for modification, so it should be possible to extend or override class
+    behavior without having to modify code. Behavior change should be pluggable
+    into the class, either through overriding some methods or injecting some
+    configuration. One excellent example of a framework exhibiting this principle
+    is the Spring Framework
+    #+end_quote
+
+
+- *Liskov Substitution Principle (L)*
+  - Key point :: express dependencies between packages in terms of interfaces
+    and not concrete types
+  - This is a slight variation of the Open/Closed Principle, and Uncle Bob states it as follows:
+    "Derived types must be substitutable for their base types."
+
+  - This principle is called Liskov because it was first written by [[https://en.wikipedia.org/wiki/Barbara_Liskov][Barbara Liskov]]:
+    #+begin_quote
+    "What is wanted here is something like the following substitution property: If for each object o1 of type S there is an object o2 of type T such that for all programs P defined in terms of T, the behavior of P is unchanged when o1 is substituted for o2—then S is a subtype of T.
+    #+end_quote
+  - basically a specification for an abstract base class with various concrete subtypes
+
+    Example is the *io.Reader* interface:
+
+    #+begin_src go
+    type Reader interface {
+    // Read reads up to len(buf) bytes into buf.
+    Read(buf []byte) (n int, err error)
+    }
+    #+end_src
+
+    #+begin_quote
+    Because io.Reader‘s deal with anything that can be expressed as a stream of
+    bytes, we can construct readers over just about anything; a constant string, a
+    byte array, standard in, a network stream, a gzip’d tar file, the standard out
+    of a command being executed remotely via ssh. And all of these implementations
+    are substitutable for one another because they fulfil the same simple contract.
+    -- [[https://dave.cheney.net/2016/08/20/solid-go-design][source]]
+    #+end_quote
+
+- *Interface Segregation Principle (I)*
+  - Key point :: define functions/methods that depend only on the behaviour that
+    they need
+
+    #+begin_quote
+    Clients should not be forced to depend on methods they do not use. -- Robert
+    C. Martin
+    #+end_quote
+    #+begin_quote
+    Many client-specific interfaces are better than one general-purpose interface
+    #+end_quote
+
+    Example:
+
+    #+begin_src go
+      // Save writes the contents of doc to the supplied Writer.
+      func Save(w io.Writer, doc *Document) error
+    #+end_src
+    #+begin_quote
+    By applying the interface segregation principle to our Save function, the
+    results has simultaneously been a function which is the most specific in terms
+    of its requirements–it only needs a thing that is writable–and the most general
+    in its function, we can now use Save to save our data to anything which
+    implements io.Writer. -- [[https://dave.cheney.net/2016/08/20/solid-go-design][source]]
+    #+end_quote
+
+    which leads to:
+
+    #+begin_quote
+    A great rule of thumb for Go is accept interfaces, return structs.
+    –Jack Lindamood
+    #+end_quote
+- *Dependency Inversion Principle (D)*
+  #+begin_quote
+  High-level modules should not depend on low-level modules. Both should depend on abstractions.
+  Abstractions should not depend on details. Details should depend on abstractions.
+  –Robert C. Martin
+  #+end_quote
+
+  #+begin_quote
+  Depend on abstractions, not on concretions.
+  #+end_quote
+  - For Golang that means
+    - Every package should have interfaces that describe functionality without the implementation
+    - When a package needs a dependency, it should take that dependency as a
+      parameter (specify interfaces as parameters)
+
+**** Creational
+
+#+begin_quote
+Creational design patterns are design patterns that deal with object creation
+mechanisms in a safe and efficient manner and decouple clients from
+implementation specifics. With these patterns, the code using an object need not
+know details about how the object is created, or even the specific type of
+object, as long as the object adheres to the interface expected.
+#+end_quote
+- Factory method
+- Builder
+- Abstract factory
+- Singleton
+
+**** Behavioral
+
+#+begin_quote
+Behavioral design patterns are design patterns that identify communication
+patterns among objects and provide solution templates for specific situations.
+In doing so, these patterns increase the extensibility of the interactions
+#+end_quote
+- Command
+- Chain of Responsibility
+- Mediator
+- Memento
+- Observer
+- Visitor
+- Strategy
+
+**** Structural
+
+#+begin_quote
+In Software Engineering, Structural Design Patterns are Design Patterns that
+ease the design by identifying a simple way to realize relationships between
+entities -- [[https://sourcemaking.com/design_patterns/structural_patterns][Source]]
+#+end_quote
+- Adapter
+- Bridge
+- Composite
+- Decorator
+- Facade
+- Flyweight
+- Proxy
+
+*** Scaling applications
+**** Distributed algorithms
+***** Google's MapReduce
+
+- Map (C) -> [(kx, vy)]: This extracts information from a record and generates key-value tuples.
+- Reduce (k, [vx,vy...[]) -> (k,vagg): The reducer takes the key-value tuples generated in the map phase, grouped by the key, and generates an aggregate result.
+- [[https://blog.gopheracademy.com/advent-2015/glow-map-reduce-for-golang/][glow-map-reduce-for-golang]]
+
+**** Scalability bottlenecks
+
+- [[http://www.kegel.com/c10k.html][The C10k problem]]
+  At the start of the 21st century, engineers ran into a scalability bottleneck: web servers were not able to handle more than 10,000 concurrent connections.
+- The thundering herd problem
+- [[http://highscalability.com/blog/2012/5/16/big-list-of-20-common-bottlenecks.html][common bottlenecks]]
+
+*** Scaling systems
+**** The Art of Scalability (Book)
+
+#+CAPTION: 3D scalability model / (c) The scalability Book
+[[file:../static/notes/software-engineering-golang/art-of-scalability.png]]
+- X-axis scaling
+  #+CAPTION: (c) Jyotiswarup Raiturkar
+  [[file:../static/notes/software-engineering-golang/scalability-x.png]]
+  #+begin_quote
+  Scaling along the x-axis means running multiple copies (instances) of the
+  application behind a load balancer. If there are n instances, then each
+  handles 1/n of the load. This is the simplest way of increasing scalability,
+  by throwing hardware at the problem
+  #+end_quote
+- Y-axis scaling
+  #+CAPTION: (c) Jyotiswarup Raiturkar
+  [[file:../static/notes/software-engineering-golang/scalability-y.png]]
+  #+begin_quote
+  The objective of scaling along the y-axis is splitting the application into
+  multiple, different services. Each service is responsible for one or more
+  closely related functions. This relates to our microservices discussion, and
+  is essentially a perfect deployment strategy for a service-oriented
+  architecture. The benefit of this type of architecture is that hardware can be
+  efficiently used for only those areas of the application that need it The
+  solution to these issues is to implement an API gateway: an endpoint that
+  clients calls which in turn handles the orchestration and composition of
+  communication between services to get the clients what they need
+  #+end_quote
+- Z-axis scaling
+  #+CAPTION: (c) Jyotiswarup Raiturkar
+  [[file:../static/notes/software-engineering-golang/scalability-z.png]]
+  #+begin_quote
+  z-axis scaling mode, each instance runs the same code, but with a different
+  set of data. That is, each server is responsible for only a subset of the
+  data. The orchestrator described previously now becomes more intelligent and
+  has to route requests to the specific instance having the data in order for
+  the request to complete. One commonly used routing parameter is the primary
+  key of the attribute for which the request is being made: for example, to get
+  bookings for a specific user, we can route the requests based on the user ID.
+  We can route not just on specific IDs, but also on segments; for example, the
+  travel website can provide premium customers with a better SLA than the rest
+  by outing the requests to a specific pool of high-capacity servers Z-axis
+  scaling mandates that the data (and hence the database) be split across the
+  various set of instances. This is called sharding. Sharding is typically done
+  on the primary key of the data and divides the whole data set into multiple
+  partitions
+  #+end_quote
+
+*** Distributed systems
+**** Architecture
+
+- Components: Modular units with well-defined interfaces (such as services and
+  databases
+- Interconnects: The communication links between the components (sometimes with
+  the additional responsibility of mediation/coordination between components)
+
+**** Distributed system quirks
+
+In 1994, Peter Deutsch, who worked at Sun Microsystems, wrote about common wrong assumptions that developers/architects make, which cause things to go wrong in distributed systems. In 1997, James Gosling added to this list to create what is commonly known as the eight fallacies of distributed computing. They are described here.
+- The network is reliable
+- The topology doesn't change
+  - What does this mean in terms of code? It means not assuming location (endpoints) for various services. We need to build in service discovery, so that clients of services can figure out how to reach a particular service. There are two ways clients can discover service endpoints:
+- The bandwidth is infinite
+- The latency is zero
+  - Caching values every programmer should know about: https://gist.github.com/jboner/2841832
+- The network is secure
+- There is one administrator
+- The transport cost is zero
+- The network is homogeneous
+
+*** Distributed architectures
+**** Object-based
+
+- RPCs
+- RMIs
+
+**** Layered
+
+#+begin_quote
+This architectural style can be thought of as an inverted pyramid of reuse,
+where each layer aggregates the responsibilities and abstractions of the layer
+directly beneath it. When the layers are on different machines, they are
+called tiers. The most common example of strict layering is where components
+in one layer can interact only with components in the same layer or with
+components from the layer directly below it.
+#+end_quote
+
+**** P2P
+
+- Hybrid
+- Structured
+  - DHT (Distributed Hash Tables)
+
+**** Distributed computations
+
+- MapReduce
+
+**** EDA (Event-driven Architecture)
+
+#+CAPTION: (c) Jyotiswarup Raiturkar
+[[file:../static/notes/software-engineering-golang/eda-messaging.png]]
+
+- promotes an architectural paradigm where behavior is composed by reacting to
+  events.
+- Actor model
+- Stream processing
+
+*** Messaging
+
+A messaging system can be judged on its performance in four aspects—scalability, availability, latency, and throughput.
+
+**** Scalability
+
+#+begin_quote
+This is how the system is able to handle increases in load without noticeable
+degradation of the other two factors, latency or availability. Here, load can
+mean things such as the number of topics, consumers, producers, messages/sec, or
+average message size
+#+end_quote
+
+**** Availability
+
+#+begin_quote
+In a distributed system, a variety of problems can occur at a unit level
+(servers, disks, network, and so on). The system's availability is a measure of
+how resilient the system is to these failures so that it is available to end
+users
+#+end_quote
+
+**** Latency
+
+#+begin_quote
+This is how much time it takes for a message to get to a consumer from a
+producer
+#+end_quote
+
+**** Throughput
+
+#+begin_quote
+This is how many messages can be processed per second by the messaging system
+#+end_quote
+
+**** Broker-based messaging
+
+#+begin_quote
+A broker is a component that acts as the intermediary in a messaging system.
+Here, the clients connect to the broker and not to each other directly. Whenever
+clients want to send and receive messages, they need to specify a
+mailbox/topic/queue on the broker. Producers connect to the broker and send
+messages to a specific queue. Consumers connect to the broker and specify queue
+name from which they want to read messages.
+#+end_quote
+
+***** Responsabilities
+
+- Maintaining the mapping of queues, producers, and consumers reliably: This includes storing the messages in a durable format
+- Handling message production: This includes storing messages written by the producers.
+- Handling message consumption: This means ensuring that consumers reliably get messages and providing constructs to avoid duplicate messages
+- Routing and transformation: Here, the message broker may transform or maintain multiple copies for each message to enable various topology models, which will be described in the following sections.
+
+***** Models
+
+- Queue
+- Pub/Sub
+
+**** Integration patterns
+***** Using Golang channels
+
+- The request-reply pattern
+- The correletation identified pattern
+- The pipes and filters pattern
+- The content-based router pattern
+- The fan-in pattern
+- The fan-out pattern
+- The background worker pattern
+
+*** API
+**** REST
+***** Constraints
+
+- client-server model
+- stateless
+- uniform interface
+  #+begin_quote
+  The REST paradigm promotes a uniform interface for all interactions between the
+  client and the server. As described earlier, the key abstraction is the
+  resource. A resource is identified by a unique hierarchical name, and can have
+  multiple representations.
+  #+end_quote
+
+***** Richardson Maturity Level
+
+- Level 0
+  #+begin_quote
+  At level 0, the API uses the implementing protocol (normally HTTP, but it
+  doesn't have to be) like a transport protocol. There is no effort to utilize the
+  protocol to indicate state; it is just used to pass requests and responses back
+  and forth. The system typically has one entry point (URI) and one method
+  (normally POST in the case of HTTP).
+  #+end_quote
+- Level 1 - resources
+  #+begin_quote
+  Here, the API distinguishes between multiple resources using different URLs.
+  However, there is still typically only one method (POST) of interaction. This is
+  better than the previous level because now there is a hierarchical definition of
+  resources. Instead of going through /hotels, now the API assigns IDs to each
+  hotel and uses that to see which hotel the request is for, so the API will have
+  URLs of the /hotels/<id> form.
+  #+end_quote
+- Level 2 - HTTP Verbs
+  #+begin_quote
+  This level indicates that the API uses protocol properties (namely, HTTP verbs)
+  to define the nature of the API. Thus GET is used for a read, POST is used to
+  create a new resource, PUT to update a resource, and DELETE to of course delete
+  the resource. The API also uses standard responses code such as 200 (OK) and 202
+  (ACCEPTED) to describe the result of the request.
+
+  Generally, most REST API implementations are at this level.
+  #+end_quote
+
+- Level 3 - Hypermedia controls
+  #+begin_quote
+  Level 3, the highest level, uses Hypertext As The Engine Of Application State
+  (HATEOAS) to allow clients to deal with discovering the resources and the
+  identifiers.
+  #+end_quote
+
+  Example:
+
+  #+begin_src
+  GET /hotels/xyz
+  #+end_src
+
+  Response:
+
+  #+begin_src
+  {
+      "city": "Delhi",
+      "display_name": "Hotel Xyz",
+      "star_rating": 4,
+      "links": [
+          {
+              "href": "xyz/book",
+              "rel": "book",
+              "type": "POST"
+          },
+         {
+              "href": "xyz/rooms",
+              "rel": "rooms",
+              "type": "GET"
+  ...
+  #+end_src
+
+*** Anti-fragile systems
+**** Engineering reliability
+***** Messaging
+
+- The asynchonous computation pattern
+- The orchestrator pattern
+- The compensating-transaction pattern
+- The pipes and filter pattern
+- The sidecar pattern
+
+* Gists :gist:
 :PROPERTIES:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true :noauthor true :nocomment true :nodate true :nopaging true :noread true
 :EXPORT_HUGO_SECTION: gists
 :EXPORT_HUGO_WEIGHT: auto
 :END:
-** A JavaScript keylogger using a websocket Golang server  :golang:
+** A JavaScript keylogger using a websocket Golang server                       :golang:
 :PROPERTIES:
 :EXPORT_FILE_NAME: javascript-keylogger-websocket-golang
 :HUGO_SECTION: gist
 :END:
 
 {{< gist dorneanu 02c9c5bb83e881e7ad2c1e93c7c2fd24 >}}
-** Simple plugin architecture in Python                    :python:
+** Simple plugin architecture in Python                                         :python:
 :PROPERTIES:
 :EXPORT_FILE_NAME: simple-plugin-architecture-in-python
 :END:
 
 {{< gist dorneanu cce1cd6711969d581873a88e0257e312 >}}
-** List all repos inside an organization using python and github3 :python:github:
+** List all repos inside an organization using python and github3               :python:github:
 :PROPERTIES:
 :EXPORT_FILE_NAME: list-all-repos-inside-an-organization-using-python-and-github3
 :END:
 
 {{< gist dorneanu d25e5eb327429095285fd6552486d064 >}}
 
-* COMMENT Local Variables                                   :ARCHIVE:
+* COMMENT Local Variables                                                       :ARCHIVE:
 # Local Variables:
 # eval: (org-hugo-auto-export-mode)
 # End:
