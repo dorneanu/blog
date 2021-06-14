@@ -1,7 +1,7 @@
 +++
 title = "Golang"
 author = ["Victor Dorneanu"]
-lastmod = 2021-04-21T10:26:01+02:00
+lastmod = 2021-05-11T10:28:54+02:00
 tags = ["bookmark", "golang"]
 draft = false
 weight = 2001
@@ -73,6 +73,7 @@ toc = true
 ### CDK {#cdk}
 
 -   [Getting started with CDK and Golang](https://aws.amazon.com/blogs/developer/getting-started-with-the-aws-cloud-development-kit-and-go/)
+-   [Using AWS CDK to configure deploy a Golang Lambda with API Gateway](https://blog.john-pfeiffer.com/using-aws-cdk-to-configure-deploy-a-golang-lambda-with-apigateway/)
 
 
 ## Books {#books}
@@ -126,6 +127,8 @@ generate the files. It also works well with [helm-gtags](https://melpa.org/#/hel
 
 -   [Cleaner go code with golines](https://yolken.net/blog/cleaner-go-code-golines)
 -   [Effective Go (golang.org)](https://golang.org/doc/effective%5Fgo)
+-   [Darker Corners of Go](https://rytisbiel.com/2021/03/06/darker-corners-of-go/)
+    -   covers most of the 101 topics beginners should know about Golang
 
 
 ### Clean Code Examples {#clean-code-examples}
@@ -373,6 +376,11 @@ Great resources:
 
 -   [github.com/gnxbr/Unbreakable-Botnet-C2](https://github.com/gnxbr/Unbreakable-Botnet-C2)
     -   using Blockchains for communication channel
+
+
+### Scanners {#scanners}
+
+-   [github.com/v-byte-cpu/sx](https://github.com/v-byte-cpu/sx)
 
 
 ## Surveys {#surveys}

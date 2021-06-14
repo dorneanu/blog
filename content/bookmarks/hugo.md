@@ -1,7 +1,7 @@
 +++
 title = "Hugo"
 author = ["Victor Dorneanu"]
-lastmod = 2021-03-11T09:32:02+01:00
+lastmod = 2021-04-25T13:01:45+02:00
 tags = ["bookmark", "hugo"]
 draft = false
 weight = 2002
@@ -43,6 +43,8 @@ Some curated list of bookmarks related to `hugo`.
     -   Also has Tocbot
 -   [bella.bc](https://bella.cc/blog/)
     -   Customization of ER theme with Zettels.
+-   [hugo-well-travelled](https://github.com/mpaluchowski/hugo-well-traveled)
+    -   for travelling
 
 
 ## Searching {#searching}

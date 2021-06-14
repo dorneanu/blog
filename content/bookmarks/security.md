@@ -1,7 +1,7 @@
 +++
 title = "Security"
 author = ["Victor Dorneanu"]
-lastmod = 2021-03-15T14:48:38+01:00
+lastmod = 2021-05-18T10:41:58+02:00
 tags = ["bookmark"]
 draft = false
 weight = 2004
@@ -35,3 +35,8 @@ noread = true
 ### [Application Security Training For Developers | Kontra](https://application.security/) {#application-security-training-for-developers-kontra}
 
 All kind of appsec related simulations/trainings.
+
+
+## Offensive {#offensive}
+
+-   [secret club | We Break Software](https://secret.club/)
