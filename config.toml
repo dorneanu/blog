@@ -19,6 +19,11 @@ DefaultContentLanguage = "en"
 disqusShortname = "dorneanu"
 # publishDir = "docs"
 
+copyright="2021 Victor Dorneanu - All rights reserved"
+
+[author]
+  name="Victor Dorneanu"
+
 [permalinks]
 posts = "/:year/:month/:day/:title"
 notes = "/notes/:title"
@@ -128,4 +133,9 @@ pattern = "^.+\\.(html|xml|json)$"
 gzip = true
 
 [outputs]
-home = [ "HTML" ] 
+home = [ "HTML", "RSS"] 
+
+[outputFormats]
+[outputFormats.RSS]
+mediatype = "application/rss"
+baseName = "feed"
