@@ -477,11 +477,18 @@ How can you know your code works? That’s easy. Test it. Test it again. Test it
 
 And how do you make sure your code is /testable/? By using abstractions instead of concrete implementations and making each single part of your code /mockable/ aka testable.
 
-** DONE Note taking in 2021 :golang:tiddly:
+** DONE Note taking in 2021                                                    :golang:tiddly:pkms:
 CLOSED: [2021-06-13 Sun 14:56]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2021-note-taking-in-2021
 :END:
+
+{{% notice tip %}}
+*[Update 2021-06-18]*
+<br/>
+  This post caught some attention on [[https://news.ycombinator.com/item?id=27513008][this Hackernews thread]]. You might want to check the comments. Based on the recommendations in the thread I've put together a list of (digital) solutions (besides the preferred ones)
+{{% /notice %}}
+
 
 Almost 6 years ago I was blogging about [[/2015/09/17/organizing-and-visualizing-knowledge/][organizing and visualizing knowledge]]. At that time I was just playing around with {{{zk(Tiddlywiki, Tiddlywiki)}}} and using it to collect notes during my [[/tags/ccna/][CCNA]] course. I couldn't anticipate to which extent [[https://en.wikipedia.org/wiki/Personal_knowledge_management][personal knowledge management systems]] would become famous and trendy. And people nowadays don't blog anymore: They take care of their [[https://joelhooks.com/digital-garden][digital gardens]]. While most of them seem to be just a collection of random notes, there are actually good ones where you can actually read through the thoughts/notes and learn something new. Here are my favourite ones:
 
@@ -622,6 +629,69 @@ requirements were /essential/:
     - no proprietary format!
   + If you use tags and extra fields for your content, then it should be easy to use them in the new system
   + You should export all content to a readable form and share it online (like a /digital garden/)
+
+**** Other digital solutions
+- [[https://agenda.com/][Agenda]]
+  + date focused note taking
+- [[https://bear.app/][Bear]]
+  + only for Apple devices
+- [[https://www.craft.do/][Craft]]
+  + only for Apple devices
+- [[https://www.zengobi.com/curio/][Curio]]
+- [[https://evernote.com/][Evernote]]
+- [[https://github.com/foambubble/foam][foam]]
+  + personal knowledge management and sharing system for VSCode
+- [[https://keep.google.com/][Google Keep]]
+  + I also use it for cooking recipies
+  + has tags
+  + I can easily search in the mobile application
+  + Inserting new notes is very easy
+- [[https://www.instanote.io/][instanote]]
+  + for Apple devices only
+- [[https://joplinapp.org/][Joplin]]
+  + cross-platform
+  + has encryption
+  + [[https://mrkaran.dev/posts/how-i-take-notes/][How I take notes]]
+- [[https://logseq.com/][logseq]]
+  + supports Markdown and ORG-mode files
+  + very similar to Roam
+  + still in beta though
+- [[https://apps.nextcloud.com/apps/notes][Nextcloud/Notes]]
+  + chronically underrated
+  + has sync already built-in
+- [[https://notable.app/][Noteable.app]]
+  + available for different platforms
+  + notes are written in Markdown
+  + [[https://github.com/alok/notational-fzf-vim][notational-fzf]]
+    - works fine with Noteable
+    - Notational velocity for VIM
+- [[https://noteplan.co/][NotePlan]]
+- [[https://obsidian.md/][Obsidian]]
+  + uses Markdown
+  + maintaines an index for linking things
+- [[https://www.microsoft.com/en-us/microsoft-365/onenote/digital-note-taking-app][OneNote]]
+- [[https://orgmode.org/][ORG Mode]]
+  + requires Emacs
+  + [[https://organice.200ok.ch/][organice]]
+    - implementation of ORG mode without Emacs
+    - built for mobile and desktop browsers
+  + [[https://www.mtsolitary.com/20210309194647-my-org-mode-setup/][My ORG Mode setup]]
+- [[https://roamresearch.com/][Roam Research]]
+  + also check [[https://joekroese.github.io/tiddlyroam/][TiddlyRoam]]
+  + [[https://giffmex.org/stroll/stroll.html][Stroll]] is also amazing
+  + if you want an awesome interface have a look at [[https://kebifurai.github.io/TiddlyResearch/][TiddlyResearch]]
+- [[https://www.sparkleshare.org/][SparkleShare]]
+  - for sharing documents/folders
+- [[https://supernotes.app/][supernotes]]
+  + has an API
+  + uses notecards (similar to tiddlers) for storing content
+- [[https://zettelkasten.de/the-archive/][The-Archive]]
+  + built with Zettelkasten philosophy in mind
+  + also check the [[https://zettelkasten.de/posts/overview/][Zettelkasten introduction]] which is really great
+- [[https://github.com/vimwiki/vimwiki][vimwiki]]
+  + personal wiki for VIM users
+- [[https://zim-wiki.org/][Zim Wiki]]
+  + missing mobile support
 
 *** Final thoughts
 I really recommend taking this whole topic more seriously since it will pay off on many layers. Not only you'll be able to deep-dive into multiple topics at once, but you'll have a solid

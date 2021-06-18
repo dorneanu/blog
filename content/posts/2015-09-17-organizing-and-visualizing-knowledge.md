@@ -2,7 +2,7 @@
 title = "Organizing and visualizing knowledge"
 author = "Victor Dorneanu"
 date = "2015-09-17"
-tags = ["viz", "pocket", "xmind", "tiddly", "wiki"]
+tags = ["viz", "pocket", "xmind", "tiddly", "wiki", "pkms"]
 category = "blog"
 +++
 

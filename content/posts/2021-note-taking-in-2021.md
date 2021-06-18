@@ -2,10 +2,16 @@
 title = "Note taking in 2021"
 author = ["Victor Dorneanu"]
 date = 2021-06-13T14:56:00+02:00
-lastmod = 2021-06-13T15:10:14+02:00
-tags = ["golang", "tiddly"]
+lastmod = 2021-06-18T10:32:37+02:00
+tags = ["golang", "tiddly", "pkms"]
 draft = false
 +++
+
+{{% notice tip %}}
+**[Update 2021-06-18]**
+<br/>
+  This post caught some attention on [this Hackernews thread](https://news.ycombinator.com/item?id=27513008). You might want to check the comments. Based on the recommendations in the thread I've put together a list of (digital) solutions (besides the preferred ones)
+{{% /notice %}}
 
 Almost 6 years ago I was blogging about [organizing and visualizing knowledge](/2015/09/17/organizing-and-visualizing-knowledge/). At that time I was just playing around with [ Tiddlywiki](https://brainfck.org/#Tiddlywiki) and using it to collect notes during my [CCNA](/tags/ccna/) course. I couldn't anticipate to which extent [personal knowledge management systems](https://en.wikipedia.org/wiki/Personal%5Fknowledge%5Fmanagement) would become famous and trendy. And people nowadays don't blog anymore: They take care of their [digital gardens](https://joelhooks.com/digital-garden). While most of them seem to be just a collection of random notes, there are actually good ones where you can actually read through the thoughts/notes and learn something new. Here are my favourite ones:
 
@@ -160,6 +166,71 @@ requirements were _essential_:
         -   no proprietary format!
     -   If you use tags and extra fields for your content, then it should be easy to use them in the new system
     -   You should export all content to a readable form and share it online (like a _digital garden_)
+
+
+### Other digital solutions {#other-digital-solutions}
+
+-   [Agenda](https://agenda.com/)
+    -   date focused note taking
+-   [Bear](https://bear.app/)
+    -   only for Apple devices
+-   [Craft](https://www.craft.do/)
+    -   only for Apple devices
+-   [Curio](https://www.zengobi.com/curio/)
+-   [Evernote](https://evernote.com/)
+-   [foam](https://github.com/foambubble/foam)
+    -   personal knowledge management and sharing system for VSCode
+-   [Google Keep](https://keep.google.com/)
+    -   I also use it for cooking recipies
+    -   has tags
+    -   I can easily search in the mobile application
+    -   Inserting new notes is very easy
+-   [instanote](https://www.instanote.io/)
+    -   for Apple devices only
+-   [Joplin](https://joplinapp.org/)
+    -   cross-platform
+    -   has encryption
+    -   [How I take notes](https://mrkaran.dev/posts/how-i-take-notes/)
+-   [logseq](https://logseq.com/)
+    -   supports Markdown and ORG-mode files
+    -   very similar to Roam
+    -   still in beta though
+-   [Nextcloud/Notes](https://apps.nextcloud.com/apps/notes)
+    -   chronically underrated
+    -   has sync already built-in
+-   [Noteable.app](https://notable.app/)
+    -   available for different platforms
+    -   notes are written in Markdown
+    -   [notational-fzf](https://github.com/alok/notational-fzf-vim)
+        -   works fine with Noteable
+        -   Notational velocity for VIM
+-   [NotePlan](https://noteplan.co/)
+-   [Obsidian](https://obsidian.md/)
+    -   uses Markdown
+    -   maintaines an index for linking things
+-   [OneNote](https://www.microsoft.com/en-us/microsoft-365/onenote/digital-note-taking-app)
+-   [ORG Mode](https://orgmode.org/)
+    -   requires Emacs
+    -   [organice](https://organice.200ok.ch/)
+        -   implementation of ORG mode without Emacs
+        -   built for mobile and desktop browsers
+    -   [My ORG Mode setup](https://www.mtsolitary.com/20210309194647-my-org-mode-setup/)
+-   [Roam Research](https://roamresearch.com/)
+    -   also check [TiddlyRoam](https://joekroese.github.io/tiddlyroam/)
+    -   [Stroll](https://giffmex.org/stroll/stroll.html) is also amazing
+    -   if you want an awesome interface have a look at [TiddlyResearch](https://kebifurai.github.io/TiddlyResearch/)
+-   [SparkleShare](https://www.sparkleshare.org/)
+    -   for sharing documents/folders
+-   [supernotes](https://supernotes.app/)
+    -   has an API
+    -   uses notecards (similar to tiddlers) for storing content
+-   [The-Archive](https://zettelkasten.de/the-archive/)
+    -   built with Zettelkasten philosophy in mind
+    -   also check the [Zettelkasten introduction](https://zettelkasten.de/posts/overview/) which is really great
+-   [vimwiki](https://github.com/vimwiki/vimwiki)
+    -   personal wiki for VIM users
+-   [Zim Wiki](https://zim-wiki.org/)
+    -   missing mobile support
 
 
 ## Final thoughts {#final-thoughts}
