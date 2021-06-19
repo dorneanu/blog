@@ -2,7 +2,7 @@
 title = "Note taking in 2021"
 author = ["Victor Dorneanu"]
 date = 2021-06-13T14:56:00+02:00
-lastmod = 2021-06-18T10:32:37+02:00
+lastmod = 2021-06-19T08:31:11+02:00
 tags = ["golang", "tiddly", "pkms"]
 draft = false
 +++
@@ -133,7 +133,7 @@ During the last months 2 __input capture systems__ established and have become p
 
 ## Note storage {#note-storage}
 
-Contrary to what [Lukas Luhmann](https://en.wikipedia.org/wiki/Niklas%5FLuhmann) was doing with his "slip box" (german: Zettelkasten) I like to have my notes stored digitally. Not only I can easily make multiple
+Contrary to what [Niklas Luhmann](https://en.wikipedia.org/wiki/Niklas%5FLuhmann) was doing with his "slip box" (german: Zettelkasten) I like to have my notes stored digitally. Not only I can easily make multiple
 backups and store them at different locations, but I can also apply batch operations (text modification, add/remove tags etc.) using command line tools like `sed`, `awk` & co. And as with the [ Unix](https://brainfck.org/#Unix) philosophy [everything is a file](https://en.wikipedia.org/wiki/Everything%5Fis%5Fa%5Ffile) I like to cluster notes (on the same topic) in one single file. This solution is completely software agnostic and files can be modified accordingly to be imported into different note-taking systems.
 
 

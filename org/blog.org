@@ -599,7 +599,7 @@ During the last months 2 //input capture systems// established and have become p
 [[file:../static/posts/img/2021/note-taking/note-taking-list-of-journals.jpg]]
 
 *** Note storage
-Contrary to what [[https://en.wikipedia.org/wiki/Niklas_Luhmann][Lukas Luhmann]] was doing with his "slip box" (german: Zettelkasten) I like to have my notes stored digitally. Not only I can easily make multiple
+Contrary to what [[https://en.wikipedia.org/wiki/Niklas_Luhmann][Niklas Luhmann]] was doing with his "slip box" (german: Zettelkasten) I like to have my notes stored digitally. Not only I can easily make multiple
 backups and store them at different locations, but I can also apply batch operations (text modification, add/remove tags etc.) using command line tools like ~sed~, ~awk~ & co. And as with the {{{zk(Unix, Unix)}}} philosophy [[https://en.wikipedia.org/wiki/Everything_is_a_file][everything is a file]] I like to cluster notes (on the same topic) in one single file. This solution is completely software agnostic and files can be modified accordingly to be imported into different note-taking systems.
 
 **** Requirements
