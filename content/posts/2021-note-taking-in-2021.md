@@ -2,14 +2,18 @@
 title = "Note taking in 2021"
 author = ["Victor Dorneanu"]
 date = 2021-06-13T14:56:00+02:00
-lastmod = 2021-06-19T08:31:11+02:00
+lastmod = 2021-06-22T12:04:30+02:00
 tags = ["golang", "tiddly", "pkms"]
 draft = false
 +++
 
 {{% notice tip %}}
+**[Update 2021-06-22]**
+  If you're more interested in the Tiddlywiki aspect of this post you can also check this [Tiddlywiki Google Groups thread](https://groups.google.com/g/tiddlywiki/c/vlAZ%5FK4K63o/m/cPuFWVIKAQAJ).
+{{% /notice %}}
+
+{{% notice tip %}}
 **[Update 2021-06-18]**
-<br/>
   This post caught some attention on [this Hackernews thread](https://news.ycombinator.com/item?id=27513008). You might want to check the comments. Based on the recommendations in the thread I've put together a list of (digital) solutions (besides the preferred ones)
 {{% /notice %}}
 

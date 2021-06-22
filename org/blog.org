@@ -484,8 +484,12 @@ CLOSED: [2021-06-13 Sun 14:56]
 :END:
 
 {{% notice tip %}}
+*[Update 2021-06-22]*
+  If you're more interested in the Tiddlywiki aspect of this post you can also check this [[https://groups.google.com/g/tiddlywiki/c/vlAZ_K4K63o/m/cPuFWVIKAQAJ][Tiddlywiki Google Groups thread]].
+{{% /notice %}}
+
+{{% notice tip %}}
 *[Update 2021-06-18]*
-<br/>
   This post caught some attention on [[https://news.ycombinator.com/item?id=27513008][this Hackernews thread]]. You might want to check the comments. Based on the recommendations in the thread I've put together a list of (digital) solutions (besides the preferred ones)
 {{% /notice %}}
 
