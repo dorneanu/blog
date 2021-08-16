@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en">
+<head>{{ partial "header.html" . }}</head>
+<body class="global-font">
+  {{ partial "nav.html" . }}
+  {{ block "main" . }}{{ end }}
+  {{ partial "footer.html" . }}
+  {{ partial "scripts.html" . }}
+  {{ if .Params.asciinema }}
+    <script src="{{ .Site.BaseURL }}js/asciinema-player.js"></script>
+  {{ end }}
+</body>
+</html>
