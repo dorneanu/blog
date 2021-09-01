@@ -702,6 +702,508 @@ I really recommend taking this whole topic more seriously since it will pay off 
 collection of notes/thoughts for later. Having a solid note eco-system will definitely increase your productivity and overall focus since we already spend to much time /googling/ stuff.
 *Use your brain for what it was built for*: Thinking, cognitive processes and creativity. Definitely not for storing information.
 
+** DONE Using org-mode and Tiddlywiki                                          :org:tiddly:
+CLOSED: [2021-06-29 Tue 11:43]
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2021-using-org-mode-and-tiddlywiki
+:END:
+
+For many years I've been using this amazing {{{zk($:/plugins/inmysocks/Bookmarks, Bookmarks)}}} plugin which helped to store and manage my {{{zk(Bibliography, bookmark collections)}}}.
+
+*** Add new tiddler to Tiddlywiki
+Let's have a look at the most simplest example:
+
+#+begin_src verb :wrap src ob-verb-response :exports both
+put http://127.0.0.1:8181/recipes/default/tiddlers/NewTiddler
+Content-Type: application/json
+Accept: application/json
+X-Requested-With: TiddlyWiki
+Content-Type: application/json; charset=utf-8
+
+{
+    "title": "NewTiddler",
+    "tags": "Tiddlywiki"
+}
+
+#+end_src
+
+#+RESULTS:
+#+begin_src ob-verb-response
+HTTP/1.1 204 OK
+Etag: "default/NewTiddler/1:"
+Content-Type: text/plain
+Date: Tue, 29 Jun 2021 09:43:39 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+#+end_src
+
+*** Add new bookmark to Tiddlywiki
+For adding a new bookmark to {{{zk(Tiddlywiki, Tiddlywiki)}}} you can use ~org-babel~ inside your ORG file to create and fire up requests. Let's have a look at an example:
+
+#+begin_src verb :wrap src ob-verb-response :exports both
+put http://127.0.0.1:8181/recipes/default/tiddlers/{{(read-string "URL-Title: ")}}
+Content-Type: application/json
+Accept: application/json
+X-Requested-With: TiddlyWiki
+Content-Type: application/json; charset=utf-8
+
+{
+    "title": "{{(verb-var title)}}",
+    "name": "{{(verb-var title)}}",
+    "tags": "Bookmark {{(read-string "Tags: ")}}",
+    "note": "{{(read-string "Note: ")}}",
+    "url": "{{(read-string "URL: ")}}"
+}
+
+#+end_src
+
+#+RESULTS:
+#+begin_src ob-verb-response
+HTTP/1.1 204 OK
+Etag: "default/bla/5:"
+Content-Type: text/plain
+Date: Tue, 29 Jun 2021 09:34:19 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+#+end_src
+
+If you put your cursor just before the ~#+begin_src~ statement and type ~C-c C-c~ that will trigger different events:
+- the ~read-string~ will first read input and use it for the placeholder
+- the ~verb-var~ statement will ask for some input and save it to variable ~title~
+- so in our case you'll be asked for:
+  + the URL title
+  + the tiddler's title
+  + tags (also notice that we per default add ~Bookmark~ as a tag)
+  + a note/comment regarding the comment
+  + and finally for the bookmark URL
+** DONE Inbox Zero using Getpocket                                             :pocket:asciinema:emacs:productivity:
+CLOSED: [2021-09-01]
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2021-inbox-zero-using-getpocket
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :asciinema true
+:END:
+
+After finishing my last post on [[/2021/08/15/howto-convert-pocket-reader-links-to-epub-and-upload-to-dropbox/][how to convert getpocket links to epub]] I was thinking a lot about my current workflow, how
+I manage to capture everything that
+ might be interesting for me and save it for later use. Saving web articles for later reading is not a big deal but dealing with the amount of saved articles requires some management skills. In this post I'll share some best practices on how to organize and categorize your (web) articles in a {{{zk(GTD,GTD)}}} manner: {{{zk(GTD/Input,Capture what has your attention)}}}, {{{zk(GTD/Buckets,organize your content in buckets)}}} and {{{zk(GTD Managing attention,keep an eye on your focus)}}}.
+
+*** Requirements
+When I had to decide for a "read it later"/"save for later" service some years ago, I've instantly registered an account with [[https://getpocket.com][getpocket.com]] and I still don't regret my decision. But what should a read it later app be capable of? Here is my incomplete list:
+- let's you *save articles* with *one click*
+  + ideally there are solutions for different devices (desktop, mobile, e-readers etc.)
+  + you can easily save/*share* the content/articles
+    - "share to" on mobile phones
+    - browser extensions
+    - e-mail service that automatically adds your article to the read it later list when you send an e-mail to that specific address
+- let's you *organize* your articles
+  + you can *tag* items
+  + you can *search* for items
+    - either by specific tag or
+    - by keyword
+  + you can *archive* items
+  + you can create lists/*collections* of items
+
+Now, for my not so unspecific requirements ~getpocket~ has done a very great job and I still feel bad for no purchasing premium.
+
+*** What is Inbox Zero?
+
+#+begin_quote
+"Unproductive preoccupation with all the things we have to do is the single largest consumer of time and energy" - Kerry Glees
+#+end_quote
+
+{{{zk(GTD,GTD)}}} proposes to capture everything that has our attention. You can either capture stuff on paper or digitally. And most important of all:
+Collection tools should be part of your life style in order to *get everything out of your head*. And for better management you should also minimize the
+number of capture locations (at work, at home, on your smartphone, at your desktop, while sitting down, while driving home etc.). {{{zk(GTD Managing attention,Managing attention)}}} will eventually not only get things off your mind but also enable you to collect *things* and access them later.
+
+#+begin_quote
+Your brain is for having ideas, not storing them – David Allen
+#+end_quote
+
+Now that you know what GTD is about (I really recommend reading the book since you won't find any explanations around the GTD process on the web. I was using GTD methodologies for years but without knowing how to apply them properly and for which areas to use) what is *inbox zero* about? [[https://en.wikipedia.org/wiki/Merlin_Mann][Merlin Mann]] popularized the concept of "inbox zero" which somehow become associated with GTD. Even though [[https://www.wired.co.uk/article/inbox-zero-mentality][Mann stated]] he doesn't keep his inbox empty and everything I *guess* I know about it might be wrong,
+let's (re-)define it for our own purposes.
+
+So Inbox Zero is the attempt to keep your inbox empty, or close to empty, at all times. And if you realize everything in your life is an inbox, then you'll see the true benefit of keeping your inbox(es) empty. It not only helps you to make space for new input/ideas, but also use your brain for
+what it was built for: Cognitive processes and not for information storage.
+
+While you could apply this methodology to almost everything in life, let's have a look how it could be used for cleaning up your ~getpocket~ inbox for better URL management
+and how to get most out of your readings.
+
+*** Why Getpocket
+Before we get into details, why did I chose ~getpocket~ at all?
+
+- works on nearly every device
+  + mobile clients (smartphones, tablets)
+  + desktop clients (browser, native applications)
+  + but also on E-readers (like my PocketBook Inkpad 3)
+- has great UI
+- I love their "readable" content view
+  + Now that Mozilla acquired them, most likely they use [[https://github.com/mozilla/readability][readability]]
+  + in my [[/2021/08/15/howto-convert-pocket-reader-links-to-epub-and-upload-to-dropbox/][last post]] I was also playing with [[https://github.com/eafer/rdrview][rdrview]] which allows you to have that reader view as a CLI tool
+- you can access your articles using the API
+  + I'm still missing some features, though
+    + e.g. you cannot extract your highlights
+
+**** Alternatives
+Here's a list of alternatives in case you don't want to use getpocket:
+- [[https://www.instapaper.com/][Instapaper]]
+  + never tried
+- [[https://raindrop.io/][raindrop.io]]
+  + implements pretty much the same feature set as Getpocket does
+- [[https://github.com/wallabag/wallabag][wallabag]]
+  + this is self-hosted
+  + along with [[http://koreader.rocks/][koreader]] you can also use wallabag on your E-Reader device
+
+Apart from these service, there are tons of "bookmark managers" which they all have their pros and
+cons. Feel free to give them a try and chose the one matching your needs best.
+*** Buckets
+Usually when you send an URL to getpocket it will land in your default list (which is [[https://getpocket.com/my-list][my-list]]). Additionally you might have different other lists (such as [[https://getpocket.com/my-list/favorites][favorites]] or [[https://getpocket.com/my-list/archive][archive]]) available. But again: Those are only the default ones and just categorize your content depending on the content type ([[https://getpocket.com/my-list/videos][videos]], [[https://getpocket.com/my-list/articles][articles]] etc.
+). What we want to have is a personalized categorization depending on your needs. Also dealing with a huge list like [[https://getpocket.com/my-list][my-list]] can be also very time consuming. You need
+to chunk the list in small portions in order to actually *consume* it.
+
+I like the idea of buckets where you can put *things in*. In a perfect world you'd want to have all your buckets
+*empty* but I know that is hard to achieve.
+
+#+begin_src plantuml :file ../static/posts/img/2021/input-zero/buckets-all.png :cmdline -charset UTF-8 :exports results
+scale 600 width
+
+state getpocket {
+    state "/my-list" as Input
+    Input : URL #1
+    Input : URL #2
+
+    state "/my-list/archive" as Archive
+    Archive : URL #1
+    Archive : URL #2
+
+    state "/my-list/favorites" as Favs
+    Favs : URL #1
+    Favs : URL #2
+
+    state "/my-list/articles" as Articles
+    Articles : URL #1
+    Articles : URL #2
+}
+#+end_src
+
+#+CAPTION: Different buckets/lists used at getpocket
+#+RESULTS:
+[[file:../static/posts/img/2021/input-zero/buckets-all.png]]
+
+
+**** Reading state tags
+I use the initial list (my-list) as the first input gate from where I decide what to actually *do* with the content: Read it, share it, print it, delete it etc.
+
+#+begin_src plantuml :file ../static/posts/img/2021/input-zero/tags.png :cmdline -charset UTF-8 :exports results
+scale 600 width
+
+state getpocket {
+    state "/my-list" as Input
+    Input : URL #1
+    Input : URL #2
+
+    state "/my-list/tags/next" as Next
+    Next : URL #1
+    Next : URL #2
+
+    state "/my-list/tags/2read" as 2read
+    2read : URL #1
+    2read : URL #2
+
+    state "/my-list/tags/2watch" as 2watch
+    2watch : URL #1
+    2watch : URL #2
+
+    Input -right-> Next: Tag with next
+    Input -up-> 2read: Tag with 2read
+    Input -down-> 2watch: Tag with 2watch
+}
+#+end_src
+
+#+CAPTION: I use tags to manage my reading workflow
+#+RESULTS:
+[[file:../static/posts/img/2021/input-zero/tags.png]]
+
+**** Topics tags
+
+Additionally I of course tag URLs based on topics (like programming language, politics, business etc.) among with
+the tags describing each URLs reading state.
+
+#+begin_src plantuml :file ../static/posts/img/2021/input-zero/tags-with-topics.png :cmdline -charset UTF-8 :exports results
+scale 600 width
+
+state getpocket {
+    state "/my-list/tags/2read" as 2read
+    2read : URL #1 \t\t tags: 2read, golang, aws, cdk
+    2read : URL #2 \t\t tags: 2read, python, blockchain
+
+    state "/my-list/tags/2watch" as 2watch
+    2watch : URL #3 \t\t tags: 2watch, politics
+    2watch : URL #4 \t\t tags: 2watch, funny
+}
+#+end_src
+
+#+CAPTION: Some URLs tagged with reading state tags and topics tags
+#+RESULTS:
+[[file:../static/posts/img/2021/input-zero/tags-with-topics.png]]
+
+In the above figure I have 4 URLs which are tagged multiple times. When tagging stuff I differentiate between
+- reading state tags
+- topics tags
+
+In my example I have 2 URLs which I'd like to read (~2read~) and 2 which I'd like to watch (~2watch~). Additionally
+I also use *topics tags* in order to categorize my content also by content:
+- URL #2 is about {{{zk(Python,Python)}}} and {{{zk(Blockchain,Blockchain)}}}
+- URL #3 is about politics
+
+*** Use tags wisely
+Whether tagging is good or not has been a controverse topic around {{{zk(Zettelkasten,Zettelkasten)}}} which doesn't recommend tagging (at least in an information system). Here you can read more:
+- [[https://notes.andymatuschak.org/z6ztEgzqZichYTJgabhYQLn4UY4FbC1JMH394][Indexed references vs. tags]]
+- [[https://fortelabs.co/blog/tagging-is-broken/][Tagging is broken (fortelabs.co)]]
+- [[https://forum.zettelkasten.de/discussion/915/tags-vs-zettel-links][Tags vs Zettels]]
+- [[https://zettelkasten.de/posts/object-tags-vs-topic-tags/][The Difference Between Good and Bad Tags]]
+- [[https://forum.obsidian.md/t/tags-vs-page-link/193/21][Tags vs. page/link (obsidian.md)]]
+
+However, I merely use the tags to define a state which helps my overall reading workflow. Initially I've read about this
+idea in [[https://daryl.wakatara.com/the-information-overload-gtd-flow/][Daryl's awesome article on his own GTD workflow]]. It helped me a lot to
+
+Here are these together with some explanations.
+
+**** 2read
+- this is pretty much self-explanatory: mark items/articles I want to *read*
+- this might no seem obvious (why tagging articles as to-read when using a save-for-later-read service?) but I sometimes getpocket for temporary storage
+  + I temporarly add articles/links to it
+  + This way the global *input* bucket will eventually get cloaked
+**** 2watch
+- used to mark items/links that contain some videos
+- Whenever I have time to watch some videos I use this list to check what I've marked for watching
+- I mostly used this for Youtube videos
+  + But also for articles that contain videos (self-hosted)
+**** 2listen
+- this is mostly about podcasts
+  + I tag the whole podcast or specific episodes
+**** 2share
+- The content I'm reading/watching is sometimes worth to be *shared*
+  + I either share it with friends/colleagues/family
+  + Add the link to some (bookmark) list (like [[/bookmarks/][these ones]])
+  + Or I put into my {{{zk(Tiddlywiki,Tiddlywiki)}}} instance as a bookmark
+**** 2print
+- I don't own a printer at home so whenever I'm at the copy shop I'd like to have a list of documents/articles to be printed
+- I also put Google Docs links into Getpocket and tag them by ~2print~
+**** 2go
+- I sometimes search for local coffee shops or interesting places I'd like to go to
+- this tag helps mark those places so I can find them again
+
+*** My setup
+In this last section I'll share some details regarding my workflow, which (getpocket) clients I use and how I manage to stay focussed while going through my articles.
+**** Browser add-on
+Getpocket has for almost every browser [[https://help.getpocket.com/category/846-category][add-ons]] you can easily use to add content on-the-fly. Try to remember the keyboard shortcuts (I use [[https://github.com/brookhong/Surfingkeys][Surfingkeys]] but that's a different story) for frictionless interaction. In Chrome for example you can use ~CMD+Shift+P~ (OS X) or ~Ctrl+Shift+P~ (Windows/Linux) to add current site to getpocket.
+
+I rarely use this functionality since I try to avoid the browser as much as I can. Not because I'm a freak but
+because of distractions every page has to offer. When I want to read sth (and I know there is readmode for Chrome)
+I don't want to get distrupted by ads. Whenever I can, I try to read on my E-Reader after having converted the articles to epub and uploaded them to Dropbox.
+**** (Doom) Emacs
+{{% notice tip %}}
+You can also check my [[https://github.com/dorneanu/dotfiles/tree/master/emacs/doom/.doom.d][dotfiles]] if you want to get straight to the point.
+{{% /notice %}}
+
+During the last 2 years I've become a huge {{{zk(Emacs,Emacs)}}} fan and currently I'm also learning some {{{zk(Lisp,Lisp)}}} to even add more customizations.
+
+When it comes to getpocket there is [[https://github.com/alphapapa/pocket-reader.el][pocket-reader.el]] which is *the* getpocket client for Emacs.
+
+#+CAPTION: Small demo using Emacs, elfeed and pocket-reader
+{{< asciinema key="inbox-zero-getpocket" poster="npt:2:34" rows="25" font-size="10px" cols="800" preload="1" >}}
+
+**** Workflow
+Depending on the content (if it's a Youtube link, an article, a podcast episode) I'll add accordingly ~2read~, ~2listen~ etc. Sometimes I only want to add that link to a collection of links/bookmarks, so it will only get ~2share~. In ~pocket-reader~ I'll then search for items tagged by ~2share~, copy the links and *archive* (I'll get to this one immediately) them.
+
+After having tagged the items by ~2read~, ~2watch~, ~2listen~, etc. I then decide which items should get my attention
+first. How do I do this? Given GTD's statement that {{{zk(GTD Managing attention,open loops will attract attention)}}} I try to give my brain some "break" from the long ~2read~ list. Instead I only tag a few by ~next~
+which I'll actually read and focus on. After I have finished reading *all* of them, I remove the tags ~2read~ and ~next~, *archive* the items and add *new* ones (by adding ~next~ to some items in the ~2read~ bucket). Sounds complicated? Let me try to explain using a sequence diagram.
+
+#+begin_src plantuml :file ../static/posts/img/2021/input-zero/workflow-2share.png :cmdline -charset UTF-8 :exports results
+
+MyList->2share : tagged by 2share
+
+== Share item to family, friends, colleagues ==
+2share->Archive : archive item
+note right
+    Optionally:
+    Also remove 2share tag before archiving
+end note
+#+end_src
+
+#+CAPTION: My 2share workflow
+#+RESULTS:
+[[file:../static/posts/img/2021/input-zero/workflow-2share.png]]
+
+The ~2share~ workflow consists of several steps:
+- add item to initial list (my-list)
+  + may I already tag the item by ~2share~
+- then I share that item with family, friends etc.
+  + or add it to some collection (e.g. bookmarks)
+- I remove tag ~2share~
+- I archive the item
+
+#+begin_src plantuml :file ../static/posts/img/2021/input-zero/workflow-2read.png :cmdline -charset UTF-8 :exports results
+
+MyList->2read : tagged by 2read
+MyList->next  : tagged by next
+
+== Fetch next list (containing articles to be read) ==
+== Read article (on Desktop, E-reader etc.) ==
+next->Archive : item archived
+note right: Tags 2read, next are removed
+
+#+end_src
+
+#+CAPTION: My 2read workflow
+#+RESULTS:
+[[file:../static/posts/img/2021/input-zero/workflow-2read.png]]
+
+The steps here are quite similar:
+- I add the article to the initial list
+  + I might have already tagged the item by ~2read~
+- I'll fetch the ~next~ list, convert it to epub and sent it to Dropbox
+  + or eventually I read the item straight away on my phone/desktop
+- I might also tag that specific item by ~2share~
+  + in case I want to share it
+- I remove tags ~2read~ and ~next~
+- I archive the item
+
+*** Conclusion
+When used wisely ~getpocket~ can be an awesome tool (same applies for any other bookmarking/read-later service). Not only you'll save more time by having the right workflow (and discipline!) for your content management, but
+you'll also get to read lot more. I'd like to know more about your workflows, how you deal with content to-be-read and what kind of tools/services you use.
+
+** DONE HowTo: Convert pocket reader links to Epub and upload to Dropbox       :org:pocket:asciinema:howto:emacs:productivity:
+CLOSED: [2021-08-15]
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2021-howto-convert-pocket-reader-links-to-epub-and-upload-to-dropbox
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :asciinema true
+:END:
+
+*** Read, organize, archive
+I heavily use [[https://getpocket.com][getpocket]] to collect articles and save them for later reading. While on my mobile devices I use the official
+app, on my desktop systems (mostly tmux +{{{zk(Emacs, Emacs)}}}) I use [[https://github.com/alphapapa/pocket-reader.el][pocket-reader.el]] quite heavily to collect/organize/archive my list of
+articles. After my transition from [[https://www.spacemacs.org/][Spacemacs]] to [[https://github.com/hlissner/doom-emacs][Doom Emacs]] I still love [[https://github.com/emacs-evil/evil][evil]] mode and like to do most of the stuff in ~normal~
+mode. That's why I've added some [[https://github.com/dorneanu/dotfiles/blob/master/emacs/doom/.doom.d/%2Bbindings.el#L25][keybindings to pocket-reader]]:
+
+#+begin_src elisp
+(map! :map pocket-reader-mode-map
+      :after pocket-reader
+      :nm "d" #'pocket-reader-delete
+      :nm "a" #'pocket-reader-toggle-archived
+      :nm "TAB" #'pocket-reader-open-url
+      :nm "tr" #'pocket-reader-remove-tags
+      :nm "ta" #'pocket-reader-add-tags
+      :nm "gr" #'pocket-reader-refresh
+      :nm "p" #'pocket-reader-search
+      :nm "y" #'pocket-reader-copy-url
+      :nm "Y" #'dorneanu/pocket-reader-copy-to-scratch)
+#+end_src
+
+This way I can add/remove tags, archive articles, open links without leaving normal mode in ~evil~.
+
+*** Read later on E-Reader
+Since I tend to read on my [[https://pocketbook.de/de_de/inkpad-3-dark-brown][e-reader]] most of the time, I also wanted to have an almost automated way of saving articles to *Epub*
+and send these to my device. Fortunately PocketBook devices can sync with Dropbox which made my life quite easy in the past. I just had to copy e-books, PDFs, Epubs to a specific folder in Dropbox and these will eventually sync with my device once WiFi
+is activated. That's first step of automation.
+
+As for the Epub conversion I've used [[https://pandoc.org/][pandoc]] in the past which still does its job great. Initially I've used [[https://github.com/Y2Z/monolith][monolith]] to save complete web pages as HTML but I've realized the HTML also contained useless ads, images, text. That's why I've searched for
+ways how to make the content more *readable* and discovered [[https://github.com/eafer/rdrview][rdrview]]. It's written in C and applies [[https://support.mozilla.org/en-US/kb/firefox-reader-view-clutter-free-web-pages][Firefox's reader view]] to web pages. Here are some examples:
+
+#+CAPTION: Get meta information
+#+begin_src shell :exports both :results raw code
+$ rdrview -M http://blog.dornea.nu/2021/06/13/note-taking-in-2021/
+Title: Note taking in 2021 - blog.dornea.nu
+Excerpt: [Update 2021-06-22] If you’re more interested in the Tiddlywiki aspect of this post you can also check this Tiddlywiki Google Groups thread. [Update 2021-06-18] This post caught some attention on this Hackernews thread. You might want to check the comments. Based on the recommendations in the thread I’ve put together a list of (digital) solutions (besides the preferred ones) Almost 6 years ago I was blogging about organizing and visualizing knowledge.
+Readerable: Yes
+#+end_src
+
+And now I'm using some ~xpath~ to extract the title:
+
+#+begin_src shell :exports both :results raw code
+$ rdrview -T title,body -H http://blog.dornea.nu/2021/06/13/note-taking-in-2021/ | xmllint --html --xpath "//div/h1/text()" -
+Note taking in 2021 - blog.dornea.nu
+#+end_src
+
+Below I've glued everything together in order to:
+- convert an URL to epub
+- extract the title and use it as the filename for the Epub
+- do the converion using [[https://pandoc.org/][pandoc]]
+- use [[https://rclone.org/][rclone]] to copy the file to Dropbox
+
+#+begin_src shell :exports code
+#!/bin/bash
+
+RDRVIEW_OUTPUT=~/work/dropbox/rdrview
+DROPBOX_DIR="dropbox:Apps/Dropbox PocketBook/articles/2021/"
+
+add_link_to_dropbox() {
+    # Create tmp file
+    TEMP_FILE=$(mktemp)
+
+    # Make link readable
+    rdrview -T title,body -H $1 > $TEMP_FILE
+
+    # Extract title
+    TITLE=$(xmllint --html --xpath "//div/h1/text()" 2>/dev/null ${TEMP_FILE})
+    echo "[-] Converting $TITLE"
+
+    # Convert to PDF
+    OUTPUT_FILE="${RDRVIEW_OUTPUT}/${TITLE// /_}".epub
+    pandoc --pdf-engine=xelatex --metadata title="${TITLE}" -f html -t epub -o ${OUTPUT_FILE} ${TEMP_FILE}
+
+    # Copy to dropbox
+    rclone copy ${OUTPUT_FILE} "${DROPBOX_DIR}"
+
+    # Log
+    echo "[-] Successfully added ${OUTPUT_FILE} to dropbox."
+
+    # Clean up
+    rm $TEMP_FILE
+    rm $OUTPUT_FILE
+}
+
+add_link_to_dropbox $1
+#+end_src
+
+Let's give it a try using https://pandoc.org/ as an URL:
+
+#+begin_src :exports both :results raw code
+$ ~/work/dropbox/add_links_to_dropbox https://pandoc.org/
+[-] Converting Pandoc - About pandoc
+[-] Successfully added /home/victor/work/dropbox/rdrview/Pandoc_-_About_pandoc.epub to dropbox.
+#+end_src
+
+*** Emacs for Everything
+Now I'd like to be able to call that script from Emacs without copy/paste URLs and hand them over to my script.
+The most difficult part here was to come up with some valid Elisp code. What I wanted was:
+- in ~pocket-reader~ copy entry's URL to ~scratch~ buffer
+- once I have collected the list of URLs for which I want the Epub conversion
+  + take the list and use it as input for my script
+  + use ~xargs~ since my script takes only one argument
+
+And this is what I've got (my first elisp [[https://github.com/dorneanu/dotfiles/blob/master/emacs/doom/.doom.d/%2Bfunctions.el#L159][function]] ever):
+
+#+begin_src elisp
+;; Copy current url to scratch buffer
+(defun dorneanu/pocket-reader-copy-to-scratch ()
+  "Copy URL of current item to kill-ring/clipboard."
+  (interactive)
+  (when-let ((id (tabulated-list-get-id))
+             (item (ht-get pocket-reader-items id))
+             (url (pocket-reader--get-url item)))
+    (with-current-buffer "*scratch*"
+      (insert url)
+      (newline))
+     (message "Added: %s to scratch buffer" url)))
+#+end_src
+
+This will ~insert~ the URL into the ~scratch~ buffer and add a new line. Once you have your URLs in the buffer you can
+use ~shell-command-on-region~ with ~xargs -n1 <script>~ as shown in the asciinema below.
+
+*** Demo
+{{< asciinema key="first" rows="40" font-size="10px" cols="800" preload="1" >}}
 * Bookmarks :bookmark:
 :PROPERTIES:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true :noauthor true :nocomment true :nodate true :nopaging true :noread true
