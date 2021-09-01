@@ -90,15 +90,15 @@ gists = "/gists/:title"
   URL = "/tags"
   Weight = 6
 [[Menu.Main]]
-  Name = "Notes"
+  Name = "RSS"
   Pre = "book"
-  URL = "/notes"
+  URL = "/feed.xml"
   Weight = 6
-[[Menu.Main]]
-  Name = "Bookmarks"
-  Pre = "book"
-  URL = "/bookmarks"
-  Weight = 7
+# [[Menu.Main]]
+#   Name = "Bookmarks"
+#   Pre = "book"
+#   URL = "/bookmarks"
+#   Weight = 7
 [[Menu.Main]]
   Name = "Zettelkasten"
   Pre = "sticky-note"
