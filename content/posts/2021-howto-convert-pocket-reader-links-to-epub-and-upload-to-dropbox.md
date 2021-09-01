@@ -2,8 +2,8 @@
 title = "HowTo: Convert pocket reader links to Epub and upload to Dropbox"
 author = ["Victor Dorneanu"]
 date = 2021-08-15T00:00:00+02:00
-lastmod = 2021-08-16T13:39:54+02:00
-tags = ["org", "pocket", "asciinema", "howto", "emacs"]
+lastmod = 2021-09-01T13:45:50+02:00
+tags = ["org", "pocket", "asciinema", "howto", "emacs", "productivity"]
 draft = false
 asciinema = true
 +++
@@ -145,4 +145,4 @@ use `shell-command-on-region` with `xargs -n1 <script>` as shown in the asciinem
 
 ## Demo {#demo}
 
-{{< asciinema key="first" rows="40" cols="800" preload="1" >}}
+{{< asciinema key="first" rows="40" font-size="10px" cols="800" preload="1" >}}

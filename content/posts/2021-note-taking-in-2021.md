@@ -2,7 +2,7 @@
 title = "Note taking in 2021"
 author = ["Victor Dorneanu"]
 date = 2021-06-13T14:56:00+02:00
-lastmod = 2021-06-22T12:04:30+02:00
+lastmod = 2021-06-23T10:09:05+02:00
 tags = ["golang", "tiddly", "pkms"]
 draft = false
 +++

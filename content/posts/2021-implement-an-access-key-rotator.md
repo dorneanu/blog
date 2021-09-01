@@ -2,7 +2,7 @@
 title = "Implement an access key rotator"
 author = ["Victor Dorneanu"]
 date = 2021-04-25T00:00:00+02:00
-lastmod = 2021-04-25T11:29:13+02:00
+lastmod = 2021-06-30T12:13:29+02:00
 tags = ["golang", "architecture", "aws", "github"]
 draft = false
 +++
