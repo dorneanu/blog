@@ -2,20 +2,22 @@
 title = "Note taking in 2021"
 author = ["Victor Dorneanu"]
 date = 2021-06-13T14:56:00+02:00
-lastmod = 2021-06-23T10:09:05+02:00
+lastmod = 2021-09-04T14:48:25+02:00
 tags = ["golang", "tiddly", "pkms"]
 draft = false
 +++
 
-{{% notice tip %}}
-**[Update 2021-06-22]**
-  If you're more interested in the Tiddlywiki aspect of this post you can also check this [Tiddlywiki Google Groups thread](https://groups.google.com/g/tiddlywiki/c/vlAZ%5FK4K63o/m/cPuFWVIKAQAJ).
-{{% /notice %}}
+{{< notice info >}}
+****[Update 2021-06-22]****
 
-{{% notice tip %}}
-**[Update 2021-06-18]**
-  This post caught some attention on [this Hackernews thread](https://news.ycombinator.com/item?id=27513008). You might want to check the comments. Based on the recommendations in the thread I've put together a list of (digital) solutions (besides the preferred ones)
-{{% /notice %}}
+If you're more interested in the Tiddlywiki aspect of this post you can also check this [Tiddlywiki Google Groups thread](https://groups.google.com/g/tiddlywiki/c/vlAZ%5FK4K63o/m/cPuFWVIKAQAJ).
+{{< /notice >}}
+
+{{< notice info >}}
+****[Update 2021-06-18]****
+
+This post caught some attention on [this Hackernews thread](https://news.ycombinator.com/item?id=27513008). You might want to check the comments. Based on the recommendations in the thread I've put together a list of (digital) solutions (besides the preferred ones)
+{{< /notice >}}
 
 Almost 6 years ago I was blogging about [organizing and visualizing knowledge](/2015/09/17/organizing-and-visualizing-knowledge/). At that time I was just playing around with [ Tiddlywiki](https://brainfck.org/#Tiddlywiki) and using it to collect notes during my [CCNA](/tags/ccna/) course. I couldn't anticipate to which extent [personal knowledge management systems](https://en.wikipedia.org/wiki/Personal%5Fknowledge%5Fmanagement) would become famous and trendy. And people nowadays don't blog anymore: They take care of their [digital gardens](https://joelhooks.com/digital-garden). While most of them seem to be just a collection of random notes, there are actually good ones where you can actually read through the thoughts/notes and learn something new. Here are my favourite ones:
 

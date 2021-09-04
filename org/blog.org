@@ -23,9 +23,9 @@ if they're private. Misconfigurations happen all the time and private repos can 
 
 In this post I want to show the [[file:/tags/golang][Golang]] way how to update Github *secrets* in some repository. These secrets (more concrete an ~AWS IAM access key ID~ and an ~AWS IAM access secret key~) should be used to interact with [[file:/tags/aws][AWS]]. Rotating these keys regularly is essential and also part of the [[https://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html][AWS access keys best practices]].
 
-{{% notice tip %}}
+{{< notice info >}}
 Make sure you also check [[https://github.com/dorneanu/access-key-rotator][github.com/dorneanu/access-key-rotator]] for the complete project.
-{{% /notice %}}
+{{< /notice >}}
 
 *** Clean architecture
 
@@ -483,15 +483,17 @@ CLOSED: [2021-06-13 Sun 14:56]
 :EXPORT_FILE_NAME: 2021-note-taking-in-2021
 :END:
 
-{{% notice tip %}}
-*[Update 2021-06-22]*
-  If you're more interested in the Tiddlywiki aspect of this post you can also check this [[https://groups.google.com/g/tiddlywiki/c/vlAZ_K4K63o/m/cPuFWVIKAQAJ][Tiddlywiki Google Groups thread]].
-{{% /notice %}}
+{{< notice info >}}
+**[Update 2021-06-22]**
 
-{{% notice tip %}}
-*[Update 2021-06-18]*
-  This post caught some attention on [[https://news.ycombinator.com/item?id=27513008][this Hackernews thread]]. You might want to check the comments. Based on the recommendations in the thread I've put together a list of (digital) solutions (besides the preferred ones)
-{{% /notice %}}
+If you're more interested in the Tiddlywiki aspect of this post you can also check this [[https://groups.google.com/g/tiddlywiki/c/vlAZ_K4K63o/m/cPuFWVIKAQAJ][Tiddlywiki Google Groups thread]].
+{{< /notice >}}
+
+{{< notice info >}}
+**[Update 2021-06-18]**
+
+This post caught some attention on [[https://news.ycombinator.com/item?id=27513008][this Hackernews thread]]. You might want to check the comments. Based on the recommendations in the thread I've put together a list of (digital) solutions (besides the preferred ones)
+{{< /notice >}}
 
 
 Almost 6 years ago I was blogging about [[/2015/09/17/organizing-and-visualizing-knowledge/][organizing and visualizing knowledge]]. At that time I was just playing around with {{{zk(Tiddlywiki, Tiddlywiki)}}} and using it to collect notes during my [[/tags/ccna/][CCNA]] course. I couldn't anticipate to which extent [[https://en.wikipedia.org/wiki/Personal_knowledge_management][personal knowledge management systems]] would become famous and trendy. And people nowadays don't blog anymore: They take care of their [[https://joelhooks.com/digital-garden][digital gardens]]. While most of them seem to be just a collection of random notes, there are actually good ones where you can actually read through the thoughts/notes and learn something new. Here are my favourite ones:
@@ -1002,9 +1004,11 @@ I rarely use this functionality since I try to avoid the browser as much as I ca
 because of distractions every page has to offer. When I want to read sth (and I know there is readmode for Chrome)
 I don't want to get distrupted by ads. Whenever I can, I try to read on my E-Reader after having converted the articles to epub and uploaded them to Dropbox.
 **** (Doom) Emacs
-{{% notice tip %}}
+{{< notice info >}}
+**Dotfiles**
+
 You can also check my [[https://github.com/dorneanu/dotfiles/tree/master/emacs/doom/.doom.d][dotfiles]] if you want to get straight to the point.
-{{% /notice %}}
+{{< /notice >}}
 
 During the last 2 years I've become a huge {{{zk(Emacs,Emacs)}}} fan and currently I'm also learning some {{{zk(Lisp,Lisp)}}} to even add more customizations.
 

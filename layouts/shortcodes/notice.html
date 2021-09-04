@@ -1,2 +1,6 @@
 {{ $_hugo_config := `{ "version": 1  }`  }}
-<div class="notices {{ .Get 0  }}" {{ if len .Params | eq 2  }} id="{{ .Get 1  }}" {{ end  }}>{{ .Inner  }}</div>
+<!-- From https://hugo-book-demo.netlify.app/docs/shortcodes/hints/ -->
+<!-- <div class="notices {{ .Get 0  }}" {{ if len .Params | eq 2  }} id="{{ .Get 1  }}" {{ end  }}>{{ .Inner  }}</div> -->
+<blockquote class="notice {{ .Get 0 }}">
+  {{ .Inner | .Page.RenderString }}
+</blockquote>

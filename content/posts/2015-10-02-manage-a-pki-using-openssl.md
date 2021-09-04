@@ -6,9 +6,9 @@ tags = ["ssl", "tls", "openssl", "crypto", "python", "ipython", "admin", "pki", 
 category = "blog"
 +++
 
-{{% notice tip %}}
+{{< notice info >}}
 For better display results you can also have a look at the [Manage a PKI using OpenSSL](https://github.com/dorneanu/blog/blob/master/content/jupyter/2015-10-02-manage-a-pki-using-openssl.v3.ipynb).
-{{% /notice %}}
+{{< /notice >}}
 
 In the previous X.509 related [post](http://blog.dornea.nu/2015/05/24/validating-and-pinning-x509-certificates/) I've had a look at the internals of a X.509 certficate. This time I want to setup my own [PKI](https://en.wikipedia.org/wiki/Public_key_infrastructure) using some *open source* software. This post is a preparation for setting up a VPN using *OpenVPN*. 
 

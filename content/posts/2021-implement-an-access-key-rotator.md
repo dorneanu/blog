@@ -2,7 +2,7 @@
 title = "Implement an access key rotator"
 author = ["Victor Dorneanu"]
 date = 2021-04-25T00:00:00+02:00
-lastmod = 2021-06-30T12:13:29+02:00
+lastmod = 2021-09-04T14:53:41+02:00
 tags = ["golang", "architecture", "aws", "github"]
 draft = false
 +++
@@ -16,9 +16,9 @@ if they're private. Misconfigurations happen all the time and private repos can 
 
 In this post I want to show the [Golang](/tags/golang) way how to update Github **secrets** in some repository. These secrets (more concrete an `AWS IAM access key ID` and an `AWS IAM access secret key`) should be used to interact with [AWS](/tags/aws). Rotating these keys regularly is essential and also part of the [AWS access keys best practices](https://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html).
 
-{{% notice tip %}}
+{{< notice info >}}
 Make sure you also check [github.com/dorneanu/access-key-rotator](https://github.com/dorneanu/access-key-rotator) for the complete project.
-{{% /notice %}}
+{{< /notice >}}
 
 
 ## Clean architecture {#clean-architecture}

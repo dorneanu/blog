@@ -2,7 +2,7 @@
 title = "Inbox Zero using Getpocket"
 author = ["Victor Dorneanu"]
 date = 2021-09-01T00:00:00+02:00
-lastmod = 2021-09-01T13:44:56+02:00
+lastmod = 2021-09-04T14:51:11+02:00
 tags = ["pocket", "asciinema", "emacs", "productivity"]
 draft = false
 asciinema = true
@@ -199,9 +199,11 @@ I don't want to get distrupted by ads. Whenever I can, I try to read on my E-Rea
 
 ### (Doom) Emacs {#doom--emacs}
 
-{{% notice tip %}}
+{{< notice info >}}
+****Dotfiles****
+
 You can also check my [dotfiles](https://github.com/dorneanu/dotfiles/tree/master/emacs/doom/.doom.d) if you want to get straight to the point.
-{{% /notice %}}
+{{< /notice >}}
 
 During the last 2 years I've become a huge [Emacs](https://brainfck.org/#Emacs) fan and currently I'm also learning some [Lisp](https://brainfck.org/#Lisp) to even add more customizations.
 

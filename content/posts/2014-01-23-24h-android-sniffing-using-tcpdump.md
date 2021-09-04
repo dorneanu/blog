@@ -6,9 +6,9 @@ tags = ["android", "hacking", "networking", "security", "appsec", "python", "ipt
 category = "blog"
 +++
 
-{{% notice tip %}}
+{{< notice info >}}
 For better display results you can also have a look at the [24h Android Monitoring Jupyter Notebook](https://github.com/dorneanu/blog/blob/master/content/jupyter/24h-Android-Monitoring.ipynb).
-{{% /notice %}}
+{{< /notice >}}
 
 ## Motivation
 
