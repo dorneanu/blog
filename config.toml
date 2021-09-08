@@ -1,7 +1,7 @@
 Title =  "blog.dornea.nu"
 defaultContentLanguage = "en"
 languageCode = "en-us"
-BaseUrl = "http://blog.dornea.nu"
+BaseUrl = "https://blog.dornea.nu"
 Theme =  "er"
 MetaDataFormat =  "yaml"
 CanonifyUrls =  true
