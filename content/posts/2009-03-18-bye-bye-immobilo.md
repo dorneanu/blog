@@ -1,7 +1,7 @@
 +++
 title = "Bye Bye Immobilo!"
 date = "2009-03-18"
-tags = ["misc", "job", "german"]
+tags = ["misc", "job", "german", "byebye"]
 category = "blog"
 +++
 

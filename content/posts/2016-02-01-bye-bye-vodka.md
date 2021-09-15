@@ -1,7 +1,7 @@
 +++
 title = "Bye bye VODKA!"
 date = "2016-02-01"
-tags = ["job", "german", "misc", "vodafone"]
+tags = ["job", "german", "misc", "vodafone","byebye"]
 category = "blog"
 +++
 
