@@ -1,15 +1,16 @@
 +++
 title = "Bye bye Scout24!"
 author = ["Victor Dorneanu"]
-lastmod = 2021-09-15T08:54:35+00:00
+lastmod = 2021-09-15T09:52:48+00:00
 tags = ["byebye"]
 draft = false
 +++
 
+![](/posts/img/2021/bye-bye-scout24.jpg)
 I guess it's become a tradition to write _[bye bye](/tags/byebye)_ posts whenever I switch jobs. So this happens again as I've decided to pursue new opportunities elsewhere. I feel sad but also excited at the same time. Working for 5 years for the same company (I do know that's not thaaaat long) feels like I've spent half of my life there. Since 2016 many colleagues have left the company and new ones joined the Security team which I was part of. During these 5 years the Security team has made a quite succesful transition from a mostly **red team** to a **blue team** one. While at the beginning I was doing **penetration tests** like there was no tomorrow, I now leave my team with internal self-built, self-managed security products (mostly in [Python](/tags/python) ,[Golang](/tags/golang) ) for the developer teams at Scout24.
 
 
-## Things I've learned {#things-i-ve-learned}
+## <span class="org-todo done DELEGATED">DELEGATED</span> Things I've learned {#things-i-ve-learned}
 
 And while I had the opportunity to improve my pentest skills (mostly web applications), there are tons of new
 things I've learned:
