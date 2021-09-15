@@ -1,8 +1,8 @@
 +++
 title = "Bye bye Scout24!"
 author = ["Victor Dorneanu"]
-date = 2021-09-15T00:00:00+00:00
-lastmod = 2021-09-15T10:01:22+00:00
+date = 2021-09-15T00:00:00+02:00
+lastmod = 2021-09-15T11:28:24+02:00
 tags = ["byebye"]
 draft = false
 +++
@@ -59,6 +59,10 @@ Without any claim to completeness I've setup a list of people I'd like to expres
 -   **Alex**
     -   Mon ami, I've really enjoyed our lunch dates and the training sessions we had in the fitness room
     -   I wish you all the best on your new carrer path
+-   **Teo**
+    -   Dude, you're really fast at coding!
+    -   I hope you were not feeling that alone in Munich
+    -   Looking forward to your SaaS
 -   **Hussam**
     -   I really convinced you to learn [Golang](/tags/golang)! I'm so proud of you
     -   Also thanks for your AWS knowledge-sharing sessions
