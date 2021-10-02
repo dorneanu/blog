@@ -59,6 +59,10 @@ Without any claim to completeness I've setup a list of people I'd like to expres
 - *Alex*
   + Mon ami, I've really enjoyed our lunch dates and the training sessions we had in the fitness room
   + I wish you all the best on your new carrer path
+- *Teo*
+  + Dude, you're really fast at coding!
+  + I hope you were not feeling that alone in Munich
+  + Looking forward to your SaaS
 - *Hussam*
   + I really convinced you to learn [[/tags/golang][Golang]]! I'm so proud of you
   + Also thanks for your AWS knowledge-sharing sessions
