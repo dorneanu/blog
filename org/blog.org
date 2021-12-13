@@ -10,6 +10,253 @@
 #+macro: bib [[https://brainfck.org/bib.html#$1][$2]]
 
 * Posts
+** DONE My 2021 review
+CLOSED: [2021-12-13]
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2021-my-2021-review
+:END:
+After last year's pandemic shock, this year has brought more hope and motivation to people. I've felt motivated to learn new things, deep-dive
+into unknown areas and finally change some things in my life. In this post I'll share with you my most valued (software) tools, productivity tips,
+some books worth reading and finally some failure and success with regards to my habits.
+*** Books
+As you know you can always browse [[https://brainfck.org/#Books][my digital bookshelf]] in my [[https://brainfck.org/][personal Zettelkasten]]. This year I've read more IT related books than last year.
+I've especially focussed on {{{zk(Software Architecture,Software Architecture)}}}, {{{zk(Golang,Golang)}}} and {{{zk(DevSecOps,DevSecOps)}}}.
+
+**** Clean Architecture
+If you write code and don't know [[http://cleancoder.com/products][Uncle Bob]] then you'll have to read this book. Since my background is not of software engineering I had to
+learn a lot about good coding principles and how to structure my code properly. Very early in this process I came across Uncle Bob's famous
+[[https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html][Clean Architecture]] diagram which describes how to structure your software project into different /layers/.
+
+Well then I was blindly using those principles in my software projects without knowing that /Clean Architecture/ is more than a diagram
+and some depedencies between some layers. I'm glad I've finally managed to read this book (along with {{{zk(The Clean Code,The Clean Code)}}} and {{{zk(The Clean Coder,The Clean Coder)}}} which were not that good as this one) and learn more about {{{zk(Software Engineering,engineering principles)}}} and {{{zk(Software Architecture,software architecture)}}} in general. Additionally I think {{{zk(SOLID,SOLID principles)}}} should be part of every (software) engineer's skills repertoire.
+
+#+begin_quote
+You think good architecture is expensive, try bad architecture.
+-- {{{zk(The Clean Architecture - Note 2,The Clean Architecture - Note 2)}}}
+#+end_quote
+
+I was also surprised that {{{zk(Hexagonal Architecture,Hexagonal Architecture)}}} (also known as *ports* and *adapters* architecture) almost has the same principles.
+
+{{< notice info >}}
+I also recommend [[https://herbertograca.com/2017/11/16/explicit-architecture-01-ddd-hexagonal-onion-clean-cqrs-how-i-put-it-all-together/][DDD, Hexagonal, Onion, Clean, CQRS ... How I put it all together]] reading. An excellent article!
+{{< /notice >}}
+
+**** Black Hat Go
+Back at [[/2021/09/15/bye-bye-scout24/][Scout24]] we were mainly using Python for our internal services and tools. But I wanted to make my colleagues more aware of Golang's capabilities and introduce this language to the team. Instead of some standardized approach (core types, basic control flows, "classes", interfaces etc.) I wanted to actually *do* something with the language that might catch people's interest.
+
+[[https://www.goodreads.com/book/show/35642241-black-hat-go][Black Hat Go]] was the right book to start with. It gives you just enough details to get you started with the language and then you start
+implementing network scanners, [[https://gist.github.com/dorneanu/02c9c5bb83e881e7ad2c1e93c7c2fd24][keyboard loggers]], DNS tunneling tools (like [[https://github.com/sysdream/chashell][chashell]]) and much more. I used some of the examples in the book
+to introduce my team to /offensive/ hacking while showing Golang's key features (go routines, interfaces, composition instead of inheritance etc.)
+Also if you're a pentester and need to cross-compile your tools for different architectures, this book is definitely for you.
+
+**** Accelerate
+About the science of Lean software and DevOps. I wrote an extensive [[/2021/11/24/book-review-accelerate-the-science-of-lean-software-and-devops/][summary in my last blog post]].
+**** Agile Application Security
+I consider this book to be the best one I've read on {{{zk(AppSec,Application Security)}}} in the last years. And I'll tell you why: When was the last time that a cool
+*defensive* mechanism/measure/technology (beside the cyber-security branded vendor X products) had a cool name like Logjam, Shellshock or Heartbleed? I know vulnerability
+research, exploit development and some cool hacks are fun. But this is not what's needed to build a Security minded culture inside some organization. This is also not what
+developers (and everybody else included in the software engineering process) need to know. In an Agile world different roles have to work together: Developers need to understand
+and adopt Security best practices and also take responsability for the security of their systems. You build it, you run it and you also keep it safe and secure!
+
+Product owners/managers need to understand security/compliance requirements and give agile teams enough time for the implementation of the security measures. And last but not least: Security professionals will also have to adapt to the Agile world. They need to learn to accept changes more often, to work faster and manage Security risks in incremental terms. And most important: Security needs to become an *enabler* and not a blocker!
+**** Go with the Domain
+If you know about [[https://threedots.tech][Three Dots Labs]] already and also have read their blog series on [[https://threedots.tech/tags/ddd/][Domain-driven Design with Go]] then you don't necessarily need to read [[https://threedots.tech/go-with-the-domain][this book]].
+I think the content is quite good and has to be "diggested" over a longer period of time. However, if you're not familiar with {{{zk(DDD,Domain-Driven Design)}}} principles
+this book might be to much for you. Also be prepared to invest a lot of time in their [[https://github.com/ThreeDotsLabs/wild-workouts-go-ddd-example][Go DDD example application]] and carefully read the code. After reading their blog posts first
+I was expecting to mind more context/background information in their book. This was not the case and I also don't blame them for this. Writing a book (and also blog posts) is
+very time intensive especially when you don't have that much time available.
+**** 1984
+I remember when I first started reading the first 20 pages and I was shocked how much of our today's world was part of the environment described. Also this book
+got recommended to me several ways but it was until the pandemic that I had enough motivation to push myself through. I'm not a Sci-Fi fan and usually you won't find
+this kind of book genre in my {{{zk(Books,bookshelf)}}}. But I'll add this one to the "must reads". Eventually I'll read it again in some couple of years just to find out
+what happened since last time I did so. I guess there is a reason this book belongs to the [[https://en.wikipedia.org/wiki/List_of_best-selling_books][best selling ones]] and I definitelly recommend it to everyone interested in
+/politics/, /history/ and of course /Sci-Fi/.
+**** Das Experiment sind wir
+In English: "We are the experiment". Despite its rather controversial title, I read this book at the beginning of the year after listening to this podcast: [[https://www.kuechenstud.io/medienradio/podcast/di091-fluch-und-segen-exponentiellen-wachstums-christian-stoecker-autor/][Das Interview: Fluch und Segen exponentiellen Wachstums]] (in English: Curse and blessing of exponential growth). This book got me into the basics of {{{zk(CRISPR/Cas9,CRISPR/Cas9)}}} and {{{zk(mRNA,mRNA)}}}. It also made me think about schooling and education systems which (at least in Germany) don't really teach students about complex systems/mechanisms
+that surround us. And to be more specific: AI/ML basics are not taught at school, benefits of CRISPR gene editing are often ignored by mass-media. Instead people have this
+feeling they're part of something that /happens/ to them instead of /being/ part of that something. You could apply this to {{{zk(Corona,Corona)}}} and many other global
+challenges (climate change?) that will follow in the next years.
+**** Factfulnes
+I remember someone said to me I should read this book because [[https://www.gatesnotes.com/books/factfulness][Bill Gates recommended it]]. And it turned out this book changed the way how I see the world. But most important:
+It showed me that my knowledge about the world is kind of out-dated. Just to give you an example: Before reading the book I thought the world was divided into 3 parts/classes.
+We tend to classify countries around the globe in /developed/ economies, economies /in transition/ and /developing/ economies. But if you look at the data - at this book is definitelly /data-driven/ - you'll notice that you can divide the world on a /4/ category model based on /income per person/ (check [[https://en.wikipedia.org/wiki/Factfulness:_Ten_Reasons_We%27re_Wrong_About_the_World_%E2%80%93_and_Why_Things_Are_Better_Than_You_Think][Four income levels]] at Wikipedia). And this
+is just /one/ example. If you want to self-test your views/knowledge make sure you do this at [[https://www.gapminder.org/][gapminder.org]] (they also have really awesome [[https://www.gapminder.org/tools/][visualizations]]).
+**** The Plant Paradox
+Initially I wasn't sure if I should write a summary on this one. And that's because this one is the type of books you know it contains somehow false affirmations
+but the are some that make you ponder. Since 2 years I constantly try to adjust my /Nutrition/ based on information I get from different books. After reading {{{zk(How not to die,How not to die)}}} last year I think I managed to get most of my nutritional biases under control. I also managed to get a deeper understanding of the bio-mechanics
+that make our bodies so interesting. Well /The Plant Paradox/ tries to turn scientific based nutritional knowledge upside down. At the core of the "paradox" are [[https://en.wikipedia.org/wiki/Lectin][lectins]] that are
+mostly found in all foods, especially legumes, fruits and grains. The author claims that these tiny proteins cause /gut permeability/ and therefore /inflamations/ that drive
+auto-immune diseases. While Dr. Gundry's thesis [[https://www.youtube.com/watch?v=7NT4q_5dfLs&ab_channel=NutritionFacts.org][seems to be wrong]] (and yes, I'm fan of Dr. Greger) and most of the lectins can be removed by (pressurized) cooking, I still
+think there are some small grains of truth in there. I also recommend reading [[https://hcfricke.com/2017/09/24/buchkritik-plant-paradox-von-stephen-r-gundry-md/][this summary]] (in German) which provides more cross-doamin knowledge related to different aspects
+of the thesis.
+
+*** Health
+**** Wim Hof Method
+Last year just before the (pandemic) winter blues was about to begin I've had enough of that feeling something you cannot control
+was already part of my daily life. Seeking for more *self-control* and that "I'm still alive" feeling, I've decided to go for [[https://www.wimhofmethod.com/][The Wim Hof Method]].
+
+I was determined to cold shower every day and do breath work as well. Breathing exercises were not new to me since I was practising {{{zk(Pranayama,Pranayama)}}} for a while.
+
+After some weeks of practice cold was not an enemy anymore. My body (and also my mind) adapted to that kind of stress and soon I was able
+to go out without any jacket, just wearing a t-shirt - and my trouses of course :) Eventually I was able to keep my habbits and around February
+I was "bathing" in snow in my swim shorts. Besides that, during my breath work sessions I managed to hold my breath for more 3 minutes - several times. All this success motivated me to keep going and make my new habbits part of my {{{zk(Atomic Habits/4 Laws of Behaviour Change,life style)}}}. 
+
+# {{< gbox src="https://img.youtube.com/vi/0BNejY1e9ik/0.jpg" target="[[https://www.youtube.com/watch?v=0BNejY1e9ik]]" title="The Wim Hof Method" caption="Breath work with Wim Hof" pos="right" >}}
+{{< youtube 0BNejY1e9ik >}}
+
+*** Habits
+Almost one year ago - and definitely after reading {{{zk(Atomic Habits,Atomic Habits)}}} - I was looking for a digital habit tracking tool.
+My motivation was not to develop new habits but stick to existing ones and have a visual dashboard how well I'm doing. After giving up my {{{zk(Bullet Journal,Bullet Journal)}}} tracking page, I've finally found [[https://play.google.com/store/apps/details?id=org.isoron.uhabits&hl=en&gl=US][Loop Habit Tracker]] which accompanies me every day.
+
+{{< gbox src="/posts/img/2021/my-review/habits-app.png" title="Loop Habit Tracker Application" caption="Main view" pos="left" >}}
+
+I use /widgets/ on my (Android) where I can easily toggle multiple habits as done with simple clicks. The advantage of using widgets is the fact
+you don't have to first run the application /and then/ toggle the habits. Usually after my morning routines, I just go through my habits and click accordingly.
+
+{{< gbox src="/posts/img/2021/my-review/habits-widgets.png" title="Loop Habit Tracker Application" caption="Widgets" pos="left"  >}}
+
+
+In the following sections you'll see different /heat maps/ related to some /habit/. They show you on which days a specific habit activity took place or not.
+**** Meditation
+{{< gbox src="/posts/img/2021/my-review/habits-meditation.png" title="Meditation" caption="Heat map 2021" pos="left"  >}}
+
+I use [[https://www.7mind.de/][7mind]] for my morning meditation. Usually I don't track my meditation /time/ but from times to times I do longer session (up to 20 minutes).
+As you can see I usually don't meditate at the weekend since I rather spend time with my family and prefer not to wake up that early.
+**** Cold shower
+{{< gbox src="/posts/img/2021/my-review/habits-cold-shower.png" title="Cold shower" caption="Heat map 2021" pos="left"  >}}
+
+After reading more about [[https://www.wimhofmethod.com/][The Wim Hof Method]] I was determined enough to take cold showers on a regular basis. I'm pretty happy I managed to
+stick to this habit throughout the year.
+**** Breath work
+{{< gbox src="/posts/img/2021/my-review/habits-pranayama.png" title="Breath work" caption="Heat map 2021" pos="left"  >}}
+
+This is the type of morning exercise that boosts up my energy level after waking up. I usually do /alternative nostril breathing/ (Yoga), break
+work after Wim Hof (I would say 80-90% of the time I do 3 rounds of 50 inhale/exhale rounds) and most recently also [[https://www.somabreath.com/][SOMA breath]].
+**** Reading
+{{< gbox src="/posts/img/2021/my-review/habits-reading.png" title="Reading" caption="Heat map 2021" pos="left"  >}}
+
+I'm not happy with this one since I know I could have read more. It's just that I use to have multiple /projects/ running in parallel so I need
+to apply some time-slicing to my available time. What also keeps me busy from reading /more/ is the fact that always do some /post-reading/
+after each book: I collect notes/thoughts, I re-read interesting pages/concepts, put everything into my [[https://brainfck.org][Zettelkasten]]. I'm already looking for a
+better reading workflow. Maybe you have some ideas.
+**** Sports/Workout
+{{< gbox src="/posts/img/2021/my-review/habits-sport.png" title="Sports/Workout" caption="Heat map 2021" pos="left"  >}}
+
+Yes, this is the most embarrassing one. I was somehow motivate to do more /sports/ beginning with April but after June that kind of faded out.
+Next year I definitely want to do more workout, at least once a week. I also want to combine my bodyweight training (calisthenics) with climbing.
+
+*** Tools
+**** Emacs
+I started going down the "Emacs rabbit hole" almost 2 years ago. And I still don't regret doing so, although I've spent hours of debugging,
+trial and error, random copy&paste of Elisp code. Also switching from [[https://www.spacemacs.org/][Spacemacs]] to [[https://github.com/hlissner/doom-emacs][Doom Emacs]] had a huge boost regarding my productivity
+in Emacs. Now I can say I do understand most of my configuration (see my [[https://github.com/dorneanu/dotfiles][dotfiles]]) whereas one year ago I was randomly copy&paste and putting
+pieces together in the hope they'll somehow work.
+
+{{< tweet user="victordorneanu" id="1222158980627288064" >}}
+
+***** Modules
+My top modules for this year:
+- [[https://github.com/alphapapa/pocket-reader.el][pocket-reader.el]]
+  - I use it every day as my favourite [[https://getpocket.com][getpocket]] client and as a collection inbox for everything I want to read, to share or to [[https://brainfck.org][bookmark]].
+- [[https://github.com/skeeto/elfeed][elfeed]]
+  - my RSS/Atom feeds aggregator which helps me to stay focused and read everything at one place
+    - I like RSS (and you can still use RSS for everything)
+    - Email/Newsletter subscription kind of destroyed the Internet :)
+  - if I like the excerpt and can sent the URL to getpocket
+- [[https://magit.vc/][magit]]
+  - still a *magic* tool to deal with git
+  - I also couldn't imagine conflict resolution can be that easy in a terminal
+- [[https://www.djcbsoftware.nl/code/mu/mu4e.html][mu4e]]
+  - yeah, finally I can read my mails in the terminal
+    - have a look at my [[https://github.com/dorneanu/dotfiles/blob/main/dot_mbsyncrc.tmpl][configuration]]
+- [[https://github.com/john2x/dank-mode][dank mode]]
+  - this relatively unknown/new *reddit* client is like a hidden gem
+  - you can read comments/posts as threads
+  - I also like the Emacs like key bindings
+- [[https://github.com/marcinkoziej/org-pomodoro][org-pomodoro]]
+  - I use it daily
+  - See below for more background
+**** Configuration management
+I use to keep my configuration files in a [[https://github.com/dorneanu/dotfiles][dotfiles]] repository, publicly available. This year I had to keep custom configurations for 4-5
+machines in different contextes (work, private). So I needed to find a way how to manage configuration files and apply customizations depending
+on the machine where that specific config was needed.
+
+Initially I came across [[https://github.com/anishathalye/dotbot][dotbot]] which is written in Python and uses a YAML/JSON configuration file in order to setup your dotfiles. But then I've found [[https://www.chezmoi.io/][chezmoi.]]
+***** [[https://www.chezmoi.io/][chezmoi]]
+This little {{{zk(Golang,Golang)}}} utility will manage your dotfiles across multiple machines in a secure manner. Among the top features:
+- You will have a single source of truth
+  - in one git repository you'll define your basic configuration
+  - for each machine you can write [[https://pkg.go.dev/text/template][templates]] where you can change the behaviour depending on the operating system, architecture etc.
+- secret management is outsourced
+  - chezmoi can retrieve secrets from "1Password, Bitwarden, gopass, KeePassXC, LastPass, pass, Vault, Keychain, Keyring, or any command-line utility of your choice"
+- it's fast
+- declarative
+  - you define the desired state of files, directories, symlinks in the git repository (source of truth) and chezmoi will update your ~$HOME~ directory to match that state
+***** [[https://www.passwordstore.org/][pass]]
+Password management is not easy, especially when you want to stay away from commercial solutions. I wish I knew ~pass~ before I bought
+LastPass premium. Here are the reasons why I like this little tool:
+- it follows the /Unix/ philosophy
+  - your passwords are stored in a simple file/folder structure
+  - per file you'll have one secret
+- each file gets /encrypted/ using ~gpg~
+  - I like this approach since I can also use my [[https://www.yubico.com/][Yubikey(s)]] to do the encryption/decryption (BTW: This [[https://github.com/drduh/YubiKey-Guide][Yubikey guide]] is excellent if you want to setup your device for GPG and SSH authentication)
+- you have version control
+  - you can track password changes using ~git~
+  - you can share your passwords between multiple machines
+- you have [[https://www.passwordstore.org/#extensions][extensions]]
+- although ~pass~ is a CLI there are also [[https://www.passwordstore.org/#other][GUIs]] for other platforms
+  - for Android there is [[https://github.com/android-password-store/Android-Password-Store][Android Password Store]]
+  - [[https://github.com/browserpass/browserpass-extension][BrowserPass]] for Chromium or Firefox
+- you might also give [[https://github.com/gopasspw/gopass][gopass]], the "/slightly/ more awesome standard unix password manager for teams" a try
+**** Productivity
+***** Pomodorro
+If you have troubles keeping yourself /focussed/ and tend to do /multi-tasking/, then I recommend you should use a /pomodorro/ timer.
+At least since my son got born, I don't have that much time available as I used to have some years ago. Becoming a parent indeed changed
+the way I define [[https://www.scotthyoung.com/blog/2021/07/05/dad-productivity/][productivity]]. I can not concentrate on one task during a large period of time because I always get "distracted". I need
+to do some grocery shopping, I need to pick up my son from the kindergarten, I need to to some household... you name it. So I had to find
+a way how to work on several projects/tasks (in a private but also work context) but in /small/ chunks of work.
+
+After using this technique for years now, I'm pretty sure it is one of my personal most efficient productivity tools. Just use a (clock) timer,
+an application on your smartphone or [[https://pomofocus.io/][pomofocus.io]] to get you started. Do rounds of 25-30 minutes (one pomodorro) and do a larger break after
+4 rounds. Believe me, you'll notice the difference.
+
+***** [[https://wakatime.com][Wakatime]]
+By now you should know I'm obsessed with /time tracking/ and being productive in multiple contextes. But sometimes I forget to start my
+pomodorro timer and at the end of the day I don't know how much time I've spent working on a specific task. You can all this with Emacs and
+[[https://github.com/marcinkoziej/org-pomodoro][org-pomodoro]] but for those of you non-Emacsers there is [[https://wakatime.com/][wakatime.com]]. They have [[https://wakatime.com/plugins][plugins]] for almost everything: Shells, IDEs, Excel, Powerpoint etc.
+
+If you have data privacy concerns, you might want to /hidden/ project and file names (also check out my [[https://github.com/dorneanu/dots/blob/main/dot_wakatime.cfg.tmpl][wakatime configuration file]]).
+
+***** [[https://play.google.com/store/apps/details?id=org.isoron.uhabits&hl=en&gl=US][Loop Habit Tracker]]
+Sticking to healthy habits is important. {{{zk(Atomic Habits/Habit Tracking,Tracking)}}} your progress will remind you to /act/. You have your
+progress in front of you and that will eventually /motivate/ you. You don't feel motivated enough? Then you might apply the [[https://jamesclear.com/paper-clips][paper clips strategy]]. Whatever you do: Track your progress and be honest to yourself. Don't push yourself to hard, just treat yourself well and stick
+to your habit.
+*** Outlook
+For the upcoming year I'd like to
+- learn
+  - [[https://www.typescriptlang.org/][TypeScript]]
+    - I've already started a course on [[https://www.udemy.com/course/understanding-typescript/][Udemy]] and I hope to finish it soon. The initial motivation was [[https://docs.aws.amazon.com/cdk/latest/guide/work-with-cdk-typescript.html][AWS CDK]] but meanwhile I think it's a great /static typed/ language.
+    - I'm still not a JavaScript fan but I hope TypeScript will allow me to teach myself some /frontend/ basics.
+  - [[https://vuejs.org/][Vue.JS]]
+    - I want to be able to build /modern/ frontend applications and use new technologies beyond HTML, CSS and JavaScript :)
+    - I heard it's quite beginner friendly
+    - [[https://v3.vuejs.org/guide/typescript-support.html][v3]] supports TypeScript
+  - [[https://en.wikipedia.org/wiki/Web3][Web3]]
+    - I want to learn how blockchains work and especially focus on [[https://ethereum.org/en/][Ethereum]]
+    - Not only for my current job I'd like to know which /Security/ threats exist beyond wallet theft
+- read
+  - [[https://www.goodreads.com/book/show/22512931-building-microservices][Building Microservices: Designing Fine-Grained Systems]]
+  - [[https://leanpub.com/visualising-software-architecture][Visualise, document and explore your software architecture]]
+  - [[https://abseil.io/resources/swe-book][Software Engineering at Google]]
+  - [[https://dataintensive.net/][Designing Data-Intensive Applications]]
+  - [[https://www.goodreads.com/book/show/28602719-domain-driven-design-distilled][Domain-Driven Design Distilled]]
+  - [[https://github.com/ethereumbook/ethereumbook][Mastering Ethereum]]
+- finish [[https://github.com/dorneanu/access-key-rotator][access-key-rotator]] and release first version
+- clean up my [[https://brainfck.org][Zettelkasten]]
+- start working on my *book*
+  - about Golang and Security :)
+That's it for now. Please share your favourite tools/productivity tipps as well as random comments/thoughts.
+
 ** DONE Book review: Accelerate - The science of Lean software and DevOps      :books:devops:architecture:
 CLOSED: [2021-11-24 Wed 20:24]
 :PROPERTIES:
