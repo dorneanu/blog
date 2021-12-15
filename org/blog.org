@@ -10,7 +10,7 @@
 #+macro: bib [[https://brainfck.org/bib.html#$1][$2]]
 
 * Posts
-** DONE My 2021 review
+** DONE My 2021 review                                                         :review:books:tools:productivity:
 CLOSED: [2021-12-13]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2021-my-2021-review
@@ -280,15 +280,16 @@ having a stable and secure deployment process.
 **** Big picture
 If you want to skip the details, just have a look at this diagram and try to understand how software delivery is impacted by different areas.
 
-#+begin_src plantuml :file ../static/posts/img/2021/accelerate-big-picture.png  :cmdline -charset UTF-8 :exports results
+#+begin_src plantuml :file ../static/posts/img/2021/accelerate-big-picture.png  :results file replace :cmdline -charset UTF-8 :exports none
 @startuml
 'left to right direction
+skinparam backgroundColor #FFFFFF
 top to bottom direction
-!theme hacker
+''!theme hacker
 
 
 component trans_leadership [
-    **Transformational Leadership**
+    ,**Transformational Leadership**
     ---
     Vision
     Inspirational communication
@@ -298,7 +299,7 @@ component trans_leadership [
 ]
 
 component lm [
-    **Lean Management**
+    ,**Lean Management**
     ---
     Limit work in progress
     Visual Management
@@ -307,7 +308,7 @@ component lm [
 ]
 
 component cd_drivers [
-    **Continous Deployment Drivers**
+    ,**Continous Deployment Drivers**
     ---
     Version Control
     Deployment Automation
@@ -320,7 +321,7 @@ component cd_drivers [
 ]
 
 component lean_prod_dev [
-    **Lean Product Development**
+    ,**Lean Product Development**
     ---
     Work in small batches
     Make flow of work visible
@@ -388,9 +389,7 @@ ldp <--[hidden] op
 @enduml
 #+end_src
 
-#+CAPTION: What are the key factors for software delivery acceleration and how they impact other areas
-#+RESULTS:
-[[file:../static/posts/img/2021/accelerate-big-picture.png]]
+{{< gbox src="/posts/img/2021/accelerate-big-picture.png" title="Accelerate Big Picture" caption="Which factors lead to software deliver improvement? There are different factors that are somehow inter-dependent" pos="left" >}}
 
 *** Speed
 Why is speed so important? Because it does make a difference how fast you can "conquer" a market and deliver value to your customers. Or as the authors put it:
@@ -642,7 +641,8 @@ CLOSED: [2021-09-15]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2021-bye-bye-scout24
 :END:
-[[file:../static/posts/img/2021/bye-bye-scout24.jpg]]
+
+{{< gbox src="/posts/img/2021/bye-bye-scout24.jpg" title="Bye Bye Scout24!" caption="After more than 5 years it's time to look after new challenges. I enjoyed my time there and also the stickers I've collected during the years." pos="left" >}}
 
 I guess it's become a tradition to write /[[/tags/byebye][bye bye]]/ posts whenever I switch jobs. So this happens again as I've decided to pursue new opportunities elsewhere. I feel sad but also excited at the same time. Working for 5 years for the same company (I do know that's not thaaaat long) feels like I've spent half of my life there. Since 2016 many colleagues have left the company and new ones joined the Security team which I was part of. During these 5 years the Security team has made a quite succesful transition from a mostly *red team* to a *blue team* one. While at the beginning I was doing *penetration tests* like there was no tomorrow, I now leave my team with internal self-built, self-managed security products (mostly in [[/tags/python][Python]] ,[[/tags/golang][Golang]] ) for the developer teams at Scout24.
 *** Things I've learned

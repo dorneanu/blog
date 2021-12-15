@@ -2,12 +2,12 @@
 title = "Bye bye Scout24!"
 author = ["Victor Dorneanu"]
 date = 2021-09-15T00:00:00+02:00
-lastmod = 2021-11-21T21:50:38+01:00
+lastmod = 2021-12-15T21:33:29+01:00
 tags = ["byebye"]
 draft = false
 +++
 
-{{< figure src="/posts/img/2021/bye-bye-scout24.jpg" >}}
+{{< gbox src="/posts/img/2021/bye-bye-scout24.jpg" title="Bye Bye Scout24!" caption="After more than 5 years it's time to look after new challenges. I enjoyed my time there and also the stickers I've collected during the years." pos="left" >}}
 
 I guess it's become a tradition to write _[bye bye](/tags/byebye)_ posts whenever I switch jobs. So this happens again as I've decided to pursue new opportunities elsewhere. I feel sad but also excited at the same time. Working for 5 years for the same company (I do know that's not thaaaat long) feels like I've spent half of my life there. Since 2016 many colleagues have left the company and new ones joined the Security team which I was part of. During these 5 years the Security team has made a quite succesful transition from a mostly **red team** to a **blue team** one. While at the beginning I was doing **penetration tests** like there was no tomorrow, I now leave my team with internal self-built, self-managed security products (mostly in [Python](/tags/python) ,[Golang](/tags/golang) ) for the developer teams at Scout24.
 

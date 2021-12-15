@@ -2,7 +2,7 @@
 title = "Book review: Accelerate - The science of Lean software and DevOps"
 author = ["Victor Dorneanu"]
 date = 2021-11-24T20:24:00+01:00
-lastmod = 2021-11-24T20:26:30+01:00
+lastmod = 2021-12-15T21:31:06+01:00
 tags = ["books", "devops", "architecture"]
 draft = false
 +++
@@ -32,7 +32,7 @@ having a stable and secure deployment process.
 
 If you want to skip the details, just have a look at this diagram and try to understand how software delivery is impacted by different areas.
 
-{{< figure src="/posts/img/2021/accelerate-big-picture.png" caption="Figure 1: What are the key factors for software delivery acceleration and how they impact other areas" >}}
+{{< gbox src="/posts/img/2021/accelerate-big-picture.png" title="Accelerate Big Picture" caption="Which factors lead to software deliver improvement? There are different factors that are somehow inter-dependent" pos="left" >}}
 
 
 ## Speed {#speed}
