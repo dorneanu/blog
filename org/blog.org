@@ -1,6 +1,6 @@
 #+title: ORG Content
 #+author: Victor Dorneanu
-#+startup: indent
+#+startup: indent fold
 #+hugo_base_dir: ../
 #+hugo_section: posts
 #+hugo_auto_set_lastmod: t
@@ -10,147 +10,252 @@
 #+macro: bib [[https://brainfck.org/bib.html#$1][$2]]
 
 * Posts
-** DONE My 2021 review                                                         :review:books:tools:productivity:
-CLOSED: [2021-12-13]
+** DONE Presentation as Code                                                                       :devops:productivity:emacs:org:
+CLOSED: [2022-01-19 Wed 20:28]
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2022-presentation-as-code
+:END:
+Last year I've done some experiments with the [[https://ctan.org/pkg/beamer?lang=en][Beamer LaTex class]] which you can use whenever
+you want to export an ORG document to a [[https://orgmode.org/worg/exporters/beamer/tutorial.html][Beamer presentation]]. I've done some customizations
+and I've thought I have a quite decent presentation template. Till I've found [[https://zenika.github.io/adoc-presentation-model/reveal/reveal-my-asciidoc.html][this]].
+
+That [[https://revealjs.com/][reveal.js]] presentation completely my mind and I've started digging into [[https://asciidoctor.org/][asciidoc]]. And then
+there is also [[https://github.com/yashi/org-asciidoc][org-asciidoc]] which will export your ORG buffer into ~asciidoc~. However there were some
+[[https://github.com/yashi/org-asciidoc/issues/14][issues]] and quickly after Christmas I decided I'll go on my own and setup my own revealjs theme.
+
+#+CAPTION: Initial tweet
+{{< tweet user="victordorneanu" id="1481908662251704320" >}}
+
+Here are some links:
+- [[https://slides.dornea.nu][slides.dornea.nu]]
+  + here I'd like to host my slides
+  + yes, I plan to do more
+- [[https://github.com/dorneanu/slides][github.com/dorneanu/slides]]
+  + check out the ~content~ folder and inspect the revealjs setup file
+  + for theming I use some of [[https://github.com/Zenika/adoc-presentation-model/tree/master/docs/themes][Zenika's themes]] with small customizations
+
+And here some GIF I've put on Twitter:
+#+CAPTION: Small demo
+{{< tweet user="victordorneanu" id="1482694904547586051" >}}
+
+** DONE My 2021 review                                                                             :review:books:tools:productivity:
+CLOSED: [2021-12-13 ]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2021-my-2021-review
 :END:
-After last year's pandemic shock, this year has brought more hope and motivation to people. I've felt motivated to learn new things, deep-dive
-into unknown areas and finally change some things in my life. In this post I'll share with you my most valued (software) tools, productivity tips,
-some books worth reading and finally some failure and success with regards to my habits.
-*** Books
-As you know you can always browse [[https://brainfck.org/#Books][my digital bookshelf]] in my [[https://brainfck.org/][personal Zettelkasten]]. This year I've read more IT related books than last year.
-I've especially focussed on {{{zk(Software Architecture,Software Architecture)}}}, {{{zk(Golang,Golang)}}} and {{{zk(DevSecOps,DevSecOps)}}}.
-
-**** Clean Architecture
-If you write code and don't know [[http://cleancoder.com/products][Uncle Bob]] then you'll have to read this book. Since my background is not of software engineering I had to
-learn a lot about good coding principles and how to structure my code properly. Very early in this process I came across Uncle Bob's famous
-[[https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html][Clean Architecture]] diagram which describes how to structure your software project into different /layers/.
-
-Well then I was blindly using those principles in my software projects without knowing that /Clean Architecture/ is more than a diagram
-and some depedencies between some layers. I'm glad I've finally managed to read this book (along with {{{zk(The Clean Code,The Clean Code)}}} and {{{zk(The Clean Coder,The Clean Coder)}}} which were not that good as this one) and learn more about {{{zk(Software Engineering,engineering principles)}}} and {{{zk(Software Architecture,software architecture)}}} in general. Additionally I think {{{zk(SOLID,SOLID principles)}}} should be part of every (software) engineer's skills repertoire.
-
-#+begin_quote
-You think good architecture is expensive, try bad architecture.
--- {{{zk(The Clean Architecture - Note 2,The Clean Architecture - Note 2)}}}
-#+end_quote
-
-I was also surprised that {{{zk(Hexagonal Architecture,Hexagonal Architecture)}}} (also known as *ports* and *adapters* architecture) almost has the same principles.
-
-{{< notice info >}}
-I also recommend [[https://herbertograca.com/2017/11/16/explicit-architecture-01-ddd-hexagonal-onion-clean-cqrs-how-i-put-it-all-together/][DDD, Hexagonal, Onion, Clean, CQRS ... How I put it all together]] reading. An excellent article!
-{{< /notice >}}
-
-**** Black Hat Go
-Back at [[/2021/09/15/bye-bye-scout24/][Scout24]] we were mainly using Python for our internal services and tools. But I wanted to make my colleagues more aware of Golang's capabilities and introduce this language to the team. Instead of some standardized approach (core types, basic control flows, "classes", interfaces etc.) I wanted to actually *do* something with the language that might catch people's interest.
-
-[[https://www.goodreads.com/book/show/35642241-black-hat-go][Black Hat Go]] was the right book to start with. It gives you just enough details to get you started with the language and then you start
-implementing network scanners, [[https://gist.github.com/dorneanu/02c9c5bb83e881e7ad2c1e93c7c2fd24][keyboard loggers]], DNS tunneling tools (like [[https://github.com/sysdream/chashell][chashell]]) and much more. I used some of the examples in the book
-to introduce my team to /offensive/ hacking while showing Golang's key features (go routines, interfaces, composition instead of inheritance etc.)
-Also if you're a pentester and need to cross-compile your tools for different architectures, this book is definitely for you.
-
-**** Accelerate
-About the science of Lean software and DevOps. I wrote an extensive [[/2021/11/24/book-review-accelerate-the-science-of-lean-software-and-devops/][summary in my last blog post]].
-**** Agile Application Security
-I consider this book to be the best one I've read on {{{zk(AppSec,Application Security)}}} in the last years. And I'll tell you why: When was the last time that a cool
-*defensive* mechanism/measure/technology (beside the cyber-security branded vendor X products) had a cool name like Logjam, Shellshock or Heartbleed? I know vulnerability
-research, exploit development and some cool hacks are fun. But this is not what's needed to build a Security minded culture inside some organization. This is also not what
-developers (and everybody else included in the software engineering process) need to know. In an Agile world different roles have to work together: Developers need to understand
-and adopt Security best practices and also take responsability for the security of their systems. You build it, you run it and you also keep it safe and secure!
-
-Product owners/managers need to understand security/compliance requirements and give agile teams enough time for the implementation of the security measures. And last but not least: Security professionals will also have to adapt to the Agile world. They need to learn to accept changes more often, to work faster and manage Security risks in incremental terms. And most important: Security needs to become an *enabler* and not a blocker!
-**** Go with the Domain
-If you know about [[https://threedots.tech][Three Dots Labs]] already and also have read their blog series on [[https://threedots.tech/tags/ddd/][Domain-driven Design with Go]] then you don't necessarily need to read [[https://threedots.tech/go-with-the-domain][this book]].
-I think the content is quite good and has to be "diggested" over a longer period of time. However, if you're not familiar with {{{zk(DDD,Domain-Driven Design)}}} principles
-this book might be to much for you. Also be prepared to invest a lot of time in their [[https://github.com/ThreeDotsLabs/wild-workouts-go-ddd-example][Go DDD example application]] and carefully read the code. After reading their blog posts first
-I was expecting to mind more context/background information in their book. This was not the case and I also don't blame them for this. Writing a book (and also blog posts) is
-very time intensive especially when you don't have that much time available.
-**** 1984
-I remember when I first started reading the first 20 pages and I was shocked how much of our today's world was part of the environment described. Also this book
-got recommended to me several ways but it was until the pandemic that I had enough motivation to push myself through. I'm not a Sci-Fi fan and usually you won't find
-this kind of book genre in my {{{zk(Books,bookshelf)}}}. But I'll add this one to the "must reads". Eventually I'll read it again in some couple of years just to find out
-what happened since last time I did so. I guess there is a reason this book belongs to the [[https://en.wikipedia.org/wiki/List_of_best-selling_books][best selling ones]] and I definitelly recommend it to everyone interested in
-/politics/, /history/ and of course /Sci-Fi/.
-**** Das Experiment sind wir
-In English: "We are the experiment". Despite its rather controversial title, I read this book at the beginning of the year after listening to this podcast: [[https://www.kuechenstud.io/medienradio/podcast/di091-fluch-und-segen-exponentiellen-wachstums-christian-stoecker-autor/][Das Interview: Fluch und Segen exponentiellen Wachstums]] (in English: Curse and blessing of exponential growth). This book got me into the basics of {{{zk(CRISPR/Cas9,CRISPR/Cas9)}}} and {{{zk(mRNA,mRNA)}}}. It also made me think about schooling and education systems which (at least in Germany) don't really teach students about complex systems/mechanisms
-that surround us. And to be more specific: AI/ML basics are not taught at school, benefits of CRISPR gene editing are often ignored by mass-media. Instead people have this
-feeling they're part of something that /happens/ to them instead of /being/ part of that something. You could apply this to {{{zk(Corona,Corona)}}} and many other global
-challenges (climate change?) that will follow in the next years.
-**** Factfulnes
-I remember someone said to me I should read this book because [[https://www.gatesnotes.com/books/factfulness][Bill Gates recommended it]]. And it turned out this book changed the way how I see the world. But most important:
-It showed me that my knowledge about the world is kind of out-dated. Just to give you an example: Before reading the book I thought the world was divided into 3 parts/classes.
-We tend to classify countries around the globe in /developed/ economies, economies /in transition/ and /developing/ economies. But if you look at the data - at this book is definitelly /data-driven/ - you'll notice that you can divide the world on a /4/ category model based on /income per person/ (check [[https://en.wikipedia.org/wiki/Factfulness:_Ten_Reasons_We%27re_Wrong_About_the_World_%E2%80%93_and_Why_Things_Are_Better_Than_You_Think][Four income levels]] at Wikipedia). And this
-is just /one/ example. If you want to self-test your views/knowledge make sure you do this at [[https://www.gapminder.org/][gapminder.org]] (they also have really awesome [[https://www.gapminder.org/tools/][visualizations]]).
-**** The Plant Paradox
-Initially I wasn't sure if I should write a summary on this one. And that's because this one is the type of books you know it contains somehow false affirmations
-but the are some that make you ponder. Since 2 years I constantly try to adjust my /Nutrition/ based on information I get from different books. After reading {{{zk(How not to die,How not to die)}}} last year I think I managed to get most of my nutritional biases under control. I also managed to get a deeper understanding of the bio-mechanics
-that make our bodies so interesting. Well /The Plant Paradox/ tries to turn scientific based nutritional knowledge upside down. At the core of the "paradox" are [[https://en.wikipedia.org/wiki/Lectin][lectins]] that are
-mostly found in all foods, especially legumes, fruits and grains. The author claims that these tiny proteins cause /gut permeability/ and therefore /inflamations/ that drive
-auto-immune diseases. While Dr. Gundry's thesis [[https://www.youtube.com/watch?v=7NT4q_5dfLs&ab_channel=NutritionFacts.org][seems to be wrong]] (and yes, I'm fan of Dr. Greger) and most of the lectins can be removed by (pressurized) cooking, I still
-think there are some small grains of truth in there. I also recommend reading [[https://hcfricke.com/2017/09/24/buchkritik-plant-paradox-von-stephen-r-gundry-md/][this summary]] (in German) which provides more cross-doamin knowledge related to different aspects
-of the thesis.
-
+After last year's pandemic shock, this year has brought more hope and motivation to
+people. I've felt motivated to learn new things, deep-dive into unknown areas and finally
+change some things in my life. In this post I'll share with you my most valued (software)
+tools, productivity tips, some books worth reading and finally some failure and success
+with regards to my habits.
 *** Health
 **** Wim Hof Method
-Last year just before the (pandemic) winter blues was about to begin I've had enough of that feeling something you cannot control
-was already part of my daily life. Seeking for more *self-control* and that "I'm still alive" feeling, I've decided to go for [[https://www.wimhofmethod.com/][The Wim Hof Method]].
+Last year just before the (pandemic) winter blues was about to begin I've had enough of
+that feeling something you cannot control was already part of my daily life. Seeking for
+more *self-control* and that "I'm still alive" feeling, I've decided to go for [[https://www.wimhofmethod.com/][The Wim Hof
+Method]].
 
-I was determined to cold shower every day and do breath work as well. Breathing exercises were not new to me since I was practising {{{zk(Pranayama,Pranayama)}}} for a while.
+I was determined to cold shower every day and do breath work as well. Breathing exercises
+were not new to me since I was practising {{{zk(Pranayama,Pranayama)}}} for a while.
 
-After some weeks of practice cold was not an enemy anymore. My body (and also my mind) adapted to that kind of stress and soon I was able
-to go out without any jacket, just wearing a t-shirt - and my trouses of course :) Eventually I was able to keep my habbits and around February
-I was "bathing" in snow in my swim shorts. Besides that, during my breath work sessions I managed to hold my breath for more 3 minutes - several times. All this success motivated me to keep going and make my new habbits part of my {{{zk(Atomic Habits/4 Laws of Behaviour Change,life style)}}}. 
+After some weeks of practice cold was not an enemy anymore. My body (and also my mind)
+adapted to that kind of stress and soon I was able to go out without any jacket, just
+wearing a t-shirt - and my trouses of course :) Eventually I was able to keep my habbits
+and around February I was "bathing" in snow in my swim shorts. Besides that, during my
+breath work sessions I managed to hold my breath for more 3 minutes - several times. All
+this success motivated me to keep going and make my new habbits part of my {{{zk(Atomic
+Habits/4 Laws of Behaviour Change,life style)}}}.
 
 # {{< gbox src="https://img.youtube.com/vi/0BNejY1e9ik/0.jpg" target="[[https://www.youtube.com/watch?v=0BNejY1e9ik]]" title="The Wim Hof Method" caption="Breath work with Wim Hof" pos="right" >}}
 {{< youtube 0BNejY1e9ik >}}
 
+*** Books
+As you know you can always browse [[https://brainfck.org/#Books][my digital bookshelf]] in my [[https://brainfck.org/][personal Zettelkasten]]. This
+year I've read more IT related books than last year. I've especially focussed on
+{{{zk(Software Architecture,Software Architecture)}}}, {{{zk(Golang,Golang)}}} and
+{{{zk(DevSecOps,DevSecOps)}}}.
+**** Clean Architecture                                                                          :architecture:
+If you write code and don't know [[http://cleancoder.com/products][Uncle Bob]] then you'll have to read this book. Since my
+background is not of software engineering I had to learn a lot about good coding
+principles and how to structure my code properly. Very early in this process I came across
+Uncle Bob's famous [[https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html][Clean Architecture]] diagram which describes how to structure your
+software project into different /layers/.
+
+Well then I was blindly using those principles in my software projects without knowing
+that /Clean Architecture/ is more than a diagram and some depedencies between some layers.
+I'm glad I've finally managed to read this book (along with {{{zk(The Clean Code,The Clean
+Code)}}} and {{{zk(The Clean Coder,The Clean Coder)}}} which were not that good as this
+one) and learn more about {{{zk(Software Engineering,engineering principles)}}} and
+{{{zk(Software Architecture,software architecture)}}} in general. Additionally I think
+{{{zk(SOLID,SOLID principles)}}} should be part of every (software) engineer's skills
+repertoire.
+
+#+begin_quote
+You think good architecture is expensive, try bad architecture. -- {{{zk(The Clean
+Architecture - Note 2,The Clean Architecture - Note 2)}}}
+#+end_quote
+
+I was also surprised that {{{zk(Hexagonal Architecture,Hexagonal Architecture)}}} (also
+known as *ports* and *adapters* architecture) almost has the same principles.
+
+{{< notice info >}}
+I also recommend [[https://herbertograca.com/2017/11/16/explicit-architecture-01-ddd-hexagonal-onion-clean-cqrs-how-i-put-it-all-together/][DDD, Hexagonal, Onion, Clean, CQRS ... How I put it all together]] reading.
+An excellent article!
+{{< /notice >}}
+**** Black Hat Go                                                                                :golang:
+Back at [[/2021/09/15/bye-bye-scout24/][Scout24]] we were mainly using Python for our internal services and tools. But I
+wanted to make my colleagues more aware of Golang's capabilities and introduce this
+language to the team. Instead of some standardized approach (core types, basic control
+flows, "classes", interfaces etc.) I wanted to actually *do* something with the language
+that might catch people's interest.
+
+[[https://www.goodreads.com/book/show/35642241-black-hat-go][Black Hat Go]] was the right book to start with. It gives you just enough details to get you
+started with the language and then you start implementing network scanners, [[https://gist.github.com/dorneanu/02c9c5bb83e881e7ad2c1e93c7c2fd24][keyboard
+loggers]], DNS tunneling tools (like [[https://github.com/sysdream/chashell][chashell]]) and much more. I used some of the examples in
+the book to introduce my team to /offensive/ hacking while showing Golang's key features (go
+routines, interfaces, composition instead of inheritance etc.) Also if you're a pentester
+and need to cross-compile your tools for different architectures, this book is definitely
+for you.
+
+**** Accelerate
+About the science of Lean software and DevOps. I wrote an extensive [[/2021/11/24/book-review-accelerate-the-science-of-lean-software-and-devops/][summary in my last blog post]].
+**** Agile Application Security                                                                  :appsec:
+I consider this book to be the best one I've read on {{{zk(AppSec,Application Security)}}}
+in the last years. And I'll tell you why: When was the last time that a cool *defensive*
+mechanism/measure/technology (beside the cyber-security branded vendor X products) had a
+cool name like Logjam, Shellshock or Heartbleed? I know vulnerability research, exploit
+development and some cool hacks are fun. But this is not what's needed to build a Security
+minded culture inside some organization. This is also not what developers (and everybody
+else included in the software engineering process) need to know. In an Agile world
+different roles have to work together: Developers need to understand and adopt Security
+best practices and also take responsability for the security of their systems. You build
+it, you run it and you also keep it safe and secure!
+
+Product owners/managers need to understand security/compliance requirements and give agile
+teams enough time for the implementation of the security measures. And last but not least:
+Security professionals will also have to adapt to the Agile world. They need to learn to
+accept changes more often, to work faster and manage Security risks in incremental terms.
+And most important: Security needs to become an *enabler* and not a blocker!
+**** Go with the Domain                                                                          :ddd:
+If you know about [[https://threedots.tech][Three Dots Labs]] already and also have read their blog series on
+[[https://threedots.tech/tags/ddd/][Domain-driven Design with Go]] then you don't necessarily need to read [[https://threedots.tech/go-with-the-domain][this book]]. I think
+the content is quite good and has to be "diggested" over a longer period of time. However,
+if you're not familiar with {{{zk(DDD,Domain-Driven Design)}}} principles this book might
+be to much for you. Also be prepared to invest a lot of time in their [[https://github.com/ThreeDotsLabs/wild-workouts-go-ddd-example][Go DDD example
+application]] and carefully read the code. After reading their blog posts first I was
+expecting to mind more context/background information in their book. This was not the case
+and I also don't blame them for this. Writing a book (and also blog posts) is very time
+intensive especially when you don't have that much time available.
+**** 1984
+I remember when I first started reading the first 20 pages and I was shocked how much of
+our today's world was part of the environment described. Also this book got recommended to
+me several ways but it was until the pandemic that I had enough motivation to push myself
+through. I'm not a Sci-Fi fan and usually you won't find this kind of book genre in my
+{{{zk(Books,bookshelf)}}}. But I'll add this one to the "must reads". Eventually I'll read
+it again in some couple of years just to find out what happened since last time I did so.
+I guess there is a reason this book belongs to the [[https://en.wikipedia.org/wiki/List_of_best-selling_books][best selling ones]] and I definitelly
+recommend it to everyone interested in /politics/, /history/ and of course /Sci-Fi/.
+**** Das Experiment sind wir
+In English: "We are the experiment". Despite its rather controversial title, I read this
+book at the beginning of the year after listening to this podcast: [[https://www.kuechenstud.io/medienradio/podcast/di091-fluch-und-segen-exponentiellen-wachstums-christian-stoecker-autor/][Das Interview: Fluch
+und Segen exponentiellen Wachstums]] (in English: Curse and blessing of exponential growth).
+This book got me into the basics of {{{zk(CRISPR/Cas9,CRISPR/Cas9)}}} and
+{{{zk(mRNA,mRNA)}}}. It also made me think about schooling and education systems which (at
+least in Germany) don't really teach students about complex systems/mechanisms that
+surround us. And to be more specific: AI/ML basics are not taught at school, benefits of
+CRISPR gene editing are often ignored by mass-media. Instead people have this feeling
+they're part of something that /happens/ to them instead of /being/ part of that something.
+You could apply this to {{{zk(Corona,Corona)}}} and many other global challenges (climate
+change?) that will follow in the next years.
+**** Factfulnes
+I remember someone said to me I should read this book because [[https://www.gatesnotes.com/books/factfulness][Bill Gates recommended it]].
+And it turned out this book changed the way how I see the world. But most important: It
+showed me that my knowledge about the world is kind of out-dated. Just to give you an
+example: Before reading the book I thought the world was divided into 3 parts/classes. We
+tend to classify countries around the globe in /developed/ economies, economies /in
+transition/ and /developing/ economies. But if you look at the data - at this book is
+definitelly /data-driven/ - you'll notice that you can divide the world on a /4/ category
+model based on /income per person/ (check [[https://en.wikipedia.org/wiki/Factfulness:_Ten_Reasons_We%27re_Wrong_About_the_World_%E2%80%93_and_Why_Things_Are_Better_Than_You_Think][Four income levels]] at Wikipedia). And this is just
+/one/ example. If you want to self-test your views/knowledge make sure you do this at
+[[https://www.gapminder.org/][gapminder.org]] (they also have really awesome [[https://www.gapminder.org/tools/][visualizations]]).
+**** The Plant Paradox
+Initially I wasn't sure if I should write a summary on this one. And that's because this
+one is the type of books you know it contains somehow false affirmations but the are some
+that make you ponder. Since 2 years I constantly try to adjust my /Nutrition/ based on
+information I get from different books. After reading {{{zk(How not to die,How not to
+die)}}} last year I think I managed to get most of my nutritional biases under control. I
+also managed to get a deeper understanding of the bio-mechanics that make our bodies so
+interesting. Well /The Plant Paradox/ tries to turn scientific based nutritional knowledge
+upside down. At the core of the "paradox" are [[https://en.wikipedia.org/wiki/Lectin][lectins]] that are mostly found in all foods,
+especially legumes, fruits and grains. The author claims that these tiny proteins cause
+/gut permeability/ and therefore /inflamations/ that drive auto-immune diseases. While Dr.
+Gundry's thesis [[https://www.youtube.com/watch?v=7NT4q_5dfLs&ab_channel=NutritionFacts.org][seems to be wrong]] (and yes, I'm fan of Dr. Greger) and most of the lectins
+can be removed by (pressurized) cooking, I still think there are some small grains of
+truth in there. I also recommend reading [[https://hcfricke.com/2017/09/24/buchkritik-plant-paradox-von-stephen-r-gundry-md/][this summary]] (in German) which provides more
+cross-doamin knowledge related to different aspects of the thesis.
+
 *** Habits
-Almost one year ago - and definitely after reading {{{zk(Atomic Habits,Atomic Habits)}}} - I was looking for a digital habit tracking tool.
-My motivation was not to develop new habits but stick to existing ones and have a visual dashboard how well I'm doing. After giving up my {{{zk(Bullet Journal,Bullet Journal)}}} tracking page, I've finally found [[https://play.google.com/store/apps/details?id=org.isoron.uhabits&hl=en&gl=US][Loop Habit Tracker]] which accompanies me every day.
+Almost one year ago - and definitely after reading {{{zk(Atomic Habits,Atomic Habits)}}} -
+I was looking for a digital habit tracking tool. My motivation was not to develop new
+habits but stick to existing ones and have a visual dashboard how well I'm doing. After
+giving up my {{{zk(Bullet Journal,Bullet Journal)}}} tracking page, I've finally found
+[[https://play.google.com/store/apps/details?id=org.isoron.uhabits&hl=en&gl=US][Loop Habit Tracker]] which accompanies me every day.
 
 {{< gbox src="/posts/img/2021/my-review/habits-app.png" title="Loop Habit Tracker Application" caption="Main view" pos="left" >}}
 
-I use /widgets/ on my (Android) where I can easily toggle multiple habits as done with simple clicks. The advantage of using widgets is the fact
-you don't have to first run the application /and then/ toggle the habits. Usually after my morning routines, I just go through my habits and click accordingly.
+I use /widgets/ on my (Android) where I can easily toggle multiple habits as done with
+simple clicks. The advantage of using widgets is the fact you don't have to first run the
+application /and then/ toggle the habits. Usually after my morning routines, I just go
+through my habits and click accordingly.
 
 {{< gbox src="/posts/img/2021/my-review/habits-widgets.png" title="Loop Habit Tracker Application" caption="Widgets" pos="left"  >}}
 
 
-In the following sections you'll see different /heat maps/ related to some /habit/. They show you on which days a specific habit activity took place or not.
+In the following sections you'll see different /heat maps/ related to some /habit/. They show
+you on which days a specific habit activity took place or not.
 **** Meditation
 {{< gbox src="/posts/img/2021/my-review/habits-meditation.png" title="Meditation" caption="Heat map 2021" pos="left"  >}}
 
-I use [[https://www.7mind.de/][7mind]] for my morning meditation. Usually I don't track my meditation /time/ but from times to times I do longer session (up to 20 minutes).
-As you can see I usually don't meditate at the weekend since I rather spend time with my family and prefer not to wake up that early.
+I use [[https://www.7mind.de/][7mind]] for my morning meditation. Usually I don't track my meditation /time/ but from
+times to times I do longer session (up to 20 minutes). As you can see I usually don't
+meditate at the weekend since I rather spend time with my family and prefer not to wake up
+that early.
 **** Cold shower
 {{< gbox src="/posts/img/2021/my-review/habits-cold-shower.png" title="Cold shower" caption="Heat map 2021" pos="left"  >}}
 
-After reading more about [[https://www.wimhofmethod.com/][The Wim Hof Method]] I was determined enough to take cold showers on a regular basis. I'm pretty happy I managed to
-stick to this habit throughout the year.
+After reading more about [[https://www.wimhofmethod.com/][The Wim Hof Method]] I was determined enough to take cold showers
+on a regular basis. I'm pretty happy I managed to stick to this habit throughout the year.
 **** Breath work
 {{< gbox src="/posts/img/2021/my-review/habits-pranayama.png" title="Breath work" caption="Heat map 2021" pos="left"  >}}
 
-This is the type of morning exercise that boosts up my energy level after waking up. I usually do /alternative nostril breathing/ (Yoga), break
-work after Wim Hof (I would say 80-90% of the time I do 3 rounds of 50 inhale/exhale rounds) and most recently also [[https://www.somabreath.com/][SOMA breath]].
+This is the type of morning exercise that boosts up my energy level after waking up. I
+usually do /alternative nostril breathing/ (Yoga), break work after Wim Hof (I would say
+80-90% of the time I do 3 rounds of 50 inhale/exhale rounds) and most recently also [[https://www.somabreath.com/][SOMA breath]].
 **** Reading
 {{< gbox src="/posts/img/2021/my-review/habits-reading.png" title="Reading" caption="Heat map 2021" pos="left"  >}}
 
-I'm not happy with this one since I know I could have read more. It's just that I use to have multiple /projects/ running in parallel so I need
-to apply some time-slicing to my available time. What also keeps me busy from reading /more/ is the fact that always do some /post-reading/
-after each book: I collect notes/thoughts, I re-read interesting pages/concepts, put everything into my [[https://brainfck.org][Zettelkasten]]. I'm already looking for a
-better reading workflow. Maybe you have some ideas.
+I'm not happy with this one since I know I could have read more. It's just that I use to
+have multiple /projects/ running in parallel so I need to apply some time-slicing to my
+available time. What also keeps me busy from reading /more/ is the fact that always do some
+/post-reading/ after each book: I collect notes/thoughts, I re-read interesting
+pages/concepts, put everything into my [[https://brainfck.org][Zettelkasten]]. I'm already looking for a better
+reading workflow. Maybe you have some ideas.
 **** Sports/Workout
 {{< gbox src="/posts/img/2021/my-review/habits-sport.png" title="Sports/Workout" caption="Heat map 2021" pos="left"  >}}
 
-Yes, this is the most embarrassing one. I was somehow motivate to do more /sports/ beginning with April but after June that kind of faded out.
-Next year I definitely want to do more workout, at least once a week. I also want to combine my bodyweight training (calisthenics) with climbing.
+Yes, this is the most embarrassing one. I was somehow motivate to do more /sports/ beginning
+with April but after June that kind of faded out. Next year I definitely want to do more
+workout, at least once a week. I also want to combine my bodyweight training
+(calisthenics) with climbing.
 
 *** Tools
 **** Emacs
-I started going down the "Emacs rabbit hole" almost 2 years ago. And I still don't regret doing so, although I've spent hours of debugging,
-trial and error, random copy&paste of Elisp code. Also switching from [[https://www.spacemacs.org/][Spacemacs]] to [[https://github.com/hlissner/doom-emacs][Doom Emacs]] had a huge boost regarding my productivity
-in Emacs. Now I can say I do understand most of my configuration (see my [[https://github.com/dorneanu/dotfiles][dotfiles]]) whereas one year ago I was randomly copy&paste and putting
-pieces together in the hope they'll somehow work.
+I started going down the "Emacs rabbit hole" almost 2 years ago. And I still don't regret
+doing so, although I've spent hours of debugging, trial and error, random copy&paste of
+Elisp code. Also switching from [[https://www.spacemacs.org/][Spacemacs]] to [[https://github.com/hlissner/doom-emacs][Doom Emacs]] had a huge boost regarding my
+productivity in Emacs. Now I can say I do understand most of my configuration (see my
+[[https://github.com/dorneanu/dotfiles][dotfiles]]) whereas one year ago I was randomly copy&paste and putting pieces together in
+the hope they'll somehow work.
 
 {{< tweet user="victordorneanu" id="1222158980627288064" >}}
 
@@ -177,11 +282,13 @@ My top modules for this year:
   - I use it daily
   - See below for more background
 **** Configuration management
-I use to keep my configuration files in a [[https://github.com/dorneanu/dotfiles][dotfiles]] repository, publicly available. This year I had to keep custom configurations for 4-5
-machines in different contextes (work, private). So I needed to find a way how to manage configuration files and apply customizations depending
-on the machine where that specific config was needed.
+I use to keep my configuration files in a [[https://github.com/dorneanu/dotfiles][dotfiles]] repository, publicly available. This
+year I had to keep custom configurations for 4-5 machines in different contextes (work,
+private). So I needed to find a way how to manage configuration files and apply
+customizations depending on the machine where that specific config was needed.
 
-Initially I came across [[https://github.com/anishathalye/dotbot][dotbot]] which is written in Python and uses a YAML/JSON configuration file in order to setup your dotfiles. But then I've found [[https://www.chezmoi.io/][chezmoi.]]
+Initially I came across [[https://github.com/anishathalye/dotbot][dotbot]] which is written in Python and uses a YAML/JSON
+configuration file in order to setup your dotfiles. But then I've found [[https://www.chezmoi.io/][chezmoi.]]
 ***** [[https://www.chezmoi.io/][chezmoi]]
 This little {{{zk(Golang,Golang)}}} utility will manage your dotfiles across multiple machines in a secure manner. Among the top features:
 - You will have a single source of truth
@@ -193,8 +300,9 @@ This little {{{zk(Golang,Golang)}}} utility will manage your dotfiles across mul
 - declarative
   - you define the desired state of files, directories, symlinks in the git repository (source of truth) and chezmoi will update your ~$HOME~ directory to match that state
 ***** [[https://www.passwordstore.org/][pass]]
-Password management is not easy, especially when you want to stay away from commercial solutions. I wish I knew ~pass~ before I bought
-LastPass premium. Here are the reasons why I like this little tool:
+Password management is not easy, especially when you want to stay away from commercial
+solutions. I wish I knew ~pass~ before I bought LastPass premium. Here are the reasons why I
+like this little tool:
 - it follows the /Unix/ philosophy
   - your passwords are stored in a simple file/folder structure
   - per file you'll have one secret
@@ -210,27 +318,36 @@ LastPass premium. Here are the reasons why I like this little tool:
 - you might also give [[https://github.com/gopasspw/gopass][gopass]], the "/slightly/ more awesome standard unix password manager for teams" a try
 **** Productivity
 ***** Pomodorro
-If you have troubles keeping yourself /focussed/ and tend to do /multi-tasking/, then I recommend you should use a /pomodorro/ timer.
-At least since my son got born, I don't have that much time available as I used to have some years ago. Becoming a parent indeed changed
-the way I define [[https://www.scotthyoung.com/blog/2021/07/05/dad-productivity/][productivity]]. I can not concentrate on one task during a large period of time because I always get "distracted". I need
-to do some grocery shopping, I need to pick up my son from the kindergarten, I need to to some household... you name it. So I had to find
-a way how to work on several projects/tasks (in a private but also work context) but in /small/ chunks of work.
+If you have troubles keeping yourself /focussed/ and tend to do /multi-tasking/, then I
+recommend you should use a /pomodorro/ timer. At least since my son got born, I don't have
+that much time available as I used to have some years ago. Becoming a parent indeed
+changed the way I define [[https://www.scotthyoung.com/blog/2021/07/05/dad-productivity/][productivity]]. I can not concentrate on one task during a large
+period of time because I always get "distracted". I need to do some grocery shopping, I
+need to pick up my son from the kindergarten, I need to to some household... you name it.
+So I had to find a way how to work on several projects/tasks (in a private but also work
+context) but in /small/ chunks of work.
 
-After using this technique for years now, I'm pretty sure it is one of my personal most efficient productivity tools. Just use a (clock) timer,
-an application on your smartphone or [[https://pomofocus.io/][pomofocus.io]] to get you started. Do rounds of 25-30 minutes (one pomodorro) and do a larger break after
-4 rounds. Believe me, you'll notice the difference.
+After using this technique for years now, I'm pretty sure it is one of my personal most
+efficient productivity tools. Just use a (clock) timer, an application on your smartphone
+or [[https://pomofocus.io/][pomofocus.io]] to get you started. Do rounds of 25-30 minutes (one pomodorro) and do a
+larger break after 4 rounds. Believe me, you'll notice the difference.
 
 ***** [[https://wakatime.com][Wakatime]]
-By now you should know I'm obsessed with /time tracking/ and being productive in multiple contextes. But sometimes I forget to start my
-pomodorro timer and at the end of the day I don't know how much time I've spent working on a specific task. You can all this with Emacs and
-[[https://github.com/marcinkoziej/org-pomodoro][org-pomodoro]] but for those of you non-Emacsers there is [[https://wakatime.com/][wakatime.com]]. They have [[https://wakatime.com/plugins][plugins]] for almost everything: Shells, IDEs, Excel, Powerpoint etc.
+By now you should know I'm obsessed with /time tracking/ and being productive in multiple
+contextes. But sometimes I forget to start my pomodorro timer and at the end of the day I
+don't know how much time I've spent working on a specific task. You can all this with
+Emacs and [[https://github.com/marcinkoziej/org-pomodoro][org-pomodoro]] but for those of you non-Emacsers there is [[https://wakatime.com/][wakatime.com]]. They have
+[[https://wakatime.com/plugins][plugins]] for almost everything: Shells, IDEs, Excel, Powerpoint etc.
 
-If you have data privacy concerns, you might want to /hidden/ project and file names (also check out my [[https://github.com/dorneanu/dots/blob/main/dot_wakatime.cfg.tmpl][wakatime configuration file]]).
+If you have data privacy concerns, you might want to /hidden/ project and file names (also
+check out my [[https://github.com/dorneanu/dots/blob/main/dot_wakatime.cfg.tmpl][wakatime configuration file]]).
 
 ***** [[https://play.google.com/store/apps/details?id=org.isoron.uhabits&hl=en&gl=US][Loop Habit Tracker]]
-Sticking to healthy habits is important. {{{zk(Atomic Habits/Habit Tracking,Tracking)}}} your progress will remind you to /act/. You have your
-progress in front of you and that will eventually /motivate/ you. You don't feel motivated enough? Then you might apply the [[https://jamesclear.com/paper-clips][paper clips strategy]]. Whatever you do: Track your progress and be honest to yourself. Don't push yourself to hard, just treat yourself well and stick
-to your habit.
+Sticking to healthy habits is important. {{{zk(Atomic Habits/Habit Tracking,Tracking)}}}
+your progress will remind you to /act/. You have your progress in front of you and that will
+eventually /motivate/ you. You don't feel motivated enough? Then you might apply the [[https://jamesclear.com/paper-clips][paper
+clips strategy]]. Whatever you do: Track your progress and be honest to yourself. Don't push
+yourself to hard, just treat yourself well and stick to your habit.
 *** Outlook
 For the upcoming year I'd like to
 - learn
@@ -257,15 +374,19 @@ For the upcoming year I'd like to
   - about Golang and Security :)
 That's it for now. Please share your favourite tools/productivity tipps as well as random comments/thoughts.
 
-** DONE Book review: Accelerate - The science of Lean software and DevOps      :books:devops:architecture:
+** DONE Book review: Accelerate - The science of Lean software and DevOps                          :books:devops:architecture:
 CLOSED: [2021-11-24 Wed 20:24]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2021-book-review-accelerate-the-science-of-lean-software-and-devops
 :END:
 
-I always use to say: "/Software currently rules the world./" Almost every aspect in our (digital) life has to do with software: The apps you use
-on your smartphone, the mail/hosting services you rely on, online shopping, train tickets, in general everything that somehow adds value to your life.
-Competition among organizations is driven by speed, the ability to deliver new features to the customers, stable products, security within their eco-systems and many other aspects. And what do they have in common? If you ask me: *Software*.
+I always use to say: "/Software currently rules the world./" Almost every aspect in our
+(digital) life has to do with software: The apps you use on your smartphone, the
+mail/hosting services you rely on, online shopping, train tickets, in general everything
+that somehow adds value to your life. Competition among organizations is driven by speed,
+the ability to deliver new features to the customers, stable products, security within
+their eco-systems and many other aspects. And what do they have in common? If you ask me:
+*Software*.
 
 *** Key takeaways
 - Software delivery performance is vital for business since it impacts the speed and velocity you deliver value to your customers
@@ -274,9 +395,14 @@ Competition among organizations is driven by speed, the ability to deliver new f
 - Strong leadership but also agile practices like Lean, Scrum, Kanban will help you to focus on your customer needs, implement requested features and adapt if needed
 - Continuous Delivery (CD) plays a vital role and is driven by a DevOps oriented mindset
 *** Introduction
-Usually I don't do book reviews. I just tend to collect my notes and thoughts in my [[https://brainfck.org][Zettelkasten]]. But this time I wanted to share some insights,
-write them down and convince you why you should read this book. {{{zk(Accelerate,Accelerate)}}} is not about *software engineering* nor entirely about *DevOps*. It does have something to do with the [[https://agilemanifesto.org/][Agile manifesto]] but from a more data-driven, scientific point of view. To be more precise, the authors *analyzed* over many years factors that enabled teams to deliver software (features) in short cycles while still limiting technical debt and
-having a stable and secure deployment process.
+Usually I don't do book reviews. I just tend to collect my notes and thoughts in my
+[[https://brainfck.org][Zettelkasten]]. But this time I wanted to share some insights, write them down and convince
+you why you should read this book. {{{zk(Accelerate,Accelerate)}}} is not about *software
+engineering* nor entirely about *DevOps*. It does have something to do with the [[https://agilemanifesto.org/][Agile
+manifesto]] but from a more data-driven, scientific point of view. To be more precise, the
+authors *analyzed* over many years factors that enabled teams to deliver software (features)
+in short cycles while still limiting technical debt and having a stable and secure
+deployment process.
 **** Big picture
 If you want to skip the details, just have a look at this diagram and try to understand how software delivery is impacted by different areas.
 
@@ -392,11 +518,19 @@ ldp <--[hidden] op
 {{< gbox src="/posts/img/2021/accelerate-big-picture.png" title="Accelerate Big Picture" caption="Which factors lead to software deliver improvement? There are different factors that are somehow inter-dependent" pos="left" >}}
 
 *** Speed
-Why is speed so important? Because it does make a difference how fast you can "conquer" a market and deliver value to your customers. Or as the authors put it:
+Why is speed so important? Because it does make a difference how fast you can "conquer" a market and
+deliver value to your customers. Or as the authors put it:
 
 #+CAPTION: Why speed is vital in software engineering
 #+begin_quote
-Business as usual is no longer enough to remain competitive. Organizations in all industries, from finance and banking to retail, telecommunications, and even government, are turning away from delivering new products and services using big projects with long lead times. Instead, they are using small teams that work in short cycles and measure feedback from users to build products and services that delight their customers and rapidly deliver value to their organizations. These high performers are working incessantly to get better at what they do, letting no obstacles stand in their path, even in the face of high levels of risk and uncertainty about how they may achieve their goals.
+Business as usual is no longer enough to remain competitive. Organizations in all
+industries, from finance and banking to retail, telecommunications, and even government,
+are turning away from delivering new products and services using big projects with long
+lead times. Instead, they are using small teams that work in short cycles and measure
+feedback from users to build products and services that delight their customers and
+rapidly deliver value to their organizations. These high performers are working
+incessantly to get better at what they do, letting no obstacles stand in their path, even
+in the face of high levels of risk and uncertainty about how they may achieve their goals.
 
 At the heart of this acceleration is software.
 
@@ -404,9 +538,10 @@ At the heart of this acceleration is software.
 #+end_quote
 
 *** Software delivery performance
-Research presented in the book has found *24* key capababilities that seem to drive *software development performance*. If you are a
-*high-performer* or a *low-performer* merely depends on the capabilities you, your team and your organization focus on. The authors
-have defined 5 categories for these capabilities:
+Research presented in the book has found *24* key capababilities that seem to drive *software
+development performance*. If you are a *high-performer* or a *low-performer* merely depends on
+the capabilities you, your team and your organization focus on. The authors have defined 5
+categories for these capabilities:
 - *Continuous Delivery (CD)*
 - *Architecture*
   - architectural characteristics
@@ -417,30 +552,50 @@ have defined 5 categories for these capabilities:
 Before we go into deep discussion, let me try to summarize why *capabilities* matter more than *maturity*.
 
 *** Capabilities vs Maturity
-Lots of *mature* organizations think they own a quite big piece of cake when it comes to market share. While relying on that, they tend to
-become less innovative, have complicated internal processes (slows down the overall development process), lose talented high-performers (who wants to work in a slow, process-heavy environment?). Instead they should focus on certain capabilities in order to *drive continuously improvement*.
+Lots of *mature* organizations think they own a quite big piece of cake when it comes to
+market share. While relying on that, they tend to become less innovative, have complicated
+internal processes (slows down the overall development process), lose talented
+high-performers (who wants to work in a slow, process-heavy environment?). Instead they
+should focus on certain capabilities in order to *drive continuously improvement*.
 
-Once organizations arrive at a mature state, they see their journey as accomplished and declare themselves done.
-However, this way they don't adapt to technological changes and those within the business landscape. High-performing
-organizations are *always striving to be better* and never consider themselves as done or mature.
+Once organizations arrive at a mature state, they see their journey as accomplished and
+declare themselves done. However, this way they don't adapt to technological changes and
+those within the business landscape. High-performing organizations are *always striving to
+be better* and never consider themselves as done or mature.
 
 #+begin_quote
-Technology leaders need to deliver software quickly and reliably to win in the market. For many companies, this requires significant changes to the way we deliver software. The key to successful change is measuring and understanding the right things with a focus on capabilities—not on maturity.
+Technology leaders need to deliver software quickly and reliably to win in the market. For
+many companies, this requires significant changes to the way we deliver software. The key
+to successful change is measuring and understanding the right things with a focus on
+capabilities—not on maturity.
 
 -- {{{zk(Accelerate,Accelerate)}}}
 #+end_quote
 
-Mature organizations not only have a bad time to keep up with new technologies but they also *prescribe the same set of technologies* for every set of teams in order to progress. The better approach would be to take into consideration
-current context, used systems, goals and constraints and focus on the capabilities that will give the teams the most benefit. This way different parts of the organization are allowed to take a customized approach to improvement.
+Mature organizations not only have a bad time to keep up with new technologies but they
+also *prescribe the same set of technologies* for every set of teams in order to progress.
+The better approach would be to take into consideration current context, used systems,
+goals and constraints and focus on the capabilities that will give the teams the most
+benefit. This way different parts of the organization are allowed to take a customized
+approach to improvement.
 
 *Maturity models* also tend to define a static level of technological, procedural and
-organizational abilities to be achieved. What is good enough and high-performing today, might no longer be good enough next year.
+organizational abilities to be achieved. What is good enough and high-performing today,
+might no longer be good enough next year.
 
 *** Measuring performance
-Most organizations focus on "old-school" technical measures like lines of code, velocity which measure some performance locally (in general within a limited scope) rather than on a more global one. Developers (and DevSecOps folks as well) are supposed to *solve business problems* and therefore focus on a *global outcome* and not output. It doesn't matter how many lines of code your team has, how often you deploy, how many Security tools you have implemented within your CI/CD pipeline. If it doesn't help to achieve organizational goals, then you're focussing more on the output rather than outcome.
+Most organizations focus on "old-school" technical measures like lines of code, velocity
+which measure some performance locally (in general within a limited scope) rather than on
+a more global one. Developers (and DevSecOps folks as well) are supposed to *solve business
+problems* and therefore focus on a *global outcome* and not output. It doesn't matter how
+many lines of code your team has, how often you deploy, how many Security tools you have
+implemented within your CI/CD pipeline. If it doesn't help to achieve organizational
+goals, then you're focussing more on the output rather than outcome.
 
 **** Software Delivery Performance
-Since it should be clear by now that the faster you are able to deliver your software to your customers, the more you're confident you're doing the right things, the book defines 4 criterias for software delivery performance:
+Since it should be clear by now that the faster you are able to deliver your software to
+your customers, the more you're confident you're doing the right things, the book defines
+4 criterias for software delivery performance:
 - *Delivery Lead Time*
   - you would usually measure
     - time to design and validate customer request
@@ -472,21 +627,25 @@ After presenting the criterias, let's have a look at some raw numbers.
 | MTTR                 | < 1 hour                           | < 1 day                                  | < 1 day                                        |
 | Change fail rate     | 0-15%                              | 0-15%                                    | 31-45%                                         |
 
-As you can see high-performers have a quite high deployment frequency and most important the delivery lead time is extremely fast.
+As you can see high-performers have a quite high deployment frequency and most important
+the delivery lead time is extremely fast.
 
 *** How to accelerate
-Now that you knwo the key metrics when it comes to *software delivery performance* how do you actually /accelerate/ and start changing your organization? Of course you can
+Now that you knwo the key metrics when it comes to *software delivery performance* how do
+you actually /accelerate/ and start changing your organization? Of course you can
 - change the *culture* within you deliver value
 - improve on a *technical* level
 - have an effective *architecture*
 - invest in a strong *leadership*
 
 Let's dissect each one piece by piece.
-
 **** Change culture
-In order to understand which changes are good for your organizations, sociologist /Ron Westrum/ has defined a model on importance of *organizational culture*. Before he was
-researching on human factors in system saftey, especially in the context of accidents in technological domains that were highly complex and risky (aviation and healthcare).
-From his point of view organization culture is vital because it defines how *information flows through an organization*. He defines following types of organizations:
+In order to understand which changes are good for your organizations, sociologist /Ron
+Westrum/ has defined a model on importance of *organizational culture*. Before he was
+researching on human factors in system saftey, especially in the context of accidents in
+technological domains that were highly complex and risky (aviation and healthcare). From
+his point of view organization culture is vital because it defines how *information flows
+through an organization*. He defines following types of organizations:
 ***** Orgnization types
 - *pathological (power-oriented)*
   - characterized by large amounts of fear and threat
@@ -515,7 +674,8 @@ You can read more about Westrum's organizational culture on [[https://cloud.goog
 {{< /notice >}}
 
 **** Change technical practices
-Among the software and tools you use within your team, there is one /capability/ that seems to have a big impact on your overall performance: *Continuous Delivery*.
+Among the software and tools you use within your team, there is one /capability/ that seems
+to have a big impact on your overall performance: *Continuous Delivery*.
 ***** Continuous Delivery
 /Continuous Delivery/ is a set of capabilities to enable changes of all kinds (features, configuration changes, bug fixes, experiments) go into production "safely", "quickly" and "suistanably". There are some /principles/:
  - *Build quality in*
@@ -634,9 +794,12 @@ These are the characterstics of a good transformational leader (Rafferty and Gri
 DevOps and Agile are already used by many organizations as part of their transformation strategy. They encourage a culture of transparency, shared responsability, faster feedback
 and automization. {{{zk(Accelerate,Accelerate)}}} is the scientific, data-driven approach to put all pieces together, to show you how they depend on each other and finally achieve a better organizational performance.  And while software is at the heart of most modern companies it is essential to have a solid, stable and secure software delivery process.
 
-For me this book was definitely one the most influencial ones I've read in the past years. You might also check out [[https://itrevolution.com/faculty/gene-kimother][other books by Gene Kim]] (he is one of the authors) if you're interested in DevOps, Agile transformation and successful user stories. Beside that I also recommend the [[https://sre.google/books/][Google SRE books]].
-
-** DONE Bye bye Scout24!                                                       :byebye:
+For me this book was definitely one the most influencial ones I've read in the past years.
+You might also check out [[https://itrevolution.com/faculty/gene-kimother][other books by
+Gene Kim]] (he is one of the authors) if you're interested in DevOps, Agile transformation
+and successful user stories. Beside that I also recommend the
+[[https://sre.google/books/][Google SRE books]].
+** DONE Bye bye Scout24!                                                                           :byebye:
 CLOSED: [2021-09-15]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2021-bye-bye-scout24
@@ -644,7 +807,15 @@ CLOSED: [2021-09-15]
 
 {{< gbox src="/posts/img/2021/bye-bye-scout24.jpg" title="Bye Bye Scout24!" caption="After more than 5 years it's time to look after new challenges. I enjoyed my time there and also the stickers I've collected during the years." pos="left" >}}
 
-I guess it's become a tradition to write /[[/tags/byebye][bye bye]]/ posts whenever I switch jobs. So this happens again as I've decided to pursue new opportunities elsewhere. I feel sad but also excited at the same time. Working for 5 years for the same company (I do know that's not thaaaat long) feels like I've spent half of my life there. Since 2016 many colleagues have left the company and new ones joined the Security team which I was part of. During these 5 years the Security team has made a quite succesful transition from a mostly *red team* to a *blue team* one. While at the beginning I was doing *penetration tests* like there was no tomorrow, I now leave my team with internal self-built, self-managed security products (mostly in [[/tags/python][Python]] ,[[/tags/golang][Golang]] ) for the developer teams at Scout24.
+I guess it's become a tradition to write /[[/tags/byebye][bye bye]]/ posts whenever I switch jobs. So this
+happens again as I've decided to pursue new opportunities elsewhere. I feel sad but also
+excited at the same time. Working for 5 years for the same company (I do know that's not
+thaaaat long) feels like I've spent half of my life there. Since 2016 many colleagues have
+left the company and new ones joined the Security team which I was part of. During these 5
+years the Security team has made a quite succesful transition from a mostly *red team* to a
+*blue team* one. While at the beginning I was doing *penetration tests* like there was no
+tomorrow, I now leave my team with internal self-built, self-managed security products
+(mostly in [[/tags/python][Python]] ,[[/tags/golang][Golang]] ) for the developer teams at Scout24.
 *** Things I've learned
 And while I had the opportunity to improve my pentest skills (mostly web applications), there are tons of new
 things I've learned:
@@ -723,18 +894,28 @@ Without any claim to completeness I've setup a list of people I'd like to expres
   + Our pairing sessions on some Python code were amazing
   + I wish you all the best with your studies
 
-** DONE Implement an access key rotator :golang:architecture:aws:github:
+** DONE Implement an access key rotator                                                            :golang:architecture:aws:github:
 CLOSED: [2021-04-25]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2021-implement-an-access-key-rotator
 :END:
 *** Introduction
-With the recent success of [[https://docs.github.com/en/actions/learn-github-actions][Github actions]] you can automate lots of things whenever something in your repos changes, e.g. automatically generate static HTML content (using [[file:/tags/hugo][hugo]]) and push it to some repository for which GitHub Pages has been configured. Check this [[https://github.com/sdras/awesome-actions][awesome actions]] list for more use cases.
+With the recent success of [[https://docs.github.com/en/actions/learn-github-actions][Github actions]] you can automate lots of things whenever
+something in your repos changes, e.g. automatically generate static HTML content (using
+[[file:/tags/hugo][hugo]]) and push it to some repository for which GitHub Pages has been configured. Check
+this [[https://github.com/sdras/awesome-actions][awesome actions]] list for more use cases.
 
-Using [[https://docs.github.com/en/actions/reference/encrypted-secrets][encrypted secrets]] defined either per repository or organization, you can bring your Github workflow to the next level: Authenticate against APIs, login to different services while keeping your secrets/credentials away from your repositories. As a general you should *never* store credentials in your repositories, even
-if they're private. Misconfigurations happen all the time and private repos can become public ones without further notice.
+Using [[https://docs.github.com/en/actions/reference/encrypted-secrets][encrypted secrets]] defined either per repository or organization, you can bring your
+Github workflow to the next level: Authenticate against APIs, login to different services
+while keeping your secrets/credentials away from your repositories. As a general you
+should *never* store credentials in your repositories, even if they're private.
+Misconfigurations happen all the time and private repos can become public ones without
+further notice.
 
-In this post I want to show the [[file:/tags/golang][Golang]] way how to update Github *secrets* in some repository. These secrets (more concrete an ~AWS IAM access key ID~ and an ~AWS IAM access secret key~) should be used to interact with [[file:/tags/aws][AWS]]. Rotating these keys regularly is essential and also part of the [[https://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html][AWS access keys best practices]].
+In this post I want to show the [[file:/tags/golang][Golang]] way how to update Github *secrets* in some
+repository. These secrets (more concrete an ~AWS IAM access key ID~ and an ~AWS IAM access
+secret key~) should be used to interact with [[file:/tags/aws][AWS]]. Rotating these keys regularly is
+essential and also part of the [[https://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html][AWS access keys best practices]].
 
 {{< notice info >}}
 Make sure you also check [[https://github.com/dorneanu/access-key-rotator][github.com/dorneanu/access-key-rotator]] for the complete project.
@@ -1190,7 +1371,7 @@ How can you know your code works? That’s easy. Test it. Test it again. Test it
 
 And how do you make sure your code is /testable/? By using abstractions instead of concrete implementations and making each single part of your code /mockable/ aka testable.
 
-** DONE Note taking in 2021                                                    :golang:tiddly:pkms:
+** DONE Note taking in 2021                                                                        :golang:tiddly:pkms:
 CLOSED: [2021-06-13 Sun 14:56]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2021-note-taking-in-2021
@@ -1207,7 +1388,6 @@ If you're more interested in the Tiddlywiki aspect of this post you can also che
 
 This post caught some attention on [[https://news.ycombinator.com/item?id=27513008][this Hackernews thread]]. You might want to check the comments. Based on the recommendations in the thread I've put together a list of (digital) solutions (besides the preferred ones)
 {{< /notice >}}
-
 
 Almost 6 years ago I was blogging about [[/2015/09/17/organizing-and-visualizing-knowledge/][organizing and visualizing knowledge]]. At that time I was just playing around with {{{zk(Tiddlywiki, Tiddlywiki)}}} and using it to collect notes during my [[/tags/ccna/][CCNA]] course. I couldn't anticipate to which extent [[https://en.wikipedia.org/wiki/Personal_knowledge_management][personal knowledge management systems]] would become famous and trendy. And people nowadays don't blog anymore: They take care of their [[https://joelhooks.com/digital-garden][digital gardens]]. While most of them seem to be just a collection of random notes, there are actually good ones where you can actually read through the thoughts/notes and learn something new. Here are my favourite ones:
 
@@ -1417,7 +1597,7 @@ I really recommend taking this whole topic more seriously since it will pay off 
 collection of notes/thoughts for later. Having a solid note eco-system will definitely increase your productivity and overall focus since we already spend to much time /googling/ stuff.
 *Use your brain for what it was built for*: Thinking, cognitive processes and creativity. Definitely not for storing information.
 
-** DONE Using org-mode and Tiddlywiki                                          :org:tiddly:
+** DONE Using org-mode and Tiddlywiki                                                              :org:tiddly:
 CLOSED: [2021-06-29 Tue 11:43]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2021-using-org-mode-and-tiddlywiki
@@ -1491,7 +1671,7 @@ If you put your cursor just before the ~#+begin_src~ statement and type ~C-c C-c
   + tags (also notice that we per default add ~Bookmark~ as a tag)
   + a note/comment regarding the comment
   + and finally for the bookmark URL
-** DONE Inbox Zero using Getpocket                                             :pocket:asciinema:emacs:productivity:
+** DONE Inbox Zero using Getpocket                                                                 :pocket:asciinema:emacs:productivity:
 CLOSED: [2021-09-01]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2021-inbox-zero-using-getpocket
@@ -1791,7 +1971,7 @@ The steps here are quite similar:
 When used wisely ~getpocket~ can be an awesome tool (same applies for any other bookmarking/read-later service). Not only you'll save more time by having the right workflow (and discipline!) for your content management, but
 you'll also get to read lot more. I'd like to know more about your workflows, how you deal with content to-be-read and what kind of tools/services you use.
 
-** DONE HowTo: Convert pocket reader links to Epub and upload to Dropbox       :org:pocket:asciinema:howto:emacs:productivity:
+** DONE HowTo: Convert pocket reader links to Epub and upload to Dropbox                           :org:pocket:asciinema:howto:emacs:productivity:
 CLOSED: [2021-08-15]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2021-howto-convert-pocket-reader-links-to-epub-and-upload-to-dropbox
@@ -1921,13 +2101,13 @@ use ~shell-command-on-region~ with ~xargs -n1 <script>~ as shown in the asciinem
 
 *** Demo
 {{< asciinema key="first" rows="40" font-size="10px" cols="800" preload="1" >}}
-* Bookmarks :bookmark:
+* Bookmarks                                                                                         :bookmark:
 :PROPERTIES:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true :noauthor true :nocomment true :nodate true :nopaging true :noread true
 :EXPORT_HUGO_SECTION: bookmarks
 :EXPORT_HUGO_WEIGHT: auto
 :END:
-** Golang                                                                       :golang:
+** Golang                                                                                                              :golang:
 :PROPERTIES:
 :EXPORT_FILE_NAME: golang
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true
@@ -2241,7 +2421,7 @@ Great resources:
 *** UI
 - [[https://www.vugu.org/][Vugu]]
   - A modern UI library for Go+WebAssembly
-** Hugo                                                                         :hugo:
+** Hugo                                                                                                                :hugo:
 :PROPERTIES:
 :EXPORT_FILE_NAME: hugo
 :END:
@@ -2293,7 +2473,7 @@ Some curated list of bookmarks related to ~hugo~.
 :TIMESTAMP: <2021-03-02 Tue>
 :END:
 k
-** Music :music:
+** Music                                                                                                               :music:
 :PROPERTIES:
 :EXPORT_FILE_NAME: music
 :END:
@@ -2408,7 +2588,7 @@ All kind of appsec related simulations/trainings.
 :EXPORT_FILE_NAME: rust
 :END:
 - [[https://academy.kerkour.com/black-hat-rust?][Black Hat Rust]]
-* Notes                                                                         :note:
+* Notes                                                                                             :note:
 :PROPERTIES:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true :noauthor true :nocomment true :nodate true :nopaging true :noread true
 :EXPORT_HUGO_SECTION: notes
@@ -3532,7 +3712,7 @@ name from which they want to read messages.
 
 {{< gist dorneanu d25e5eb327429095285fd6552486d064 >}}
 
-* COMMENT Local Variables                                                       :ARCHIVE:
+* COMMENT Local Variables                                                                           :ARCHIVE:
 # Local Variables:
 # eval: (org-hugo-auto-export-mode)
 # End:
