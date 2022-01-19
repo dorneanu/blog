@@ -2,14 +2,18 @@
 title = "Book review: Accelerate - The science of Lean software and DevOps"
 author = ["Victor Dorneanu"]
 date = 2021-11-24T20:24:00+01:00
-lastmod = 2021-12-15T21:31:06+01:00
+lastmod = 2022-01-06T11:03:11+01:00
 tags = ["books", "devops", "architecture"]
 draft = false
 +++
 
-I always use to say: "_Software currently rules the world._" Almost every aspect in our (digital) life has to do with software: The apps you use
-on your smartphone, the mail/hosting services you rely on, online shopping, train tickets, in general everything that somehow adds value to your life.
-Competition among organizations is driven by speed, the ability to deliver new features to the customers, stable products, security within their eco-systems and many other aspects. And what do they have in common? If you ask me: **Software**.
+I always use to say: "_Software currently rules the world._" Almost every aspect in our
+(digital) life has to do with software: The apps you use on your smartphone, the
+mail/hosting services you rely on, online shopping, train tickets, in general everything
+that somehow adds value to your life. Competition among organizations is driven by speed,
+the ability to deliver new features to the customers, stable products, security within
+their eco-systems and many other aspects. And what do they have in common? If you ask me:
+**Software**.
 
 
 ## Key takeaways {#key-takeaways}
@@ -23,9 +27,14 @@ Competition among organizations is driven by speed, the ability to deliver new f
 
 ## Introduction {#introduction}
 
-Usually I don't do book reviews. I just tend to collect my notes and thoughts in my [Zettelkasten](https://brainfck.org). But this time I wanted to share some insights,
-write them down and convince you why you should read this book. [Accelerate](https://brainfck.org/#Accelerate) is not about **software engineering** nor entirely about **DevOps**. It does have something to do with the [Agile manifesto](https://agilemanifesto.org/) but from a more data-driven, scientific point of view. To be more precise, the authors **analyzed** over many years factors that enabled teams to deliver software (features) in short cycles while still limiting technical debt and
-having a stable and secure deployment process.
+Usually I don't do book reviews. I just tend to collect my notes and thoughts in my
+[Zettelkasten](https://brainfck.org). But this time I wanted to share some insights, write them down and convince
+you why you should read this book. [Accelerate](https://brainfck.org/#Accelerate) is not about **software
+engineering** nor entirely about **DevOps**. It does have something to do with the [Agile
+manifesto](https://agilemanifesto.org/) but from a more data-driven, scientific point of view. To be more precise, the
+authors **analyzed** over many years factors that enabled teams to deliver software (features)
+in short cycles while still limiting technical debt and having a stable and secure
+deployment process.
 
 
 ### Big picture {#big-picture}
@@ -37,9 +46,17 @@ If you want to skip the details, just have a look at this diagram and try to und
 
 ## Speed {#speed}
 
-Why is speed so important? Because it does make a difference how fast you can "conquer" a market and deliver value to your customers. Or as the authors put it:
+Why is speed so important? Because it does make a difference how fast you can "conquer" a market and
+deliver value to your customers. Or as the authors put it:
 
-> Business as usual is no longer enough to remain competitive. Organizations in all industries, from finance and banking to retail, telecommunications, and even government, are turning away from delivering new products and services using big projects with long lead times. Instead, they are using small teams that work in short cycles and measure feedback from users to build products and services that delight their customers and rapidly deliver value to their organizations. These high performers are working incessantly to get better at what they do, letting no obstacles stand in their path, even in the face of high levels of risk and uncertainty about how they may achieve their goals.
+> Business as usual is no longer enough to remain competitive. Organizations in all
+> industries, from finance and banking to retail, telecommunications, and even government,
+> are turning away from delivering new products and services using big projects with long
+> lead times. Instead, they are using small teams that work in short cycles and measure
+> feedback from users to build products and services that delight their customers and
+> rapidly deliver value to their organizations. These high performers are working
+> incessantly to get better at what they do, letting no obstacles stand in their path, even
+> in the face of high levels of risk and uncertainty about how they may achieve their goals.
 >
 > At the heart of this acceleration is software.
 >
@@ -48,9 +65,10 @@ Why is speed so important? Because it does make a difference how fast you can "c
 
 ## Software delivery performance {#software-delivery-performance}
 
-Research presented in the book has found **24** key capababilities that seem to drive **software development performance**. If you are a
-**high-performer** or a **low-performer** merely depends on the capabilities you, your team and your organization focus on. The authors
-have defined 5 categories for these capabilities:
+Research presented in the book has found **24** key capababilities that seem to drive **software
+development performance**. If you are a **high-performer** or a **low-performer** merely depends on
+the capabilities you, your team and your organization focus on. The authors have defined 5
+categories for these capabilities:
 
 -   **Continuous Delivery (CD)**
 -   **Architecture**
@@ -64,32 +82,52 @@ Before we go into deep discussion, let me try to summarize why **capabilities** 
 
 ## Capabilities vs Maturity {#capabilities-vs-maturity}
 
-Lots of **mature** organizations think they own a quite big piece of cake when it comes to market share. While relying on that, they tend to
-become less innovative, have complicated internal processes (slows down the overall development process), lose talented high-performers (who wants to work in a slow, process-heavy environment?). Instead they should focus on certain capabilities in order to **drive continuously improvement**.
+Lots of **mature** organizations think they own a quite big piece of cake when it comes to
+market share. While relying on that, they tend to become less innovative, have complicated
+internal processes (slows down the overall development process), lose talented
+high-performers (who wants to work in a slow, process-heavy environment?). Instead they
+should focus on certain capabilities in order to **drive continuously improvement**.
 
-Once organizations arrive at a mature state, they see their journey as accomplished and declare themselves done.
-However, this way they don't adapt to technological changes and those within the business landscape. High-performing
-organizations are **always striving to be better** and never consider themselves as done or mature.
+Once organizations arrive at a mature state, they see their journey as accomplished and
+declare themselves done. However, this way they don't adapt to technological changes and
+those within the business landscape. High-performing organizations are **always striving to
+be better** and never consider themselves as done or mature.
 
-> Technology leaders need to deliver software quickly and reliably to win in the market. For many companies, this requires significant changes to the way we deliver software. The key to successful change is measuring and understanding the right things with a focus on capabilities—not on maturity.
+> Technology leaders need to deliver software quickly and reliably to win in the market. For
+> many companies, this requires significant changes to the way we deliver software. The key
+> to successful change is measuring and understanding the right things with a focus on
+> capabilities—not on maturity.
 >
 > -- [Accelerate](https://brainfck.org/#Accelerate)
 
-Mature organizations not only have a bad time to keep up with new technologies but they also **prescribe the same set of technologies** for every set of teams in order to progress. The better approach would be to take into consideration
-current context, used systems, goals and constraints and focus on the capabilities that will give the teams the most benefit. This way different parts of the organization are allowed to take a customized approach to improvement.
+Mature organizations not only have a bad time to keep up with new technologies but they
+also **prescribe the same set of technologies** for every set of teams in order to progress.
+The better approach would be to take into consideration current context, used systems,
+goals and constraints and focus on the capabilities that will give the teams the most
+benefit. This way different parts of the organization are allowed to take a customized
+approach to improvement.
 
 **Maturity models** also tend to define a static level of technological, procedural and
-organizational abilities to be achieved. What is good enough and high-performing today, might no longer be good enough next year.
+organizational abilities to be achieved. What is good enough and high-performing today,
+might no longer be good enough next year.
 
 
 ## Measuring performance {#measuring-performance}
 
-Most organizations focus on "old-school" technical measures like lines of code, velocity which measure some performance locally (in general within a limited scope) rather than on a more global one. Developers (and DevSecOps folks as well) are supposed to **solve business problems** and therefore focus on a **global outcome** and not output. It doesn't matter how many lines of code your team has, how often you deploy, how many Security tools you have implemented within your CI/CD pipeline. If it doesn't help to achieve organizational goals, then you're focussing more on the output rather than outcome.
+Most organizations focus on "old-school" technical measures like lines of code, velocity
+which measure some performance locally (in general within a limited scope) rather than on
+a more global one. Developers (and DevSecOps folks as well) are supposed to **solve business
+problems** and therefore focus on a **global outcome** and not output. It doesn't matter how
+many lines of code your team has, how often you deploy, how many Security tools you have
+implemented within your CI/CD pipeline. If it doesn't help to achieve organizational
+goals, then you're focussing more on the output rather than outcome.
 
 
 ### Software Delivery Performance {#software-delivery-performance}
 
-Since it should be clear by now that the faster you are able to deliver your software to your customers, the more you're confident you're doing the right things, the book defines 4 criterias for software delivery performance:
+Since it should be clear by now that the faster you are able to deliver your software to
+your customers, the more you're confident you're doing the right things, the book defines
+4 criterias for software delivery performance:
 
 -   **Delivery Lead Time**
     -   you would usually measure
@@ -127,12 +165,14 @@ After presenting the criterias, let's have a look at some raw numbers.
 | MTTR                 | < 1 hour                           | < 1 day                                  | < 1 day                                        |
 | Change fail rate     | 0-15%                              | 0-15%                                    | 31-45%                                         |
 
-As you can see high-performers have a quite high deployment frequency and most important the delivery lead time is extremely fast.
+As you can see high-performers have a quite high deployment frequency and most important
+the delivery lead time is extremely fast.
 
 
 ## How to accelerate {#how-to-accelerate}
 
-Now that you knwo the key metrics when it comes to **software delivery performance** how do you actually _accelerate_ and start changing your organization? Of course you can
+Now that you knwo the key metrics when it comes to **software delivery performance** how do
+you actually _accelerate_ and start changing your organization? Of course you can
 
 -   change the **culture** within you deliver value
 -   improve on a **technical** level
@@ -144,9 +184,12 @@ Let's dissect each one piece by piece.
 
 ### Change culture {#change-culture}
 
-In order to understand which changes are good for your organizations, sociologist _Ron Westrum_ has defined a model on importance of **organizational culture**. Before he was
-researching on human factors in system saftey, especially in the context of accidents in technological domains that were highly complex and risky (aviation and healthcare).
-From his point of view organization culture is vital because it defines how **information flows through an organization**. He defines following types of organizations:
+In order to understand which changes are good for your organizations, sociologist _Ron
+Westrum_ has defined a model on importance of **organizational culture**. Before he was
+researching on human factors in system saftey, especially in the context of accidents in
+technological domains that were highly complex and risky (aviation and healthcare). From
+his point of view organization culture is vital because it defines how **information flows
+through an organization**. He defines following types of organizations:
 
 
 #### Orgnization types {#orgnization-types}
@@ -181,7 +224,8 @@ You can read more about Westrum's organizational culture on [Google's DevOps gui
 
 ### Change technical practices {#change-technical-practices}
 
-Among the software and tools you use within your team, there is one _capability_ that seems to have a big impact on your overall performance: **Continuous Delivery**.
+Among the software and tools you use within your team, there is one _capability_ that seems
+to have a big impact on your overall performance: **Continuous Delivery**.
 
 
 #### Continuous Delivery {#continuous-delivery}
@@ -322,4 +366,8 @@ These are the characterstics of a good transformational leader (Rafferty and Gri
 DevOps and Agile are already used by many organizations as part of their transformation strategy. They encourage a culture of transparency, shared responsability, faster feedback
 and automization. [Accelerate](https://brainfck.org/#Accelerate) is the scientific, data-driven approach to put all pieces together, to show you how they depend on each other and finally achieve a better organizational performance.  And while software is at the heart of most modern companies it is essential to have a solid, stable and secure software delivery process.
 
-For me this book was definitely one the most influencial ones I've read in the past years. You might also check out [other books by Gene Kim](https://itrevolution.com/faculty/gene-kimother) (he is one of the authors) if you're interested in DevOps, Agile transformation and successful user stories. Beside that I also recommend the [Google SRE books](https://sre.google/books/).
+For me this book was definitely one the most influencial ones I've read in the past years.
+You might also check out [other books by
+Gene Kim](https://itrevolution.com/faculty/gene-kimother) (he is one of the authors) if you're interested in DevOps, Agile transformation
+and successful user stories. Beside that I also recommend the
+[Google SRE books](https://sre.google/books/).

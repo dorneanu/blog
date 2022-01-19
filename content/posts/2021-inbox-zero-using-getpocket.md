@@ -2,7 +2,7 @@
 title = "Inbox Zero using Getpocket"
 author = ["Victor Dorneanu"]
 date = 2021-09-01T00:00:00+02:00
-lastmod = 2021-09-04T14:51:11+02:00
+lastmod = 2022-01-06T09:33:48+01:00
 tags = ["pocket", "asciinema", "emacs", "productivity"]
 draft = false
 asciinema = true

@@ -1,8 +1,8 @@
 +++
 title = "Music"
 author = ["Victor Dorneanu"]
-lastmod = 2021-02-26T11:12:13+01:00
-tags = ["bookmark"]
+lastmod = 2022-01-05T11:43:58+01:00
+tags = ["bookmark", "music"]
 draft = false
 weight = 2003
 toc = true

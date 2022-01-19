@@ -2,8 +2,8 @@
 title = "HowTo: Convert pocket reader links to Epub and upload to Dropbox"
 author = ["Victor Dorneanu"]
 date = 2021-08-15T00:00:00+02:00
-lastmod = 2021-09-01T13:45:50+02:00
-tags = ["org", "pocket", "asciinema", "howto", "emacs", "productivity"]
+lastmod = 2022-01-05T13:28:02+01:00
+tags = ["org", "pocket", "asciinema", "howto", "emacs", "productivity", "ARCHIVE"]
 draft = false
 asciinema = true
 +++

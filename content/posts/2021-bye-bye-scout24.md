@@ -2,7 +2,7 @@
 title = "Bye bye Scout24!"
 author = ["Victor Dorneanu"]
 date = 2021-09-15T00:00:00+02:00
-lastmod = 2021-12-15T21:33:29+01:00
+lastmod = 2022-01-06T10:08:00+01:00
 tags = ["byebye"]
 draft = false
 +++
