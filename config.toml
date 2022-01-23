@@ -21,6 +21,11 @@ disqusShortname = "dorneanu"
 
 copyright="2021 Victor Dorneanu - All rights reserved"
 
+# Make sure we use Goldmark
+# https://ox-hugo.scripter.co/doc/goldmark/
+[markup.goldmark.renderer]
+  unsafe = true
+
 [author]
   name="Victor Dorneanu"
 
