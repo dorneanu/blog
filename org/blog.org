@@ -10,6 +10,268 @@
 #+macro: bib [[https://brainfck.org/bib.html#$1][$2]]
 
 * Posts
+** DONE Book summary: Digital Minimalism                                                           :books:minimalism:
+CLOSED: [2022-05-02 Mon 20:48]
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2022-book-summary-digital-minimalism
+:END:
+
+#+html: {{< gbox src="/posts/img/2022/digital-minimalism/book-cover.jpg" title="Digital Minimalism" caption="I've started with the audio book but then I ordered a physical copy for further reading" pos="left" >}}
+
+It started with the audio book but soon I've realized there is so much valuable content in
+it I cannot extract by just seeking forward and backward. Finally I've ordered a physical
+copy so I can dedicate even more time digesting the content and putting everything into my
+personal [[https://brainfck.org][Zettelkasten]].
+
+
+#+begin_src plantuml :file ../static/posts/img/2022/digital-minimalism/digital-minimalism-mindmap.png :cmdline -charset UTF-8 :exports none
+@startmindmap
++[#Orange] Digital Minimalism
+++ Attention Economy
++++ A business sector that makes money gathering consumers attention,\nrepackaging and reselling it to advertisers.
++++ extracting eyeball minutes has become more lucrative than extracting oil
+++ Principles
++++ Digital declutter
++++ Optimization of technology use
++++ Intentionality is satisfying
+++ On our sociality
++++ We're social beings
+++++ Humans have a reflex to think about social issues (default network)
+++++ Tech companies already know that the crave for social status is already within us
+++++ Lack of positive feedback leads to stress
++++ No digital invention cannot ever replace our sociality
++++ Solitude is underrated
+++++ Spend more time alone with your own thoughts
+++++ Give your brain a break from constant input\n (social media, podcasts, articles, videos, movies etc.)
+++++ Put away your smartphone
+++++ Take long walks
+++++ Write letters to yourself (journals/diaries)
++++ Focus on conversation-centric communication
+++ Live a good life
++++ Focus more on high-quality leisure
++++ Define leisure plans
+++++ Saisonal
+++++ Weekly
+@endmindmap
+#+end_src
+
+#+CAPTION: Book mindmap
+#+html: {{< gbox src="/posts/img/2022/digital-minimalism/digital-minimalism-mindmap.png" title="Digital Minimalism - Mindmap" caption="Some of the key concepts/ideas I've found interesting. Also check my <a href=\"https://brainfck.org/#Digital%20Minimalism\">Zettelkasten entry</a>" pos="left" >}}
+
+*** Principles
+The main idea is to adopt a philosphy of conscious use of digital tools and technologies
+instead of letting them dictate how we spend our time and how we feel. We should be in
+charge of our daily experience and decisions how to extract the good from these
+technologies while side-stepping what's bad. So called digital minimalists transform and
+use innovations from a source of distraction into something that supports their lives well
+lived.
+
+The author lists 3 main {{{zk(Digital Minimalism / Philosophy,principles)}}} with regards
+to "Digital Minimalism":
+
+- De-clutter your (digital) life because clutter is costly
+  - to many devices, apps, services can have a negative impact on your attention
+  - each technology you decide to use should bring value into your life ("some" value is not enough)
+- Optimization is important
+  - deciding which technology to use is only the first step
+  - how to use it to fully extract its potential is even more important
+- Intentionality is satisfying
+  - digital minimalists derive satisfaction from their general commitment to being more
+    intentional about how they engage with new technologies
+
+*** High-quality leisure
+#+begin_quote
+You cannot expect an app dreamed up in a dorm room, or among the ping-pong tables of a
+Silicon Valley incubator, to successfully replace the types of rich interactions to which
+we've painstakingly adapted over millenia. Our society is simply too complex to be
+outsourced to a social network or reduced to instant messages and emojis. - {{{zk(Digital
+Minimalism - Note 6,Source)}}}
+#+end_quote
+
+And because those "rich interactions" are essential to the well-being of our own
+sociality, following recommendations should be embraced:
+
+- Put away your smartphone
+- Take more time alone
+  - free from external input (podcasts, articles, videos/movies etc.)
+  - just be alone with your own thoughts
+- Focus on conversation-centric communication
+  - avoid anything textual or non-interactive (social media, email, text instant
+    messaging) conversations
+  - arrange more phone calls with your beloved ones
+- Focus more on high-quality leisure
+  - Doing nothing is overrated
+    - It's tempting to crave the release of having nothing to do
+    - It's also tempting to check your phone while "doing nothing"
+  - Implement leisure plans
+    - allow your (time) schedule to have rich interactions also in-between
+    - also schedule low-quality leisure for checking messages, writing back
+
+*** Additional resources
+As always read more about inter-connected topics in my {{{zk(Zettelkasten,Zettelkasten)}}}
+at [[https://brainfck.org/#Digital%20Minimalism][Digital Minimalism]].
+**** Books
+- [[https://www.goodreads.com/book/show/28503628-the-attention-merchants][The attention merchants]]
+- [[https://www.nytimes.com/2015/10/04/books/review/jonathan-franzen-reviews-sherry-turkle-reclaiming-conversation.html][Reclaiming conversation]]
+- [[https://www.goodreads.com/en/book/show/36447287][Handmade: Creative focus in the age of distraction]]
+- [[https://www.goodreads.com/book/show/43582733-stillness-is-the-key][Stillness is the key]]
+- [[https://www.goodreads.com/book/show/31451193-lead-yourself-first][Lead yourself first]]
+
+** DONE Make RSS boring again                                                                      :rss:emacs:
+CLOSED: [2022-03-17 Thu 14:18]
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2022-make-rss-boring-again
+:END:
+*** Introduction
+A few days after I have started working on this post, I begun reading Cal Newport's {{{zk(Digital Minimalism, Digital Minimalism)}}} book
+and quickly realized how both topics interrelate to each other.  But now one by one:
+
+#+begin_quote
+Digital minimalism is a philosophy of technology use in which you focus your entire time
+on a small number of carefully selected and optimized activities to strongly support
+things you value and happily miss out everything else. -- Cal Newport
+#+end_quote
+
+I think there is so much essence in this statement thus emphasizing the need for focussed and intentional attention
+for our daily activities. I haven't finished the book yet but I can for sure list the key {{{zk(Digital Minimalism / Philosophy,principles)}}} behind *digital minimalism*:
+- clutter is costly
+- Optimization is important
+  - deciding *which* technology to use is only the first step
+  - *how* to use it to fully extract its potential is even more important
+- Intentionality is satisfying
+  - intention trumps convenience
+  - about the benefits from technology chosen intentionally
+
+I think [[https://en.wikipedia.org/wiki/RSS][RSS]] should be one of the technologies every digital *minimalist* should have in her repertoire:
+- it will *de-clutter* your daily inbox of input (articles, podcasts, videos etc.) by allowing you to access them in a standardized, machine-readable format
+- subscribing to some RSS/Atom feeds won't bring you any value unless you
+  - come up with your own system of consuming information
+  - *organize* your feeds in a way that isn't sucking up your whole attention and energy
+  - don't give up your good *intentions* to decide when and how to consume content
+    - don't let big companies decide for you whether content is good or not
+
+*** So-called social websites
+Almost everything we do in our lifes requires our mental focus and the will to address some attention to that specific activity.
+Human capacity for attention is limited and because big companies want to profit from it, there is a huge competition within the *attention economy*.
+You're asked to subscribe to all kind of newsletters and eventually you'll get bombarded with content you didn't ask for.
+
+Searching for all kind of RSS services I've stumbled upon [[https://github.com/RSS-Bridge/rss-bridge][rss-bridge]] which has some critical standing on "so-called social websites":
+
+#+begin_quote
+Your catchword is "share", but you don't want us to share. You want to keep us within your
+walled gardens. That's why you've been removing RSS links from webpages, hiding them deep
+on your website, or removed feeds entirely, replacing it with crippled or demented
+proprietary API. FUCK YOU. -- [[https://github.com/RSS-Bridge/rss-bridge][rss-bridge]]
+#+end_quote
+
+- again: it's against therir business to simply let you decide what to do with your content :)
+
+#+begin_quote
+We want to share with friends, using open protocols: RSS, Atom, XMPP, whatever. Because no
+one wants to have your service with your applications using your API force-feeding them.
+Friends must be free to choose whatever software and service they want. --  rss-bridge
+#+end_quote
+
+#+CAPTION: RSS Feeds aint dead!
+#+html: {{< tweet user="danielnemenyi" id="1470385279383089153" >}}
+
+Also recently there have been lots of [[https://hn.algolia.com/?dateRange=all&page=0&prefix=true&query=RSS&sort=byDate&type=story][RSS related entries on Hackernews]].
+*** Media consumption
+I don't like fast food in the same way I do with *fast media*. I try not to consume media as soon it's published
+and I don't subscribe to every possible news source - my reading time is limited anyways.
+
+What I instead try to do is to consume media with a mindset of slowness:
+- I limit my attention to the best of the best
+  - you will find currated lists of people you should follow/subscribe to depending of your interests
+- I commit to maximize the quality of what I consume and the conditions under which I do it
+  - I like to allocate dedicated time for reading (and watching videos!)
+  - A distraction free environment is essential for me to consume the content and extract
+    what's most important for me
+    - the chosen location should support me in giving my full attention to the reading
+  - I usually download (web) articles in advance and send them to my e-reader using [[https://getpocket.com][getpocket.com]]
+    (also check out my previous blog entry for [[/2021/09/01/inbox-zero-using-getpocket/][getpocket best practices]])
+  - I aggregate news content/feeds in one place
+    - most of the time I use {{{zk(Emacs,Emacs)}}} along with [[https://github.com/skeeto/elfeed][elfeed]] to decide which content
+      I'll send to the reading queue (more on my Emacs setup below)
+
+Besides adopting [[https://en.wikipedia.org/wiki/Slow_media][slow media]] and while I'm not against social media I do think you can extract
+value out of it if used the proper way. Also [[https://calnewport.com][Cal Newport]] suggests using it like a professional
+- extract most possible value while avoiding much of the low-value distraction
+  (ads, related content, comments) the services deploy to lure users into
+  compulsive {{{zk(Behavioural Addiction ,behaviour)}}}
+- use *thresholding* (only see tweets with X likes/re-tweets) and other mechanisms for relevant content
+- show links with most upvotes/comments
+  -
+
+*** Really Simple Stuff
+RSS (Really Simple Syndication) has been for decades the best way to consume content and
+the let the consumer decide *when* to do so.
+**** Format
+I don't care if it's JSON, RSS or ATOM. It should be a standard, parseable format! That's
+what I'm asking for. Even worse: There are sites without any RSS feeds that have a public
+API for fetching things. Please, stop doing so! There is nothing wrong with RSS/ATOM and
+standardization is good.
+**** Social Media
+***** Youtube
+Fortunately YouTube still has RSS feeds. You just need the ~channel_id~ of a channel and use this URL to actually get the feeds:
+
+#+begin_src
+https://youtube.com/feeds/videos.xml?channel_id=<channel_id>
+#+end_src
+
+That's it. But wait. Sometimes you don't have a ~channel_id~ and need to find it out.
+
+***** Twitter
+- [[https://nitter.net][nitter.net]]
+***** LinkedIn
+
+**** Github/Gitlab
+Want to watch development of my dotfiles? Just use =https://github.com/lukesmithxyz/voidrice/commits/master.atom=.
+**** Podcasts
+**** Services
+- [[https://github.com/RSS-Bridge/rss-bridge][rss-bridge]]
+  - https://feed.eugenemolotov.ru/
+  - https://college.kre.dp.ua/rss/
+  - https://rss.searchdaddy.ie/
+  - https://rss.garichankar.com/
+- [[https://brutalist.report/][brutalist.report]]
+  - delivers daily headlines without bullshit
+  - you'll get ads-free headlines from
+    - Hackernews
+    - The Verge
+    - Slashdot
+    - ArsTechnica
+    - The Register
+    - Protocol
+    - Linux Weekly News
+    - The New York Times
+    - NPR
+    - and many others
+
+*** Distribute content
+You can also use RSS to distribute to share your content to social media. Using workflows
+provided by services like [[https://zapier.com/][zapier]] or [[https://ifttt.com/][ifttt]] you can easily use RSS feeds to automatically
+post and share new content via Twitter, Facebook, LinkedIn and other major social media
+platforms.
+**** zapier
+Chose which RSS to trigger events
+#+html: {{< gbox src="/posts/img/2022/rss/zapier_rss_trigger.png" title="RSS Trigger" caption="RSS Trigger" pos="left" >}}
+
+And configure how your new LinkedIn share update should look like
+#+html: {{< gbox src="/posts/img/2022/rss/zapier_send_to_linkedin.png" title="Send new content to LinkedIn as a new share update" caption="" pos="left" >}}
+
+*** Emacs
+**** elfeed
+
+My bookmarks:
+
+#+html: {{< gbox src="/posts/img/2022/rss/elfeed_bookmarks.png" title="elfeed bookmarks" caption="I have my bookmarks structured in ORG mode and each category/item is tagged accordingly." pos="left" >}}
+
+My ~daily~ view:
+
+
+#+html: {{< gbox src="/posts/img/2022/rss/elfeed_daily_view.png" title="Daily view in elfeed" caption="This is my daily view of RSS entries. " pos="left" >}}
+
 ** DONE Presentation as Code                                                                       :devops:productivity:emacs:org:
 CLOSED: [2022-01-19 Wed 20:28]
 :PROPERTIES:
@@ -67,7 +329,7 @@ this success motivated me to keep going and make my new habbits part of my {{{zk
 Habits/4 Laws of Behaviour Change,life style)}}}.
 
 # {{< gbox src="https://img.youtube.com/vi/0BNejY1e9ik/0.jpg" target="[[https://www.youtube.com/watch?v=0BNejY1e9ik]]" title="The Wim Hof Method" caption="Breath work with Wim Hof" pos="right" >}}
-{{< youtube 0BNejY1e9ik >}}
+#+html: {{< youtube 0BNejY1e9ik >}}
 
 *** Books
 As you know you can always browse [[https://brainfck.org/#Books][my digital bookshelf]] in my [[https://brainfck.org/][personal Zettelkasten]]. This
@@ -515,7 +777,7 @@ ldp <--[hidden] op
 @enduml
 #+end_src
 
-{{< gbox src="/posts/img/2021/accelerate-big-picture.png" title="Accelerate Big Picture" caption="Which factors lead to software deliver improvement? There are different factors that are somehow inter-dependent" pos="left" >}}
+#+html: {{< gbox src="/posts/img/2021/accelerate-big-picture.png" title="Accelerate Big Picture" caption="Which factors lead to software deliver improvement? There are different factors that are somehow inter-dependent" pos="left" >}}
 
 *** Speed
 Why is speed so important? Because it does make a difference how fast you can "conquer" a market and
