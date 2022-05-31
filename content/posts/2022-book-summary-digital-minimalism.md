@@ -2,7 +2,7 @@
 title = "Book summary: Digital Minimalism"
 author = ["Victor Dorneanu"]
 date = 2022-05-02T20:48:00+02:00
-lastmod = 2022-05-03T06:20:51+02:00
+lastmod = 2022-05-30T20:55:53+02:00
 tags = ["books", "minimalism"]
 draft = false
 +++
