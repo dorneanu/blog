@@ -10,18 +10,124 @@
 #+macro: bib [[https://brainfck.org/bib.html#$1][$2]]
 
 * Posts
-** TODO RSS and Emacs                                                          :rss:emacs:
-*** Emacs
-**** elfeed
+** DONE RSS/Atom, Emacs and elfeed                                             :rss:emacs:
+CLOSED: [2022-06-29 Wed 21:04]
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2022-rss-atom-emacs-and-elfeed
+:END:
+In [[/2022/06/13/rss-and-atom-for-digital-minimalists/][my last post]] I wrote about RSS/Atom and how these technologies can be used
+to declutter your digital life and reduce your exposure to the attention
+economy. [[/tags/emacs][Emacs]] (and all the amazing packages) taught me [[https://orgmode.org][ORG mode]], some basic [[https://www.gnu.org/software/emacs/manual/html_node/elisp/][Elisp]]
+and how to be a minimalist and use just one tool for almost everything.
 
-My bookmarks:
+Staying up-to-date with current technological trends, Security advisories, blog
+posts from smart people (and many other things) while not having to subscribe to every
+single newsletter, led me to [[https://github.com/skeeto/elfeed][elfeed]]:
 
-#+html: {{< gbox src="/posts/img/2022/rss/elfeed_bookmarks.png" title="elfeed bookmarks" caption="I have my bookmarks structured in ORG mode and each category/item is tagged accordingly." pos="left" >}}
+#+begin_quote
+Elfeed is an extensible web feed reader for Emacs, supporting both Atom and RSS. - [[https://github.com/skeeto/elfeed][Source]]
+#+end_quote
 
-My ~daily~ view:
+*** Configuration
+
+#+html:{{< notice info >}}
+My elfeed related configuration is available in [[https://github.com/dorneanu/dotfiles/blob/master/dot_doom.d/config.org#elfeed][config.org]].
+#+html:{{< /notice >}}
 
 
-#+html: {{< gbox src="/posts/img/2022/rss/elfeed_daily_view.png" title="Daily view in elfeed" caption="This is my daily view of RSS entries. " pos="left" >}}
+Usually you would organize your feed entries as a list:
+
+#+begin_src emacs-lisp :exports code
+;; Somewhere in your .emacs file
+(setq elfeed-feeds
+      '("http://nullprogram.com/feed/"
+        "https://planet.emacslife.com/atom.xml"))
+#+end_src
+
+I didn't like this approach since the initial list was way to big to be managed.
+Then I came across [[https://github.com/remyhonig/elfeed-org][elfeed-org]] which lets you organize your feeds in an ORG file.
+
+#+html: {{< gbox src="/posts/img/2022/rss/elfeed-org.png" title="elfeed entries" caption="I have my bookmarks/feeds structured in ORG mode and each category/item is tagged accordingly." pos="left" >}}
+
+*** Workflow
+**** Daily view
+
+This is what I get whenever I hit *M-x elfeed*:
+
+#+html: {{< gbox src="/posts/img/2022/rss/elfeed-search.png" title="Daily view in elfeed" caption="This is my daily view of RSS entries. Each lines has a timestamp, the feed entry name, a tag list and the corresponding feed entry title." pos="left" >}}
+
+And this is how I actually consume my feeds:
+
+#+html: {{< gbox src="/posts/img/2022/rss/elfeed-search-workflow.gif" title="Workflow in elfeed" caption="I usually start with a predefined query and then while I go through the list I mark each entry as read. In the right corner (I've activated keycast-tab-bar-mode) you'll also see my keystrokes. " pos="left" >}}
+
+I usually start with a predefined filter: ~@1-week-ago +unread +daily -youtube~. This gives me all entries:
+- not older than 1 week AND
+- not yet read AND
+- are tagged by ~daily~ AND
+- are NOT tagged by ~youtube~
+
+Simple, isn't it? :) In the gif you can see that I change the filter to also show the entries marked by ~read~.
+Whenever I want to actually visit an entry link, I press *RET* to get the excerpt or *b* to open that specific link
+in an external browser (or *B* to open it in an ~eww~ buffer).
+
+*** getpocket integration
+If you've read my getpocket article last year, you know I use [[https://getpocket.com][getpocket.com]] to save links/articles to read later. In ~elfeed~ I
+can easily add a link to getpocket (thanks to [[https://github.com/alphapapa/pocket-reader.el][pocket-reader.el]]). I use these [[https://github.com/dorneanu/dotfiles/blob/master/dot_doom.d/config.org#elfeed][key bindings]]:
+
+#+begin_src emacs-lisp
+;; Define maps
+(map! :map elfeed-search-mode-map
+    :after elfeed-search
+    [remap kill-this-buffer] "q"
+    [remap kill-buffer] "q"
+    :n doom-leader-key nil
+    :n "q" #'+rss/quit
+    :n "e" #'elfeed-update
+    :n "r" #'elfeed-search-untag-all-unread
+    :n "u" #'elfeed-search-tag-all-unread
+    :n "s" #'elfeed-search-live-filter
+    :n "RET" #'elfeed-search-show-entry
+    :n "p" #'elfeed-show-pdf
+    :n "+" #'elfeed-search-tag-all
+    :n "-" #'elfeed-search-untag-all
+    :n "S" #'elfeed-search-set-filter
+    :n "b" #'elfeed-search-browse-url
+    :n "B" #'elfeed-search-eww-open
+    :n "a" #'pocket-reader-elfeed-search-add-link
+    :n "y" #'elfeed-search-yank)
+(map! :map elfeed-show-mode-map
+    :after elfeed-show
+    [remap kill-this-buffer] "q"
+    [remap kill-buffer] "q"
+    :n doom-leader-key nil
+    :nm "q" #'+rss/delete-pane
+    :nm "a" #'pocket-reader-elfeed-entry-add-link
+    :n "B" #'elfeed-show-eww-open
+    :nm "o" #'ace-link-elfeed
+    :nm "RET" #'org-ref-elfeed-add
+    :nm "n" #'elfeed-show-next
+    :nm "N" #'elfeed-show-prev
+    :nm "p" #'elfeed-show-pdf
+    :nm "+" #'elfeed-show-tag
+    :nm "-" #'elfeed-show-untag
+    :nm "s" #'elfeed-show-new-live-search
+    :nm "y" #'elfeed-show-yank)
+#+end_src
+
+Whenever I press *a* in an ~elfeed~ related buffer the entries link will be added to getpocket.
+*** Bookmarks
+I use [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Bookmarks.html][bookmarks]] to specify elfeed filters. This allows me to quickly jump to a certain view without
+having to change the filter in-between:
+
+#+html: {{< gbox src="/posts/img/2022/rss/bookmarks.png" title="Bookmarks for managing predefined filters" caption="I use bookmarks to have a list of predefined elfeed filters." pos="left" >}}
+
+*** Podcasts
+
+As already described [[/2022/06/13/rss-and-atom-for-digital-minimalists/#podcasts][here]] I use RSS/Atom feed to regularly check for new podcast episodes. Here's my workflow:
+
+#+html: {{< gbox src="/posts/img/2022/rss/elfeed-podcasts.gif" title="Managing podcasts in elfeed" caption="I use tags (e.g. 2listen) to mark episodes I'd like to put into my todo/to-listen queue" pos="left" >}}
+
+
 
 ** DONE RSS and Atom for digital minimalists                                   :rss:emacs:
 CLOSED: <2022-06-13 Mon 07:00>

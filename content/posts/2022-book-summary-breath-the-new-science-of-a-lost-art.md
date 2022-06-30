@@ -2,7 +2,7 @@
 title = "Book summary: Breath - The New Science of a Lost Art"
 author = ["Victor Dorneanu"]
 date = 2022-05-30T21:37:00+02:00
-lastmod = 2022-05-31T06:42:50+02:00
+lastmod = 2022-06-13T14:16:01+02:00
 tags = ["books"]
 draft = false
 +++
