@@ -4,12 +4,754 @@
 #+hugo_base_dir: ../
 #+hugo_section: posts
 #+hugo_auto_set_lastmod: t
+#+hugo_paired_shortcodes: %sidenote
 #+property: header-args :eval never-export
 
 #+macro: zk [[https://brainfck.org/#$1][$2]]
 #+macro: bib [[https://brainfck.org/bib.html#$1][$2]]
+#+macro: relref @@hugo:[@@ $1 @@hugo:]({{< relref "$2" >}})@@
+#+macro: titleref @@hugo:{{< titleref "$1" "@@ $2 @@hugo:" >}}@@
+
 
 * Posts
+** Book summary: Building Microservices (2nd Edition)
+*** Microservices
+**** Definition
+***** Microservices are independently releasable services that are modeled around a business domain. A service encapsulates functionality and makes it accessible to other services via networks.
+***** Microservices are a type of SOA architecture
+****** service boundaries are important
+****** independent deployability is key
+**** Microservices embrace the concept of information hiding
+***** David Paras: Information Distribution Aspects of Design Methodology
+**** Key Concepts                                                            :zk:
+***** Independent deployability
+****** criteria for this: make sure microservices are loosely coupled
+******* be able to change one service without having to change anything else
+***** Modeled around a business domain
+****** definition of service boundaries (see DDD)
+***** Owning their own state
+****** hide internal state (same as encapsulation in OOP)
+****** clean delineation between internal implementation details and external contract
+******* be backward-compatible
+****** hide database that backs the service
+******* avoid DB showing
+***** Size
+****** Quote: "A microservice should be as big as my head - James Lewis"   :quote:
+******* keep it to the size at which it can be easily understood
+***** Flexibility
+****** Quote: "Microservices buy you options - James Lewis"                :quote:
+******* they have a cost and you must decide whether the cost is worth the options you want to take up
+***** Alignment of architecture and organization
+****** Quote: "Organizations which design systems are constrained to produce designs which are copies of the communication structures of the organization - Melvin Conway" :quote:
+****** have team vertically organized
+******* same team owns front-end, business logic, data, back-end, security
+******** a so called stream-aligned team
+**** Advantages                                                              :zk:
+***** Technology Heterogeneity
+***** Robustness
+****** a component in a system can fail but as long as the problem doesn't cascade, the rest of the system still works
+***** Scaling
+***** Ease of Deployment
+****** fast delivery of features
+****** decreases fear of deployment (see Accelerate)
+****** change a single service and deploy it independently of the system
+***** Organizational alignment
+****** small teams working on small code bases tend to be more productive
+****** microservices allow us to better align our architecture to our organization
+******* minimize the number of people working in the team
+******** helps to find the sweet spot of team size and productivity
+***** Composability
+**** Pain Points                                                             :zk:
+***** Developer Experience
+****** new technologies are options not requirements
+****** when adopting microservices
+******* you'll have to understand issues around data consistency, latency, service modeling
+******* and how these ideas change the way you think about software development
+******* it takes time to understand new concepts
+******** this leads to less time developing new features
+***** Technology overload
+***** Costs
+***** Reporting
+****** data and logs are scattered across multiple components
+***** Monitoring and troubleshooting
+****** Book: [[https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/][Distributed Systems Observability]]
+***** Security
+***** Latency
+***** Data consistency
+*** Chapter 2: How to model microservices
+**** Information hiding                                                      :zk:
+***** hide as many details as possible behind a module / microservice boundary
+***** Parnas identified following benefits:
+****** improved development time
+****** comprehensibility
+******* each module is isolated and therefore better to understand
+****** flexibility
+**** Cohesion
+***** code that changes together, stays together
+***** strong cohesion
+****** ensure related behavior is at one place
+***** weak cohesion
+****** related functionality is spread across the system
+**** Coupling
+***** loosely coupled
+****** change to one service should not require a change to another
+***** a loosely coupled services knows as little as it needs about the services it communicates with
+****** limitation of number of different types of calls is important
+** DONE TiddlyWiki and Emacs                                                   :emacs:tiddlywiki:elisp:
+CLOSED: [2022-07-12 Tue 07:00]
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2022-tiddlywiki-and-emacs
+:END:
+Since my [[https://www.reddit.com/r/emacs/comments/pkuhqd/emacs_and_tiddlywiki_anyone/][last post on reddit]] asking for some help regarding Emacs and TiddlyWikis REST API
+I gained some ~elisp~ knowledge I'd like to share.
+#+begin_sidenote
+Maybe you want to go directly to the [[https://github.com/dorneanu/dotfiles/blob/master/dot_doom.d/config.org#tiddlywiki][Emacs configuration]].
+#+end_sidenote
+
+*** TiddlyWiki 5
+For those of you who haven't heard of TiddlyWiki yet:
+#+begin_quote
+TiddlyWiki is a personal wiki and a non-linear notebook for organising and
+sharing complex information. It is an open-source single page application wiki
+in the form of a single HTML file that includes CSS, JavaScript, and the
+content. It is designed to be easy to customize and re-shape depending on
+application. It facilitates re-use of content by dividing it into small pieces
+called Tiddlers. -- [[https://en.wikipedia.org/wiki/TiddlyWiki][Wikipedia]]
+#+end_quote
+
+You use the wiki as a *single HTML page* or via ~nodejs~. With ~nodejs~ we can talk to
+Tiddlywiki via its REST API.
+#+begin_sidenote
+I've been using TiddlyWikis REST API to serve a instance via AWS Lambda and DynamoDB
+for the data storage. The project itself is called [[https://github.com/dorneanu/widdly][widdly]] and there is also a demo at
+[[https://tiddly.info/serverless][tiddly.info/serverless]].
+#+end_sidenote
+
+
+Every single page inside the wiki is called ~tiddler~.
+
+#+begin_quote
+On the philosophy of [[https://tiddlywiki.com/static/Philosophy%2520of%2520Tiddlers.html][tiddlers]]: "The purpose of recording and organising information is so that it can be used again. The value of recorded information is directly proportional to the ease with which it can be re-used."
+#+end_quote
+
+A ~tiddler~ has following [[https://tiddlywiki.com/prerelease/static/TiddlyWeb%2520JSON%2520tiddler%2520format.html][format]]:
+
+#+caption: Tiddler JSON format
+#+begin_src json :exports code
+{
+	"title": "HelloThere",
+	"tags": "FirstTag [[Second Tag]]",
+	"my-custom-field": "Field value"
+}
+#+end_src
+
+Next I'll show you how to setup your TiddlyWiki instance.
+#+begin_sidenote
+I have a public "digital garden" aka wiki available at https://brainfck.org
+#+end_sidenote
+**** Basic setup
+I use ~node.js~ to run my TiddlyWiki instance.
+#+begin_sidenote
+The REST API is only available within the nodeJS environment.
+#+end_sidenote
+
+For isolation reasons I use ~Docker~ to run it. Here is my ~Dockerfile~:
+
+#+name: tw5_dockerfile
+#+caption: Dockerfile for running TiddlyWiki 5 using alpine
+#+begin_src docker
+FROM mhart/alpine-node
+
+# Create a group and user
+RUN addgroup -g 984 -S appgroup
+RUN adduser -h /DATA/wiki -u 1000 -S appuser -G appgroup
+
+# Tell docker that all future commands should run as the appuser user
+
+ENV TW_BASE=/DATA TW_NAME=wiki TW_USER="xxx" TW_PASSWORD="xxx" TW_LAZY=""
+ENV TW_PATH ${TW_BASE}/${TW_NAME}
+
+WORKDIR ${TW_BASE}
+
+RUN npm install -g npm@8.10.0
+RUN npm install -g tiddlywiki http-server
+
+# COPY plugins/felixhayashi /usr/lib/node_modules/tiddlywiki/plugins/felixhayashi
+# RUN ls -la /usr/lib/node_modules/tiddlywiki/plugins
+COPY start.sh ${TW_BASE}
+
+# Change ownership
+RUN chown appuser:appgroup /DATA/start.sh
+
+EXPOSE 8181
+
+USER appuser
+
+ENTRYPOINT ["/DATA/start.sh"]
+CMD ["/DATA/start.sh"]
+#+end_src
+
+And as for ~start.sh~:
+
+#+name: tw5_docker_start_sh
+#+caption: Bash script to start a simple http-server (for uploading images) and the tiddlywiki server instance (node.js)
+#+begin_src sh
+#!/usr/bin/env sh
+
+# Start image server
+http-server -p 82 /DATA/wiki/images &
+
+# Start tiddlywiki server
+tiddlywiki /DATA/wiki --listen port=8181 host=0.0.0.0 csrf-disable=yes
+#+end_src
+
+Now you should be able to call the API (via ~curl~ for example):
+
+#+name: tw5_get_tiddler_emacs
+#+caption: Now you should be able to call the API (via ~curl~ for example).
+#+begin_src sh :exports both :results output code
+curl http://127.0.0.1:8181/recipes/default/tiddlers/Emacs | jq
+#+end_src
+
+#+RESULTS:
+#+name: tw5_get_tiddler_emacs_response
+#+caption: The REST API will send back a JSON response.
+#+begin_src sh
+{
+  "title": "Emacs",
+  "created": "20210623082136326",
+  "modified": "20210623082138258",
+  "tags": "Topics",
+  "type": "text/vnd.tiddlywiki",
+  "revision": 0,
+  "bag": "default"
+}
+#+end_src
+
+*** request.el
+I use [[https://tkf.github.io/emacs-request/][request.el]]
+
+#+begin_sidenote
+I know there might be better alternatives. But in my case it's been totally
+sufficient and Elisp beginner friendly.
+#+end_sidenote
+
+for crafting and sending HTTP requests. So what is ~request.el~ all about?
+
+#+begin_quote
+Request.el is a HTTP request library with multiple backends. It supports url.el
+which is shipped with Emacs and curl command line program. User can use curl
+when s/he has it, as curl is more reliable than url.el. Library author can use
+request.el to avoid imposing external dependencies such as curl to users while
+giving richer experience for users who have curl. -- [[https://tkf.github.io/emacs-request/][Source]]
+#+end_quote
+
+**** GET
+Let's have a look how a simple (GET) API call looks like:
+
+#+name: request_get_chuck_norris
+#+caption: Get a random Chuck Norris joke
+#+begin_src emacs-lisp :exports both replace :results value code
+(let*
+    ((httpRequest
+      (request "https://api.chucknorris.io/jokes/random"
+        :parser 'json-read
+        :sync t                      
+        :success (cl-function
+                  (lambda (&key data &allow-other-keys)
+                    (message "I sent: %S" data)))))
+
+     (data (request-response-data httpRequest)))
+
+  ;; Print information
+ (cl-loop for (key . value) in data
+      collect (cons key value)))
+#+end_src
+
+#+RESULTS: request_get_chuck_norris
+#+begin_src emacs-lisp
+((categories .
+             [])
+ (created_at . "2020-01-05 13:42:19.576875")
+ (icon_url . "https://assets.chucknorris.host/img/avatar/chuck-norris.png")
+ (id . "YNmylryESKCeA5-TJKm_9g")
+ (updated_at . "2020-01-05 13:42:19.576875")
+ (url . "https://api.chucknorris.io/jokes/YNmylryESKCeA5-TJKm_9g")
+ (value . "The descendents of Chuck Norris have divided into two widely known cultures: New Jersey and New York."))
+#+end_src
+
+
+#+RESULTS:
+#+caption: GET response as a list of cons cells
+#+name: request_get_chuck_norris_response
+#+begin_src emacs-lisp
+((categories . [])
+ (created_at . "2020-01-05 13:42:28.420821")
+ (icon_url . "https://assets.chucknorris.host/img/avatar/chuck-norris.png")
+ (id . "gpw8M-DVSnCpMFit_e0_pA")
+ (updated_at . "2020-01-05 13:42:28.420821")
+ (url . "https://api.chucknorris.io/jokes/gpw8M-DVSnCpMFit_e0_pA")
+ (value . "What killed off the dinosaurs, go ask Chuck Norris."))
+#+end_src
+
+**** POST
+Sending a ~POST~ request is also an easy task:
+
+#+name: request_post_request_httpbin
+#+caption: POST request with data
+#+begin_src emacs-lisp  :exports both replace :results value code
+(let*
+    ((httpRequest
+      (request "http://httpbin.org/post"
+        :type "POST"
+        :data '(("key" . "value") ("key2" . "value2"))
+        :parser 'json-read
+        :sync t
+        :success (cl-function
+                  (lambda (&key data &allow-other-keys)
+                    (message "I sent: %S" data)))))
+
+     (data (request-response-data httpRequest))
+     (err (request-response-error-thrown httpRequest))
+     (status (request-response-status-code httpRequest)))
+
+  ;; Print information
+ (cl-loop for (key . value) in data
+      collect (cons key value)))
+#+end_src
+
+And here is the result:
+
+#+RESULTS:
+#+name: request_post_request_httpbin_response
+#+caption: POST response as list of Elisp cons cells
+#+begin_src emacs-lisp
+((args)
+ (data . "")
+ (files)
+ (form
+  (key . "value")
+  (key2 . "value2"))
+ (headers
+  (Accept . "*/*")
+  (Accept-Encoding . "deflate, gzip, br, zstd")
+  (Content-Length . "21")
+  (Content-Type . "application/x-www-form-urlencoded")
+  (Host . "httpbin.org")
+  (User-Agent . "curl/7.83.1")
+  (X-Amzn-Trace-Id . "Root=1-62cdbc5c-52d3ad32436c1cb8778808e5"))
+ (json)
+ (origin . "127.0.0.1")
+ (url . "http://httpbin.org/post"))
+#+end_src
+
+*** Emacs
+#+begin_src lisp :exports code :session tw5
+;; default tiddlywiki base path
+(setq tiddlywiki-base-path "http://127.0.0.1:8181/recipes/default/tiddlers/")
+#+end_src
+
+
+**** GET tiddler
+Let's [[https://tiddlywiki.com/prerelease/static/WebServer%2520API%253A%2520Get%2520Tiddler.html][GET]] a tiddler:
+
+#+caption: Get a tiddler by name ("Emacs")
+#+name: request_get_tiddler_emacs
+#+begin_src emacs-lisp :exports both :session tw5 :results value code
+(let*
+    ((httpRequest
+      (request (concat tiddlywiki-base-path "Emacs")
+        :parser 'json-read
+        :sync t
+        :success (cl-function
+                  (lambda (&key data &allow-other-keys)
+                    (message "I sent: %S" data)))))
+
+     (data (request-response-data httpRequest))
+     (err (request-response-error-thrown httpRequest))
+     (status (request-response-status-code httpRequest)))
+
+  ;; Print information
+ (cl-loop for (key . value) in data
+      collect (cons key value)))
+#+end_src
+
+#+RESULTS:
+#+name: request_get_tiddler_emacs_response
+#+caption: Response as list of Elisp cons cells
+#+begin_src emacs-lisp
+((title . "Emacs")
+ (created . "20210623082136326")
+ (modified . "20210623082138258")
+ (tags . "Topics")
+ (type . "text/vnd.tiddlywiki")
+ (revision . 0)
+ (bag . "default"))
+#+end_src
+**** PUT a new tiddler
+[[https://tiddlywiki.com/prerelease/static/WebServer%2520API%253A%2520Put%2520Tiddler.html][Creating a new tiddler]] is also simple. Using [[https://github.com/federicotdn/verb][ob-verb]]
+#+begin_sidenote
+This package is really helpful especially when you do literate programming with [[https://orgmode.org/worg/org-contrib/babel/][org-babel]].
+#+end_sidenote
+
+let's add a ~PUT~ request to the API:
+
+#+caption: Sample request for creating a new tiddler
+#+name: put_new_tiddler_pseudo
+#+begin_src verb :wrap src shell
+PUT http://127.0.0.1:8181/recipes/default/tiddlers/I%20love%20Elisp
+x-requested-with: TiddlyWiki
+Content-Type: application/json; charset=utf-8
+
+{
+    "title": "I love Elisp",
+    "tags": "Emacs [[I Love]]",
+    "send-with": "verb",
+    "text": "This rocks!"
+}
+#+end_src
+
+#+RESULTS: put_new_tiddler_pseudo
+#+begin_src shell
+HTTP/1.1 204 OK
+Etag: "default/I%20love%20Elisp/8:"
+Content-Type: text/plain
+Date: Wed, 13 Jul 2022 10:03:24 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+#+end_src
+
+Check if tiddler was indeed created:
+
+#+caption: GET request using ~verb~
+#+name: get_tiddler_verb
+#+begin_src verb :wrap src shell
+GET http://127.0.0.1:8181/recipes/default/tiddlers/I%20love%20Elisp
+x-requested-with: TiddlyWiki
+Accept: application/json; charset=utf-8
+#+end_src
+
+#+RESULTS:
+#+caption: A new tiddler was created
+#+name: put_new_tiddler_pseudo_response
+#+begin_src http
+HTTP/1.1 200 OK
+Content-Type: application/json
+Date: Wed, 13 Jul 2022 10:03:27 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+{
+  "title": "I love Elisp",
+  "tags": "Emacs [[I Love]]",
+  "fields": {
+    "send-with": "verb"
+  },
+  "text": "This rocks!",
+  "revision": 1,
+  "bag": "default",
+  "type": "text/vnd.tiddlywiki"
+}
+#+end_src
+
+Now let's translate that to ~request.el~ code. This I'll some extra complexity: I'll add
+a function (~defun~) to ~PUT~ a new tiddler for us, where *name*, *tags* and *body* of the tiddler are variable.
+
+#+name: request_insert_function
+#+caption: Create new function for inserting new tiddlers
+#+begin_src emacs-lisp :hl_lines 6,21,13 :exports both :session tw5 :results value code
+;; Define function for inserting new tiddlers
+(defun insert-tiddler(name tags body)
+  (let*
+  (
+   (tiddler-title name)
+   (url-path (url-hexify-string tiddler-title))
+   (tiddler-tags tags)
+   (tiddler-body body)
+
+   (httpRequest
+    (request (concat tiddlywiki-base-path url-path)
+      :type "PUT"
+      :data (json-encode
+             `(
+               ("title" . ,tiddler-title)
+               ("created" . ,(format-time-string "%Y%m%d%H%M%S%3N"))
+               ("modified" . ,(format-time-string "%Y%m%d%H%M%S%3N"))
+               ("tags" . ,tiddler-tags)
+               ("text" . ,tiddler-body)
+               ("type" . "text/vnd.tiddlywiki")))
+      :headers '(
+                 ("Content-Type" . "application/json")
+                 ("X-Requested-With" . "Tiddlywiki")
+                 ("Accept" . "application/json"))
+      :encoding 'utf-8
+      :sync t
+      :complete
+      (function*
+       (lambda (&key data &allow-other-keys)
+         (message "Inside function: %s" data)
+         (when data
+           (with-current-buffer (get-buffer-create "*request demo*")
+             (erase-buffer)
+             (insert (request-response-data data))
+             (pop-to-buffer (current-buffer))))))
+      :error
+      (function* (lambda (&key error-thrown &allow-other-keys&rest _)
+                   (message "Got error: %S" error-thrown)))
+      )))
+
+  (format "%s:%s"
+          (request-response-headers httpRequest)
+          (request-response-status-code httpRequest)
+          )))
+
+;; Insert 2 tiddlers
+(insert-tiddler "I love Elisp" "Elisp [[I Love]]" "This rocks!")
+#+end_src
+
+#+RESULTS: request_insert_function
+#+caption: New tiddler was created
+#+name: request_insert_function_created
+#+begin_src emacs-lisp
+"((etag . \"default/I%20love%20Elisp/61:\") (content-type . text/plain) (date . Wed, 13 Jul 2022 12:30:33 GMT) (connection . keep-alive) (keep-alive . timeout=5)):204"
+#+end_src
+
+
+Some explanations:
+- in line 6 I URL encode the ~tiddler-title~
+  - ~I love Elisp~ should become ~I%20love%20Elisp~
+- in line 21 some headers are set
+  - ~X-Requested-With~ is required to be set to ~TiddlyWiki~
+  - ~Content-Type~ should be ~json~
+  - we also accept ~json~ as a response
+- in line 13 we specify the ~data~ to be sent to the API
+  - each field (key, value sets) is set accordingly (see [[request_get_tiddler_emacs_response]])
+  - I set the ~created~ and ~modified~ fields using ~format-time-string~
+
+Now let's check again if tiddler really exists:
+
+#+caption: Check if new tiddler exists
+#+name: get_tiddler_verb_new_tiddler
+#+begin_src :exports both verb :wrap src shell
+GET http://127.0.0.1:8181/recipes/default/tiddlers/I%20love%20Elisp
+x-requested-with: TiddlyWiki
+Accept: application/json; charset=utf-8
+#+end_src
+
+#+RESULTS:
+#+caption: It does exist!
+#+name: get_tiddler_verb_new_tiddler_response
+#+begin_src http
+HTTP/1.1 200 OK
+Content-Type: application/json
+Date: Wed, 13 Jul 2022 12:40:22 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+{
+  "title": "I love Elisp",
+  "created": "20220713143033566",
+  "modified": "20220713143033566",
+  "tags": "Elisp [[I Love]]",
+  "text": "This rocks!",
+  "type": "text/vnd.tiddlywiki",
+  "revision": 61,
+  "bag": "default"
+}
+#+end_src
+
+
+*** Use cases
+Now what can you do with this little custom functions? Let me share my use cases.
+**** Add bookmark
+A bookmark in my TiddlyWiki represents a tiddler of following format:
+
+#+begin_src verb :wrap src http :exports both
+GET http://127.0.0.1:8181/recipes/default/tiddlers/chashell
+Accept: application/json; charset=utf-8
+#+end_src
+
+#+RESULTS:
+#+begin_src http :hl_lines 17,13,14,15
+HTTP/1.1 200 OK
+Content-Type: application/json
+Date: Wed, 13 Jul 2022 12:49:58 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+
+{
+  "title": "chashell",
+  "created": "20210519103441485",
+  "modified": "20210519103528982",
+  "fields": {
+    "name": "chashell",
+    "note": "Chashell is a Go reverse shell that communicates over DNS. It can be used to bypass firewalls or tightly restricted networks.",
+    "url": "https://github.com/sysdream/chashell"
+  },
+  "tags": "Golang Security Tool Bookmark",
+  "type": "text/vnd.tiddlywiki",
+  "revision": 0,
+  "bag": "default"
+}
+#+end_src
+
+Every bookmarks consists of a *name*, a *note* and an *url*. Every tiddler supposed to be a bookmark is tagged by ~Bookmark~. In this ~chashell~ is
+a tiddler and at the same time a bookmark in my wiki.
+#+begin_sidenote
+This is the entry in my public Tiddlywiki instance: https://brainfck.org/#chashell.
+#+end_sidenote
+
+As part of my daily routine, I go through my [[/2021/09/01/inbox-zero-using-getpocket/][pocket entries]] and decide which ones I should bookmark in Tiddlywiki. These are my keybindings
+for the getpocket major mode:
+
+#+begin_src emacs-lisp :exports code :hl_lines 12
+(map! :map pocket-reader-mode-map
+      :after pocket-reader
+      :nm "d" #'pocket-reader-delete
+      :nm "SD" #'dorneanu/pocket-reader-send-to-dropbox
+      :nm "a" #'pocket-reader-toggle-archived
+      :nm "B" #'pocket-reader-open-in-external-browser
+      :nm "e" #'pocket-reader-excerpt
+      :nm "G" #'pocket-reader-more
+      :nm "TAB" #'pocket-reader-open-url
+      :nm "tr" #'pocket-reader-remove-tags
+      :nm "tN" #'dorneanu/pocket-reader-remove-next
+      :nm "C-b" #'dorneanu/tiddlywiki-add-bookmark
+      :nm "ta" #'pocket-reader-add-tags
+      :nm "gr" #'pocket-reader-refresh
+      :nm "p" #'pocket-reader-search
+      :nm "U" #'pocket-reader-unmark-all
+      :nm "y" #'pocket-reader-copy-url
+      :nm "Y" #'dorneanu/pocket-reader-copy-to-scratch)
+#+end_src
+
+Let's have a look at ~dorneanu/tiddlywiki-add-bookmark~:
+#+begin_sidenote
+Again: You can find all my customized functions in my [[https://github.com/dorneanu/dotfiles/blob/master/dot_doom.d/config.org#tiddlywiki][dotfiles]].
+#+end_sidenote
+
+#+caption: Bookmark entries from getpocket directly into Tiddlywiki
+#+name: function_tiddlywiki_add_bookmark_getpocket
+#+begin_src emacs-lisp :exports code
+(defun dorneanu/tiddlywiki-add-bookmark ()
+  "Adds a new bookmark to tiddlywiki. The URL is fetched from clipboard or killring"
+    (require 'url-util)
+    (interactive)
+    (pocket-reader-copy-url)
+
+    (setq my-url (org-web-tools--get-first-url))
+    (setq url-html (org-web-tools--get-url my-url))
+    (setq url-title (org-web-tools--html-title url-html))
+    (setq url-title-mod (read-string "Title: " url-title))
+    (setq url-path (url-hexify-string url-title-mod))
+    (setq url-note (read-string (concat "Note for " my-url ":")))
+    (setq url-tags (concat "Bookmark "(read-string "Additional tags: ")))
+
+    (request (concat tiddlywiki-base-path url-path)
+    :type "PUT"
+    :data (json-encode `(("name" . ,url-title-mod) ("note" . ,url-note) ("url" . ,my-url) ("tags" . ,url-tags)))
+    :headers '(("Content-Type" . "application/json") ("X-Requested-With" . "TiddlyWiki") ("Accept" . "application/json"))
+    :parser 'json-read
+    :success
+    (cl-function
+            (lambda (&key data &allow-other-keys)
+                (message "I sent: %S" (assoc-default 'args data))))
+    :complete (lambda (&rest _) (message "Added %s" (symbol-value 'url-title-mod)))
+    :error (lambda (&rest _) (message "Some error"))
+    :status-code '((400 . (lambda (&rest _) (message "Got 400.")))
+                    (418 . (lambda (&rest _) (message "Got 418.")))
+                    (204 . (lambda (&rest _) (message "Got 202."))))
+    )
+)
+#+end_src
+
+
+
+
+
+
+**** Add quote
+After reading each book I usually do some post-reading/post-processing. While I could use the
+Tiddlywiki web interface to add new tiddlers, I'd rather do it from Emacs directly.
+
+Often I need to insert new quotes from book (or web articles). How to I do this:
+
+#+caption: Directly add new quotes from Emacs
+#+name: function_tiddlywiki_add_quote
+#+begin_src emacs-lisp :exports code
+(defun dorneanu/tiddlywiki-add-quote ()
+  "Adds a new quote"
+    (interactive)
+
+    (setq quote-title (read-string "Quote title: " quote-title))
+    (setq url-path (url-hexify-string quote-title))
+    (setq quote-source (read-string (concat "Source for " quote-title ": ") quote-source))
+    (setq quote-body (read-string (concat "Text for " quote-title ": ")))
+    (setq quote-tags (concat "quote "(read-string "Additional tags: ")))
+
+    (request (concat tiddlywiki-base-path url-path)
+    :type "PUT"
+    :data (json-encode `(
+        ("title" . ,quote-title)
+        ("created" . ,(format-time-string "%Y%m%d%H%M%S%3N"))
+        ("modified" . ,(format-time-string "%Y%m%d%H%M%S%3N"))
+        ("source" . ,quote-source)
+        ("tags" . ,quote-tags)
+        ("text" . ,quote-body)
+        ("type" . "text/vnd.tiddlywiki")))
+    :headers '(("Content-Type" . "application/json") ("X-Requested-With" . "TiddlyWiki") ("Accept" . "application/json"))
+    :parser 'json-read
+    :success
+    (cl-function
+            (lambda (&key data &allow-other-keys)
+                (message "I sent: %S" (assoc-default 'args data))))
+    :complete (lambda (&rest _) (message "Added quote <%s>" (symbol-value 'quote-title)))
+    :error (lambda (&rest _) (message "Some error"))
+    :status-code '((400 . (lambda (&rest _) (message "Got 400.")))
+                    (418 . (lambda (&rest _) (message "Got 418.")))
+                    (204 . (lambda (&rest _) (message "Got 202."))))
+    )
+)
+#+end_src
+
+I simply invoke ~M-x dorneanu/tiddlywiki-add-quote~ and ~read-string~ will ask for a quote title, some source of the quote (e.g. a book)
+and of course the actual text.
+*** Hydra
+I've recently discovered [[https://github.com/abo-abo/hydra][hydra]] and I came up with some hydra also for TiddlyWiki:
+
+#+caption: Hydra for Tiddlywiki
+#+name: tiddlywiki_customized_hydra
+#+begin_src emacs-lisp :exports code
+(defhydra hydra-tiddlywiki (:color blue :hint nil)
+"
+Tiddlywiki commands^
+---------------------------------------------------------
+_b_ Add new bookmark
+_j_ Add new journal entry
+_t_ Add new tiddler
+_q_ Add new quote
+"
+  ("b" dorneanu/tiddlywiki-add-bookmark)
+  ("j" vd/tw5-journal-file-by-date)
+  ("q" dorneanu/tiddlywiki-add-quote)
+  ("t" dorneanu/tiddlywiki-add-tiddler))
+
+;; Keybindings
+(my-leader-def
+  :infix "m w"
+  "h" '(hydra-tiddlywiki/body :which-key "Open Tiddlywiki hydra")
+  "j" '(vd/tw5-journal-file-by-date :which-key "Create/Open TW5 Journal file")
+  "s" '(my/rg-tiddlywiki-directory :which-key "Search in TW5 directory"))
+#+end_src
+
+This way I press ~M m w h~ and the TiddlyWiki hydra will pop up.
+*** Conclusion
+I hope some day there will be a full (elisp) package for TiddlyWiki combining some of the
+functionalities/ideas mentioned here. If you have anything to add/share, please let me know.
+
 ** DONE RSS/Atom, Emacs and elfeed                                             :rss:emacs:
 CLOSED: [2022-06-29 Wed 21:04]
 :PROPERTIES:
@@ -126,7 +868,6 @@ having to change the filter in-between:
 As already described [[/2022/06/13/rss-and-atom-for-digital-minimalists/#podcasts][here]] I use RSS/Atom feed to regularly check for new podcast episodes. Here's my workflow:
 
 #+html: {{< gbox src="/posts/img/2022/rss/elfeed-podcasts.gif" title="Managing podcasts in elfeed" caption="I use tags (e.g. 2listen) to mark episodes I'd like to put into my todo/to-listen queue" pos="left" >}}
-
 
 
 ** DONE RSS and Atom for digital minimalists                                   :rss:emacs:
@@ -4441,6 +5182,8 @@ name from which they want to read messages.
 
 ;; set buffer variable
 (setq-local org-agenda-files nil)
+
+(add-to-list 'org-hugo-special-block-type-properties '("sidenote" . (:trim-pre t :trim-post t)))
 #+end_src
 
 * COMMENT Local Variables                                                       :noexport:

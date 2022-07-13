@@ -12,19 +12,37 @@ DisablePathToLower =  false
 HasCJKLanguage = true
 PreserveTaxonomyNames = false
 UglyUrls = false
-PygmentsStyle = "native"
+PygmentsStyle = "trac"
+pygmentsUseClasses = true
 pygmentsCodefences = true
-pygmentsCodefencesGuessSyntax = true
+# pygmentsCodefencesGuessSyntax = true
 DefaultContentLanguage = "en"
 disqusShortname = "dorneanu"
 # publishDir = "docs"
 
 copyright="2009-2022 Victor Dorneanu - All rights reserved"
 
+[markup]
+  [markup.highlight]
+    anchorLineNos = false
+    codeFences = true
+    guessSyntax = true
+    hl_Lines = ''
+    hl_inline = false
+    lineAnchors = ''
+    lineNoStart = 1
+    lineNos = true
+    lineNumbersInTable = true
+    noClasses = false
+    noHl = false
+    style = 'emacs'
+    tabWidth = 4
+
 # Make sure we use Goldmark
 # https://ox-hugo.scripter.co/doc/goldmark/
 [markup.goldmark.renderer]
   unsafe = true
+
 
 [author]
   name="Victor Dorneanu"
@@ -73,7 +91,7 @@ gists = "/gists/:title"
   justifyContent = false  # Set "text-align: justify" to `.content`.
   relatedPosts = true  # Add a related content section to all single posts page
   code_copy_button = false # Turn on/off the code-copy-button for code-fields
-  customCSS = ["css/custom.css"]
+  customCSS = ["css/custom.css", "css/syntax.css"]
  
 
 [Author]
