@@ -14,89 +14,429 @@
 
 
 * Posts
-** Book summary: Building Microservices (2nd Edition)
+** TODO Book summary: Building Microservices (2nd Edition)                     :books:microservices:architecture:
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2022-book-summary-building-microservices-2nd-edition
+:END:
 *** Microservices
 **** Definition
-***** Microservices are independently releasable services that are modeled around a business domain. A service encapsulates functionality and makes it accessible to other services via networks.
-***** Microservices are a type of SOA architecture
-****** service boundaries are important
-****** independent deployability is key
-**** Microservices embrace the concept of information hiding
-***** David Paras: Information Distribution Aspects of Design Methodology
-**** Key Concepts                                                            :zk:
-***** Independent deployability
-****** criteria for this: make sure microservices are loosely coupled
-******* be able to change one service without having to change anything else
-***** Modeled around a business domain
-****** definition of service boundaries (see DDD)
-***** Owning their own state
-****** hide internal state (same as encapsulation in OOP)
-****** clean delineation between internal implementation details and external contract
-******* be backward-compatible
-****** hide database that backs the service
-******* avoid DB showing
-***** Size
-****** Quote: "A microservice should be as big as my head - James Lewis"   :quote:
-******* keep it to the size at which it can be easily understood
-***** Flexibility
-****** Quote: "Microservices buy you options - James Lewis"                :quote:
-******* they have a cost and you must decide whether the cost is worth the options you want to take up
-***** Alignment of architecture and organization
-****** Quote: "Organizations which design systems are constrained to produce designs which are copies of the communication structures of the organization - Melvin Conway" :quote:
-****** have team vertically organized
-******* same team owns front-end, business logic, data, back-end, security
-******** a so called stream-aligned team
-**** Advantages                                                              :zk:
-***** Technology Heterogeneity
-***** Robustness
-****** a component in a system can fail but as long as the problem doesn't cascade, the rest of the system still works
-***** Scaling
-***** Ease of Deployment
-****** fast delivery of features
-****** decreases fear of deployment (see Accelerate)
-****** change a single service and deploy it independently of the system
-***** Organizational alignment
-****** small teams working on small code bases tend to be more productive
-****** microservices allow us to better align our architecture to our organization
-******* minimize the number of people working in the team
-******** helps to find the sweet spot of team size and productivity
-***** Composability
-**** Pain Points                                                             :zk:
-***** Developer Experience
-****** new technologies are options not requirements
-****** when adopting microservices
-******* you'll have to understand issues around data consistency, latency, service modeling
-******* and how these ideas change the way you think about software development
-******* it takes time to understand new concepts
-******** this leads to less time developing new features
-***** Technology overload
-***** Costs
-***** Reporting
-****** data and logs are scattered across multiple components
-***** Monitoring and troubleshooting
-****** Book: [[https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/][Distributed Systems Observability]]
-***** Security
-***** Latency
-***** Data consistency
+#+begin_quote
+Microservices are independently releasable services that are modeled around a business
+domain. A service encapsulates functionality and makes it accessible to other services via
+networks.
+#+end_quote
+- Microservices are a type of {{{zk(SOA,SOA)}}} architecture
+  - service boundaries are important
+  - independent deployability is key
+- Microservices embrace the concept of {{{zk(Information hiding,Information hiding)}}}
+#+begin_sidenote
+Introduced by David Parnas in /Information Distribution Aspects of Design Methodology/
+#+end_sidenote
+
+**** Key Concepts
+- Independent deployability
+  - criteria for this: make sure microservices are loosely coupled
+    - be able to change one service without having to change anything else
+- Modeled around a business domain
+  - definition of service boundaries (see DDD)
+- Owning their own state
+  - hide internal state (same as encapsulation in OOP)
+  - clean delineation between internal implementation details and external contract
+    - be backward-compatible
+  - hide database that backs the service
+    - avoid DB showing
+- Size
+  #+begin_quote
+  "A microservice should be as big as my head" - James Lewis
+  #+end_quote
+    - keep it to the size at which it can be easily understood
+- Flexibility
+  #+begin_quote
+  "Microservices buy you options" - James Lewis
+  #+end_quote
+    - they have a cost and you must decide whether the cost is worth the options you want to take up
+- Alignment of architecture and organization
+  #+begin_quote
+  "Organizations which design systems are constrained to produce designs which
+    are copies of the communication structures of the organization" - Melvin Conway
+  #+end_quote
+  - have team vertically organized
+    - same team owns front-end, business logic, data, back-end, security
+      - a so called stream-aligned team
+**** Advantages
+- Technology Heterogeneity
+- Robustness
+  - a component in a system can fail but as long as the problem doesn't cascade, the rest of the system still works
+- Scaling
+- Ease of Deployment
+  - fast delivery of features
+  - decreases fear of deployment (see Accelerate)
+  - change a single service and deploy it independently of the system
+- Organizational alignment
+  - small teams working on small code bases tend to be more productive
+  - microservices allow us to better align our architecture to our organization
+    - minimize the number of people working in the team
+      - helps to find the sweet spot of team size and productivity
+- Composability
+**** Pain Points
+- Developer Experience
+  - new technologies are options not requirements
+  - when adopting microservices
+    - you'll have to understand issues around data consistency, latency, service modeling
+    - and how these ideas change the way you think about software development
+    - it takes time to understand new concepts
+      - this leads to less time developing new features
+- Technology overload
+- Costs
+- Reporting
+  - data and logs are scattered across multiple components
+- Monitoring and troubleshooting
+  - Book: [[https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/][Distributed Systems Observability]]
+- Security
+- Latency
+- Data consistency
 *** Chapter 2: How to model microservices
 **** Information hiding                                                      :zk:
-***** hide as many details as possible behind a module / microservice boundary
-***** Parnas identified following benefits:
-****** improved development time
-****** comprehensibility
-******* each module is isolated and therefore better to understand
-****** flexibility
-**** Cohesion
-***** code that changes together, stays together
-***** strong cohesion
-****** ensure related behavior is at one place
-***** weak cohesion
-****** related functionality is spread across the system
-**** Coupling
-***** loosely coupled
-****** change to one service should not require a change to another
-***** a loosely coupled services knows as little as it needs about the services it communicates with
-****** limitation of number of different types of calls is important
+- hide as many details as possible behind a module / microservice boundary
+- Parnas identified following benefits:
+  - improved development time
+  - comprehensibility
+    - each module is isolated and therefore better to understand
+  - flexibility
+**** Cohesion                                                                :zk:
+- code that changes together, stays together
+- strong cohesion
+  - ensure related behavior is at one place
+- weak cohesion
+  - related functionality is spread across the system
+**** Coupling                                                                :zk:
+- loosely coupled
+  - change to one service should not require a change to another
+- a loosely coupled services knows as little as it needs about the services it communicates with
+  - limitation of number of different types of calls is important
+**** Interplay of coupling and cohesion
+#+begin_quote
+A structure is stable if cohesion is strong and coupling is low.
+#+end_quote
+- cohesion applies to the relationship between things *inside* a boundary
+- coupling describes relationship between things across a boundary
+- still: there is no best way how to organize code
+**** Types of coupling
+***** Domain coupling
+- one microservice interacts with another microservice because it needs the functionality
+  the other microservice provides
+
+  IMG:1
+- considered as a loose form of coupling
+- again, information hiding: Share only what you absolutely have to, and send only the
+  absolute minimum amount of data that you need
+***** Pass-through coupling
+- one microservice passes data to some other microservice because data is needed by another microservice
+
+  IMG: 2
+***** Common coupling
+- when 1 or 2 microservices make use of a *common* set of data
+  - use of shared DB
+  - use of shared memory/filesystem
+- problem: changes to data can impact multiple microservices at once
+- better solution would be to implement {{{zk(CRUD,CRUD)}}} operations and let only 1
+  microservice handle shared DB operations
+***** Content coupling
+- when an upstream service reaches into internals of a downstream service anc changes its
+  internal state
+**** DDD                                                                     :zk:
+{{{zk(DDD,DDD)}}} stands for Domain-Driven Design.
+***** Concepts
+****** Ubiquitous language
+- use the same terms in code as the user use
+- have *common* language between delivery team and actual people (aka customers)
+  - helps to understand business by logic
+  - helps with communication
+- use real-world language in code
+****** Aggregates
+- a representatino of real domain concept
+  - something like an ~Order~, an ~Invoice~, ~Stock Item~
+- aggregates typically have an information cycle around them
+- in general
+  - aggregate as something that has
+    - state
+    - identity
+    - information cycle
+    that will be managed as part of the system
+- aggregates can have relationships to other aggregates
+
+  IMG: 1
+****** Bounded context
+- a larger organizational boundary
+  - within it explicit responsibilities need to be carried out
+- bounded contexts hide implementation details ([[* Information hiding][Information hiding]])
+- bounded contexts contain ~1-n~ aggregates
+  - some aggregates may be exposed outside the bounded context
+  - others may be hidden internally
+***** Event Storming
+- collaborative brainstorming exercise designed to help design a domain model
+- invented by [[https://www.eventstorming.com/][Alberto Brandolini]]
+***** Boundaries between microservices
+There are some factors when defining clear boundaries between microservice
+- volatility
+- data
+  - also with concern to security
+- technology
+- organizational
+  - Layering Inside vs Layering Outside
+*** Ch. 3: Splitting the monolith
+- you need to have a *goal* before moving to microservices
+  - should be a conscious decision
+  - without clear understanding of what you want to achieve, you could fall into the trap of *confusing activity with outcome*
+
+    #+begin_quote
+    Spinning up a few more copies of your existing monolith system behind a load balancer may well help you scale your system
+    much more efficiently than going through a complex and length decomposition to microservices.
+    #+end_quote
+**** Decomposition patterns
+- Strangler fig pattern
+#+begin_sidenote
+By [[https://martinfowler.com/bliki/StranglerFigApplication.html][Martin Fowler]]
+#+end_sidenote
+- Parallel run
+- Feature toggles
+**** Data Decomposition concerns
+- performance
+- data integrity
+- transactions
+- Tooling
+- Reporting DB
+*** Ch. 4: Microservices communication styles
+ - styles for IPC communications
+   - synchronous blocking
+   - asynchronous blocking
+   - request-response
+   - {{{zk(Event-Driven Architecture,Event-Driven Architecture)}}}
+   - Common data
+
+**** EDA
+- events vs messages
+  - *event*: is a fact
+  - *message*: is a thing
+  - a message contains an event
+
+*** Ch.5: Implementing Microservices communication
+**** Criterias for ideal technology
+- backward compatibility
+- make your interface(s) explicit
+  - use of explicit schemas
+    #+begin_sidenote
+   Like [[https://swagger.io/specification/][OpenAPI]]
+    #+end_sidenote
+- keep your APIs technology-agnostic
+- make your service simple for the consumers
+- hide internal implementation details
+**** Technology choices
+- RPC
+  - SOAP
+  - gRPC
+- REST
+  #+begin_sidenote
+  Book recommendation: [[https://www.goodreads.com/en/book/show/8266727-rest-in-practice][REST in Practice: Hypermedia and Systems Architecture]] (by Jim Webber, Savas Parastatidis, Ian Robinson)
+  #+end_sidenote
+- GraphQL
+  - alternative: {{{zk(BFF,BFF)}}} (Backend-For Frontend) pattern
+    #+begin_sidenote
+   This [[https://blog.bitsrc.io/bff-pattern-backend-for-frontend-an-introduction-e4fa965128bf][article]] provides a quite good introduction.
+    #+end_sidenote
+- Message brokers
+  - use queues/topics
+**** API Gateway
+- built on top on existing HTTP proxy products
+- main function: reverse proxy
+  - but also authentication, logging, rate limiting
+- Examples:
+  - [[https://aws.amazon.com/api-gateway/][AWS API Gateway]]
+  - [[https://cloud.google.com/api-gateway][GCP API Gateway]]
+
+IMG: Service Meshes and API GWs
+- north-south traffic
+- east-west traffic
+*** Ch. 6: Workflow
+**** Distributed Transactions
+***** Two-phase Commits (2PC)
+- a commit algorithm to make transactional changes in a distributed system, where multiple separate parts need to be updated
+***** Sagas
+- coordinate multiple changes in state
+- but without locking resources for a long period
+- involves
+  - backward recovery
+  - forward recovery
+- allows to recover from /business/ failures not technical ones
+- when rollback is involved, maybe a compensating transaction is needed
+***** Books
+- [[https://www.goodreads.com/book/show/85012.Enterprise_Integration_Patterns][Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Solutions]]
+- [[https://www.goodreads.com/en/book/show/55362275-practical-process-automation][Practical Process Automation]]
+*** Ch. 7: Build
+- on {{{zk(Continuous Integration (CI),Continuous Integration (CI))}}}
+- how to organize artifacts
+  - monorepo
+  - multirepo
+
+*** Ch. 8: Deployment
+**** Principles of Microservices Deployment                                  :zk:
+- isolated execution
+  - own computing resources
+  - don't impact other microservices instances
+- focus on automation
+  - adopt automation as core part of your culture
+- Infrastructure as a Code
+  #+begin_sidenote
+  Book: [[https://www.goodreads.com/en/book/show/26544394-infrastructure-as-code][Infrastructure as Code: Managing Servers in the Cloud]]
+  #+end_sidenote
+- zero-downtime deployment
+  - independent deployability
+    - new deployment of microservices can be done without downtime to users/clients of microservices
+- desired state management
+  - maintain microservices in a defined state
+    - allocate new instances if needed
+  - GitOps
+    - brings together desired state management and IaC (Infrastructure as Code)
+- progressive delivery
+  - implement many of the ideeas in {{{zk(Accelerate,Accelerate)}}}
+  - separate deployment from release
+  - feature releases
+    - use as part of trunk-based development
+    - not yet finished functionality can be deployed and hidden from users (e.g. feature toggles)
+    - functionality can still be turned on/off
+  - canary releases
+  - parallel runs
+
+
+*** Ch. 10: From monitoring to obersavability
+**** The obersavability of a system                                          :zk:
+ - is the extenct to which you can understand the internal state of the system
+   from external output
+ - *monitoring* is something we /do/
+   - it's an activity
+ - *obersavability*
+   - rather a /property/ of a system
+ - pillars of obersavability
+   - metrics
+   - logging/logs
+   - events
+   - traces
+**** Alert fatigue
+#+begin_quote
+Alert fatigue—also known as alarm fatigue—is when an overwhelming number of
+alerts desensitizes the people tasked with responding to them, leading to missed
+or ignored alerts or delayed responses -- [[https://www.atlassian.com/incident-management/on-call/alert-fatigue][Source]]
+#+end_quote
+#+begin_sidenote
+Also a good reading: [[https://humanisticsystems.com/2015/10/16/fit-for-purpose-questions-about-alarm-system-design-from-theory-and-practice/][Alarm design: From nuclear power to WebOps]].
+#+end_sidenote
+***** What makes a good alert
+An alert has to be:
+- relevant
+- unique
+- timely
+- prioritized
+  - give enough information to decide in which order alerts should be dealth
+    with
+- understandable
+  - information has to be clear and readable
+- diagnostic
+  - it needs to be clear what is wrong
+- advisory
+  - help the operator understand what actions need to taken
+- focussed
+  - draw attention to the most important issues
+***** On the importance of testing                                          :quote:
+#+begin_quote
+"Not testing in production is like not practitioning with the full orchestra because your solo sounded fine at home"
+#+end_quote
+**** Semantic monitoring
+- compare against normal conditions
+- you could use synthetic transactions
+- other options
+  - A/B testing
+  - canary releases
+  - {{{zk(Chaos engineering,Chaos engineering)}}}
+  - parallel runs
+  - smoke tests
+**** Tools
+- [[https://opentelemetry.io/][opentelemetry.io]]
+*** Ch. 11: Security
+**** Lifecycle of secrets                                                    :zk:
+- Creation
+  - How we create the secret
+- Distribution
+  - How do we make sure the secrets get to the right place?
+- Storage
+  - Is the secret stored in a way only authorized parties can access it?
+- Monitoring
+  - Do we know how secret is used?
+- Rotations
+  - Are we able to change the secret without causing problems?
+*** Ch. 12: Resiliency
+**** Resiliency                                                              :zk:
+- defined by David D. Woods
+  #+begin_sidenote
+  Book: [[https://www.goodreads.com/book/show/910055.Resilience_Engineering][Resilience Engineering: Concepts and Precepts]]
+  #+end_sidenote
+- aspects
+  - robustness
+    - ability to absorb perturbation
+  - rebound
+    - recover after a traumatic event
+  - graceful extensibility
+    - how to deal with an unexpected situation
+  - sustained adaptability
+    - adapt to changing environments, stakeholders and demands
+*** Ch. 14: User interfaces
+**** Stream-aligned teams                                                    :zk:
+- topologies how to build organizations, teams
+#+begin_sidenote
+Book recommendation: [[https://www.goodreads.com/en/book/show/44135420-team-topologies][Team Topologies: Organizing Business and Technology Teams for Fast Flow]]
+#+end_sidenote
+- aka "full-stack teams"
+- a team aligned to a single, valuable stream of work
+- the team is empowered to build and deliver customer or user value as quickly
+  and independently as possible, without requiring hand-offs to other teams to
+  perform parts of the work
+**** Microfrontends                                                          :zk:
+- architectural style where independently deliverable frontend applications are
+  composed into a greater whole
+  #+begin_sidenote
+  Check out Martin Fowler's [[https://martinfowler.com/articles/micro-frontends.html][article]].
+  #+end_sidenote
+- possible implementations
+  - widget-based decomposition
+  - page-based decomposition
+**** SCS                                                                     :zk:
+- stands for Self-Contained Systems
+  #+begin_sidenote
+  Read more on the [[https://scs-architecture.org/][official site]]
+  #+end_sidenote
+- highlights
+  - each SCS is an autonomous web application with no shared UI
+  - each SCS is owned by one team
+  - asynchronous communication should be used whenever possible
+  - no business code can be shared between multiple SCSs
+*** Ch. 15: Organizational structures
+- [[* Stream-aligned teams]]
+  - concept aligns with loosely-coupled organizations (as in {{{zk(Accelerate,Accelerate)}}})
+**** Conway's Law                                                            :zk:
+#+begin_quote
+"Any organization that designs a system will inevitably produce a design whose
+  structure is a copy of the organizations communication structure"
+#+end_quote
+**** All about people                                                        :quote:
+#+begin_quote
+"Whatever industry you operate in, it is all about your people, and catching them doing things right, and providing them with the
+confidence, the motivation, the freedom and desire to achieve their true potential" - John Timpson
+#+end_quote
+#+begin_sidenote
+Also interesting is the concept of paved roads, where best-practices are available but deviations are also allowed.
+#+end_sidenote
+*** Ch. 16: The evolutionary architect
+
+
 ** DONE TiddlyWiki and Emacs                                                   :emacs:tiddlywiki:elisp:
 CLOSED: [2022-07-12 Tue 07:00]
 :PROPERTIES:
