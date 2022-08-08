@@ -10,6 +10,10 @@
     {{ $target = $src }}
 {{ end }}
 
-<a href="{{$src}}" class="glightbox" data-glightbox="title:{{$title}}; description: {{$caption}}; descPosition: {{$descPosition}}">
-    <img src="{{$target}}" alt="image">
-</a>
+<div class="img-container">
+    <a href="{{$src}}" class="glightbox" data-glightbox="title:{{$title}}; description: {{$caption}}; descPosition: {{$descPosition}}">
+        <i class="fa fa-search-plus fa-2x"></i>
+        <img src="{{$target}}" alt="image">
+        <div class="caption">{{$title}}</div>
+    </a>
+</div>
