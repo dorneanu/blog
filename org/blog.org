@@ -2500,9 +2500,9 @@ In Westrum's theory *information flow* within an organization has a *huge impact
     - seek for trial and error
 - teams within thise open environment are more likely to do a batter job, since problems and conflicts are rapidly discovered and addressed
 
-{{< notice info >}}
+#+begin_sidenote
 You can read more about Westrum's organizational culture on [[https://cloud.google.com/architecture/devops/devops-culture-westrum-organizational-culture][Google's DevOps guide]].
-{{< /notice >}}
+#+end_sidenote
 
 **** Change technical practices
 Among the software and tools you use within your team, there is one /capability/ that seems

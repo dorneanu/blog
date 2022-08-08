@@ -2,7 +2,7 @@
 title = "Book review: Accelerate - The science of Lean software and DevOps"
 author = ["Victor Dorneanu"]
 date = 2021-11-24T20:24:00+01:00
-lastmod = 2022-01-06T11:03:11+01:00
+lastmod = 2022-08-08T22:32:34+02:00
 tags = ["books", "devops", "architecture"]
 draft = false
 +++
@@ -161,8 +161,8 @@ After presenting the criterias, let's have a look at some raw numbers.
 | 2017                 | High Performers                    | Medium Performers                        | Low Performers                                 |
 |----------------------|------------------------------------|------------------------------------------|------------------------------------------------|
 | Deployment Frequency | on demand (multiple times per day) | Between once per week and once per month | Between once per month and once every 6 months |
-| Delivery Lead Time   | < 1 hour                           | Between one week and one month           | Between one month and 6 months                 |
-| MTTR                 | < 1 hour                           | < 1 day                                  | < 1 day                                        |
+| Delivery Lead Time   | &lt; 1 hour                        | Between one week and one month           | Between one month and 6 months                 |
+| MTTR                 | &lt; 1 hour                        | &lt; 1 day                               | &lt; 1 day                                     |
 | Change fail rate     | 0-15%                              | 0-15%                                    | 31-45%                                         |
 
 As you can see high-performers have a quite high deployment frequency and most important
@@ -216,10 +216,9 @@ In Westrum's theory **information flow** within an organization has a **huge imp
         -   no blame game
         -   seek for trial and error
 -   teams within thise open environment are more likely to do a batter job, since problems and conflicts are rapidly discovered and addressed
-
-{{< notice info >}}
+{{% sidenote %}}
 You can read more about Westrum's organizational culture on [Google's DevOps guide](https://cloud.google.com/architecture/devops/devops-culture-westrum-organizational-culture).
-{{< /notice >}}
+{{% /sidenote %}}
 
 
 ### Change technical practices {#change-technical-practices}
@@ -294,9 +293,9 @@ As I've mentioned previously a **loosely coupled architecture** enabled high-per
 there should be little communication required between delivery teams in order to get work done. Futhermore the architecture of your systems should _enable_ teams to test, deploy and change systems without depending on other teams. Communication channels should not be ignored completely. However, they should be used for discussing high-level _shared_ goals and how to achieve/implement them. Fine-grained decision-making on a technical level should only take place within the teams - unless you are required to
 discuss technical stuff with other members as well. Also important: **Let the teams chose tools and technologies**. (Good software) architects should focus on concepts, engineers and outcomes, not on technical discussion and concrete tools/technologies.
 
-{{< notice info >}}
+{{&lt; notice info &gt;}}
 Also check out my bookmarks and notes on [architecture](https://brainfck.org/#Architecture). I also recommend reading [The Clean Architecture](https://brainfck.org/#The%20Clean%20Architecture) and [The Clean Code](https://brainfck.org/#The%20Clean%20Code).
-{{< /notice >}}
+{{&lt; /notice &gt;}}
 
 
 ### Change product management {#change-product-management}
