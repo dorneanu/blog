@@ -2,7 +2,7 @@
 title = "Book summary: Breath - The New Science of a Lost Art"
 author = ["Victor Dorneanu"]
 date = 2022-05-30T21:37:00+02:00
-lastmod = 2022-06-13T14:16:01+02:00
+lastmod = 2022-08-08T14:24:57+02:00
 tags = ["books"]
 draft = false
 +++
@@ -19,7 +19,7 @@ this was exactly the type of heavy breathing people were exercising 3 years ago.
 Since then I've adopted _cold exposure_ and [Breathe exercises](https://brainfck.org/#Breathe%20exercises) as part of my [daily routine](/2021/12/13/my-2021-review/). I was amazed how much stress my body
 was able to endure and how easy it is to adapt to cold.
 
-{{< gbox src="/posts/img/2022/breath/breath-james-nestor.jpg" title="Breath - The New Science of a Lost Art" caption="" pos="left" >}}
+{{< figure src="/posts/img/2022/breath/breath-james-nestor.jpg" caption="<span class=\"figure-number\">Figure 1: </span>Breath - The New Science of a Lost Art" >}}
 
 In the same year - right after the beginning of the pandemic - I saw some
 [goodreads](https://www.goodreads.com/) top rated books list. I can't really remember which category exactly

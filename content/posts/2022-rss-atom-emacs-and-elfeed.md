@@ -2,7 +2,7 @@
 title = "RSS/Atom, Emacs and elfeed"
 author = ["Victor Dorneanu"]
 date = 2022-06-29T21:04:00+02:00
-lastmod = 2022-06-30T06:52:28+02:00
+lastmod = 2022-07-11T11:29:35+02:00
 tags = ["rss", "emacs"]
 draft = false
 +++

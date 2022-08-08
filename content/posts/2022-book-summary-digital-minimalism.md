@@ -2,12 +2,12 @@
 title = "Book summary: Digital Minimalism"
 author = ["Victor Dorneanu"]
 date = 2022-05-02T20:48:00+02:00
-lastmod = 2022-05-30T20:55:53+02:00
+lastmod = 2022-08-08T14:17:38+02:00
 tags = ["books", "minimalism"]
 draft = false
 +++
 
-{{< gbox src="/posts/img/2022/digital-minimalism/book-cover.jpg" title="Digital Minimalism" caption="I've started with the audio book but then I ordered a physical copy for further reading" pos="left" >}}
+{{< figure src="/posts/img/2022/digital-minimalism/book-cover.jpg" caption="<span class=\"figure-number\">Figure 1: </span>Digital Minimalism: I've started with the audio book but then I ordered a physical copy for further reading." >}}
 
 It started with the audio book but soon I've realized there is so much valuable content in
 it I cannot extract by just seeking forward and backward. Finally I've ordered a physical

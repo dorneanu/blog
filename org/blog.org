@@ -1209,7 +1209,6 @@ As already described [[/2022/06/13/rss-and-atom-for-digital-minimalists/#podcast
 
 #+html: {{< gbox src="/posts/img/2022/rss/elfeed-podcasts.gif" title="Managing podcasts in elfeed" caption="I use tags (e.g. 2listen) to mark episodes I'd like to put into my todo/to-listen queue" pos="left" >}}
 
-
 ** DONE RSS and Atom for digital minimalists                                   :rss:emacs:
 CLOSED: <2022-06-13 Mon 07:00>
 :PROPERTIES:
@@ -1601,7 +1600,8 @@ Since then I've adopted /cold exposure/ and {{{zk(Breathe exercises,Breathe
 exercises)}}} as part of my [[/2021/12/13/my-2021-review/][daily routine]]. I was amazed how much stress my body
 was able to endure and how easy it is to adapt to cold.
 
-#+html: {{< gbox src="/posts/img/2022/breath/breath-james-nestor.jpg" title="Breath - The New Science of a Lost Art" caption="" pos="left" >}}
+#+caption: Breath - The New Science of a Lost Art
+[[/posts/img/2022/breath/breath-james-nestor.jpg]]
 
 In the same year - right after the beginning of the pandemic - I saw some
 [[https://www.goodreads.com/][goodreads]] top rated books list. I can't really remember which category exactly
@@ -1712,7 +1712,8 @@ CLOSED: [2022-05-02 Mon 20:48]
 :EXPORT_FILE_NAME: 2022-book-summary-digital-minimalism
 :END:
 
-#+html: {{< gbox src="/posts/img/2022/digital-minimalism/book-cover.jpg" title="Digital Minimalism" caption="I've started with the audio book but then I ordered a physical copy for further reading" pos="left" >}}
+#+caption: Digital Minimalism: I've started with the audio book but then I ordered a physical copy for further reading.
+[[/posts/img/2022/digital-minimalism/book-cover.jpg]]
 
 It started with the audio book but soon I've realized there is so much valuable content in
 it I cannot extract by just seeking forward and backward. Finally I've ordered a physical
@@ -1869,7 +1870,6 @@ breath work sessions I managed to hold my breath for more 3 minutes - several ti
 this success motivated me to keep going and make my new habbits part of my {{{zk(Atomic
 Habits/4 Laws of Behaviour Change,life style)}}}.
 
-# {{< gbox src="https://img.youtube.com/vi/0BNejY1e9ik/0.jpg" target="[[https://www.youtube.com/watch?v=0BNejY1e9ik]]" title="The Wim Hof Method" caption="Breath work with Wim Hof" pos="right" >}}
 #+html: {{< youtube 0BNejY1e9ik >}}
 
 *** Books
@@ -1900,11 +1900,11 @@ Architecture - Note 2,The Clean Architecture - Note 2)}}}
 
 I was also surprised that {{{zk(Hexagonal Architecture,Hexagonal Architecture)}}} (also
 known as *ports* and *adapters* architecture) almost has the same principles.
-
-{{< notice info >}}
+#+begin_sidenote
 I also recommend [[https://herbertograca.com/2017/11/16/explicit-architecture-01-ddd-hexagonal-onion-clean-cqrs-how-i-put-it-all-together/][DDD, Hexagonal, Onion, Clean, CQRS ... How I put it all together]] reading.
 An excellent article!
-{{< /notice >}}
+#+end_sidenote
+
 **** Black Hat Go                                                            :golang:
 Back at [[/2021/09/15/bye-bye-scout24/][Scout24]] we were mainly using Python for our internal services and tools. But I
 wanted to make my colleagues more aware of Golang's capabilities and introduce this
@@ -2004,38 +2004,38 @@ habits but stick to existing ones and have a visual dashboard how well I'm doing
 giving up my {{{zk(Bullet Journal,Bullet Journal)}}} tracking page, I've finally found
 [[https://play.google.com/store/apps/details?id=org.isoron.uhabits&hl=en&gl=US][Loop Habit Tracker]] which accompanies me every day.
 
-{{< gbox src="/posts/img/2021/my-review/habits-app.png" title="Loop Habit Tracker Application" caption="Main view" pos="left" >}}
+#+html: {{< gbox src="/posts/img/2021/my-review/habits-app.png" title="Loop Habit Tracker Application" caption="Main view" pos="left" >}}
 
 I use /widgets/ on my (Android) where I can easily toggle multiple habits as done with
 simple clicks. The advantage of using widgets is the fact you don't have to first run the
 application /and then/ toggle the habits. Usually after my morning routines, I just go
 through my habits and click accordingly.
 
-{{< gbox src="/posts/img/2021/my-review/habits-widgets.png" title="Loop Habit Tracker Application" caption="Widgets" pos="left"  >}}
+#+html: {{< gbox src="/posts/img/2021/my-review/habits-widgets.png" title="Loop Habit Tracker Application" caption="Widgets" pos="left"  >}}
 
 
 In the following sections you'll see different /heat maps/ related to some /habit/. They show
 you on which days a specific habit activity took place or not.
 **** Meditation
-{{< gbox src="/posts/img/2021/my-review/habits-meditation.png" title="Meditation" caption="Heat map 2021" pos="left"  >}}
+#+html: {{< gbox src="/posts/img/2021/my-review/habits-meditation.png" title="Meditation" caption="Heat map 2021" pos="left"  >}}
 
 I use [[https://www.7mind.de/][7mind]] for my morning meditation. Usually I don't track my meditation /time/ but from
 times to times I do longer session (up to 20 minutes). As you can see I usually don't
 meditate at the weekend since I rather spend time with my family and prefer not to wake up
 that early.
 **** Cold shower
-{{< gbox src="/posts/img/2021/my-review/habits-cold-shower.png" title="Cold shower" caption="Heat map 2021" pos="left"  >}}
+#+html: {{< gbox src="/posts/img/2021/my-review/habits-cold-shower.png" title="Cold shower" caption="Heat map 2021" pos="left"  >}}
 
 After reading more about [[https://www.wimhofmethod.com/][The Wim Hof Method]] I was determined enough to take cold showers
 on a regular basis. I'm pretty happy I managed to stick to this habit throughout the year.
 **** Breath work
-{{< gbox src="/posts/img/2021/my-review/habits-pranayama.png" title="Breath work" caption="Heat map 2021" pos="left"  >}}
+#+html: {{< gbox src="/posts/img/2021/my-review/habits-pranayama.png" title="Breath work" caption="Heat map 2021" pos="left"  >}}
 
 This is the type of morning exercise that boosts up my energy level after waking up. I
 usually do /alternative nostril breathing/ (Yoga), break work after Wim Hof (I would say
 80-90% of the time I do 3 rounds of 50 inhale/exhale rounds) and most recently also [[https://www.somabreath.com/][SOMA breath]].
 **** Reading
-{{< gbox src="/posts/img/2021/my-review/habits-reading.png" title="Reading" caption="Heat map 2021" pos="left"  >}}
+#+html: {{< gbox src="/posts/img/2021/my-review/habits-reading.png" title="Reading" caption="Heat map 2021" pos="left"  >}}
 
 I'm not happy with this one since I know I could have read more. It's just that I use to
 have multiple /projects/ running in parallel so I need to apply some time-slicing to my
@@ -2044,7 +2044,7 @@ available time. What also keeps me busy from reading /more/ is the fact that alw
 pages/concepts, put everything into my [[https://brainfck.org][Zettelkasten]]. I'm already looking for a better
 reading workflow. Maybe you have some ideas.
 **** Sports/Workout
-{{< gbox src="/posts/img/2021/my-review/habits-sport.png" title="Sports/Workout" caption="Heat map 2021" pos="left"  >}}
+#+html: {{< gbox src="/posts/img/2021/my-review/habits-sport.png" title="Sports/Workout" caption="Heat map 2021" pos="left"  >}}
 
 Yes, this is the most embarrassing one. I was somehow motivate to do more /sports/ beginning
 with April but after June that kind of faded out. Next year I definitely want to do more
@@ -2060,7 +2060,7 @@ productivity in Emacs. Now I can say I do understand most of my configuration (s
 [[https://github.com/dorneanu/dotfiles][dotfiles]]) whereas one year ago I was randomly copy&paste and putting pieces together in
 the hope they'll somehow work.
 
-{{< tweet user="victordorneanu" id="1222158980627288064" >}}
+#+html: {{< tweet user="victordorneanu" id="1222158980627288064" >}}
 
 ***** Modules
 My top modules for this year:
