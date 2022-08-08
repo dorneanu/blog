@@ -18,7 +18,12 @@
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2022-book-summary-building-microservices-2nd-edition
 :END:
-*** Microservices
+*** TODO Summary
+
+#+caption: "Building Microservices (2nd edition)" along my notes
+[[/posts/img/2022/building-microservices-2nd-edition/microservices-book-cover.jpg]]
+
+*** Ch. 1: Microservices
 **** Definition
 #+begin_quote
 Microservices are independently releasable services that are modeled around a business
@@ -35,10 +40,10 @@ Introduced by David Parnas in /Information Distribution Aspects of Design Method
 
 **** Key Concepts
 - Independent deployability
-  - criteria for this: make sure microservices are loosely coupled
+  - criteria for this: make sure microservices are [[* Coupling][loosely coupled]]
     - be able to change one service without having to change anything else
 - Modeled around a business domain
-  - definition of service boundaries (see DDD)
+  - definition of service boundaries (see [[* DDD][DDD]])
 - Owning their own state
   - hide internal state (same as encapsulation in OOP)
   - clean delineation between internal implementation details and external contract
@@ -57,14 +62,16 @@ Introduced by David Parnas in /Information Distribution Aspects of Design Method
     - they have a cost and you must decide whether the cost is worth the options you want to take up
 - Alignment of architecture and organization
   #+begin_quote
-  "Organizations which design systems are constrained to produce designs which
-    are copies of the communication structures of the organization" - Melvin Conway
+  "Organizations which design systems are constrained to produce designs which are copies of the communication structures of the organization" - Melvin Conway
   #+end_quote
   - have team vertically organized
     - same team owns front-end, business logic, data, back-end, security
       - a so called stream-aligned team
 **** Advantages
 - Technology Heterogeneity
+
+#+html: {{< gbox src="/posts/img/2022/building-microservices-2nd-edition/microservices_07-02-2022_12.35_4.jpg" title="Technology heterogenity" caption="You can use different technologies/programming languages for building multiple microservices." pos="left" >}}
+
 - Robustness
   - a component in a system can fail but as long as the problem doesn't cascade, the rest of the system still works
 - Scaling
@@ -96,20 +103,20 @@ Introduced by David Parnas in /Information Distribution Aspects of Design Method
 - Latency
 - Data consistency
 *** Chapter 2: How to model microservices
-**** Information hiding                                                      :zk:
+**** Information hiding
 - hide as many details as possible behind a module / microservice boundary
 - Parnas identified following benefits:
   - improved development time
   - comprehensibility
     - each module is isolated and therefore better to understand
   - flexibility
-**** Cohesion                                                                :zk:
+**** Cohesion
 - code that changes together, stays together
 - strong cohesion
   - ensure related behavior is at one place
 - weak cohesion
   - related functionality is spread across the system
-**** Coupling                                                                :zk:
+**** Coupling
 - loosely coupled
   - change to one service should not require a change to another
 - a loosely coupled services knows as little as it needs about the services it communicates with
@@ -119,21 +126,24 @@ Introduced by David Parnas in /Information Distribution Aspects of Design Method
 A structure is stable if cohesion is strong and coupling is low.
 #+end_quote
 - cohesion applies to the relationship between things *inside* a boundary
-- coupling describes relationship between things across a boundary
+- coupling describes relationship *between things across* a boundary
 - still: there is no best way how to organize code
-**** Types of coupling
+**** Types of coupling                                                       :zk:
 ***** Domain coupling
+
 - one microservice interacts with another microservice because it needs the functionality
   the other microservice provides
 
-  IMG:1
+#+html: {{< gbox src="/posts/img/2022/building-microservices-2nd-edition/microservices_07-02-2022_12.35_5.jpg" title="Domain coupling" caption="Each microservice has a different functionality" pos="left" >}}
+
 - considered as a loose form of coupling
 - again, information hiding: Share only what you absolutely have to, and send only the
   absolute minimum amount of data that you need
 ***** Pass-through coupling
 - one microservice passes data to some other microservice because data is needed by another microservice
 
-  IMG: 2
+#+html: {{< gbox src="/posts/img/2022/building-microservices-2nd-edition/microservices_07-02-2022_12.35_6.jpg" title="Pass-through coupling" caption="Some information is passed from one microservice to another" pos="left" >}}
+
 ***** Common coupling
 - when 1 or 2 microservices make use of a *common* set of data
   - use of shared DB
@@ -142,9 +152,12 @@ A structure is stable if cohesion is strong and coupling is low.
 - better solution would be to implement {{{zk(CRUD,CRUD)}}} operations and let only 1
   microservice handle shared DB operations
 ***** Content coupling
+
+#+html: {{< gbox src="/posts/img/2022/building-microservices-2nd-edition/microservices_07-02-2022_12.35_7.jpg" title="Content coupling" caption="" pos="left" >}}
+
 - when an upstream service reaches into internals of a downstream service anc changes its
   internal state
-**** DDD                                                                     :zk:
+**** DDD
 {{{zk(DDD,DDD)}}} stands for Domain-Driven Design.
 ***** Concepts
 ****** Ubiquitous language
@@ -165,7 +178,8 @@ A structure is stable if cohesion is strong and coupling is low.
     that will be managed as part of the system
 - aggregates can have relationships to other aggregates
 
-  IMG: 1
+  #+html: {{< gbox src="/posts/img/2022/building-microservices-2nd-edition/microservices_07-02-2022_12.35_8.jpg" title="Relationship between aggregates" caption="If relationships exist inside scope of the same microservices, we could use foreign keys to store relationship" pos="left" >}}
+
 ****** Bounded context
 - a larger organizational boundary
   - within it explicit responsibilities need to be carried out
@@ -185,6 +199,11 @@ There are some factors when defining clear boundaries between microservice
 - organizational
   - Layering Inside vs Layering Outside
 *** Ch. 3: Splitting the monolith
+
+#+html: {{< gbox src="/posts/img/2022/building-microservices-2nd-edition/microservices_07-02-2022_12.35_2.jpg" title="Monolith types" caption="Types of monoliths" pos="left" >}}
+
+#+html: {{< gbox src="/posts/img/2022/building-microservices-2nd-edition/microservices_07-02-2022_12.35_3.jpg" title="Monolith types" caption="Distributed monolith: A system that consists of multiple services but for whatever reason the entire system must be deployed together. " pos="left" >}}
+
 - you need to have a *goal* before moving to microservices
   - should be a conscious decision
   - without clear understanding of what you want to achieve, you could fall into the trap of *confusing activity with outcome*
@@ -198,6 +217,9 @@ There are some factors when defining clear boundaries between microservice
 #+begin_sidenote
 By [[https://martinfowler.com/bliki/StranglerFigApplication.html][Martin Fowler]]
 #+end_sidenote
+
+#+html: {{< gbox src="/posts/img/2022/building-microservices-2nd-edition/microservices_07-02-2022_12.35_9.jpg" title="Strangler fig pattern" caption="An interception layer could catch calls and distribute them between a monolith and microservices." pos="left" >}}
+
 - Parallel run
 - Feature toggles
 **** Data Decomposition concerns
@@ -207,13 +229,15 @@ By [[https://martinfowler.com/bliki/StranglerFigApplication.html][Martin Fowler]
 - Tooling
 - Reporting DB
 *** Ch. 4: Microservices communication styles
+
+#+html: {{< gbox src="/posts/img/2022/building-microservices-2nd-edition/microservices_07-02-2022_12.35_10.jpg" title="Communication styles" caption="In-process vs. inter-process communication (IPC)" pos="left" >}}
+
  - styles for IPC communications
    - synchronous blocking
    - asynchronous blocking
    - request-response
    - {{{zk(Event-Driven Architecture,Event-Driven Architecture)}}}
    - Common data
-
 **** EDA
 - events vs messages
   - *event*: is a fact
@@ -232,9 +256,9 @@ By [[https://martinfowler.com/bliki/StranglerFigApplication.html][Martin Fowler]
 - make your service simple for the consumers
 - hide internal implementation details
 **** Technology choices
-- RPC
+- {{{zk(RPC,RPC)}}}
   - SOAP
-  - gRPC
+  - {{{zk(gRPC,gRPC)}}}
 - REST
   #+begin_sidenote
   Book recommendation: [[https://www.goodreads.com/en/book/show/8266727-rest-in-practice][REST in Practice: Hypermedia and Systems Architecture]] (by Jim Webber, Savas Parastatidis, Ian Robinson)
@@ -244,6 +268,9 @@ By [[https://martinfowler.com/bliki/StranglerFigApplication.html][Martin Fowler]
     #+begin_sidenote
    This [[https://blog.bitsrc.io/bff-pattern-backend-for-frontend-an-introduction-e4fa965128bf][article]] provides a quite good introduction.
     #+end_sidenote
+
+    #+html: {{< gbox src="/posts/img/2022/building-microservices-2nd-edition/microservices_07-02-2022_12.35_13.jpg" title="Backend for Frontend (BFF)" caption="Define different services for web, mobile, native clients and return only the amount of data needed. " pos="left" >}}
+
 - Message brokers
   - use queues/topics
 **** API Gateway
@@ -254,9 +281,8 @@ By [[https://martinfowler.com/bliki/StranglerFigApplication.html][Martin Fowler]
   - [[https://aws.amazon.com/api-gateway/][AWS API Gateway]]
   - [[https://cloud.google.com/api-gateway][GCP API Gateway]]
 
-IMG: Service Meshes and API GWs
-- north-south traffic
-- east-west traffic
+#+html: {{< gbox src="/posts/img/2022/building-microservices-2nd-edition/microservices_07-02-2022_12.35_11.jpg" title="API Gateway" caption="North-south traffic is handled by an API GW (Gateway), east-west traffic via a service mesh. " pos="left" >}}
+
 *** Ch. 6: Workflow
 **** Distributed Transactions
 ***** Two-phase Commits (2PC)
@@ -307,7 +333,6 @@ IMG: Service Meshes and API GWs
   - canary releases
   - parallel runs
 
-
 *** Ch. 10: From monitoring to obersavability
 **** The obersavability of a system                                          :zk:
  - is the extenct to which you can understand the internal state of the system
@@ -316,11 +341,14 @@ IMG: Service Meshes and API GWs
    - it's an activity
  - *obersavability*
    - rather a /property/ of a system
- - pillars of obersavability
+ - pillars of observability
    - metrics
    - logging/logs
    - events
    - traces
+
+   #+html: {{< gbox src="/posts/img/2022/building-microservices-2nd-edition/microservices_07-02-2022_12.35_12.jpg" title="Correlation IDs in logs" caption="In order to correlate different logs (from different sources) a request ID could be used (and set in the API Gateway) and passed through to different microservices. " pos="left" >}}
+
 **** Alert fatigue
 #+begin_quote
 Alert fatigue—also known as alarm fatigue—is when an overwhelming number of
