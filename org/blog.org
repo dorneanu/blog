@@ -14,96 +14,138 @@
 
 
 * Posts
-** TODO Book summary: Building Microservices (2nd Edition)                     :books:microservices:architecture:
+** DONE Book summary: Building Microservices (2nd Edition)                     :books:microservices:architecture:
+CLOSED: [2022-08-10 Wed 21:47]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2022-book-summary-building-microservices-2nd-edition
 :END:
-*** TODO Summary
+*** Summary
 
 #+caption: "Building Microservices (2nd edition)" along my notes
 [[/posts/img/2022/building-microservices-2nd-edition/microservices-book-cover.jpg]]
 
-*** Ch. 1: Microservices
+During my overall IT carreer I came across different architectural design
+patterns where oppinions differ on the question if they're the right ones for
+the problems/challanges teams are dealing with. Before reading this book I was
+familiar with /some/ of the microservices concepts but it was some article (on
+modern architectures) that rouse my attention and introduced me to Sam Newman.
+#+begin_sidenote
+I was reading the (German) [[https://www.heise.de/ix/][iX Magazin]] about [[https://www.heise.de/news/Neues-iX-Developer-Sonderheft-Moderne-Softwarearchitektur-am-Kiosk-erhaeltlich-4874200.html][modern architectures]].
+#+end_sidenote
+
+At the same time I was surprised to read about the similarities between
+{{{zk(Hexagonal Architecture,Hexagonal Architecture)}}} and /microservices/. But
+also topics like {{{zk(DDD,DDD)}}}, {{{zk(Continuous Delivery (CD),CD)}}},
+{{{zk(Continuous Integration (CI),CI)}}} are bound together in way that you need
+to take a hollistic approach to (building) microservices.
+
+I recommend this book
+#+begin_sidenote
+Along with Martin Fowlers extensive arcticles on [[https://martinfowler.com/microservices/][microservices]].
+#+end_sidenote
+to anyone willing to spend some time (book has ca. 500 pages) learning about
+{{{zk(Information hiding,Information hiding)}}}, [[* Ch. 4: Communication styles][communication between microservices]], [[* Stream-aligned
+ teams][proper teams setup]], role of (IT) [[* Ch. 16: The evolutionary architect][architects]] and much more. Fair enough the author
+emphasizes multiple time the /complexity/ of decoupling existing services (monoliths) into
+smaller, independent ones (microservices). The book recommendations in each chapter also
+give a great hint where you can enlarge upon a specific topic.
+
+What follows next is an [[https://orgmode.org/][ORG mode]] / outline style collection of notes, thoughts and quotes
+from the book.
+
+
+*** Ch. 1: What are Microservices?
 **** Definition
 #+begin_quote
-Microservices are independently releasable services that are modeled around a business
+{{{zk(Microservices,Microservices)}}} are independently releasable services that are modeled around a business
 domain. A service encapsulates functionality and makes it accessible to other services via
 networks.
 #+end_quote
-- Microservices are a type of {{{zk(SOA,SOA)}}} architecture
+- {{{zk(Microservices,Microservices)}}} are a type of {{{zk(SOA,SOA)}}} architecture
   - service boundaries are important
   - independent deployability is key
-- Microservices embrace the concept of {{{zk(Information hiding,Information hiding)}}}
+- {{{zk(Microservices,Microservices)}}} embrace the concept of {{{zk(Information hiding,Information hiding)}}}
 #+begin_sidenote
 Introduced by David Parnas in /Information Distribution Aspects of Design Methodology/
 #+end_sidenote
 
 **** Key Concepts
-- Independent deployability
+- *Independent deployability*
   - criteria for this: make sure microservices are [[* Coupling][loosely coupled]]
     - be able to change one service without having to change anything else
-- Modeled around a business domain
+- *Modeled around a business domain*
   - definition of service boundaries (see [[* DDD][DDD]])
-- Owning their own state
-  - hide internal state (same as encapsulation in OOP)
+- *Owning their own state*
+  - hide internal state (same as encapsulation in {{{zk(OOP,OOP)}}})
   - clean delineation between internal implementation details and external contract
     - be backward-compatible
   - hide database that backs the service
     - avoid DB showing
-- Size
+- *Size*
   #+begin_quote
   "A microservice should be as big as my head" - James Lewis
   #+end_quote
     - keep it to the size at which it can be easily understood
-- Flexibility
+- *Flexibility*
   #+begin_quote
   "Microservices buy you options" - James Lewis
   #+end_quote
-    - they have a cost and you must decide whether the cost is worth the options you want to take up
-- Alignment of architecture and organization
+    - they have a cost and you must decide whether the cost is worth the options you want
+      to take up
+- *Alignment of architecture and organization*
   #+begin_quote
-  "Organizations which design systems are constrained to produce designs which are copies of the communication structures of the organization" - Melvin Conway
+  "Organizations which design systems are constrained to produce designs which are copies
+  of the communication structures of the organization" - Melvin Conway
   #+end_quote
   - have team vertically organized
     - same team owns front-end, business logic, data, back-end, security
       - a so called stream-aligned team
 **** Advantages
-- Technology Heterogeneity
+- *Technology Heterogeneity*
 
 #+html: {{< gbox src="/posts/img/2022/building-microservices-2nd-edition/microservices_07-02-2022_12.35_4.jpg" title="Technology heterogenity" caption="You can use different technologies/programming languages for building multiple microservices." pos="left" >}}
 
-- Robustness
-  - a component in a system can fail but as long as the problem doesn't cascade, the rest of the system still works
-- Scaling
-- Ease of Deployment
+- *Robustness*
+  - a component in a system can fail but as long as the problem doesn't cascade, the rest
+    of the system still works
+- *Scaling*
+  #+begin_sidenote
+Book recommendation: [[https://www.goodreads.com/de/book/show/7282390-the-art-of-scalability][The art of scalability]]
+  #+end_sidenote
+- *Ease of Deployment*
   - fast delivery of features
   - decreases fear of deployment (see Accelerate)
   - change a single service and deploy it independently of the system
-- Organizational alignment
+- *Organizational alignment*
   - small teams working on small code bases tend to be more productive
   - microservices allow us to better align our architecture to our organization
     - minimize the number of people working in the team
       - helps to find the sweet spot of team size and productivity
-- Composability
+- *Composability*
+  - reusable components
+  - allow functionality to be consumed in different ways
+    - for different purposes: website, desktop, mobile application etc.
 **** Pain Points
-- Developer Experience
+- *Developer Experience*
   - new technologies are options not requirements
   - when adopting microservices
     - you'll have to understand issues around data consistency, latency, service modeling
     - and how these ideas change the way you think about software development
     - it takes time to understand new concepts
       - this leads to less time developing new features
-- Technology overload
-- Costs
-- Reporting
+- *Technology overload*
+- *Costs*
+- *Reporting*
   - data and logs are scattered across multiple components
-- Monitoring and troubleshooting
-  - Book: [[https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/][Distributed Systems Observability]]
-- Security
-- Latency
-- Data consistency
-*** Chapter 2: How to model microservices
-**** Information hiding
+- *Monitoring and troubleshooting*
+  #+begin_sidenote
+  Book recommendation: [[https://www.oreilly.com/library/view/distributed-systems-observability/9781492033431/][Distributed Systems Observability]]
+  #+end_sidenote
+- *Security*
+- *Latency*
+- *Data consistency*
+*** Ch. 2: How to model microservices
+**** {{{zk(Information hiding,Information hiding)}}}
 - hide as many details as possible behind a module / microservice boundary
 - Parnas identified following benefits:
   - improved development time
@@ -128,7 +170,7 @@ A structure is stable if cohesion is strong and coupling is low.
 - cohesion applies to the relationship between things *inside* a boundary
 - coupling describes relationship *between things across* a boundary
 - still: there is no best way how to organize code
-**** Types of coupling                                                       :zk:
+**** {{{zk(Types of coupling,Types of coupling)}}}
 ***** Domain coupling
 
 - one microservice interacts with another microservice because it needs the functionality
@@ -136,7 +178,7 @@ A structure is stable if cohesion is strong and coupling is low.
 
 #+html: {{< gbox src="/posts/img/2022/building-microservices-2nd-edition/microservices_07-02-2022_12.35_5.jpg" title="Domain coupling" caption="Each microservice has a different functionality" pos="left" >}}
 
-- considered as a loose form of coupling
+- considered as a /loose/ form of coupling
 - again, information hiding: Share only what you absolutely have to, and send only the
   absolute minimum amount of data that you need
 ***** Pass-through coupling
@@ -167,7 +209,7 @@ A structure is stable if cohesion is strong and coupling is low.
   - helps with communication
 - use real-world language in code
 ****** Aggregates
-- a representatino of real domain concept
+- a *representation* of real domain concept
   - something like an ~Order~, an ~Invoice~, ~Stock Item~
 - aggregates typically have an information cycle around them
 - in general
@@ -176,14 +218,14 @@ A structure is stable if cohesion is strong and coupling is low.
     - identity
     - information cycle
     that will be managed as part of the system
-- aggregates can have relationships to other aggregates
+- aggregates can have *relationships* to other aggregates
 
   #+html: {{< gbox src="/posts/img/2022/building-microservices-2nd-edition/microservices_07-02-2022_12.35_8.jpg" title="Relationship between aggregates" caption="If relationships exist inside scope of the same microservices, we could use foreign keys to store relationship" pos="left" >}}
 
 ****** Bounded context
 - a larger organizational boundary
   - within it explicit responsibilities need to be carried out
-- bounded contexts hide implementation details ([[* Information hiding][Information hiding]])
+- bounded contexts hide implementation details ({{{zk(Information hiding,Information hiding)}}})
 - bounded contexts contain ~1-n~ aggregates
   - some aggregates may be exposed outside the bounded context
   - others may be hidden internally
@@ -192,13 +234,13 @@ A structure is stable if cohesion is strong and coupling is low.
 - invented by [[https://www.eventstorming.com/][Alberto Brandolini]]
 ***** Boundaries between microservices
 There are some factors when defining clear boundaries between microservice
-- volatility
-- data
+- *volatility*
+- *data*
   - also with concern to security
-- technology
-- organizational
+- *technology*
+- *organizational*
   - Layering Inside vs Layering Outside
-*** Ch. 3: Splitting the monolith
+*** Ch. 3: Split the monolith
 
 #+html: {{< gbox src="/posts/img/2022/building-microservices-2nd-edition/microservices_07-02-2022_12.35_2.jpg" title="Monolith types" caption="Types of monoliths" pos="left" >}}
 
@@ -228,23 +270,23 @@ By [[https://martinfowler.com/bliki/StranglerFigApplication.html][Martin Fowler]
 - transactions
 - Tooling
 - Reporting DB
-*** Ch. 4: Microservices communication styles
+*** Ch. 4: Communication styles
 
 #+html: {{< gbox src="/posts/img/2022/building-microservices-2nd-edition/microservices_07-02-2022_12.35_10.jpg" title="Communication styles" caption="In-process vs. inter-process communication (IPC)" pos="left" >}}
 
  - styles for IPC communications
-   - synchronous blocking
-   - asynchronous blocking
-   - request-response
+   - *synchronous blocking*
+   - *asynchronous blocking*
+   - *request-response*
    - {{{zk(Event-Driven Architecture,Event-Driven Architecture)}}}
-   - Common data
+   - *Common data*
 **** EDA
 - events vs messages
   - *event*: is a fact
   - *message*: is a thing
   - a message contains an event
 
-*** Ch.5: Implementing Microservices communication
+*** Ch. 5: Implementing communication
 **** Criterias for ideal technology
 - backward compatibility
 - make your interface(s) explicit
@@ -305,25 +347,25 @@ By [[https://martinfowler.com/bliki/StranglerFigApplication.html][Martin Fowler]
   - multirepo
 
 *** Ch. 8: Deployment
-**** Principles of Microservices Deployment                                  :zk:
-- isolated execution
+**** {{{zk(Microservices/Deployment,Principles of Microservices Deployment)}}}
+- *isolated execution*
   - own computing resources
   - don't impact other microservices instances
-- focus on automation
+- *focus on automation*
   - adopt automation as core part of your culture
-- Infrastructure as a Code
+- *Infrastructure as a Code*
   #+begin_sidenote
   Book: [[https://www.goodreads.com/en/book/show/26544394-infrastructure-as-code][Infrastructure as Code: Managing Servers in the Cloud]]
   #+end_sidenote
-- zero-downtime deployment
+- *zero-downtime deployment*
   - independent deployability
     - new deployment of microservices can be done without downtime to users/clients of microservices
-- desired state management
+- *desired state management*
   - maintain microservices in a defined state
     - allocate new instances if needed
   - GitOps
     - brings together desired state management and IaC (Infrastructure as Code)
-- progressive delivery
+- *progressive delivery*
   - implement many of the ideeas in {{{zk(Accelerate,Accelerate)}}}
   - separate deployment from release
   - feature releases
@@ -334,12 +376,12 @@ By [[https://martinfowler.com/bliki/StranglerFigApplication.html][Martin Fowler]
   - parallel runs
 
 *** Ch. 10: From monitoring to obersavability
-**** The obersavability of a system                                          :zk:
+**** The observability of a system
  - is the extenct to which you can understand the internal state of the system
    from external output
  - *monitoring* is something we /do/
    - it's an activity
- - *obersavability*
+ - *observability*
    - rather a /property/ of a system
  - pillars of observability
    - metrics
@@ -360,19 +402,19 @@ Also a good reading: [[https://humanisticsystems.com/2015/10/16/fit-for-purpose-
 #+end_sidenote
 ***** What makes a good alert
 An alert has to be:
-- relevant
-- unique
-- timely
-- prioritized
+- *relevant*
+- *unique*
+- *timely*
+- *prioritized*
   - give enough information to decide in which order alerts should be dealth
     with
-- understandable
+- *understandable*
   - information has to be clear and readable
-- diagnostic
+- *diagnostic*
   - it needs to be clear what is wrong
-- advisory
+- *advisory*
   - help the operator understand what actions need to taken
-- focussed
+- *focussed*
   - draw attention to the most important issues
 ***** On the importance of testing                                          :quote:
 #+begin_quote
@@ -390,34 +432,34 @@ An alert has to be:
 **** Tools
 - [[https://opentelemetry.io/][opentelemetry.io]]
 *** Ch. 11: Security
-**** Lifecycle of secrets                                                    :zk:
-- Creation
+**** Lifecycle of secrets
+- *Creation*
   - How we create the secret
-- Distribution
+- *Distribution*
   - How do we make sure the secrets get to the right place?
-- Storage
+- *Storage*
   - Is the secret stored in a way only authorized parties can access it?
-- Monitoring
+- *Monitoring*
   - Do we know how secret is used?
-- Rotations
+- *Rotations*
   - Are we able to change the secret without causing problems?
 *** Ch. 12: Resiliency
-**** Resiliency                                                              :zk:
+**** Resiliency
 - defined by David D. Woods
   #+begin_sidenote
   Book: [[https://www.goodreads.com/book/show/910055.Resilience_Engineering][Resilience Engineering: Concepts and Precepts]]
   #+end_sidenote
 - aspects
-  - robustness
+  - *robustness*
     - ability to absorb perturbation
-  - rebound
+  - *rebound*
     - recover after a traumatic event
-  - graceful extensibility
+  - *graceful extensibility*
     - how to deal with an unexpected situation
-  - sustained adaptability
+  - *sustained adaptability*
     - adapt to changing environments, stakeholders and demands
 *** Ch. 14: User interfaces
-**** Stream-aligned teams                                                    :zk:
+**** Stream-aligned teams
 - topologies how to build organizations, teams
 #+begin_sidenote
 Book recommendation: [[https://www.goodreads.com/en/book/show/44135420-team-topologies][Team Topologies: Organizing Business and Technology Teams for Fast Flow]]
@@ -427,7 +469,7 @@ Book recommendation: [[https://www.goodreads.com/en/book/show/44135420-team-topo
 - the team is empowered to build and deliver customer or user value as quickly
   and independently as possible, without requiring hand-offs to other teams to
   perform parts of the work
-**** Microfrontends                                                          :zk:
+**** Microfrontends
 - architectural style where independently deliverable frontend applications are
   composed into a greater whole
   #+begin_sidenote
@@ -436,7 +478,7 @@ Book recommendation: [[https://www.goodreads.com/en/book/show/44135420-team-topo
 - possible implementations
   - widget-based decomposition
   - page-based decomposition
-**** SCS                                                                     :zk:
+**** SCS
 - stands for Self-Contained Systems
   #+begin_sidenote
   Read more on the [[https://scs-architecture.org/][official site]]
@@ -449,12 +491,12 @@ Book recommendation: [[https://www.goodreads.com/en/book/show/44135420-team-topo
 *** Ch. 15: Organizational structures
 - [[* Stream-aligned teams]]
   - concept aligns with loosely-coupled organizations (as in {{{zk(Accelerate,Accelerate)}}})
-**** Conway's Law                                                            :zk:
+**** Conways Law
 #+begin_quote
-"Any organization that designs a system will inevitably produce a design whose
-  structure is a copy of the organizations communication structure"
+"Any organization that designs a system will inevitably produce a design whose structure
+is a copy of the organizations communication structure" - Melvin Conway
 #+end_quote
-**** All about people                                                        :quote:
+**** All about people
 #+begin_quote
 "Whatever industry you operate in, it is all about your people, and catching them doing things right, and providing them with the
 confidence, the motivation, the freedom and desire to achieve their true potential" - John Timpson
@@ -463,8 +505,212 @@ confidence, the motivation, the freedom and desire to achieve their true potenti
 Also interesting is the concept of paved roads, where best-practices are available but deviations are also allowed.
 #+end_sidenote
 *** Ch. 16: The evolutionary architect
+**** Role of architects
+- We should think of the role of IT architects more as *town planners* than architects for the built environment
+  #+begin_sidenote
+  Sam uses the [[https://en.wikipedia.org/wiki/Seagram_Building][Seagram Building]] (designed by Mies van der Rohe) as an universal place to visualize the role of an (IT) architect.
+  #+end_sidenote
+**** Buildings and software
+  #+begin_quote
+  The comparison with software should be obvious. As our users use our software, we need
+  to react and change. We cannot foresee everything that will happen, and so rather than
+  plan for any eventuality, we should plan to allow for change by avoiding the urge to
+  overspecify every last thing. Our city (the system) needs to be a good, happy place for
+  everyone who uses it. One thing that people often forget is that our system doesn't just
+  accommodate users; it also accommodates developers and operations people who also have
+  to work there, and who have the job of making sure it can change as required.
+  #+end_quote
+**** Governance
+#+begin_quote
+Governance ensures that enterprise objectives are achieved by evaluating
+stakeholder needs, conditions and options; setting direction through
+prioritisation and decision making; and monitoring performance, compliance and
+progress against agreed-on direction and objectives. -- Cobit 5
+#+end_quote
+**** Responsibilities of the evolutionary architect
+- *Vision*
+  - clearly communicated technical vision for the system that will help meet requirements of customers and organization
+- *Empathy*
+  - understand impact of decissions on customers and colleagues
+- *Collaboration*
+  - engage with as many of your pears and colleagues as possible to help
+    define, refine and execute the vision
+- *Adaptability*
+  - tech vision changes as required by customers/organization
+- *Autonomy*
+  - balance between standardizing and enabling autonomy for your teams
+- *Governance*
+  - system being implemented fits the tech vision
+  - make sure it's easy for people to do the right thing
+**** Book recommendations
+- [[https://www.goodreads.com/en/book/show/35755822-building-evolutionary-architectures][Building evolutionary architectures]]
+- [[https://www.goodreads.com/book/show/49828197-the-software-architect-elevator][The software architect elevator]]
 
+** TODO Book summary: Deep Work                                                :books:productivity:
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2022-book-summary-deep-work
+:END:
+*** Introduction
+- Shallow Work: Noncognitively demanding, logistical-style tasks,often performed while
+  distracted. These efforts tend to not create much new value in the world and are easy to
+  replicate
+- To remain valuable in our economy, therefore, you must master the art of quickly
+  learning complicated things. This task requires deepwork. If you don't cultivate this
+  ability, you're likely to fall behindas technology advances.
+*** Deep Work
+- The Deep Work Hypothesis: The ability to perform deep work is becoming increasingly rare
+  at exactly the same time it is becomingincreasingly valuable in our economy. As a
+  consequence, the few whocultivate this skill, and then make it the core of their working
+  life,will thrive
+- Deep Work: Professional activities performed in a state of distraction-free
+  concentration that push your cognitive capabilities totheir limit. These efforts create
+  new value, improve your skill, and arehard to replicate
+*** Part 1
+**** Chapters 1: Deep Work is Valuable
+***** Two Core Abilities for Thriving in the New Economy 
+****** 1. The ability to quickly master hard things. 
+****** 2. The ability to produce at an elite level, in terms of both quality and speed
+***** The Intelectual Life
+#+begin_quote
+ "Let your mind become a lens, thanks to the converging rays of attention; let
+ your soul be all intent on whatever it is that is established in your mind as a
+ dominant, wholly absorbing idea."
+#+end_quote
+***** Deliberate Practice
+- Part of performance psychology
+- In the early 1990s, K. Anders Ericsson, a professor at Florida State University
+- Key components
+  - (1) your attention is focused tightly on a specific skill you're trying to improve or
+    an idea you're trying to master;
+  - (2) you receive feedback so you can correct your approach to keep your attention
+    exactly where it's most productive
+****** Neurological aspects
+#+begin_quote
+As the journalist Daniel Coyle surveys in his 2009 book, The Talent Code, these scientists
+increasingly believe the answer includes myelin --- a layer of fatty tissue that grows
+around neurons,acting like an insulator that allows the cells to fire faster andcleaner.
+To understand the role of myelin in improvement, keep in mindthat skills, be they
+intellectual or physical, eventually reduce down tobrain circuits. This new science of
+performance argues that you getbetter at a skill as you develop more myelin around the
+relevantneurons, allowing the corresponding circuit to fire more effortlesslyand
+effectively. To be great at something is to be well myelinated
+#+end_quote
+***** Law of productivity
+- High-Quality Work Produced = (Time Spent) x (Intensity of Focus)
+***** Attention residue
+****** By “Why Is It So Hard to Do My Work?"
+#+begin_quote
+The problem this research identifies with this work strategy is that when you
+switch from some Task A to another Task B,your attention doesn't immediately
+follow---a residue of your attentionremains stuck thinking about the original
+task. This residue getsespecially thick if your work on Task A was unbounded and
+of lowintensity before you switched, but even if you finish Task A beforemoving
+on, your attention remains divided for a while
+#+end_quote
+**** Chapter 2: Deep Work is rare
+- The Principle of Least Resistance
+  - In a business setting, without clear feedback on the impact of various behaviors to the bottom line, we will tend toward behaviors that are easiest in the moment
+- Busyness as Proxy for Productivity
+  - In the absence of clear indicators of what it means to be productive and valuable in their jobs, many knowledge workers turn back toward an industrial indicator of productivity: doing lots of stuff in a visible manner
+**** Chapter 3: Deep Work is Meaningful
+***** Rapt
+- As Gallagher recalls in her 2009 book Rapt, as she walked away from the hospital after the diagnosis she formed a sudden and strongintuition: "This disease wanted to monopolize my attention, but as much as possible, I would focus on my life instead."
+- Her curiosity piqued, Gallagher set out to better understand the role that attention---that is, what we choose to focus on and what wechoose to ignore---plays in defining the quality of our life. After fiveyears of science reporting, she came away convinced that she was witness to a "grand unified theory" of the mind:
+#+begin_quote
+Like fingers pointing to the moon, other diverse disciplines from anthropology
+to education, behavioral economics tofamily counseling, similarly suggest that
+the skillful management ofattention is the sine qua non of the good life and the
+key to improvingvirtually every aspect of your experience
+#+end_quote
+***** Flow
+- "The best moments usually occur when a person's body or mind is stretched to its limits in a voluntary effort to accomplish somethingdifficult and worthwhile." Csikszentmihalyi calls this mental state flow (a term he popularized with a 1990 book of the same title).
 
+#+begin_quote
+Ironically, jobs are actually easier to enjoy than free time, because like flow
+activities they have built-in goals, feedbackrules, and challenges, all of which
+encourage one to become involved inone's work, to concentrate and lose oneself
+in it. Free time, on theother hand, is unstructured, and requires much greater
+effort to be shaped into something that can be enjoyed.
+#+end_quote
+
+- The connection between deep work and flow should be clear
+  - Deep work is an activity well suited to generate a flow state (the phrasesused by Csikszentmihalyi to describe what generates flow include notionsof stretching your mind to its limits, concentrating, and losing yourself in an activity---all of which also describe deep work)
+*** Part 2
+**** The Rules
+***** Rule #1: Work deeply
+****** By Roy Baumeister
+- You have a finite amount of willpower that becomes depleted as you use it. Your will, in other words, is not a manifestation of yourcharacter that you can deploy without limit; it's instead like a muscle that tires
+- The key to developing a deep work habit is to move beyond good intentions and add routines and rituals to your working life designed to minimize the amount of your limited willpower necessary to transition into and maintain a state of unbroken concentration
+****** Different philosophies
+******* Monastic
+- Knuth deploys what I call the monastic philosophy of deep work scheduling. This philosophy attempts to maximize deep efforts by eliminating or radically minimizing shallow obligations. Practitioners of the monastic philosophy tend to have a well-defined and highly valued professional goal that they're pursuing, and the bulk of their professional success comes from doing this one thing exceptionally well
+******* Bimodal
+- Jung's approach is what I call the bimodal philosophy of deep work. This philosophy asks that you divide your time, dedicating some clearly defined stretches to deep pursuits and leaving the rest open to everything else. During the deep time, the bimodal worker will act monastically---seeking intense and uninterrupted concentration. During the shallow time, such focus is not prioritized. This division of time between deep and open can happen on multiple scales. For example, on the scale of a week, you might dedicate a four-day weekend to depth and the rest to open time. Similarly, on the scale of a year, you might dedicate one season to contain most of your deep stretches (as many academics do over the summer or while on sabbatical).
+******* Rhythmic
+- This chain method (as some now call it) soon became a hit among writers and fitness enthusiasts---communities that thrive on the ability to do hard things consistently. For our purposes, it provides a specific example of a general approach to integrating depth into your life: the rhythmic philosophy. This philosophy argues that the easiest way to consistently start deep work sessions is to transform them into a simple regular habit. The goal, in other words, is to generate a rhythm for this work that removes the need for you to invest energy in deciding if and when you're going to go deep. The chain method is a good example of the rhythmic philosophy of deep work scheduling because it combines a simple scheduling heuristic (do the work every day), with an easy way to remind yourself to do the work: the big red Xs on the calendar.
+******* Journalistic
+- I call this approach, in which you fit deep work wherever you can into your schedule, the journalist philosophy. This name is a nod to the fact that journalists, like Walter Isaacson, are trained to shift into a writing mode on a moment's notice, as is required by the deadline-driven nature of their profession
+****** 4DX Framework
+******* The 4 Discipline of Execution
+******** #1 Focus on the wildly importante
+********* Aim to for a small number of wildly importantly goals
+********* Let ambitious goals drove focus driven behaviour
+********** The Art of Focus (David Brooks)
+#+begin_quote
+"If you want to win the war for attention, don't try to say 'no' to the trivial
+distractions you find on the information smorgasbord; try to say 'yes' to the
+subject that arouses a terrifying longing, and let the terrifying longing crowd
+out everything else."
+#+end_quote
+******** #2 Act on the lead measures
+********* 2 types of metrics to measure the your goal
+********** Lag measures
+- Lag measures describe the thing you're ultimately trying to improve
+- the problem with lag measures is that they come too late to change your behavior: "When you receive them, the
+  performance that drove them is already in the past."
+********** Lead measures
+- Lead measures, on the other hand, “measure the new behaviors that will drive success on the lag measures.
+- For an individual focused on deep work, it's easy to identify the relevant lead measure: time spent in a state of deep work dedicated toward your wildly important goal
+  - Don't track how many books, articles you've read
+  - Measure instead how many hours of deep work you've mastered
+******** #3 Keep the a compelling scoreboard
+#+begin_quote
+"People play differently when they're keeping score," the 4DX authors explain. They then elaborate that when attempting
+to drive your team's engagement toward your organization's wildly important goal, it's important that they have a public
+place to record and track their lead measures. This scoreboard creates a sense of competition that drives them to focus
+on these measures, even when other demands vie for their attention. It also provides a reinforcing source of motivation.
+Once the team notices their success with a lead measure, they become invested in perpetuating this performance.
+#+end_quote
+******** #4 Create a Cadence of Accountability
+- The 4DX authors elaborate that the final step to help maintain a focus on lead measures is to put in place "a rhythm of regular and
+frequent meetings of any team that owns a wildly important goal."
+- multiple places throughout this book I discuss and recommend the habit of a weekly review in which you make a plan for the workweek ahead (see Rule #4). During my experiments with 4DX, I used a weekly review to look over my scoreboard to celebrate good weeks, help understand what led to bad weeks, and most important, figure out how to ensure a good score for the days ahead. This led me to adjust my schedule to meet the needs of my lead measure---enabling significantly more deep work than if I had avoided such reviews altogether.
+***** Rule #2: Embrace boredom
+- Much in the same way that athletes must take care of their bodies outside of their training sessions, you'll struggle to achieve the deepest levels of concentration if you spend the rest of your time fleeing the slightest hint of boredom
+- Don't Take Breaks from Distraction. Instead Take Breaks from Focus
+- Productively Meditation
+  - The goal of productive meditation is to take a period in which you're occupied physically but not mentally---walking, jogging, driving, showering---and focus your attention on a single well-defined professional problem. Depending on your profession, this problem might be outlining an article, writing a talk, making progress on a proof, or attempting to sharpen a business strategy. As in mindfulness meditation, you must continue to bring your attention back to the problem at hand when it wanders or stalls
+  - Tipps
+    - Be Wary of Distractions and Looping
+    - Structure Your Deep Thinking
+****** Attention control
+******* Memorize deck of cards
+- Daniel Kilov
+- "We found that one of the biggest differences between memory athletes and the rest of us is in a cognitive ability that's not a direct measure of memory at all but of attention," explained Roediger in a New York Times blog post (emphasis mine). The ability in question is called "attentional control," and it measures the subjects' ability to maintain their focus on essential information.
+- The technique for card memorization I'll teach you comes from someone who knows quite a bit about this particular challenge: Ron White, a former USA Memory Champion and world record holder in card memorization.* The first thing White emphasizes is that professional memory athletes never attempt rote memorization, that is, where you simply look at information again and again, repeating it in your head. This approach to retention, though popular among burned-out students, misunderstands how our brains work. We're not wired to quickly internalize abstract information. We are, however, really good at remembering scenes
+***** Rule #3: Quit social media
+- Chose your tools
+  - The Craftsman Approach to Tool Selection: Identify the core factors that determine success and happiness in your professional and personal life. Adopt a tool only if its positive impacts on these factors substantially outweigh its negative impacts
+- Social media as source of distraction
+  - They're just products, developed by private companies, fundedlavishly, marketed carefully, and designed ultimately to capture thensell your personal information and attention to advertisers. They can befun, but in the scheme of your life and what you want to accomplish,they're a lightweight whimsy, one unimportant distraction among many threatening to derail you from something deeper
+***** Rule #4: Drain the Shallows
+****** 37signals/Basecamp 4-day week
+- Very few people work even 8 hours a day. You're lucky if you geta few good hours in between all the meetings, interruptions, websurfing, office politics, and personal business that permeate thetypical workday. Fewer official working hours helps squeeze the fat outof the typical workweek. Once everyone has less time to get their stuffdone, they respect that time even more. People become stingy with theirtime and that's a good thing. They don't waste it on things that just don't matter. When you have fewer hours you usually spend them more wisely.
+- 37signals' experiments highlight an important reality: The shallow work that increasingly dominates the time and attention ofknowledge workers is less vital than it often seems in the moment. Formost businesses, if you eliminated significant amounts of thisshallowness, their bottom line would likely remain unaffected. And asJason Fried discovered, if you not only eliminate shallow work, but also replace this recovered time with more of the deep alternative, not only will the business continue to function; it can become more successful
+****** Cognitive capacity and deep work
+- Then there's the issue of cognitive capacity. Deep work is exhausting because it pushes you toward the limit of your abilities.Performance psychologists have extensively studied how much such effortscan be sustained by an individual in a given day.* In their seminalpaper on deliberate practice, Anders Ericsson and his collaboratorssurvey these studies. They note that for someone new to such practice(citing, in particular, a child in the early stages of developing anexpert-level skill), an hour a day is a reasonable limit. For those familiar with the rigors of such activities, the limit expands to something like four hours, but rarely more
+*** Conclusion
+- A commitment to deep work is not a moral stance and it's not aphilosophical statement---it is instead a pragmatic recognition that the ability to concentrate is a skill that gets valuable things done
 ** DONE TiddlyWiki and Emacs                                                   :emacs:tiddlywiki:elisp:
 CLOSED: [2022-07-12 Tue 07:00]
 :PROPERTIES:
@@ -5550,6 +5796,9 @@ name from which they want to read messages.
 
 ;; set buffer variable
 (setq-local org-agenda-files nil)
+
+;; set-fill-column
+(setq-local fill-column 90)
 
 (add-to-list 'org-hugo-special-block-type-properties '("sidenote" . (:trim-pre t :trim-post t)))
 #+end_src
