@@ -16,7 +16,11 @@
     {{ end }}
 
   </p>
-  <div class="lh-copy post-content">{{ .Content }}</div>
+  <div class="lh-copy post-content">
+    {{ partial "series.html" . }}
+      {{ .Content }}
+    {{ partial "series.html" . }}
+  </div>
   <div id="comments">
       {{ partial "comments.html" .  }}
   </div>

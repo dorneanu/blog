@@ -47,6 +47,11 @@ copyright="2009-2022 Victor Dorneanu - All rights reserved"
 [author]
   name="Victor Dorneanu"
 
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  series = "series"
+
 [permalinks]
 posts = "/:year/:month/:day/:title"
 notes = "/notes/:title"
