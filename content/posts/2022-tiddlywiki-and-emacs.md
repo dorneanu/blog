@@ -2,7 +2,7 @@
 title = "TiddlyWiki and Emacs"
 author = ["Victor Dorneanu"]
 date = 2022-07-12T07:00:00+02:00
-lastmod = 2022-07-13T15:49:41+02:00
+lastmod = 2022-08-30T12:04:18+02:00
 tags = ["emacs", "tiddlywiki", "elisp"]
 draft = false
 +++
@@ -33,7 +33,9 @@ for the data storage. The project itself is called [widdly](https://github.com/d
 [tiddly.info/serverless](https://tiddly.info/serverless).
 {{% /sidenote %}} Every single page inside the wiki is called `tiddler`.
 
-> On the philosophy of [tiddlers](https://tiddlywiki.com/static/Philosophy%2520of%2520Tiddlers.html): "The purpose of recording and organising information is so that it can be used again. The value of recorded information is directly proportional to the ease with which it can be re-used."
+> On the philosophy of [tiddlers](https://tiddlywiki.com/static/Philosophy%2520of%2520Tiddlers.html): "The purpose of recording and organising information is so
+> that it can be used again. The value of recorded information is directly proportional to
+> the ease with which it can be re-used."
 
 A `tiddler` has following [format](https://tiddlywiki.com/prerelease/static/TiddlyWeb%2520JSON%2520tiddler%2520format.html):
 

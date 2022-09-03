@@ -7,13 +7,793 @@
 #+hugo_paired_shortcodes: %sidenote
 #+property: header-args :eval never-export
 
-#+macro: zk [[https://brainfck.org/#$1][$2]]
-#+macro: bib [[https://brainfck.org/bib.html#$1][$2]]
+#+macro: zk [[https://tw5.brainfck.org/#$1][$2]]
+#+macro: bib [[https://tw5.brainfck.org/bib.html#$1][$2]]
 #+macro: relref @@hugo:[@@ $1 @@hugo:]({{< relref "$2" >}})@@
 #+macro: titleref @@hugo:{{< titleref "$1" "@@ $2 @@hugo:" >}}@@
 
 
 * Posts
+** DONE Migrate Tiddlywiki to org-roam - Part 1: Export Tiddlers               :tiddlywiki:org:
+CLOSED: [2022-09-03 Sat 22:04]
+:PROPERTIES:
+:header-args: :dir /cs/priv/repos/tiddlywiki-migrator :exports both :results output replace :eval no-export
+:EXPORT_FILE_NAME: 2022-migrate-tiddlywiki-to-org-roam-part-1-export-tiddlers
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :series '("Migrate Tiddlywiki to org-roam")
+:END:
+
+#+html:{{< notice warning >}}
+In the *first part* of this series I'll outline the main factors why I've decided
+to move my digital garden / braindump / Zettelkasten to [[https://github.com/org-roam/org-roam][org-roam]] and which factors
+have facilitated this decision. In the *2nd part* (still work in progress) I will expand more
+how I've built the new [[https://brainfck.org][brainfck.org]] using [[https://gohugo.io/][hugo]], [[https://github.com/kaushalmodi/ox-hugo][ox-hugo]] and [[https://github.com/org-roam/org-roam][org-roam]].
+#+html:{{< /notice >}}
+
+*** Motivation
+I've been using Tiddlywiki for almost 10 years now and setup different instances for
+work, personal stuff and lately as my own [[https://tw5.brainfck.org][personal knowledge management system]]. I've
+used it to save highlights, notes, quotes from different sources and organized them
+in an useful way. I used [[https://tw5.brainfck.org/#Journals][daily journaling]] to handle the daily input of ideas and (web)
+articles I'm constantly exposed to. I talked at work about the importance of PKMS
+and how Tiddlywiki can increase productivity and contribute to better (mental) health
+by using it as a second brain.
+#+begin_sidenote
+Other popular terms: Zettelkasten (slip box in German), memex, braindump or digital garden.
+#+end_sidenote
+Basically it's all about giving your a brain a rest and offload information to a medium so
+your brain doesn't have to remember everything:
+
+#+begin_quote
+Your brain is for having ideas, not for holding them -- [[https://brainfck.org/book/getting-things-done-the-art-of-stress-free-productivity/][Getting Things Done]]
+#+end_quote
+
+While I initially started using just one /single/ HTML file for my
+tiddlers, I soon switched over to the [[https://tiddlywiki.com/static/Node.js.html][nodeJS installation]]. This still
+has better benefits like:
+- you can run the instance in [[id:4058880f-4d92-41bf-8686-18c495b45937][Docker]]
+  - install ~tiddlywiki~ and its dependencies without messing around with your system
+- you'll get multiple "flat" files (~.tid~ files are in /plain text/)
+  - you can apply ~sed~, ~awk~, ~bash~ /foo/ to extract/modify data
+  - even if Tiddlywiki will be discontinued some day, you'll still be able to import your notes in whatever note-taking syntax
+
+#+html: {{< gbox src="/posts/img/2022/migrate-tiddlywiki-to-org-roam/brainfck-20220903-tw5.png" title="old brainfck - Now available at https://tw5.brainfck.org" caption="" pos="left" >}}
+
+
+Among the many packages I've used, [[https://giffmex.org/stroll/stroll.html][stroll]] has definitely changed the way
+I interacted with Tiddlywiki. It allowed me to /focus/ more on the note-taking process
+by dividing the screen into 2 columns. This allowed me to work on different tiddlers
+simultaneously. Still it took me hours to process my notes and digitize them into Tiddlywiki. I guess the UI kind of slowed me down, mostly because I'm a /keyboard-centric/
+user and don't use the mouse that often. Switching between tiddlers, closing them, creating
+new ones always involved /mouse interaction/.
+
+#+html: {{< gbox src="/posts/img/2022/migrate-tiddlywiki-to-org-roam/tiddlywiki-stroll.png" title="Tiddlywiki using stroll" caption="stroll allowed you to split the screen into multiple columns, backlinks are automatically shown." pos="left" >}}
+
+For the same reason I've been using VIM for more than a decade and since more than 2 years I'm happy to consider myself an [[https://www.emacswiki.org/emacs/Evil][evil]] Emacs user. It became not only my primary editor, but also my [[id:e79ae462-21ae-48b9-bd6b-b084f4ec5de8][RSS feeds reader]], mail client, YouTube video player, IDE, API client... I basically live in Emacs
+#+begin_sidenote
+Here is my [[https://github.com/dorneanu/dotfiles/blob/master/dot_doom.d/config.org][config.org]]
+#+end_sidenote
+and try to avoid as many context switches as possible.
+*** Personal preferences
+**** ORG mode as lingua franca
+After going down the Emacs rabbit hole, I've adopted [[https://orgmode.org/][ORG mode]] as my main file format for writing documents, exporting these to other formats (PDF, markdown, Confluence, Jira and many others), creating diagrams (mainly plantuml), [[https://slides.dornea.nu/][presentations]], writing technical documentation and hopefully some day for publishing a whole book. For the note-taking phase I write my notes in ORG mode and create a rudimentary outline sorted by chapters/sections. Usually I use the same structure to create my blog posts from (like I did in the [[/tags/books][book summaries]]). Extracting pieces of information for individual tiddlers, however, tends to be a /time-intensive process/. I've managed to use [[id:3fc968a6-1803-4e03-8040-a20bef62693e][the Tiddlywiki API within Emacs]] but my Elisp skills are still not good for doing more advanced stuff like:
+
+- fetch existing tiddlers, modify body in a new buffer, save new tiddler
+- when linking text to new/existing tiddler, show list (in the minibuffer) of Tiddlers and if not create new one(s)
+- show cross-references (e. g. Backlinks) for a specific tiddler
+- refile specific (ORG) headline to a new tiddler
+
+All these features are some however doable *within* Tiddlywiki using stroll and [[https://saqimtiaz.github.io/streams/][streams]]. But I don't want to use the web UI anymore since I'm already /inside/ Emacs for the majority of the day 😅
+**** Editing on steroids
+At some point I began adopting ORG style syntax for the new tiddlers too:
+
+
+#+html: {{< gbox src="/posts/img/2022/migrate-tiddlywiki-to-org-roam/tiddlywiki-syntax.png" title="Tiddlywiki Syntax" caption="Syntax is pretty similar to the ORG mode one" pos="left" >}}
+
+If you pay attention, there are lots of similarities. That's why I could easily /copy and paste/ most of the  ORG content into the tiddlers. As for the rest (source blocks, quotes, examples, sidenotes etc.) manual conversion (or using [[https://github.com/dfeich/org8-wikiexporters][ox-tiddly]] ) was necessary.
+
+It was especially this part that slowed me down in my post-reading process mainly because:
+- I'm writing my notes in Emacs (using ORG)
+   - converting to full tiddlywiki syntax takes time
+- in some of blog posts (written in [[https://github.com/dorneanu/blog/tree/master/org][ORG]]) I wanted to include some content from different tiddlers
+   - I had to convert Tiddlywiki content back to ORG syntax again
+
+This back and forth between ORG/Emacs and Tiddlywiki combined with the fact I was maintaining /multiples sources/ of information (my raw notes /in ORG/, my own thoughts / processed notes /in Tiddlywiki/) brought me to [[https://github.com/org-roam/org-roam][org-roam]]. Not only this, but it also forced me to rethink my note-taking workflow and make adjustments to the whole system.
+
+#+html:{{< notice info >}}
+I'll explicitly cover org-roam, hugo and ox-hugo in the next part.
+#+html:{{< /notice >}}
+
+*** Exporting from Tiddlywiki
+As I've started exporting my notes from Tiddlywiki I soon realized there are 2 options to do so:
+- you could use external standard Unix utilities
+  - and parse files using ~sed~, ~aws~ & co.
+- but you could also use [[https://tiddlywiki.com/static/TemplateTiddlers][Tiddlywikis internal templating system]] to /generate/ data
+**** Export tiddlers
+[[https://github.com/davidag][David Alfonso]] has done a great job and put together a [[https://github.com/davidag/tiddlywiki-migrator][repository]] that helps you with the
+export of tiddlers. All you need is to export all your tiddlers bundled as one single HTML and
+then follow the instructions in the ~README~.
+
+In my Tiddlywiki root directory I had a ~tiddlywiki.info~ with a build step to export all tiddlers:
+
+
+#+begin_src sh :dir /cs/priv/repos/brainfck.org/tw5
+ls -l
+cat tiddlywiki.info
+#+end_src
+
+#+RESULTS:
+#+begin_example
+total 168
+drwxr-xr-x 3 victor users   4096 Aug 30 06:09 output
+drwxr-xr-x 2 victor users 163840 Aug 29 21:14 tiddlers
+-rw-r--r-- 1 victor users   1316 Aug 16 06:00 tiddlywiki.info
+{
+    "description": "Basic client-server edition",
+    "plugins": [
+        "tiddlywiki/tiddlyweb",
+        "tiddlywiki/filesystem",
+        "tiddlywiki/highlight"
+    ],
+    "themes": [
+        "tiddlywiki/vanilla",
+        "tiddlywiki/snowwhite"
+    ],
+    "build": {
+        "index": [
+            "--rendertiddler",
+            "$:/plugins/tiddlywiki/tiddlyweb/save/offline",
+            "index.html",
+            "text/plain"
+        ],
+        "static": [
+            "--rendertiddler",
+            "$:/core/templates/static.template.html",
+            "static.html",
+            "text/plain",
+            "--rendertiddler",
+            "$:/core/templates/alltiddlers.template.html",
+            "alltiddlers.html",
+            "text/plain",
+            "--rendertiddlers",
+            "[!is[system]]",
+            "$:/core/templates/static.tiddler.html",
+            "static",
+            "text/plain",
+            "--rendertiddler",
+            "$:/core/templates/static.template.css",
+            "static/static.css",
+            "text/plain"
+        ],
+        "books": [
+            "--render",
+            "[!is[system]prefix[Cashkurs]tag[Book]]",
+            "[encodeuricomponent[]addprefix[books/]addsuffix[.org]]",
+            "text/plain",
+            "$:/vd/templates/render-book"
+        ]
+    }
+}
+#+end_example
+
+Now let's generate the single HTML file:
+#+begin_src sh :dir /cs/priv/repos/brainfck.org/tw5
+tiddlywiki . --build index
+ls -lh ./output/index.html
+#+end_src
+
+#+RESULTS:
+: -rw-r--r-- 1 victor users 6.0M Aug 30 06:09 ./output/index.html
+**** Generate HTML and meta files
+Once you have generated your single HTML Tiddlywiki file, clone the [[https://github.com/davidag/tiddlywiki-migrator][repository]] and copy your
+file to ~wiki.html~ inside the repository's root folder. Then you can run ~make~ to export your tiddlers.
+
+Afterwards, for each tiddler, you will get:
+- a ~HTML~ file (with the tiddler's content)
+- a ~meta~ file (containing header information)
+
+#+begin_src plantuml :dir /cs/priv/repos/blog/org :file ../static/posts/img/2022/migrate-tiddlywiki-to-org-roam/html-meta-files.png :exports none
+@startmindmap
++[#Orange] Tiddler: Zucker
+++ zucker.html
+++ zucker.meta
+@endminmap
+#+end_src
+
+#+RESULTS:
+[[file:../static/posts/img/2022/migrate-tiddlywiki-to-org-roam/html-meta-files.png]]
+
+#+caption: The original tiddler gets exported into one HTML and one meta file.
+[[/posts/img/2022/migrate-tiddlywiki-to-org-roam/html-meta-files.png]]
+
+
+As an example (for the "zucker" tiddler):
+
+#+begin_src sh :dir /cs/priv/repos/tiddlywiki-migrator
+cat ./tmp_wiki/output/zucker.html
+#+end_src
+
+#+CAPTION: HTML file
+#+begin_src html
+: <ul><li>Auch Saccharose</li><li>Gehört zur Familie der Saccharide</li><li>Formen<ul><li>Einfachzucker<ul><li><a class="tc-tiddlylink tc-tiddlylink-resolves" href="#Glukose">Glukose</a></li><li><a class="tc-tiddlylink tc-tiddlylink-resolves" href="#Fruktose">Fruktose</a></li></ul></li><li>Mehrfachzucker<ul><li>Stärke</li></ul></li></ul></li><li>Haushaltszucker<ul><li>Dissacharid</li><li>Besteht aus 2 Monosacchariden<ul><li>Glukose (Traubenzucker)</li><li>Fruktose (Fruchtzucker)</li></ul></li></ul></li><li><a class="tc-tiddlylink tc-tiddlylink-resolves" href="#S%C3%BC%C3%9Fstoffe">Süßstoffe</a></li></ul>
+#+end_src
+
+And now the ~meta~ data:
+
+#+begin_src sh :dir /cs/priv/repos/tiddlywiki-migrator
+cat ./tmp_wiki/output/zucker.meta
+#+end_src
+
+#+CAPTION: META file
+#+RESULTS:
+: created: 20200727100215598
+: lang: de
+: modified: 20210518184433986
+: origin: [[<<. bibliography "Der Ernährungskompass" "Der Ernährungskompass">>]]
+: revision: 0
+: tags:
+: title: Zucker
+: tmap.id: c268554d-9122-4728-88e0-0549ec026010
+: type: text/vnd.tiddlywiki
+
+**** Convert to ORG mode
+The original repository will export by default all tiddlers to ~markdown~. Since ~pandoc~ is used
+we can also export to ORG mode directly by changing the Makefile.
+#+begin_sidenote
+I've created a [[https://github.com/dorneanu/tiddlywiki-migrator][fork]] with my own customizations.
+#+end_sidenote
+
+
+Instead of exporting to ~commonmark~ we export to ~markdown~ first:
+
+#+begin_src makefile :exports code
+...
+$(MARKDOWN_DIR)/%.md : $(TW_OUTPUT_DIR)/%.html
+    @echo "Generating markdown file '$(@F)'..."
+    @$(PANDOC) -f html-native_divs-native_spans -t markdown \
+        --wrap=none -o - "$^" >> "$@"
+...
+#+end_src
+
+Then for every generated ~markdown~ file we
+
+- add ~#+~ to every header line (in the corresponding ~.meta~ file)
+- insert a newline after header lines
+- convert the ~markdown~ file to ~ORG~ format
+
+#+begin_src makefile :exports code
+...
+
+$(ORG_DIR)/%.org : $(MARKDOWN_DIR)/%.md
+    @echo "Generating ORG file '$(@F)'..."
+
+    # Add #+ to every header line
+    @cat "$(TW_OUTPUT_DIR)/`basename $^ .md`.meta" | sed -s 's/^/#+/' >> "$@"
+
+    # Insert newline after header lines
+    @echo "" >> "$@"
+
+    # Convert from markdown to org
+    @$(PANDOC) -f markdown -t org --wrap=none -o - "$^" >> "$@"
+
+...
+#+end_src
+
+#+begin_src plantuml :dir /cs/priv/repos/blog/org :file ../static/posts/img/2022/migrate-tiddlywiki-to-org-roam/combined-files.png :exports none
+@startmindmap
++[#Orange] Tiddler: Zucker
+++ zucker.html
++++[#lightgreen] zucker.md
+++ zucker.meta
+
+
++[#lightblue] zucker.org
+--[#lightgreen] zucker.md
+-- zucker.meta
+@endminmap
+#+end_src
+
+#+CAPTION: The ORG file consists of the meta file (where every line is prepended by #+) and the corresponding markdown file.
+[[/posts/img/2022/migrate-tiddlywiki-to-org-roam/combined-files.png]]
+
+This is how the final ORG file looks like:
+#+begin_src sh
+cat org_tiddlers/zucker.org
+#+end_src
+
+#+caption: Generated ORG file
+#+RESULTS:
+#+begin_src org
+,#+created: 20200727100215598
+,#+lang: de
+,#+modified: 20210518184433986
+,#+origin: [[<<. bibliography "Der Ernährungskompass" "Der Ernährungskompass">>]]
+,#+revision: 0
+,#+tags:
+,#+title: Zucker
+,#+tmap.id: c268554d-9122-4728-88e0-0549ec026010
+,#+type: text/vnd.tiddlywiki
+
+-   Auch Saccharose
+-   Gehört zur Familie der Saccharide
+-   Formen
+    -   Einfachzucker
+        -   [Glukose](#Glukose){.tc-tiddlylink .tc-tiddlylink-resolves}
+        -   [Fruktose](#Fruktose){.tc-tiddlylink
+            .tc-tiddlylink-resolves}
+    -   Mehrfachzucker
+        -   Stärke
+-   Haushaltszucker
+    -   Dissacharid
+    -   Besteht aus 2 Monosacchariden
+        -   Glukose (Traubenzucker)
+        -   Fruktose (Fruchtzucker)
+-   [Süßstoffe](#S%C3%BC%C3%9Fstoffe){.tc-tiddlylink
+    .tc-tiddlylink-resolves}
+#+end_src
+
+*** Extract bookmarks
+I have lots of bookmarks (each one is mapped to one ~tiddler~) tagged in this way:
+
+#+begin_src sh
+cat org_tiddlers/bookmarks/writing_a_technical_book_in_emacs_and_org_mode_.org
+#+end_src
+
+#+RESULTS:
+#+begin_src org
+,#+created: 20220201125456750
+,#+modified: 20220203071728094
+,#+name: Writing a Technical Book in Emacs and Org Mode
+,#+note: Author writes about the workflow itself, importance of pomodoro
+,#+revision: 0
+,#+tags: Bookmark [[ORG Mode]] Writing
+,#+title: Writing a Technical Book in Emacs and Org Mode
+,#+type: text/vnd.tiddlywiki
+,#+url: https://www.kpkaiser.com/programming/writing-a-technical-book-in-emacs-and-org-mode/
+#+end_src
+
+So each bookmarks consists of:
+- a /name/
+- a /note/
+- an /url/
+- a /title/ (usually the same as /name/)
+
+Now we can easily parse these files and create the desired structure. For this purpose I've used this tinny ~Python~ snippet:
+
+#+begin_src python :tangle /tmp/extract-bookmark.py
+import sys
+import re
+
+note = ""
+url = ""
+title = ""
+tags = ""
+created = ""
+
+for line in sys.stdin:
+
+    # Extract created
+    result = re.match("^#\+created: (.*)$", line, re.IGNORECASE)
+    if result:
+        created = result.group(1)
+
+    # Extract note
+    result = re.match("^#\+title: (.*)$", line, re.IGNORECASE)
+    if result:
+        title = result.group(1)
+
+    # Extract note
+    result = re.match("^#\+note: (.*)$", line, re.IGNORECASE)
+    if result:
+        note = result.group(1)
+
+    # Extract URL
+    result = re.match("^#\+url: (.*)$", line, re.IGNORECASE)
+    if result:
+        url = result.group(1)
+
+    # Extract tags
+    result = re.match("^#\+tags: (.*)$", line, re.IGNORECASE)
+    if result:
+        _tags = result.group(1)
+        split = _tags.split(" ")
+        tags = ":".join(split)
+        if tags:
+            tags = f":{tags}:"
+
+
+# Print
+print(f"* [[{url}][{title}]]\t\t{tags}\n  :PROPERTIES:\n  :CREATED: {created}\n  :NOTE: {note}\n  :END:\n ")
+
+#+end_src
+
+Used against our bookmark file it will yield:
+
+#+begin_src sh :results output code
+cat org_tiddlers/bookmarks/writing_a_technical_book_in_emacs_and_org_mode_.org | python3 /tmp/extract-bookmark.py
+#+end_src
+
+#+RESULTS:
+#+begin_src org
+,* [[https://www.kpkaiser.com/programming/writing-a-technical-book-in-emacs-and-org-mode/][Writing a Technical Book in Emacs and Org Mode ]]		:Bookmark:[[ORG:Mode]]:Writing:
+  :PROPERTIES:
+  :CREATED: 20220201125456750
+  :NOTE: Author writes about the workflow itself, importance of pomodoro
+  :END:
+
+#+end_src
+
+This way we get a nice [[https://orgmode.org/guide/Headlines.html][ORG mode headline]] with some [[https://orgmode.org/guide/Properties.html][properties]]. Now let's convert
+all available bookmarks and save into one big file:
+
+
+#+begin_src sh
+cd org_tiddlers
+rm /tmp/bookmarks.org
+grep * -e "#+tags:.*Bookmark*" -l | xargs -I "{}" sh -c "grep -e '^#.*$' {} | python3 /tmp/extract-bookmark.py; mv {} bookmarks/" >> /tmp/bookmarks.org
+#+end_src
+
+Let's check how many entries we got:
+
+#+begin_src sh
+cat /tmp/bookmarks.org | grep "\* \[\[" | wc -l -
+#+end_src
+
+#+RESULTS:
+: 425 -
+
+*** Extract journal entries
+Collect all ~journal~ tiddlers and merge them into one big file.
+
+
+#+begin_src sh
+cd org_tiddlers
+rm /tmp/journals.org
+grep * -e "#+tags: Journal" -l | xargs -I % sh -c \
+   "echo -e '* %' | tr -d '.org' >> /tmp/journals.org; \
+    cat % | sed '/^#+tmap.id/d;/^#+title:/d;/^#+tags:/d;/^#+created:/d;/^#+modified/d;/^#+revision/d;/^#+type/d' \
+    >> /tmp/journals.org"
+head -n 10 /tmp/journals.org
+#+end_src
+
+#+RESULTS:
+#+begin_src org
+,* 2020-09-14
+
+- [[https://www.swr.de/swr2/programm/broadcastcontrib-swr-13438.html][Wie funktioniert Selbstregulierung?]]
+  - auch in der [[https://www.ardaudiothek.de/wissen/wie-funktioniert-selbstregulierung/80172244][ARD audiothek]]
+- Un podcast interesant despre [[https://www.stareanatiei.ro/podcasts/][starea natiei]]
+  - este si [[https://www.youtube.com/channel/UCtK5Oe8sHjp6WPcwWuHUVpQ][canal youtube]]
+- [[https://stackoverflow.com/questions/42531643/amazon-s3-static-web-hosting-caching][how to use caching with S3 static site hosting]]
+,* 2020-09-15
+
+- this site supports now [[https://brainfck.org][TLS/SSL]]
+#+end_src
+*** Extract books
+This was the most difficult part and I'll try to explain why. This is how a ~book~ tiddler usually looks like ({{{zk(1984,1984)}}}):
+
+#+html: {{< gbox src="/posts/img/2022/migrate-tiddlywiki-to-org-roam/1984-tiddler.png" title="1984 book" caption="There are different related tiddlers I've created to each book tiddler" pos="left" >}}
+
+Usually I have some content inside the tiddler but also some additional tiddlers related to the book:
+
+- *notes/quotes*
+  - most of the time these are *quotes*
+  - Examples: ~1984 - Note 1~, ~1984 - Note 2~ etc.
+- *subtopics*
+  - for each interesting thought/concept I've found in the book I create a new tiddler where the name has following syntax: ~<book>/<subtopic>~.
+    - I've initially read about this idea on [[https://zettelkasten.sorenbjornstad.com/][Soren's Zettelkasten]] and I liked it
+  - Examples:
+    - {{{zk(1984/Versklavung,1984/Versklavung)}}}
+    - {{{zk(1984/Krieg ist Frieden,1984/Krieg ist Frieden)}}}
+    - {{{zk(1984/Wohlstand,1984/Wohlstand)}}}
+
+Basically I wanted to merge every tiddler into one ~ORG~ file.
+
+#+begin_src plantuml :dir /cs/priv/repos/blog/org :file ../static/posts/img/2022/migrate-tiddlywiki-to-org-roam/book-tiddlers.png :exports none
+@startmindmap
++[#Orange] 1984.org
+-- 1984
+-- 1984 - Note 1
+-- 1984 - Note 2
+-- 1984 - Note 3
+-- 1984/Versklavung
+-- 1984/Wohlstand
+@endminmap
+#+end_src
+
+#+caption: Merge every single tiddler related to 1984 into one big ORG file.
+[[/posts/img/2022/migrate-tiddlywiki-to-org-roam/book-tiddlers.png]]
+
+Instead of applying some ~sed~ & ~awk~ magic, I decided to use Tiddlywikis internal templating system. The [[http://tw5.brainfck.org/#%24%3A%2Fcore%2Ftemplates%2Fstatic.tiddler.html][$:/core/templates/static.tiddler.html]] template for examples defines how a single tiddler should be exported
+to its corresponding HTML file:
+
+#+begin_src html
+\define tv-wikilink-template() $uri_doubleencoded$.html
+\define tv-config-toolbar-icons() no
+\define tv-config-toolbar-text() no
+\define tv-config-toolbar-class() tc-btn-invisible
+\import [[$:/core/ui/PageMacros]] [all[shadows+tiddlers]tag[$:/tags/Macro]!has[draft.of]]
+`<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="generator" content="TiddlyWiki" />
+<meta name="tiddlywiki-version" content="`{{$:/core/templates/version}}`" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="format-detection" content="telephone=no">
+<link id="faviconLink" rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" href="static.css">
+<title>`<$view field="caption"><$view field="title"/></$view>: {{$:/core/wiki/title}}`</title>
+</head>
+<body class="tc-body">
+`{{$:/StaticBanner||$:/core/templates/html-tiddler}}`
+<section class="tc-story-river tc-static-story-river">
+`<$view tiddler="$:/core/ui/ViewTemplate" format="htmlwikified"/>`
+</section>
+</body>
+</html>
+#+end_src
+
+We can use the same mechanism to define a template for a book tiddler whenever this has to be
+exported. But first of all let's see how a template is used when exporting:
+
+#+caption: This is some fragment of the customized ~Makefile~. Check out my [[https://github.com/dorneanu/tiddlywiki-migrator][fork]].
+
+#+begin_src makefile
+export-books : deps pre
+    @echo "Exporting all book tiddlers from $(ORIGINAL_TIDDLYWIKI) to ORG with custom render template"
+    $(NODEJS) $(TIDDLYWIKI_JS) $(WIKI_NAME) --load $(ORIGINAL_TIDDLYWIKI) \
+        --render [!is[system]tag[Book]] [encodeuricomponent[]addprefix[books/]addsuffix[.org]] \
+        text/plain $$:/vd/templates/render-book
+    $(NODEJS) $(SAFE_RENAME_JS) $(TW_OUTPUT_DIR)
+#+end_src
+
+This is what happens:
+- we load the single HTML Tiddlywiki file via ~--load~
+- we use ~--render~
+  #+begin_sidenote
+  Read more about the [[https://tiddlywiki.com/static/RenderCommand.html][RenderCommand]].
+  #+end_sidenote
+  to export a list of tiddlers
+- as a filter we use ~[!is[system]tag[Book]]~ which means:
+  - give me all non-[[https://tiddlywiki.com/static/SystemTiddlers.html][system tiddlers]] and from this selection
+  - give me all tiddlers tagged with ~Book~
+- ~[encodeuricomponent[]addprefix[books/]addsuffix[.org]]~ handles the file path of tiddler to be exported
+- ~$$:/vd/templates/render-book~ is the name of the template to be used
+
+And now ~$:/vd/templates/render-book~ :
+
+#+caption: The Tiddlywiki render template I've used to export my books and related tiddlers.
+#+begin_src org
+\define quotesFilter() [prefix<currentTiddler>!title<currentTiddler>tag[quote]sortan[]]
+\define childrenFilter() [prefix<currentTiddler>!title<currentTiddler>!tag[quote]sortan[]]
+
+<$list filter=[all[current]]>
+,* {{!!title}}
+  :PROPERTIES:
+  :FINISHED: {{!!finished_year}}-{{!!finished_month}}
+  :END:
+,** Description
+{{!!text}}
+</$list>
+
+,** Notes
+<$list filter="[subfilter<childrenFilter>]">
+,*** {{!!title}}                  :note:
+      :PROPERTIES:
+      :CREATED: {{!!created}}
+      :TAGS: {{!!tags}}
+      :END:
+</$list>
+
+,** Quotes
+<$list filter="[subfilter<quotesFilter>]">
+,*** {{!!title}}                  :quote:
+{{!!text}}
+</$list>
+#+end_src
+
+Let's dissect the snippet fragment by fragment.
+
+**** Add book content
+#+begin_src org -n
+...
+<$list filter=[all[current]]>
+,* {{!!title}}
+  :PROPERTIES:
+  :FINISHED: {{!!finished_year}}-{{!!finished_month}}
+  :END:
+,** Description
+{{!!text}}
+</$list>
+...
+#+end_src
+
+We create a list of tiddlers with following filter: ~[all[current]]~ (another way to express we just want the /current/ tiddler).
+We then create an ORG mode headline consisting of the field ~title~ in the current tiddler (~{{!!title}}~). Then we add
+a ~FINISHED~ property using the fields ~finished_year~ and ~finished_month~
+
+#+html: {{< gbox src="/posts/img/2022/migrate-tiddlywiki-to-org-roam/1984-fields.png" title="Fields of 1984 tiddler" caption="Every field in the tiddler can be accessed via {{!!field}}" pos="left" >}}
+
+Then I create a sub-heading called ~Description~ where I put the tiddler's content (field ~text~).
+**** Add notes
+#+begin_src org
+...
+\define childrenFilter() [prefix<currentTiddler>!title<currentTiddler>!tag[quote]sortan[]]
+...
+,** Notes
+<$list filter="[subfilter<childrenFilter>]">
+,*** {{!!title}}                  :note:
+      :PROPERTIES:
+      :CREATED: {{!!created}}
+      :TAGS: {{!!tags}}
+      :END:
+</$list>
+...
+#+end_src
+
+We create a sub-heading called ~Notes~ where we add additional sub-nodes. For this to work we create again
+a list of tiddlers where we apply the filter: ~[subfilter<childrenFilter>]~. ~childrenFilter~ is defined
+at the top:
+- ~prefix<currentTiddler>~
+  - We focus only on the tiddlers which have the ~currentTiddler~ as a prefix.
+  - if ~currentTiddler~ is 1984, then this will match
+    - ~1984 - Note 1~
+    - ~1984/Wohlstand~
+- ~!title<currentTiddler>~
+  - This makes sure we don't match ourself (the ~currentTiddler~)
+- ~!tag[quote]~
+  - Match only tiddlers which don't have tag ~quote~
+- ~sortan[]~
+  - Sort list of tiddlers by text field
+  #+begin_sidenote
+  The [[https://tiddlywiki.com/static/sortan%2520Operator.html][sortan Operator]]
+  #+end_sidenote
+
+For the sub-heading we then add some properties: ~CREATED~ (field ~created~) and ~TAGS~ (field ~tags~).
+
+**** Add quotes
+#+begin_src org
+\define quotesFilter() [prefix<currentTiddler>!title<currentTiddler>tag[quote]sortan[]]
+...
+,** Quotes
+<$list filter="[subfilter<quotesFilter>]">
+,*** {{!!title}}                  :quote:
+{{!!text}}
+</$list>
+#+end_src
+
+Also here we create a sub-heading called ~Quotes~ and underneath we create additional sub-nodes
+for the quotes. As for ~Notes~ we have a subfilter (~quotesFilter~):
+- it matches all tiddlers which have the currentTiddler's title as a prefix
+- AND are tagged by ~quote~.
+**** Put everything together
+Now that we have a template let's have a look at the output:
+
+#+caption: Export everything related to '1984' by applying the ~$:/vd/templates/render-book~ template.
+#+begin_src sh
+$ tiddlywiki . --load ./output/index.html \
+               --render "[!is[system]prefix[1984]tag[Book]]" \
+               "[encodeuricomponent[]addprefix[books/]addsuffix[.org]]" \
+               "text/plain"\
+               "$:/vd/templates/render-book"
+#+end_src
+
+And this is what we get:
+
+#+begin_src sh :dir /cs/priv/repos/brainfck.org/tw5
+cat ./output/books/1984.org
+#+end_src
+
+#+RESULTS:
+#+begin_src org
+,* 1984
+  :PROPERTIES:
+  :FINISHED: 2021-05
+  :END:
+,** Description
+,* Theorie und Praxis des oligarchischen Kollektivismus
+,** von Emmanuel Goldstein
+,** Kapitel 1: Unwissenheit ist Stärke
+,** Kapitel 3: 1984/Krieg ist Frieden
+
+,** Notes
+,*** 1984/3 Arten von Menschen                  :note:
+      :PROPERTIES:
+      :CREATED:
+      :TAGS: Definition
+      :END:
+
+,*** 1984/Aufteilung der Welt                  :note:
+      :PROPERTIES:
+      :CREATED:
+      :TAGS: Stub
+      :END:
+
+,*** 1984/Der Große Bruder                  :note:
+      :PROPERTIES:
+      :CREATED:
+      :TAGS:
+      :END:
+
+,*** 1984/Doppeldenk                  :note:
+      :PROPERTIES:
+      :CREATED:
+      :TAGS:
+      :END:
+
+,*** 1984/Krieg                  :note:
+      :PROPERTIES:
+      :CREATED:
+      :TAGS:
+      :END:
+
+,*** 1984/Krieg ist Frieden                  :note:
+      :PROPERTIES:
+      :CREATED:
+      :TAGS:
+      :END:
+
+,*** 1984/Kulturelle Integrität                  :note:
+      :PROPERTIES:
+      :CREATED:
+      :TAGS:
+      :END:
+
+,*** 1984/Rolle der Partei                  :note:
+      :PROPERTIES:
+      :CREATED:
+      :TAGS:
+      :END:
+
+,*** 1984/Versklavung                  :note:
+      :PROPERTIES:
+      :CREATED:
+      :TAGS:
+      :END:
+
+,*** 1984/Wohlstand                  :note:
+      :PROPERTIES:
+      :CREATED:
+      :TAGS:
+      :END:
+,** Quotes
+,*** 1984 - Note 1                  :quote:
+Krieg ist Frieden, Freiheit ist Sklaverei, Unwissenheit ist Stärke - Ministerium für Wahrheit
+
+
+,*** 1984 - Note 2                  :quote:
+Gedankendelikt hat nicht den Tod zur Folge: Gedankendelikt IST der Tod.
+
+
+,*** 1984 - Note 3                  :quote:
+"Begreifst du denn nicht, dass Neusprech zur ein Ziel hat, nämlich den Gedankenspielraum einzuengen? Zu guter Letzt werden wir
+Gedankendelikte buchstäblich unmöglich machen, weil es keine Wörter mehr geben wird, um sie auszudrücken. Jeder
+Begriff, der jemals benötigt werden könnte, wird durch exakt ein Wort ausgedrückt sein, dessen Bedeutung streng definiert ist und dessen
+sämtliche Nebendeutungen eliminiert und vergessen sind."
+
+
+,*** 1984 - Note 4                  :quote:
+Freiheit bedeutet die Freiheit, zu sagen, dass zwei und zwei vier ist. Gilt dies, ergibt sich alles übrige von selbst.
+
+
+,*** 1984 - Note 5                  :quote:
+Die Massen revoltieren nie aus eigenem Antrieb, und sie revoltieren nie, nur weil sie unterdrückt werden. Solange man ihnen die Vergleichsmaßstäbe entzieht, werden sie nicht einmal merken, dass man sie unterdrückt.
+#+end_src
+
+I think that's pretty good.
+#+begin_sidenote
+And this is the final [[https://brainfck.org/book/1984/][result]].
+#+end_sidenote
+
+#+html: {{< gbox src="/posts/img/2022/migrate-tiddlywiki-to-org-roam/brainfck-20220903-hugo.png" title="New brainfck.org" caption="" pos="left" >}}
+
+I intentionally didn't add content in the ~Notes~ section to the sub-nodes. In the next post
+I'll explain how I managed to quickly review my notes using ~Emacs~ and some ~Elisp~ and add content on the go.
+
+** TODO Migrate Tiddlywiki to org-roam - Part 2
 ** DONE Book summary: Building Microservices (2nd Edition)                     :books:microservices:architecture:
 CLOSED: [2022-08-10 Wed 21:47]
 :PROPERTIES:
@@ -546,171 +1326,6 @@ progress against agreed-on direction and objectives. -- Cobit 5
 - [[https://www.goodreads.com/en/book/show/35755822-building-evolutionary-architectures][Building evolutionary architectures]]
 - [[https://www.goodreads.com/book/show/49828197-the-software-architect-elevator][The software architect elevator]]
 
-** TODO Book summary: Deep Work                                                :books:productivity:
-:PROPERTIES:
-:EXPORT_FILE_NAME: 2022-book-summary-deep-work
-:END:
-*** Introduction
-- Shallow Work: Noncognitively demanding, logistical-style tasks,often performed while
-  distracted. These efforts tend to not create much new value in the world and are easy to
-  replicate
-- To remain valuable in our economy, therefore, you must master the art of quickly
-  learning complicated things. This task requires deepwork. If you don't cultivate this
-  ability, you're likely to fall behindas technology advances.
-*** Deep Work
-- The Deep Work Hypothesis: The ability to perform deep work is becoming increasingly rare
-  at exactly the same time it is becomingincreasingly valuable in our economy. As a
-  consequence, the few whocultivate this skill, and then make it the core of their working
-  life,will thrive
-- Deep Work: Professional activities performed in a state of distraction-free
-  concentration that push your cognitive capabilities totheir limit. These efforts create
-  new value, improve your skill, and arehard to replicate
-*** Part 1
-**** Chapters 1: Deep Work is Valuable
-***** Two Core Abilities for Thriving in the New Economy 
-****** 1. The ability to quickly master hard things. 
-****** 2. The ability to produce at an elite level, in terms of both quality and speed
-***** The Intelectual Life
-#+begin_quote
- "Let your mind become a lens, thanks to the converging rays of attention; let
- your soul be all intent on whatever it is that is established in your mind as a
- dominant, wholly absorbing idea."
-#+end_quote
-***** Deliberate Practice
-- Part of performance psychology
-- In the early 1990s, K. Anders Ericsson, a professor at Florida State University
-- Key components
-  - (1) your attention is focused tightly on a specific skill you're trying to improve or
-    an idea you're trying to master;
-  - (2) you receive feedback so you can correct your approach to keep your attention
-    exactly where it's most productive
-****** Neurological aspects
-#+begin_quote
-As the journalist Daniel Coyle surveys in his 2009 book, The Talent Code, these scientists
-increasingly believe the answer includes myelin --- a layer of fatty tissue that grows
-around neurons,acting like an insulator that allows the cells to fire faster andcleaner.
-To understand the role of myelin in improvement, keep in mindthat skills, be they
-intellectual or physical, eventually reduce down tobrain circuits. This new science of
-performance argues that you getbetter at a skill as you develop more myelin around the
-relevantneurons, allowing the corresponding circuit to fire more effortlesslyand
-effectively. To be great at something is to be well myelinated
-#+end_quote
-***** Law of productivity
-- High-Quality Work Produced = (Time Spent) x (Intensity of Focus)
-***** Attention residue
-****** By “Why Is It So Hard to Do My Work?"
-#+begin_quote
-The problem this research identifies with this work strategy is that when you
-switch from some Task A to another Task B,your attention doesn't immediately
-follow---a residue of your attentionremains stuck thinking about the original
-task. This residue getsespecially thick if your work on Task A was unbounded and
-of lowintensity before you switched, but even if you finish Task A beforemoving
-on, your attention remains divided for a while
-#+end_quote
-**** Chapter 2: Deep Work is rare
-- The Principle of Least Resistance
-  - In a business setting, without clear feedback on the impact of various behaviors to the bottom line, we will tend toward behaviors that are easiest in the moment
-- Busyness as Proxy for Productivity
-  - In the absence of clear indicators of what it means to be productive and valuable in their jobs, many knowledge workers turn back toward an industrial indicator of productivity: doing lots of stuff in a visible manner
-**** Chapter 3: Deep Work is Meaningful
-***** Rapt
-- As Gallagher recalls in her 2009 book Rapt, as she walked away from the hospital after the diagnosis she formed a sudden and strongintuition: "This disease wanted to monopolize my attention, but as much as possible, I would focus on my life instead."
-- Her curiosity piqued, Gallagher set out to better understand the role that attention---that is, what we choose to focus on and what wechoose to ignore---plays in defining the quality of our life. After fiveyears of science reporting, she came away convinced that she was witness to a "grand unified theory" of the mind:
-#+begin_quote
-Like fingers pointing to the moon, other diverse disciplines from anthropology
-to education, behavioral economics tofamily counseling, similarly suggest that
-the skillful management ofattention is the sine qua non of the good life and the
-key to improvingvirtually every aspect of your experience
-#+end_quote
-***** Flow
-- "The best moments usually occur when a person's body or mind is stretched to its limits in a voluntary effort to accomplish somethingdifficult and worthwhile." Csikszentmihalyi calls this mental state flow (a term he popularized with a 1990 book of the same title).
-
-#+begin_quote
-Ironically, jobs are actually easier to enjoy than free time, because like flow
-activities they have built-in goals, feedbackrules, and challenges, all of which
-encourage one to become involved inone's work, to concentrate and lose oneself
-in it. Free time, on theother hand, is unstructured, and requires much greater
-effort to be shaped into something that can be enjoyed.
-#+end_quote
-
-- The connection between deep work and flow should be clear
-  - Deep work is an activity well suited to generate a flow state (the phrasesused by Csikszentmihalyi to describe what generates flow include notionsof stretching your mind to its limits, concentrating, and losing yourself in an activity---all of which also describe deep work)
-*** Part 2
-**** The Rules
-***** Rule #1: Work deeply
-****** By Roy Baumeister
-- You have a finite amount of willpower that becomes depleted as you use it. Your will, in other words, is not a manifestation of yourcharacter that you can deploy without limit; it's instead like a muscle that tires
-- The key to developing a deep work habit is to move beyond good intentions and add routines and rituals to your working life designed to minimize the amount of your limited willpower necessary to transition into and maintain a state of unbroken concentration
-****** Different philosophies
-******* Monastic
-- Knuth deploys what I call the monastic philosophy of deep work scheduling. This philosophy attempts to maximize deep efforts by eliminating or radically minimizing shallow obligations. Practitioners of the monastic philosophy tend to have a well-defined and highly valued professional goal that they're pursuing, and the bulk of their professional success comes from doing this one thing exceptionally well
-******* Bimodal
-- Jung's approach is what I call the bimodal philosophy of deep work. This philosophy asks that you divide your time, dedicating some clearly defined stretches to deep pursuits and leaving the rest open to everything else. During the deep time, the bimodal worker will act monastically---seeking intense and uninterrupted concentration. During the shallow time, such focus is not prioritized. This division of time between deep and open can happen on multiple scales. For example, on the scale of a week, you might dedicate a four-day weekend to depth and the rest to open time. Similarly, on the scale of a year, you might dedicate one season to contain most of your deep stretches (as many academics do over the summer or while on sabbatical).
-******* Rhythmic
-- This chain method (as some now call it) soon became a hit among writers and fitness enthusiasts---communities that thrive on the ability to do hard things consistently. For our purposes, it provides a specific example of a general approach to integrating depth into your life: the rhythmic philosophy. This philosophy argues that the easiest way to consistently start deep work sessions is to transform them into a simple regular habit. The goal, in other words, is to generate a rhythm for this work that removes the need for you to invest energy in deciding if and when you're going to go deep. The chain method is a good example of the rhythmic philosophy of deep work scheduling because it combines a simple scheduling heuristic (do the work every day), with an easy way to remind yourself to do the work: the big red Xs on the calendar.
-******* Journalistic
-- I call this approach, in which you fit deep work wherever you can into your schedule, the journalist philosophy. This name is a nod to the fact that journalists, like Walter Isaacson, are trained to shift into a writing mode on a moment's notice, as is required by the deadline-driven nature of their profession
-****** 4DX Framework
-******* The 4 Discipline of Execution
-******** #1 Focus on the wildly importante
-********* Aim to for a small number of wildly importantly goals
-********* Let ambitious goals drove focus driven behaviour
-********** The Art of Focus (David Brooks)
-#+begin_quote
-"If you want to win the war for attention, don't try to say 'no' to the trivial
-distractions you find on the information smorgasbord; try to say 'yes' to the
-subject that arouses a terrifying longing, and let the terrifying longing crowd
-out everything else."
-#+end_quote
-******** #2 Act on the lead measures
-********* 2 types of metrics to measure the your goal
-********** Lag measures
-- Lag measures describe the thing you're ultimately trying to improve
-- the problem with lag measures is that they come too late to change your behavior: "When you receive them, the
-  performance that drove them is already in the past."
-********** Lead measures
-- Lead measures, on the other hand, “measure the new behaviors that will drive success on the lag measures.
-- For an individual focused on deep work, it's easy to identify the relevant lead measure: time spent in a state of deep work dedicated toward your wildly important goal
-  - Don't track how many books, articles you've read
-  - Measure instead how many hours of deep work you've mastered
-******** #3 Keep the a compelling scoreboard
-#+begin_quote
-"People play differently when they're keeping score," the 4DX authors explain. They then elaborate that when attempting
-to drive your team's engagement toward your organization's wildly important goal, it's important that they have a public
-place to record and track their lead measures. This scoreboard creates a sense of competition that drives them to focus
-on these measures, even when other demands vie for their attention. It also provides a reinforcing source of motivation.
-Once the team notices their success with a lead measure, they become invested in perpetuating this performance.
-#+end_quote
-******** #4 Create a Cadence of Accountability
-- The 4DX authors elaborate that the final step to help maintain a focus on lead measures is to put in place "a rhythm of regular and
-frequent meetings of any team that owns a wildly important goal."
-- multiple places throughout this book I discuss and recommend the habit of a weekly review in which you make a plan for the workweek ahead (see Rule #4). During my experiments with 4DX, I used a weekly review to look over my scoreboard to celebrate good weeks, help understand what led to bad weeks, and most important, figure out how to ensure a good score for the days ahead. This led me to adjust my schedule to meet the needs of my lead measure---enabling significantly more deep work than if I had avoided such reviews altogether.
-***** Rule #2: Embrace boredom
-- Much in the same way that athletes must take care of their bodies outside of their training sessions, you'll struggle to achieve the deepest levels of concentration if you spend the rest of your time fleeing the slightest hint of boredom
-- Don't Take Breaks from Distraction. Instead Take Breaks from Focus
-- Productively Meditation
-  - The goal of productive meditation is to take a period in which you're occupied physically but not mentally---walking, jogging, driving, showering---and focus your attention on a single well-defined professional problem. Depending on your profession, this problem might be outlining an article, writing a talk, making progress on a proof, or attempting to sharpen a business strategy. As in mindfulness meditation, you must continue to bring your attention back to the problem at hand when it wanders or stalls
-  - Tipps
-    - Be Wary of Distractions and Looping
-    - Structure Your Deep Thinking
-****** Attention control
-******* Memorize deck of cards
-- Daniel Kilov
-- "We found that one of the biggest differences between memory athletes and the rest of us is in a cognitive ability that's not a direct measure of memory at all but of attention," explained Roediger in a New York Times blog post (emphasis mine). The ability in question is called "attentional control," and it measures the subjects' ability to maintain their focus on essential information.
-- The technique for card memorization I'll teach you comes from someone who knows quite a bit about this particular challenge: Ron White, a former USA Memory Champion and world record holder in card memorization.* The first thing White emphasizes is that professional memory athletes never attempt rote memorization, that is, where you simply look at information again and again, repeating it in your head. This approach to retention, though popular among burned-out students, misunderstands how our brains work. We're not wired to quickly internalize abstract information. We are, however, really good at remembering scenes
-***** Rule #3: Quit social media
-- Chose your tools
-  - The Craftsman Approach to Tool Selection: Identify the core factors that determine success and happiness in your professional and personal life. Adopt a tool only if its positive impacts on these factors substantially outweigh its negative impacts
-- Social media as source of distraction
-  - They're just products, developed by private companies, fundedlavishly, marketed carefully, and designed ultimately to capture thensell your personal information and attention to advertisers. They can befun, but in the scheme of your life and what you want to accomplish,they're a lightweight whimsy, one unimportant distraction among many threatening to derail you from something deeper
-***** Rule #4: Drain the Shallows
-****** 37signals/Basecamp 4-day week
-- Very few people work even 8 hours a day. You're lucky if you geta few good hours in between all the meetings, interruptions, websurfing, office politics, and personal business that permeate thetypical workday. Fewer official working hours helps squeeze the fat outof the typical workweek. Once everyone has less time to get their stuffdone, they respect that time even more. People become stingy with theirtime and that's a good thing. They don't waste it on things that just don't matter. When you have fewer hours you usually spend them more wisely.
-- 37signals' experiments highlight an important reality: The shallow work that increasingly dominates the time and attention ofknowledge workers is less vital than it often seems in the moment. Formost businesses, if you eliminated significant amounts of thisshallowness, their bottom line would likely remain unaffected. And asJason Fried discovered, if you not only eliminate shallow work, but also replace this recovered time with more of the deep alternative, not only will the business continue to function; it can become more successful
-****** Cognitive capacity and deep work
-- Then there's the issue of cognitive capacity. Deep work is exhausting because it pushes you toward the limit of your abilities.Performance psychologists have extensively studied how much such effortscan be sustained by an individual in a given day.* In their seminalpaper on deliberate practice, Anders Ericsson and his collaboratorssurvey these studies. They note that for someone new to such practice(citing, in particular, a child in the early stages of developing anexpert-level skill), an hour a day is a reasonable limit. For those familiar with the rigors of such activities, the limit expands to something like four hours, but rarely more
-*** Conclusion
-- A commitment to deep work is not a moral stance and it's not aphilosophical statement---it is instead a pragmatic recognition that the ability to concentrate is a skill that gets valuable things done
 ** DONE TiddlyWiki and Emacs                                                   :emacs:tiddlywiki:elisp:
 CLOSED: [2022-07-12 Tue 07:00]
 :PROPERTIES:
@@ -745,7 +1360,9 @@ for the data storage. The project itself is called [[https://github.com/dorneanu
 Every single page inside the wiki is called ~tiddler~.
 
 #+begin_quote
-On the philosophy of [[https://tiddlywiki.com/static/Philosophy%2520of%2520Tiddlers.html][tiddlers]]: "The purpose of recording and organising information is so that it can be used again. The value of recorded information is directly proportional to the ease with which it can be re-used."
+On the philosophy of [[https://tiddlywiki.com/static/Philosophy%2520of%2520Tiddlers.html][tiddlers]]: "The purpose of recording and organising information is so
+that it can be used again. The value of recorded information is directly proportional to
+the ease with which it can be re-used."
 #+end_quote
 
 A ~tiddler~ has following [[https://tiddlywiki.com/prerelease/static/TiddlyWeb%2520JSON%2520tiddler%2520format.html][format]]:
@@ -764,6 +1381,9 @@ Next I'll show you how to setup your TiddlyWiki instance.
 I have a public "digital garden" aka wiki available at https://brainfck.org
 #+end_sidenote
 **** Basic setup
+:PROPERTIES:
+:ID:       4058880f-4d92-41bf-8686-18c495b45937
+:END:
 I use ~node.js~ to run my TiddlyWiki instance.
 #+begin_sidenote
 The REST API is only available within the nodeJS environment.
@@ -967,6 +1587,9 @@ And here is the result:
 
 
 **** GET tiddler
+:PROPERTIES:
+:ID:       3fc968a6-1803-4e03-8040-a20bef62693e
+:END:
 Let's [[https://tiddlywiki.com/prerelease/static/WebServer%2520API%253A%2520Get%2520Tiddler.html][GET]] a tiddler:
 
 #+caption: Get a tiddler by name ("Emacs")
@@ -1370,6 +1993,7 @@ functionalities/ideas mentioned here. If you have anything to add/share, please 
 CLOSED: [2022-06-29 Wed 21:04]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2022-rss-atom-emacs-and-elfeed
+:ID:       e79ae462-21ae-48b9-bd6b-b084f4ec5de8
 :END:
 In [[/2022/06/13/rss-and-atom-for-digital-minimalists/][my last post]] I wrote about RSS/Atom and how these technologies can be used
 to declutter your digital life and reduce your exposure to the attention
