@@ -11,10 +11,261 @@
 #+macro: bib [[https://tw5.brainfck.org/bib.html#$1][$2]]
 #+macro: relref @@hugo:[@@ $1 @@hugo:]({{< relref "$2" >}})@@
 #+macro: titleref @@hugo:{{< titleref "$1" "@@ $2 @@hugo:" >}}@@
+# Unicode callout numbers:  ❶ ❷ ❸ ❹ ❺ ❻ ❼ ❽ ❾ ❿
 
 
 * Posts
-** DONE Migrate Tiddlywiki to org-roam - Part 1: Export Tiddlers               :tiddlywiki:org:
+** DONE Working in part-time                                                   :productivity:
+CLOSED: [2022-09-16 Fri 09:03]
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2022-working-in-part-time
+:END:
+I've recently stumbled over this wired article [1] where the benefits and drawbacks of
+having a 4-day work week were conclued from scientific research and "experiments" done in
+the field.
+
+Seems like there is a momentum recently as more companies (but also governments) around
+the world explore the benefits of the 4-day work week:
+
+#+begin_quote
+𝘓𝘢𝘴𝘵 𝘴𝘶𝘮𝘮𝘦𝘳, 𝘜𝘚 𝘙𝘦𝘱𝘳𝘦𝘴𝘦𝘯𝘵𝘢𝘵𝘪𝘷𝘦 𝘔𝘢𝘳𝘬 𝘛𝘢𝘬𝘢𝘯𝘰 (𝘋-𝘊𝘢𝘭𝘪𝘧𝘰𝘳𝘯𝘪𝘢) 𝘪𝘯𝘵𝘳𝘰𝘥𝘶𝘤𝘦𝘥
+𝘭𝘦𝘨𝘪𝘴𝘭𝘢𝘵𝘪𝘰𝘯 𝘵𝘰 𝘴𝘩𝘳𝘪𝘯𝘬 𝘵𝘩𝘦 𝘸𝘰𝘳𝘬𝘸𝘦𝘦𝘬 𝘵𝘰 32 𝘩𝘰𝘶𝘳𝘴 𝘸𝘪𝘵𝘩𝘰𝘶𝘵 𝘴𝘢𝘤𝘳𝘪𝘧𝘪𝘤𝘪𝘯𝘨 𝘱𝘢𝘺,
+𝘢𝘩𝘦𝘢𝘥 𝘰𝘧 𝘢 𝘵𝘳𝘪𝘢𝘭 𝘰𝘧 𝘵𝘩𝘦 𝘧𝘰𝘶𝘳-𝘥𝘢𝘺 𝘸𝘦𝘦𝘬 𝘪𝘯 𝘵𝘩𝘦 𝘜𝘚 𝘢𝘯𝘥 𝘊𝘢𝘯𝘢𝘥𝘢 𝘪𝘯 𝘈𝘱𝘳𝘪𝘭. 𝘐𝘯
+𝘌𝘶𝘳𝘰𝘱𝘦, 𝘢𝘯 𝘐𝘳𝘪𝘴𝘩 𝘵𝘳𝘪𝘢𝘭 𝘰𝘧 𝘵𝘩𝘦 𝘧𝘰𝘶𝘳-𝘥𝘢𝘺 𝘸𝘦𝘦𝘬 𝘬𝘪𝘤𝘬𝘦𝘥 𝘰𝘧𝘧 𝘵𝘩𝘪𝘴 𝘸𝘦𝘦𝘬, 𝘵𝘰 𝘣𝘦
+𝘧𝘰𝘭𝘭𝘰𝘸𝘦𝘥 𝘣𝘺 𝘰𝘯𝘦 𝘪𝘯 𝘵𝘩𝘦 𝘜𝘒 𝘪𝘯 𝘑𝘶𝘯𝘦. 𝘌𝘪𝘨𝘩𝘵𝘺-𝘴𝘪𝘹 𝘱𝘦𝘳𝘤𝘦𝘯𝘵 𝘰𝘧 𝘐𝘤𝘦𝘭𝘢𝘯𝘥𝘦𝘳𝘴 𝘩𝘢𝘷𝘦
+𝘢𝘭𝘳𝘦𝘢𝘥𝘺 𝘮𝘰𝘷𝘦𝘥 𝘵𝘰 𝘴𝘩𝘰𝘳𝘵𝘦𝘳 𝘩𝘰𝘶𝘳𝘴, 𝘰𝘳 𝘨𝘢𝘪𝘯𝘦𝘥 𝘵𝘩𝘦 𝘳𝘪𝘨𝘩𝘵 𝘵𝘰 𝘯𝘦𝘨𝘰𝘵𝘪𝘢𝘵𝘦 𝘧𝘰𝘳
+𝘵𝘩𝘦𝘮, 𝘢𝘧𝘵𝘦𝘳 𝘢 𝘭𝘢𝘳𝘨𝘦 𝘴𝘵𝘶𝘥𝘺 𝘧𝘰𝘶𝘯𝘥 𝘵𝘩𝘢𝘵 𝘢 𝘴𝘩𝘰𝘳𝘵𝘦𝘳 𝘸𝘰𝘳𝘬𝘸𝘦𝘦𝘬 𝘪𝘮𝘱𝘳𝘰𝘷𝘦𝘥
+𝘸𝘦𝘭𝘭-𝘣𝘦𝘪𝘯𝘨, 𝘴𝘵𝘳𝘦𝘴𝘴, 𝘢𝘯𝘥 𝘣𝘶𝘳𝘯𝘰𝘶𝘵 𝘸𝘪𝘵𝘩𝘰𝘶𝘵 𝘴𝘢𝘤𝘳𝘪𝘧𝘪𝘤𝘪𝘯𝘨 𝘱𝘳𝘰𝘥𝘶𝘤𝘵𝘪𝘷𝘪𝘵𝘺. [1]
+#+end_quote
+
+Wherever part-time was allowed employees saw it as a mixed blessing: While others
+considered it a "godsend" others found it rather stressful to do the same amount of work
+within less time. But reducing work hours while having the same work-load on your plate
+misses the point. Part-time is not only about work-life balance as perceived by the
+majority:
+
+#+begin_quote
+"𝘈𝘯𝘥𝘳𝘦𝘸 𝘉𝘢𝘳𝘯𝘦𝘴, 𝘤𝘰𝘧𝘰𝘶𝘯𝘥𝘦𝘳 𝘰𝘧 𝘵𝘩𝘦 𝘯𝘰𝘯𝘱𝘳𝘰𝘧𝘪𝘵 *4 𝘋𝘢𝘺 𝘞𝘦𝘦𝘬 𝘎𝘭𝘰𝘣𝘢𝘭*, 𝘴𝘢𝘺𝘴 𝘵𝘩𝘦 𝘮𝘦𝘢𝘴𝘶𝘳𝘦 𝘪𝘴 “𝘯𝘰𝘵
+𝘢𝘣𝘰𝘶𝘵 𝘸𝘰𝘳𝘬-𝘭𝘪𝘧𝘦 𝘣𝘢𝘭𝘢𝘯𝘤𝘦. *𝘛𝘩𝘪𝘴 𝘪𝘴 𝘢 𝘷𝘦𝘳𝘺 𝘴𝘦𝘯𝘴𝘪𝘣𝘭𝘦, 𝘳𝘢𝘵𝘪𝘰𝘯𝘢𝘭 𝘣𝘶𝘴𝘪𝘯𝘦𝘴𝘴 𝘱𝘳𝘢𝘤𝘵𝘪𝘤𝘦 𝘵𝘩𝘢𝘵 𝘪𝘮𝘱𝘳𝘰𝘷𝘦𝘴
+𝘺𝘰𝘶𝘳 𝘱𝘳𝘰𝘥𝘶𝘤𝘵𝘪𝘷𝘪𝘵𝘺 𝘢𝘯𝘥 𝘱𝘳𝘰𝘧𝘪𝘵𝘢𝘣𝘪𝘭𝘪𝘵𝘺 𝘣𝘺 𝘨𝘪𝘷𝘪𝘯𝘨 𝘺𝘰𝘶𝘳 𝘴𝘵𝘢𝘧𝘧 𝘮𝘰𝘳𝘦 𝘵𝘪𝘮𝘦 𝘰𝘧𝘧*.” 𝘉𝘢𝘳𝘯𝘦𝘴’
+𝘰𝘳𝘨𝘢𝘯𝘪𝘻𝘢𝘵𝘪𝘰𝘯, 𝘸𝘩𝘪𝘤𝘩 𝘪𝘴 𝘸𝘰𝘳𝘬𝘪𝘯𝘨 𝘸𝘪𝘵𝘩 𝘶𝘯𝘪𝘷𝘦𝘳𝘴𝘪𝘵𝘺 𝘳𝘦𝘴𝘦𝘢𝘳𝘤𝘩𝘦𝘳𝘴 𝘵𝘰 𝘵𝘦𝘴𝘵 𝘵𝘩𝘦 𝘧𝘰𝘶𝘳-𝘥𝘢𝘺 𝘸𝘦𝘦𝘬
+𝘢𝘤𝘳𝘰𝘴𝘴 𝘥𝘪𝘧𝘧𝘦𝘳𝘦𝘯𝘵 𝘪𝘯𝘥𝘶𝘴𝘵𝘳𝘪𝘦𝘴, 𝘱𝘳𝘰𝘮𝘰𝘵𝘦𝘴 𝘵𝘩𝘦 *100/80/100 𝘮𝘰𝘥𝘦𝘭: 100 𝘱𝘦𝘳𝘤𝘦𝘯𝘵 𝘱𝘳𝘰𝘥𝘶𝘤𝘵𝘪𝘷𝘪𝘵𝘺 𝘪𝘯 80
+𝘱𝘦𝘳𝘤𝘦𝘯𝘵 𝘰𝘧 𝘵𝘩𝘦 𝘵𝘪𝘮𝘦 𝘸𝘪𝘵𝘩 100 𝘱𝘦𝘳𝘤𝘦𝘯𝘵 𝘱𝘢𝘺*. 𝘔𝘢𝘯𝘢𝘨𝘦𝘳𝘴’ 𝘣𝘪𝘨𝘨𝘦𝘴𝘵 𝘤𝘰𝘯𝘵𝘳𝘪𝘣𝘶𝘵𝘪𝘰𝘯 𝘵𝘦𝘯𝘥𝘴 𝘵𝘰 𝘣𝘦
+𝘴𝘭𝘢𝘴𝘩𝘪𝘯𝘨 𝘵𝘩𝘦 𝘯𝘶𝘮𝘣𝘦𝘳 𝘢𝘯𝘥 𝘭𝘦𝘯𝘨𝘵𝘩 𝘰𝘧 𝘮𝘦𝘦𝘵𝘪𝘯𝘨𝘴. “𝘊𝘰𝘶𝘭𝘥 𝘵𝘩𝘪𝘴 𝘮𝘦𝘦𝘵𝘪𝘯𝘨 𝘣𝘦 𝘢𝘯 𝘦𝘮𝘢𝘪𝘭?” 𝘸𝘢𝘴 𝘢
+𝘱𝘰𝘱𝘶𝘭𝘢𝘳 𝘳𝘦𝘧𝘳𝘢𝘪𝘯 𝘢𝘮𝘰𝘯𝘨 𝘵𝘩𝘦 𝘦𝘮𝘱𝘭𝘰𝘺𝘦𝘦𝘴 𝘞𝘐𝘙𝘌𝘋 𝘴𝘱𝘰𝘬𝘦 𝘵𝘰" [1]
+#+end_quote
+
+For the same reason I've put together these lines because many friends and (ex-)colleagues
+have reported some aversion towards part-time from their employers. I think employers
+should stop seeing part-time as some exotic type of work. Instead they should embrace
+flexible models and encourage their staff to work less and/or more efficiently.
+
+Knowledge work (as the majority of us in the IT industry deals with) cannot be compared to
+typical "industrial work" with regard to the hours we spend working: Knowledge workers do
+not sit at the assembly lines and are expected to do X "amount of work" within a period of
+time. This is not how the creative process of programming, setting up a new
+infrastructure, come up with a new software design works like. Really "deep" work (a
+concept introduced by Cal Newport [2]) is about tackling hard things and to produce at an
+elite level, in terms of quality and speed.
+
+So it's not only about the time you spend working, but also about the quality of work
+you're delivering. As for the time factor I can definitely say that when you squeeze the
+same amount of work into less time, work (seen as the quality of your results)
+intensifies. Working less - I mean the amount of time you have available to get something
+done - also means you cannot afford spending to much time in meetings, having X coffee
+breaks etc. While I'm still convinced that the social benefits of fiddling around with
+your colleagues, having lunch together, do some chit-chat are essential for a good work
+environment (and for your own well-being), part-time forces me to allocate my time more
+wisely.
+
+#+begin_quote
+"𝘞𝘩𝘦𝘯 𝘸𝘰𝘳𝘬 𝘪𝘴 𝘴𝘲𝘶𝘦𝘦𝘻𝘦𝘥 𝘪𝘯𝘵𝘰 𝘧𝘰𝘶𝘳 𝘥𝘢𝘺𝘴, 𝘵𝘩𝘦 𝘩𝘶𝘮𝘢𝘯 𝘪𝘯𝘵𝘦𝘳𝘢𝘤𝘵𝘪𝘰𝘯𝘴 𝘵𝘩𝘢𝘵 𝘧𝘪𝘭𝘭 𝘵𝘩𝘦 𝘪𝘯𝘵𝘦𝘳𝘴𝘵𝘪𝘵𝘪𝘢𝘭
+𝘵𝘪𝘮𝘦 𝘤𝘢𝘯 𝘴𝘶𝘧𝘧𝘦𝘳. “𝘛𝘩𝘦𝘳𝘦 𝘸𝘢𝘴𝘯’𝘵 𝘵𝘪𝘮𝘦 𝘧𝘰𝘳 𝘣𝘢𝘯𝘵𝘦𝘳,” 𝘴𝘢𝘪𝘥 𝘰𝘯𝘦 𝘦𝘮𝘱𝘭𝘰𝘺𝘦𝘦 𝘸𝘩𝘰𝘴𝘦 𝘴𝘵𝘢𝘳𝘵𝘶𝘱 𝘮𝘢𝘥𝘦 𝘵𝘩𝘦
+𝘴𝘸𝘪𝘵𝘤𝘩. 𝘈𝘯𝘰𝘵𝘩𝘦𝘳 𝘴𝘢𝘪𝘥 𝘵𝘩𝘢𝘵 𝘩𝘦 𝘯𝘰 𝘭𝘰𝘯𝘨𝘦𝘳 𝘩𝘢𝘥 “𝘵𝘪𝘮𝘦 𝘵𝘰 𝘥𝘢𝘺𝘥𝘳𝘦𝘢𝘮 𝘢𝘵 𝘸𝘰𝘳𝘬.”" - [1]
+#+end_quote
+
+While I work 4 days a week and compress lots of talks within less available time, I can
+completely 𝘥𝘦𝘤𝘰𝘮𝘱𝘳𝘦𝘴𝘴 again for the remaining 3 days. This allows me to take care of my
+mental health, exercise more, spend more time with family and recharge my batteries for
+the next week. This is a win-win situation for both parties: I indeed have a work-life
+balance which allows me to focus on the things that matter and prioritize my activies
+effectively.
+
+So part-time is not only about working less. It's more a commitment towards better
+productivity, efficiency and self-care.
+
+
+Links:
+- [1] https://www.wired.com/story/four-day-week-burnout/?utm_brand=wired&utm_social-type=owned&mbid=social_twitter&utm_medium=social&utm_source=twitter
+- [2] https://brainfck.org/book/deep-work/
+
+** TODO Migrate Tiddlywiki to org-roam - Part 2: org-roam and hugo             :hugo:pkms:tiddlywiki:
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2022-migrate-tiddlywiki-to-org-roam-part-2
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :series '("Migrate Tiddlywiki to org-roam")
+:END:
+*** hugo
+Preparing hugo related steps
+**** Backlinks
+Backlinks are an essential feature that let you visualize inter-connected content.
+Whenever I set a link to another ~org-roam~ node in an ORG file, the exported markdown content will look like this:
+
+#+caption: Excerpt from my journal entry [[https://brainfck.org/j/2022-09-05][2022-09-05]]
+#+begin_src markdown
+...
+-   2022-09-05 ◦ [Authenticating SSH via User Certificates (server) · Yubikey Handbook](https://ruimarinho.gitbooks.io/yubikey-handbook/content/ssh/authenticating-ssh-via-user-certificates-server/)  ([SSH]({{</* relref "../topics/ssh.md" */>}}))
+...
+#+end_src
+
+You can see I've set a reference to [[https://brainfck.org/t/ssh][SSH]] which looks like this:
+
+#+begin_src
+[SSH]({{</* relref "../topics/ssh.md" */>}})
+#+end_src
+
+The question is: For a given node/topic how can we find all nodes containing a link to current node? Well we can parse
+content and actually /search/ for that specific topic. In ~hugo~ you can something like this:
+
+#+caption: hugo partial to scan for backlinks for a given page
+#+begin_src go
+...
+{{ $re := printf `["/(]%s.+["/)]` .page.File.LogicalName | lower }} ❶
+{{ $backlinks := slice }}
+
+{{ range where site.RegularPages "RelPermalink" "ne" .page.RelPermalink }}
+{{ if (findRE $re .RawContent 1) }}                                 ❷
+        {{ $backlinks = $backlinks | append . }}                    ❸
+    {{ end }}
+{{ end }}
+#+end_src
+
+- ❶ ~.page.File.LogicalName~ is sth like ~ssh.md~
+  - ~`["/(]%s.+["/)]` .page.File.LogicalName | lower~ will then yield ~`["/(]ssh.md.+["/)]`~
+- ❷ find any lines containing the logical file name (~ssh.md~) inside parantheses
+  - examples: [ssh.md], "ssh.md", (ssh.md)
+- ❸ if we have any matches add page to ~$backlinks~ slice
+
+Let's have a look at the regular expression. Therefore I'll use some ~Go~ snippets to test the regexp:
+#+begin_sidenote
+You can also play [[https://regex101.com/r/agR7Ko/2][here]].
+#+end_sidenote
+
+#+caption: Small Go utility to test our regexp against some common use cases.
+#+begin_src go :results src replace :wrap src :exports both
+package main
+
+import (
+    "fmt"
+    "regexp"
+)
+
+func main() {
+    pattern := regexp.MustCompile(`(?i)["/(]ssh.md.+["/)]`)
+    inputs := []string{
+        "[SSH]({{</* relref \"../topics/ssh.md\" */>}})",
+        "[we mention SSH in the link description]({{</* relref \"../topics/ssh.md\" */>}})",
+        "[no mention at all]({{</* relref \"../topics/ssh.md\" */>}})",
+        "[no mention at all, also in the ref]({{</* relref \"../topics/other.md\" */>}})",
+    }
+
+    for _, i := range inputs {
+        matches := pattern.FindAllString(i, -1)
+        if len(matches) > 0 {
+            fmt.Println(matches)
+        }
+    }
+}
+#+end_src
+
+#+RESULTS:
+#+begin_src
+[/ssh.md" */>}})]
+[/ssh.md" */>}})]
+[/ssh.md" */>}})]
+#+end_src
+
+Once we have populated the ~backlinks~ slice with a list of pages backlinking to current page
+we can then search inside the page content for exactly the lines containing the backlink:
+
+#+begin_src go
+{{ $content_re := printf `.*\[%s\].*` .page.Title }}                    ❶
+...
+    {{ range $backlinks }}
+        {{ $matches := findRE $content_re .RawContent}}
+            <li class="lh-copy"><a class="link f5" href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+            {{ if $matches }}                                           ❷
+                <blockquote>
+                    {{ range $matches }}
+                    {{ . | markdownify }}
+                    {{ end }}
+                </blockquote>
+        {{ end }}
+    {{ end }}
+...
+#+end_src
+
+- ❶: We search for any line containing the current page title
+- ❷: If we have any matches we call ~markdownify~ against that line
+
+And this is how the result [[https://brainfck.org/t/ssh][looks like]]:
+
+#+html: {{< gbox src="/posts/img/2022/migrate-tiddlywiki-to-org-roam/backlinks.png" title="Backlinks for the SSH page" caption="For any available hugo page/node we search for backlinks. These are the backlinks for the SSH topic: https://brainfck.org/t/ssh " pos="left" >}}
+
+
+For the sake of completeness here's the full [[https://github.com/dorneanu/roam/blob/main/layouts/partials/backlinks.html][backlinks partial]]:
+
+#+caption: hugo partial for generating backlinks
+#+begin_src html
+{{ $re := printf `["/(]%s.+["/)]` .page.File.LogicalName | lower }}
+{{ $content_re := printf `.*\[%s\].*` .page.Title }}
+{{ $backlinks := slice }}
+
+{{ range where site.RegularPages "RelPermalink" "ne" .page.RelPermalink }}
+    {{ if (findRE $re .RawContent 1) }}
+        {{ $backlinks = $backlinks | append . }}
+    {{ end }}
+{{ end }}
+
+<hr>
+{{ if gt (len $backlinks) 0 }}
+<div class="bl-section">
+    <h3>Links to this note</h3>
+    <div class="backlinks">
+        <ul>
+            {{ range $backlinks }}
+                {{ $matches := findRE $content_re .RawContent}}
+                    <li class="lh-copy"><a class="link f5" href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+                    {{ if $matches }}
+                        <blockquote>
+                            {{ range $matches }}
+                            {{ . | markdownify }}
+                            {{ end }}
+                        </blockquote>
+                {{ end }}
+            {{ end }}
+        </ul>
+    </div>
+</div>
+{{ else }}
+<div class="bl-section">
+    <h4>No notes link to this note</h4>
+</div>
+{{ end }}
+#+end_src
+
+As a last step I had to make use of this partial in my [[https://github.com/dorneanu/roam/blob/main/layouts/_default/single.html][single.html]] template:
+
+#+caption: In order to use the backlinks partial, you'll have to embed in your ~single~ template.
+#+begin_src html
+...
+
+  <div class="lh-copy post-content">{{ .Content }}</div>
+  {{ partial "backlinks.html" (dict "page" .) }}
+
+...
+#+end_src
+*** org-roam
+** DONE Migrate Tiddlywiki to org-roam - Part 1: Export Tiddlers               :tiddlywiki:org:pkms:
 CLOSED: [2022-09-03 Sat 22:04]
 :PROPERTIES:
 :header-args: :dir /cs/priv/repos/tiddlywiki-migrator :exports both :results output replace :eval no-export
@@ -51,7 +302,7 @@ While I initially started using just one /single/ HTML file for my
 tiddlers, I soon switched over to the [[https://tiddlywiki.com/static/Node.js.html][nodeJS installation]]. This still
 has better benefits like:
 - you can run the instance in [[id:4058880f-4d92-41bf-8686-18c495b45937][Docker]]
-  - install ~tiddlywiki~ and its dependencies without messing around with your system
+  - install ~tiddlywiki~ and its dependencies *without* messing around with your system
 - you'll get multiple "flat" files (~.tid~ files are in /plain text/)
   - you can apply ~sed~, ~awk~, ~bash~ /foo/ to extract/modify data
   - even if Tiddlywiki will be discontinued some day, you'll still be able to import your notes in whatever note-taking syntax
@@ -59,16 +310,20 @@ has better benefits like:
 #+html: {{< gbox src="/posts/img/2022/migrate-tiddlywiki-to-org-roam/brainfck-20220903-tw5.png" title="old brainfck - Now available at https://tw5.brainfck.org" caption="" pos="left" >}}
 
 
-Among the many packages I've used, [[https://giffmex.org/stroll/stroll.html][stroll]] has definitely changed the way
-I interacted with Tiddlywiki. It allowed me to /focus/ more on the note-taking process
-by dividing the screen into 2 columns. This allowed me to work on different tiddlers
-simultaneously. Still it took me hours to process my notes and digitize them into Tiddlywiki. I guess the UI kind of slowed me down, mostly because I'm a /keyboard-centric/
-user and don't use the mouse that often. Switching between tiddlers, closing them, creating
-new ones always involved /mouse interaction/.
+Among the many packages I've used, [[https://giffmex.org/stroll/stroll.html][stroll]] has definitely changed the way I interacted with
+Tiddlywiki. It allowed me to /focus/ more on the note-taking process by dividing the screen
+into 2 columns. This allowed me to work on different tiddlers simultaneously. Still it
+took me hours to process my notes and digitize them into Tiddlywiki. I guess the UI kind
+of slowed me down, mostly because I'm a /keyboard-centric/ user and don't use the mouse that
+often. Switching between tiddlers, closing them, creating new ones always involved /mouse
+interaction/.
 
 #+html: {{< gbox src="/posts/img/2022/migrate-tiddlywiki-to-org-roam/tiddlywiki-stroll.png" title="Tiddlywiki using stroll" caption="stroll allowed you to split the screen into multiple columns, backlinks are automatically shown." pos="left" >}}
 
-For the same reason I've been using VIM for more than a decade and since more than 2 years I'm happy to consider myself an [[https://www.emacswiki.org/emacs/Evil][evil]] Emacs user. It became not only my primary editor, but also my [[id:e79ae462-21ae-48b9-bd6b-b084f4ec5de8][RSS feeds reader]], mail client, YouTube video player, IDE, API client... I basically live in Emacs
+For the same reason I've been using VIM for more than a decade and since more than 2 years
+I'm happy to consider myself an [[https://www.emacswiki.org/emacs/Evil][evil]] Emacs user. It became not only my primary editor, but
+also my [[id:e79ae462-21ae-48b9-bd6b-b084f4ec5de8][RSS feeds reader]], mail client, YouTube video player, IDE, API client... I
+basically live in Emacs
 #+begin_sidenote
 Here is my [[https://github.com/dorneanu/dotfiles/blob/master/dot_doom.d/config.org][config.org]]
 #+end_sidenote
@@ -503,8 +758,9 @@ Basically I wanted to merge every tiddler into one ~ORG~ file.
 #+caption: Merge every single tiddler related to 1984 into one big ORG file.
 [[/posts/img/2022/migrate-tiddlywiki-to-org-roam/book-tiddlers.png]]
 
-Instead of applying some ~sed~ & ~awk~ magic, I decided to use Tiddlywikis internal templating system. The [[http://tw5.brainfck.org/#%24%3A%2Fcore%2Ftemplates%2Fstatic.tiddler.html][$:/core/templates/static.tiddler.html]] template for examples defines how a single tiddler should be exported
-to its corresponding HTML file:
+Instead of applying some ~sed~ & ~awk~ magic, I decided to use Tiddlywikis internal templating
+system. The [[http://tw5.brainfck.org/#%24%3A%2Fcore%2Ftemplates%2Fstatic.tiddler.html][$:/core/templates/static.tiddler.html]] template for examples defines how a
+single tiddler should be exported to its corresponding HTML file:
 
 #+begin_src html
 \define tv-wikilink-template() $uri_doubleencoded$.html
@@ -793,7 +1049,6 @@ And this is the final [[https://brainfck.org/book/1984/][result]].
 I intentionally didn't add content in the ~Notes~ section to the sub-nodes. In the next post
 I'll explain how I managed to quickly review my notes using ~Emacs~ and some ~Elisp~ and add content on the go.
 
-** TODO Migrate Tiddlywiki to org-roam - Part 2
 ** DONE Book summary: Building Microservices (2nd Edition)                     :books:microservices:architecture:
 CLOSED: [2022-08-10 Wed 21:47]
 :PROPERTIES:
