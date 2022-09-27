@@ -15,7 +15,8 @@
 
 
 * Posts
-** TODO Book summary: Building a Second Brain                                  :books:pkms:
+** DONE Book summary: Building a Second Brain                                  :books:pkms:
+CLOSED: [2022-09-27 Tue 20:55]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2022-book-summary-building-a-second-brain
 :END:
@@ -34,7 +35,7 @@ learning complicated things. This task requires deepwork. If you don't cultivate
 this ability, you're likely to fall behind as technology advances.
 -- [[https://brainfck.org/book/deep-work][Deep Work]]
 #+end_quote
-
+*** Commonplace books
 Dealing with different kinds of input (books, articles, mails, messages etc.) can be
 exhausting and has a direct influence on your attention span. Individualized and
 internalized workflows how to deal with content/information definitely leads to better
@@ -50,14 +51,45 @@ Your brain is for having ideas, not for holding them
 -- [[https://brainfck.org/book/getting-things-done-the-art-of-stress-free-productivity/][Getting Things Done - The Art of Stress-Free Productivity]]
 #+end_quote
 
-Nowadays the /digital/ version of the commonplace book is the [[https://brainfck.org/book/building-a-second-brain/#commonplace-books][Second Brain]]. It's a combination
-of a study notebook, personal journal, sketchbook, collection of bookmarks etc. You can use it in different *contexts* (such as /work/, /personal/) and its main purpose is to *organize* knowledge while allowing you to
+Nowadays the /digital/ version of the commonplace book is the [[https://brainfck.org/book/building-a-second-brain/#commonplace-books][Second Brain]].
+#+begin_sidenote
+Other popular terms: Zettelkasten (slip box in German), memex, braindump or digital garden.
+#+end_sidenote
+It's a combination of a study notebook, personal journal, sketchbook, collection of
+bookmarks etc. You can use it in different *contexts* (such as /work/, /personal/) and its main
+purpose is to *organize* knowledge while allowing you to
 - make ideas concrete
 - reveal new associations between ideas
 - incubate ideas over time
 - sharpen unique perspectives
 - most important: *take* action
 
+*** P.A.R.A. method
+Tiago has developed his own system how to organize information. Information is organized based on how /actionable/ it is and not on its /type/ or /kind/. That's why it's so universal and applicable for almost every profession or field.
+
+[[https://brainfck.org/book/building-a-second-brain/#para][P.A.R.A.]] is more like a /production/ system. You won't be able to always find the /right/ place
+where a note belongs to. The category you initially put a note to, might change depending
+on your current projects and however your thoughts change in /life/. Every piece of
+information can be put into one of following categories:
+
+- *Projects*
+  - current tasks you're actually working on (short-term efforts)
+- *Areas*
+  - Reponsibilities you want to manage over time (long-term efforts)
+- *Resources*
+  - Topics/Interests that might be useful in the future
+  - What topics are you interested in?
+    - Architecture; Interior design; English literature; Beer brewing.
+  - What subjects are you researching?
+    - Habit formation; Notetaking; Project management; Nutrition.
+  - What useful information do you want to be able to reference?
+    - Vacation itineraries; Life goals; Stock photos; Product testimonials.
+  - Hobbies
+  - Passions
+- *Archives*
+  - /Inactive/ items from the categories above
+
+*** Zettelkasten vs P.A.R.A.
 I used to call my knowledge database
 #+begin_sidenote
 Or PKMS (Personal Knowledge Management System)
@@ -66,7 +98,24 @@ a Zettelkasten
 #+begin_sidenote
 [[https://en.wikipedia.org/wiki/Zettelkasten][Niklas Luhmann]] used one to write his many books. I can definitely recommend "[[https://www.goodreads.com/en/book/show/34507927-how-to-take-smart-notes][How to take notes]]" (Söhnke Ahrens) (german: [[https://brainfck.org/book/das-zettelkasten-prinzip/][Das Zettelkasten-Prinzip]]) for further reading.
 #+end_sidenote
-(engl. slip box)
+(engl. slip box). I think the /Zettelkasten/ approach appeals more with /creative writing/ since it allows you to interconnect ideas easily due to the flat hierarchy between notes. /Zettelkasten/ is a note-taking method designed to spark new ideas, whereas /P.A.R.A./ is a way of organizing files and content for a specific project.
+
+Since the /Zettelkasten/ expects you to have links between your /zettels/, you should be able to "browse" your
+thoughts/notes easily while looking for new ideas. This way the /Zettelkasten/ makes it easy to create new
+content (articles, essays, books) and put together thoughts/concepts since you have already done the hard work of summarizing content and creating new links. /P.A.R.A./ instead is more for the lazy ones: It doesn't force you to summarize
+#+begin_sidenote
+Read more about [[https://brainfck.org/t/progressive-summarization/][Progressive Summarization]]
+#+end_sidenote
+your notes until you really need them. While you might collect notes for a specific project you're working on,
+you could reuse these in a different one (as an [[https://brainfck.org/book/building-a-second-brain/#intermediate-packets][intermediate packet]]).
+*** Conclusion
+Around 2019 I came across the [[https://fortelabs.com/blog/para/][P.A.R.A. method]] as I was searching for a system how to organize highlights from different books. Later on I've read about [[https://brainfck.org/book/das-zettelkasten-prinzip/][Zettelkasten]] and implemented it using [[https://tw5.brainfck.org][TiddlyWiki]]. This year I was quite excited when I first saw "[[https://brainfck.org/book/building-a-second-brain/#intermediate-packets][Building a Second Brain]]" on goodreads.
+
+Overall I think it's an awesome resource for everyone starting in the PKMS world. /P.A.R.A./ is easy to apply, universal and applicable for every domain. After reading the book, I as well started to rethink my Tiddlywiki setup (which lead me to [[https://www.orgroam.com/][org-roam]]) and focus more on /projects/: I collect notes, ideas for a specific project and before I do the kick-off I make sure I have everything I need to start and also finish the project.
+
+#+html:{{< notice info >}}
+You can also have a look at my [[https://brainfck.org/book/building-a-second-brain/][literature notes]] at [[https://brainfck.org/book/building-a-second-brain/#intermediate-packets][brainfck.org]]
+#+html:{{< /notice >}}
 
 ** DONE Working in part-time                                                   :productivity:
 CLOSED: [2022-09-16 Fri 09:03]
