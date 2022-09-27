@@ -2,7 +2,7 @@
 title = "Book summary: Building a Second Brain"
 author = ["Victor Dorneanu"]
 date = 2022-09-27T20:55:00+02:00
-lastmod = 2022-09-27T21:00:43+02:00
+lastmod = 2022-09-27T21:13:03+02:00
 tags = ["books", "pkms"]
 draft = false
 +++
@@ -28,6 +28,8 @@ Dealing with different kinds of input (books, articles, mails, messages etc.) ca
 exhausting and has a direct influence on your attention span. Individualized and
 internalized workflows how to deal with content/information definitely leads to better
 attention control, better productivity, release of cognitive resources.
+
+{{< figure src="/posts/img/2022/building-second-brain/building-a-second-brain.png" caption="<span class=\"figure-number\">Figure 1: </span>\"Building a Second Brain\" by Tiago Forte" >}}
 
 Before we had information overload, the [commonplace book](https://brainfck.org/book/building-a-second-brain/#commonplace-books) a diary or a journal of personal
 _reflections_. While it became popular in the _Industrial Revolution_ (18th/19th century) it was

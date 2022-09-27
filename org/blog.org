@@ -20,6 +20,7 @@ CLOSED: [2022-09-27 Tue 20:55]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2022-book-summary-building-a-second-brain
 :END:
+
 In my previous post I've writen about /knowledge work/ and how its output cannot be measured
 in a linear manner. For knowledge workers *information* is their most valuable capital, yet
 everyone is desperately looking for a system to manage the continous influx of information
@@ -40,6 +41,9 @@ Dealing with different kinds of input (books, articles, mails, messages etc.) ca
 exhausting and has a direct influence on your attention span. Individualized and
 internalized workflows how to deal with content/information definitely leads to better
 attention control, better productivity, release of cognitive resources.
+
+#+caption: "Building a Second Brain" by Tiago Forte
+[[/posts/img/2022/building-second-brain/building-a-second-brain.png]]
 
 Before we had information overload, the [[https://brainfck.org/book/building-a-second-brain/#commonplace-books][commonplace book]] a diary or a journal of personal
 /reflections/. While it became popular in the /Industrial Revolution/ (18th/19th century) it was
