@@ -15,202 +15,199 @@
 
 
 * Posts
-** DONE Book summary: Building a Second Brain                                  :books:pkms:
-CLOSED: [2022-09-27 Tue 20:55]
-:PROPERTIES:
-:EXPORT_FILE_NAME: 2022-book-summary-building-a-second-brain
-:END:
-
-In my previous post I've writen about /knowledge work/ and how its output cannot be measured
-in a linear manner. For knowledge workers *information* is their most valuable capital, yet
-everyone is desperately looking for a system to manage the continous influx of information
-pouring into their brains.
-
-We spend a tremendous amount of time /managing/ huge amounts of information and /searching/
-for the right piece of knowledge. At the same time we are supposed to work at high
-standards (fast and continously) and keep up with emerging technologies.
-
-#+begin_quote
-To remain valuable in our economy, therefore, you must master the art of quickly
-learning complicated things. This task requires deepwork. If you don't cultivate
-this ability, you're likely to fall behind as technology advances.
--- [[https://brainfck.org/book/deep-work][Deep Work]]
-#+end_quote
-*** Commonplace books
-Dealing with different kinds of input (books, articles, mails, messages etc.) can be
-exhausting and has a direct influence on your attention span. Individualized and
-internalized workflows how to deal with content/information definitely leads to better
-attention control, better productivity, release of cognitive resources.
-
-#+caption: "Building a Second Brain" by Tiago Forte
-[[/posts/img/2022/building-second-brain/building-a-second-brain.png]]
-
-Before we had information overload, the [[https://brainfck.org/book/building-a-second-brain/#commonplace-books][commonplace book]] a diary or a journal of personal
-/reflections/. While it became popular in the /Industrial Revolution/ (18th/19th century) it was
-mainly used by the educated class to understand "a rapidly changing world and their place in
-society".
-
-#+begin_quote
-Your brain is for having ideas, not for holding them
--- [[https://brainfck.org/book/getting-things-done-the-art-of-stress-free-productivity/][Getting Things Done - The Art of Stress-Free Productivity]]
-#+end_quote
-
-Nowadays the /digital/ version of the commonplace book is the [[https://brainfck.org/book/building-a-second-brain/#commonplace-books][Second Brain]].
-#+begin_sidenote
-Other popular terms: Zettelkasten (slip box in German), memex, braindump or digital garden.
-#+end_sidenote
-It's a combination of a study notebook, personal journal, sketchbook, collection of
-bookmarks etc. You can use it in different *contexts* (such as /work/, /personal/) and its main
-purpose is to *organize* knowledge while allowing you to
-- make ideas concrete
-- reveal new associations between ideas
-- incubate ideas over time
-- sharpen unique perspectives
-- most important: *take* action
-
-*** P.A.R.A. method
-Tiago has developed his own system how to organize information. Information is organized based on how /actionable/ it is and not on its /type/ or /kind/. That's why it's so universal and applicable for almost every profession or field.
-
-[[https://brainfck.org/book/building-a-second-brain/#para][P.A.R.A.]] is more like a /production/ system. You won't be able to always find the /right/ place
-where a note belongs to. The category you initially put a note to, might change depending
-on your current projects and however your thoughts change in /life/. Every piece of
-information can be put into one of following categories:
-
-- *Projects*
-  - current tasks you're actually working on (short-term efforts)
-- *Areas*
-  - Reponsibilities you want to manage over time (long-term efforts)
-- *Resources*
-  - Topics/Interests that might be useful in the future
-  - What topics are you interested in?
-    - Architecture; Interior design; English literature; Beer brewing.
-  - What subjects are you researching?
-    - Habit formation; Notetaking; Project management; Nutrition.
-  - What useful information do you want to be able to reference?
-    - Vacation itineraries; Life goals; Stock photos; Product testimonials.
-  - Hobbies
-  - Passions
-- *Archives*
-  - /Inactive/ items from the categories above
-
-*** Zettelkasten vs P.A.R.A.
-I used to call my knowledge database
-#+begin_sidenote
-Or PKMS (Personal Knowledge Management System)
-#+end_sidenote
-a Zettelkasten
-#+begin_sidenote
-[[https://en.wikipedia.org/wiki/Zettelkasten][Niklas Luhmann]] used one to write his many books. I can definitely recommend "[[https://www.goodreads.com/en/book/show/34507927-how-to-take-smart-notes][How to take notes]]" (Söhnke Ahrens) (german: [[https://brainfck.org/book/das-zettelkasten-prinzip/][Das Zettelkasten-Prinzip]]) for further reading.
-#+end_sidenote
-(engl. slip box). I think the /Zettelkasten/ approach appeals more with /creative writing/ since it allows you to interconnect ideas easily due to the flat hierarchy between notes. /Zettelkasten/ is a note-taking method designed to spark new ideas, whereas /P.A.R.A./ is a way of organizing files and content for a specific project.
-
-Since the /Zettelkasten/ expects you to have links between your /zettels/, you should be able to "browse" your
-thoughts/notes easily while looking for new ideas. This way the /Zettelkasten/ makes it easy to create new
-content (articles, essays, books) and put together thoughts/concepts since you have already done the hard work of summarizing content and creating new links. /P.A.R.A./ instead is more for the lazy ones: It doesn't force you to summarize
-#+begin_sidenote
-Read more about [[https://brainfck.org/t/progressive-summarization/][Progressive Summarization]]
-#+end_sidenote
-your notes until you really need them. While you might collect notes for a specific project you're working on,
-you could reuse these in a different one (as an [[https://brainfck.org/book/building-a-second-brain/#intermediate-packets][intermediate packet]]).
-*** Conclusion
-Around 2019 I came across the [[https://fortelabs.com/blog/para/][P.A.R.A. method]] as I was searching for a system how to organize highlights from different books. Later on I've read about [[https://brainfck.org/book/das-zettelkasten-prinzip/][Zettelkasten]] and implemented it using [[https://tw5.brainfck.org][TiddlyWiki]]. This year I was quite excited when I first saw "[[https://brainfck.org/book/building-a-second-brain/#intermediate-packets][Building a Second Brain]]" on goodreads.
-
-Overall I think it's an awesome resource for everyone starting in the PKMS world. /P.A.R.A./ is easy to apply, universal and applicable for every domain. After reading the book, I as well started to rethink my Tiddlywiki setup (which lead me to [[https://www.orgroam.com/][org-roam]]) and focus more on /projects/: I collect notes, ideas for a specific project and before I do the kick-off I make sure I have everything I need to start and also finish the project.
-
-#+html:{{< notice info >}}
-You can also have a look at my [[https://brainfck.org/book/building-a-second-brain/][literature notes]] at [[https://brainfck.org/book/building-a-second-brain/#intermediate-packets][brainfck.org]]
-#+html:{{< /notice >}}
-
-** DONE Working in part-time                                                   :productivity:
-CLOSED: [2022-09-16 Fri 09:03]
-:PROPERTIES:
-:EXPORT_FILE_NAME: 2022-working-in-part-time
-:END:
-I've recently stumbled over this wired article [1] where the benefits and drawbacks of
-having a 4-day work week were conclued from scientific research and "experiments" done in
-the field.
-
-Seems like there is a momentum recently as more companies (but also governments) around
-the world explore the benefits of the 4-day work week:
-
-#+begin_quote
-𝘓𝘢𝘴𝘵 𝘴𝘶𝘮𝘮𝘦𝘳, 𝘜𝘚 𝘙𝘦𝘱𝘳𝘦𝘴𝘦𝘯𝘵𝘢𝘵𝘪𝘷𝘦 𝘔𝘢𝘳𝘬 𝘛𝘢𝘬𝘢𝘯𝘰 (𝘋-𝘊𝘢𝘭𝘪𝘧𝘰𝘳𝘯𝘪𝘢) 𝘪𝘯𝘵𝘳𝘰𝘥𝘶𝘤𝘦𝘥
-𝘭𝘦𝘨𝘪𝘴𝘭𝘢𝘵𝘪𝘰𝘯 𝘵𝘰 𝘴𝘩𝘳𝘪𝘯𝘬 𝘵𝘩𝘦 𝘸𝘰𝘳𝘬𝘸𝘦𝘦𝘬 𝘵𝘰 32 𝘩𝘰𝘶𝘳𝘴 𝘸𝘪𝘵𝘩𝘰𝘶𝘵 𝘴𝘢𝘤𝘳𝘪𝘧𝘪𝘤𝘪𝘯𝘨 𝘱𝘢𝘺,
-𝘢𝘩𝘦𝘢𝘥 𝘰𝘧 𝘢 𝘵𝘳𝘪𝘢𝘭 𝘰𝘧 𝘵𝘩𝘦 𝘧𝘰𝘶𝘳-𝘥𝘢𝘺 𝘸𝘦𝘦𝘬 𝘪𝘯 𝘵𝘩𝘦 𝘜𝘚 𝘢𝘯𝘥 𝘊𝘢𝘯𝘢𝘥𝘢 𝘪𝘯 𝘈𝘱𝘳𝘪𝘭. 𝘐𝘯
-𝘌𝘶𝘳𝘰𝘱𝘦, 𝘢𝘯 𝘐𝘳𝘪𝘴𝘩 𝘵𝘳𝘪𝘢𝘭 𝘰𝘧 𝘵𝘩𝘦 𝘧𝘰𝘶𝘳-𝘥𝘢𝘺 𝘸𝘦𝘦𝘬 𝘬𝘪𝘤𝘬𝘦𝘥 𝘰𝘧𝘧 𝘵𝘩𝘪𝘴 𝘸𝘦𝘦𝘬, 𝘵𝘰 𝘣𝘦
-𝘧𝘰𝘭𝘭𝘰𝘸𝘦𝘥 𝘣𝘺 𝘰𝘯𝘦 𝘪𝘯 𝘵𝘩𝘦 𝘜𝘒 𝘪𝘯 𝘑𝘶𝘯𝘦. 𝘌𝘪𝘨𝘩𝘵𝘺-𝘴𝘪𝘹 𝘱𝘦𝘳𝘤𝘦𝘯𝘵 𝘰𝘧 𝘐𝘤𝘦𝘭𝘢𝘯𝘥𝘦𝘳𝘴 𝘩𝘢𝘷𝘦
-𝘢𝘭𝘳𝘦𝘢𝘥𝘺 𝘮𝘰𝘷𝘦𝘥 𝘵𝘰 𝘴𝘩𝘰𝘳𝘵𝘦𝘳 𝘩𝘰𝘶𝘳𝘴, 𝘰𝘳 𝘨𝘢𝘪𝘯𝘦𝘥 𝘵𝘩𝘦 𝘳𝘪𝘨𝘩𝘵 𝘵𝘰 𝘯𝘦𝘨𝘰𝘵𝘪𝘢𝘵𝘦 𝘧𝘰𝘳
-𝘵𝘩𝘦𝘮, 𝘢𝘧𝘵𝘦𝘳 𝘢 𝘭𝘢𝘳𝘨𝘦 𝘴𝘵𝘶𝘥𝘺 𝘧𝘰𝘶𝘯𝘥 𝘵𝘩𝘢𝘵 𝘢 𝘴𝘩𝘰𝘳𝘵𝘦𝘳 𝘸𝘰𝘳𝘬𝘸𝘦𝘦𝘬 𝘪𝘮𝘱𝘳𝘰𝘷𝘦𝘥
-𝘸𝘦𝘭𝘭-𝘣𝘦𝘪𝘯𝘨, 𝘴𝘵𝘳𝘦𝘴𝘴, 𝘢𝘯𝘥 𝘣𝘶𝘳𝘯𝘰𝘶𝘵 𝘸𝘪𝘵𝘩𝘰𝘶𝘵 𝘴𝘢𝘤𝘳𝘪𝘧𝘪𝘤𝘪𝘯𝘨 𝘱𝘳𝘰𝘥𝘶𝘤𝘵𝘪𝘷𝘪𝘵𝘺. [1]
-#+end_quote
-
-Wherever part-time was allowed employees saw it as a mixed blessing: While others
-considered it a "godsend" others found it rather stressful to do the same amount of work
-within less time. But reducing work hours while having the same work-load on your plate
-misses the point. Part-time is not only about work-life balance as perceived by the
-majority:
-
-#+begin_quote
-"𝘈𝘯𝘥𝘳𝘦𝘸 𝘉𝘢𝘳𝘯𝘦𝘴, 𝘤𝘰𝘧𝘰𝘶𝘯𝘥𝘦𝘳 𝘰𝘧 𝘵𝘩𝘦 𝘯𝘰𝘯𝘱𝘳𝘰𝘧𝘪𝘵 *4 𝘋𝘢𝘺 𝘞𝘦𝘦𝘬 𝘎𝘭𝘰𝘣𝘢𝘭*, 𝘴𝘢𝘺𝘴 𝘵𝘩𝘦 𝘮𝘦𝘢𝘴𝘶𝘳𝘦 𝘪𝘴 “𝘯𝘰𝘵
-𝘢𝘣𝘰𝘶𝘵 𝘸𝘰𝘳𝘬-𝘭𝘪𝘧𝘦 𝘣𝘢𝘭𝘢𝘯𝘤𝘦. *𝘛𝘩𝘪𝘴 𝘪𝘴 𝘢 𝘷𝘦𝘳𝘺 𝘴𝘦𝘯𝘴𝘪𝘣𝘭𝘦, 𝘳𝘢𝘵𝘪𝘰𝘯𝘢𝘭 𝘣𝘶𝘴𝘪𝘯𝘦𝘴𝘴 𝘱𝘳𝘢𝘤𝘵𝘪𝘤𝘦 𝘵𝘩𝘢𝘵 𝘪𝘮𝘱𝘳𝘰𝘷𝘦𝘴
-𝘺𝘰𝘶𝘳 𝘱𝘳𝘰𝘥𝘶𝘤𝘵𝘪𝘷𝘪𝘵𝘺 𝘢𝘯𝘥 𝘱𝘳𝘰𝘧𝘪𝘵𝘢𝘣𝘪𝘭𝘪𝘵𝘺 𝘣𝘺 𝘨𝘪𝘷𝘪𝘯𝘨 𝘺𝘰𝘶𝘳 𝘴𝘵𝘢𝘧𝘧 𝘮𝘰𝘳𝘦 𝘵𝘪𝘮𝘦 𝘰𝘧𝘧*.” 𝘉𝘢𝘳𝘯𝘦𝘴’
-𝘰𝘳𝘨𝘢𝘯𝘪𝘻𝘢𝘵𝘪𝘰𝘯, 𝘸𝘩𝘪𝘤𝘩 𝘪𝘴 𝘸𝘰𝘳𝘬𝘪𝘯𝘨 𝘸𝘪𝘵𝘩 𝘶𝘯𝘪𝘷𝘦𝘳𝘴𝘪𝘵𝘺 𝘳𝘦𝘴𝘦𝘢𝘳𝘤𝘩𝘦𝘳𝘴 𝘵𝘰 𝘵𝘦𝘴𝘵 𝘵𝘩𝘦 𝘧𝘰𝘶𝘳-𝘥𝘢𝘺 𝘸𝘦𝘦𝘬
-𝘢𝘤𝘳𝘰𝘴𝘴 𝘥𝘪𝘧𝘧𝘦𝘳𝘦𝘯𝘵 𝘪𝘯𝘥𝘶𝘴𝘵𝘳𝘪𝘦𝘴, 𝘱𝘳𝘰𝘮𝘰𝘵𝘦𝘴 𝘵𝘩𝘦 *100/80/100 𝘮𝘰𝘥𝘦𝘭: 100 𝘱𝘦𝘳𝘤𝘦𝘯𝘵 𝘱𝘳𝘰𝘥𝘶𝘤𝘵𝘪𝘷𝘪𝘵𝘺 𝘪𝘯 80
-𝘱𝘦𝘳𝘤𝘦𝘯𝘵 𝘰𝘧 𝘵𝘩𝘦 𝘵𝘪𝘮𝘦 𝘸𝘪𝘵𝘩 100 𝘱𝘦𝘳𝘤𝘦𝘯𝘵 𝘱𝘢𝘺*. 𝘔𝘢𝘯𝘢𝘨𝘦𝘳𝘴’ 𝘣𝘪𝘨𝘨𝘦𝘴𝘵 𝘤𝘰𝘯𝘵𝘳𝘪𝘣𝘶𝘵𝘪𝘰𝘯 𝘵𝘦𝘯𝘥𝘴 𝘵𝘰 𝘣𝘦
-𝘴𝘭𝘢𝘴𝘩𝘪𝘯𝘨 𝘵𝘩𝘦 𝘯𝘶𝘮𝘣𝘦𝘳 𝘢𝘯𝘥 𝘭𝘦𝘯𝘨𝘵𝘩 𝘰𝘧 𝘮𝘦𝘦𝘵𝘪𝘯𝘨𝘴. “𝘊𝘰𝘶𝘭𝘥 𝘵𝘩𝘪𝘴 𝘮𝘦𝘦𝘵𝘪𝘯𝘨 𝘣𝘦 𝘢𝘯 𝘦𝘮𝘢𝘪𝘭?” 𝘸𝘢𝘴 𝘢
-𝘱𝘰𝘱𝘶𝘭𝘢𝘳 𝘳𝘦𝘧𝘳𝘢𝘪𝘯 𝘢𝘮𝘰𝘯𝘨 𝘵𝘩𝘦 𝘦𝘮𝘱𝘭𝘰𝘺𝘦𝘦𝘴 𝘞𝘐𝘙𝘌𝘋 𝘴𝘱𝘰𝘬𝘦 𝘵𝘰" [1]
-#+end_quote
-
-For the same reason I've put together these lines because many friends and (ex-)colleagues
-have reported some aversion towards part-time from their employers. I think employers
-should stop seeing part-time as some exotic type of work. Instead they should embrace
-flexible models and encourage their staff to work less and/or more efficiently.
-
-Knowledge work (as the majority of us in the IT industry deals with) cannot be compared to
-typical "industrial work" with regard to the hours we spend working: Knowledge workers do
-not sit at the assembly lines and are expected to do X "amount of work" within a period of
-time. This is not how the creative process of programming, setting up a new
-infrastructure, come up with a new software design works like. Really "deep" work (a
-concept introduced by Cal Newport [2]) is about tackling hard things and to produce at an
-elite level, in terms of quality and speed.
-
-So it's not only about the time you spend working, but also about the quality of work
-you're delivering. As for the time factor I can definitely say that when you squeeze the
-same amount of work into less time, work (seen as the quality of your results)
-intensifies. Working less - I mean the amount of time you have available to get something
-done - also means you cannot afford spending to much time in meetings, having X coffee
-breaks etc. While I'm still convinced that the social benefits of fiddling around with
-your colleagues, having lunch together, do some chit-chat are essential for a good work
-environment (and for your own well-being), part-time forces me to allocate my time more
-wisely.
-
-#+begin_quote
-"𝘞𝘩𝘦𝘯 𝘸𝘰𝘳𝘬 𝘪𝘴 𝘴𝘲𝘶𝘦𝘦𝘻𝘦𝘥 𝘪𝘯𝘵𝘰 𝘧𝘰𝘶𝘳 𝘥𝘢𝘺𝘴, 𝘵𝘩𝘦 𝘩𝘶𝘮𝘢𝘯 𝘪𝘯𝘵𝘦𝘳𝘢𝘤𝘵𝘪𝘰𝘯𝘴 𝘵𝘩𝘢𝘵 𝘧𝘪𝘭𝘭 𝘵𝘩𝘦 𝘪𝘯𝘵𝘦𝘳𝘴𝘵𝘪𝘵𝘪𝘢𝘭
-𝘵𝘪𝘮𝘦 𝘤𝘢𝘯 𝘴𝘶𝘧𝘧𝘦𝘳. “𝘛𝘩𝘦𝘳𝘦 𝘸𝘢𝘴𝘯’𝘵 𝘵𝘪𝘮𝘦 𝘧𝘰𝘳 𝘣𝘢𝘯𝘵𝘦𝘳,” 𝘴𝘢𝘪𝘥 𝘰𝘯𝘦 𝘦𝘮𝘱𝘭𝘰𝘺𝘦𝘦 𝘸𝘩𝘰𝘴𝘦 𝘴𝘵𝘢𝘳𝘵𝘶𝘱 𝘮𝘢𝘥𝘦 𝘵𝘩𝘦
-𝘴𝘸𝘪𝘵𝘤𝘩. 𝘈𝘯𝘰𝘵𝘩𝘦𝘳 𝘴𝘢𝘪𝘥 𝘵𝘩𝘢𝘵 𝘩𝘦 𝘯𝘰 𝘭𝘰𝘯𝘨𝘦𝘳 𝘩𝘢𝘥 “𝘵𝘪𝘮𝘦 𝘵𝘰 𝘥𝘢𝘺𝘥𝘳𝘦𝘢𝘮 𝘢𝘵 𝘸𝘰𝘳𝘬.”" - [1]
-#+end_quote
-
-While I work 4 days a week and compress lots of talks within less available time, I can
-completely 𝘥𝘦𝘤𝘰𝘮𝘱𝘳𝘦𝘴𝘴 again for the remaining 3 days. This allows me to take care of my
-mental health, exercise more, spend more time with family and recharge my batteries for
-the next week. This is a win-win situation for both parties: I indeed have a work-life
-balance which allows me to focus on the things that matter and prioritize my activies
-effectively.
-
-So part-time is not only about working less. It's more a commitment towards better
-productivity, efficiency and self-care.
-
-
-Links:
-- [1] https://www.wired.com/story/four-day-week-burnout/?utm_brand=wired&utm_social-type=owned&mbid=social_twitter&utm_medium=social&utm_source=twitter
-- [2] https://brainfck.org/book/deep-work/
-** TODO Migrate Tiddlywiki to org-roam - Part 2: org-roam and hugo             :hugo:pkms:tiddlywiki:
+** TODO Migrate Tiddlywiki to org-roam - Part 2: org-roam and hugo             :hugo:pkms:tiddlywiki:emacs:org:
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2022-migrate-tiddlywiki-to-org-roam-part-2
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :series '("Migrate Tiddlywiki to org-roam")
 :END:
+
+#+html:{{< notice warning >}}
+In the [[*Migrate Tiddlywiki to org-roam - Part 1: Export Tiddlers][first part]] of this series I've outlined the main factors why I've decided
+to move my digital garden / braindump / Zettelkasten to [[https://github.com/org-roam/org-roam][org-roam]] and which factors
+have facilitated this decision. In the *2nd part* I will expand more
+how I've built the new [[https://brainfck.org][brainfck.org]] using [[https://gohugo.io/][hugo]], [[https://github.com/kaushalmodi/ox-hugo][ox-hugo]] and [[https://github.com/org-roam/org-roam][org-roam]].
+#+html:{{< /notice >}}
+
+Extracting tiddlers from my Tiddlywiki setup was only the first step towards a Second Brain
+using [[https://www.orgroam.com/][org-roam]]. Since I'm a clear advocate for *public* digital gardens, I didn't want to keep my notes only for my self. Having built several sites with [[https://gohugo.io][hugo]] already, it felt natural to chose it as a publishing system for my new setup.
+
+In the following I will try to emphasize some important challenges I have experienced
+while /migrating/ Tiddlywiki tiddlers to org-roam, /creating/editing /the content and finally /export/ it HTML via ~hugo~.
+
 *** hugo
-Preparing hugo related steps
+As a starting point I have used [[https://github.com/jethrokuan/braindump][Jethro's braindump repository]] especially for the ~Elisp~ part.
+#+begin_sidenote
+You can also have a look at my [[https://github.com/dorneanu/roam][own repository]].
+#+end_sidenote
+
+I'm a big fan of ~Makefiles~:
+#+begin_src makefile
+export:
+	python build.py
+dev:
+	hugo server -b http://127.0.0.1:1315/ -v --port 1315 --noHTTPCache --cleanDestinationDir --debug --gc
+#+end_src
+
+I use ~python~
+#+begin_sidenote
+I plan to switch to some Makefile only version in the future.
+#+end_sidenote
+for exporting my org roam notes:
+
+#+caption: build.py
+#+begin_src python
+#!/usr/bin/env python
+
+import glob
+from pathlib import Path
+
+# files = glob.glob("org/books/done/*.org") + glob.glob("org/topics/*.org") + glob.glob("org/journal/*.org")
+
+with open('build.ninja', 'w') as ninja_file:
+    ninja_file.write("""
+rule org2md                            ❶
+  command = emacs --batch -l ~/.emacs.d/init.el -l publish.el --eval '(brainfck/publish "$in")'
+  description = org2md $in
+""")
+
+    # Pages                            ❷
+    files = glob.glob("org/*.org")
+    for f in files:
+        path = Path(f)
+        output_file = f"content/pages/{path.with_suffix('.md').name}"
+        ninja_file.write(f"""
+build {output_file}: org2md {path}
+""")
+
+    # Books                            ❸
+    files = glob.glob("org/books/done/*.org")
+    for f in files:
+        path = Path(f)
+        output_file = f"content/books/{path.with_suffix('.md').name}"
+        ninja_file.write(f"""
+build {output_file}: org2md {path}
+""")
+
+    # Journal                          ❹
+    files = glob.glob("org/journal/*.org")
+    for f in files:
+        path = Path(f)
+        output_file = f"content/journal/{path.with_suffix('.md').name}"
+        ninja_file.write(f"""
+build {output_file}: org2md {path}
+""")
+
+    # Topics                           ❺
+    files = glob.glob("org/topics/*.org")
+    for f in files:
+        path = Path(f)
+        output_file = f"content/topics/{path.with_suffix('.md').name}"
+        ninja_file.write(f"""
+build {output_file}: org2md {path}
+""")
+
+
+
+import subprocess
+subprocess.call(["ninja"])             ❻
+#+end_src
+
+This small snippet generates ❶ [[https://ninja-build.org/manual.html#_build_statements][build statements]] for [[https://pypi.org/project/ninja/][ninja]] ❻. The ~build.ninja~ file will contain something similar to:
+
+#+caption: build.ninja
+#+begin_src makefile
+rule org2md
+  command = emacs --batch -l ~/.emacs.d/init.el -l publish.el --eval '(brainfck/publish "$in")'
+  description = org2md $in
+
+build content/pages/index.md: org2md org/index.org
+
+build content/pages/bookshelf.md: org2md org/bookshelf.org
+
+build content/books/breath_the_new_science_of_a_lost_art.md: org2md org/books/done/breath_the_new_science_of_a_lost_art.org
+
+[...]
+#+end_src
+
+For each folder in my ~org-roam-directory~ (pages ❷, books ❸, journal ❹, topics ❺)
+- [[https://docs.python.org/3/library/glob.html#][glob]] will find any ORG files
+- a new [[https://ninja-build.org/manual.html#_build_statements][ninja build statement]] will be written to ~build.ninja~
+
+Each build command consists of ~org2md~ which internally calls ~publish.el~:
+
+#+caption: publish.el
+#+begin_src emacs-lisp
+(require 'package)
+(package-initialize)
+
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("org" . "http://orgmode.org/elpa/")))
+
+(require 'find-lisp)
+(require 'ox-hugo)
+
+;; https://github.com/kaushalmodi/ox-hugo/issues/500#issuecomment-1006674469
+(defun replace-in-string (what with in)
+  (replace-regexp-in-string (regexp-quote what) with in nil 'literal))
+
+(defun zeeros/fix-doc-path (path)          ❸
+  ;; (replace-in-string "../../topics/" "" (replace-in-string "../../topics/" "" path)
+  (replace-in-string "../../topics/" "../topics/" path)
+  (replace-in-string "../books/done/" "../books/" path)
+  (replace-in-string "books/done/" "books/" path)
+
+  )
+
+❹
+(advice-add 'org-export-resolve-id-link :filter-return #'zeeros/fix-doc-path)
+
+(defun brainfck/publish (file)             ❶
+  (with-current-buffer (find-file-noselect file)
+    (setq-local org-hugo-base-dir "/cs/priv/repos/roam")
+    ;; (setq-local org-hugo-section "posts")
+    (setq-local org-export-with-tags nil)
+    (setq-local org-export-with-broken-links t)
+    (add-to-list 'org-hugo-special-block-type-properties '("sidenote" . (:trim-pre t :trim-post t)))
+    (setq org-agenda-files nil)
+    (let ((org-id-extra-files (directory-files-recursively org-roam-directory "\.org$")))
+      (org-hugo-export-wim-to-md))))       ❷
+#+end_src
+
+The main function ~brainfck/publish~ ❶ basically calls ~org-hugo-export-wim-to-md~ ❷ which will "export the current subtree/all subtrees/current file to a Hugo post". Before doing so some local variables are set and ~org-id-extra-files~ is populated with all available ORG roam file paths. This variable holds all files/paths where ORG should search for IDs.
+
+And because some IDs couldn't be resolved properly
+#+begin_sidenote
+Obviously there is a [[https://github.com/kaushalmodi/ox-hugo/issues/500#issuecomment-1006674469][bug]].
+#+end_sidenote
+I had to use some "hook" ❹ for rewriting ❸
+some file paths within the generated markdown files.
+
+For testing purposes you can call the ~publish.el~ with just one argument:
+
+#+caption: Example call for publish.el
+#+begin_src sh
+$ emacs --batch -l ~/.emacs.d/init.el -l publish.el --eval "(brainfck/publish \"org/books/done/building_microservices_2nd_edition.org\")"
+
+[...]
+Loading gnus (native compiled elisp)...
+Ignoring ’:ensure t’ in ’lsp-ui’ config
+Ignoring ’:ensure t’ in ’json-snatcher’ config
+Initializing org-roam database...
+Clearing removed files...
+Clearing removed files...done
+Processing modified files...
+Processing modified files...done
+Clearing removed files...
+Clearing removed files...done
+Processing modified files...
+Processing modified files...done
+org-super-agenda-mode enabled.
+[...]
+Loading linum (native compiled elisp)...
+768 files scanned, 410 files contains IDs, and 426 IDs found.
+[ox-hugo] Exporting ‘Building Microservices (2nd edition)’ (building_microservices_2nd_edition.org)
+#+end_src
+
 **** Backlinks
 Backlinks are an essential feature that let you visualize inter-connected content.
 Whenever I set a link to another ~org-roam~ node in an ORG file, the exported markdown content will look like this:
@@ -447,30 +444,81 @@ along with the ~date~ in ~yyyy-mm~ format.
 </div>
 {{ end }}
 #+end_src
+
+
+#+html: {{< gbox src="/posts/img/2022/migrate-tiddlywiki-to-org-roam/group-books-by-year.png" title="Group books by year and month" caption="I like to have an overview which books I've read each year grouped by the month when I completed. " pos="left" >}}
+
 *** org-roam
-By default all org-roam nodes are placed within the same directory. From a *Zettelkasten* perspective this makes sense
-since a note can be assigned different tags and categories during its life-cycle. However, one big directory
-for all *tiddlers* didn't resonate with me at all. I came up with following /hierarchy/ inside ~org-roam-directory~:
-- *org*
+By default all org-roam nodes are placed within the *same directory*. However, one big directory
+for all notes didn't resonate with me at all. I came up with following /hierarchy/ inside ~org-roam-directory~:
+- *org/*
   This is the root org-roam directory.
-  - *books*
+  - *books/*
     - this is where all books (stored as individual ORG files) should be located at
     - I consider these files my /literature/ notes
+      #+begin_quote
+      "A literature note is a source reference in a reference manager, optionally with one or more attached notes. The term ‘literature note’ derives from the note cards on which Niklas Luhmann, the prolific sociologist and originator of the Zettelkasten Method, recorded bibliographic references (Ahrens, 18)."
+      -- [[https://zettelkasten.de/posts/concepts-sohnke-ahrens-explained][zettelkasten.de]]
+      #+end_quote
     - /thoughts/ and /concepts/ found within one book /may/ remain here
       - or at same time I move it to an individual topic
-    - /quotes/ are now stored in the same (book ORG mode) file
-  - *topics*
+        - For example the topic [[https://brainfck.org/book/building-a-second-brain/#para][P.A.R.A.]] is contained withing the book [[https://brainfck.org/book/building-a-second-brain/#para][Building a Second Brain]].
+    - /quotes/ are now stored in the same (book ORG mode) file ([[https://brainfck.org/book/building-a-second-brain/#quotes][example]])
+  - *topics/*
     - all individual topics are stored here
+      - Examples: [[https://brainfck.org/t/ssh][SSH]], [[https://brainfck.org/t/ddd][DDD]], [[https://brainfck.org/t/attention-economy/][Attention Economy]]
     - I don't distinguish between /collection/ nodes, /thoughts/ and /concepts/
-  - *notes*
-    - I don't use this section yet
+  - *journal/*
+    - files inside this folder are daily [[https://brainfck.org/journal][journals]]
+    - each file name has following format: ~YYYY-MM-DD.org~
+    - this is where I usually store thoughts, links which I haven't categorized yet
+      - or put into the right topic
+  - *notes/*
+    - I don't use this section yet (I'm also not sure if it's needed at all)
     - This category relates to notes writen in my /own/ words
-      - can link to concepts inside a book
-      - can refer to multiple /topics/
-*** Emacs kung fu
+      - can link to concepts inside a [[https://brainfck.org/books][book]]
+      - can refer to multiple [[https://brainfck.org/topics][topics]]
+
+#+html:{{< notice info >}}
+As a complete ~org-roam~ novice I've found [[https://www.youtube.com/watch?v=AyhPmypHDEw&ab_channel=SystemCrafters][Getting Started with Org Roam - Build a Second Brain in Emacs]] ([[https://systemcrafters.cc/build-a-second-brain-in-emacs/getting-started-with-org-roam/][notes]]) to be a quite good introduction. It will give you enough background to get you started with ~org-roam~. For more advanced topics you could also read [[https://systemcrafters.net/build-a-second-brain-in-emacs/5-org-roam-hacks/][5 Org Roam Hacks for Better Productivity in Emacs]] or check out my [[https://brainfck.org/t/org-roam][org-roam topic]] for more resources.
+#+html:{{< /notice >}}
+**** Capture templates
+
+For rapid capture ~org-roam~ uses pre-defined capture templates
+#+begin_sidenote
+You can also store [[https://systemcrafters.net/build-a-second-brain-in-emacs/capturing-notes-efficiently/#storing-templates-in-org-files][templates in Org files]].
+#+end_sidenote
+(similar to [[https://orgmode.org/manual/Capture-templates.html][ORG mode capture templates]]) whenever a new entry (topic, book, note, quote etc.) should be added. These are mine:
+
+#+caption: ORG Roam capture templates
+#+begin_src emacs-lisp
+(org-roam-capture-templates
+'(("d" "default" plain
+  "%?"
+  :if-new (file+head "topics/${slug}.org" "#+title: ${title}\n")    ❶
+  :unnarrowed t)
+  ("j" "Journal" plain "%?"                                         ❷
+   :if-new (file+head "journal/%<%Y-%m-%d>.org"
+            "#+title: %<%Y-%m-%d>\n#+filetags: journal\n#+date: %<%Y-%m-%d>\n")
+   :immediate-finish t
+   :unnarrowed t)
+ ("b" "book" plain "%?"                                             ❸
+  :if-new
+  (file+head "books/${slug}.org" "#+title: ${title}\n#+filetags: book\n")
+  :immediate-finish t
+  :unnarrowed t)
+  ))
+#+end_src
+
+Per default ❶ every new entry is a topic. Additionally I want every journal ❷ file to contain several meta information (properties) (like ~#+date~ and ~#+filetags~).
+
+Last but not least I want every book ❸ to be stored under ~<ORG Roam directory root>/books/~.
+*** Emacs Kung Fu
+As I was transitioning content from multiple folders into the ~org-roam~ directory
+I've used Emacs editing capabilities to edit and create content using small ~Elisp~ snippets and /macros/. Let's explore some workflows.
 **** Insert content at point
-I've used some small ~Elisp~ snippet to insert contents of a file while I was reviewwing
-file contents:
+Whenever I was adding content (e.g. from sub-tiddlers) to main topic nodes (previsouly main tiddler in Tiddlywiki), I wanted to quickly *jump between directories* where my tiddlers
+were exported as org content.
 
 #+begin_src emacs-lisp
 (defun dorneanu/roam-insert (dir)     ❶
@@ -479,31 +527,250 @@ file contents:
         (insert-file-contents filename))
 )
 
-;; Define global key bindings          ❷
+;; Define global key bindings         ❷
 (global-set-key (kbd "C-c m b") (lambda () (interactive) (dorneanu/roam-insert "/cs/priv/repos/brainfck.org/tw5/output/books")))
 (global-set-key (kbd "C-c m t") (lambda () (interactive) (dorneanu/roam-insert "/cs/priv/repos/tiddlywiki-migrator/org_tiddlers")))
 (global-set-key (kbd "C-c m .") (lambda () (interactive) (dorneanu/roam-insert "/cs/priv/repos/roam/org/topics/")))
 #+end_src
 
-Whenever I was adding content (e.g. from sub-tiddlers) to main topic nodes (previsouly main tiddler in Tiddlywiki), I wanted to quickly jump between directories where my tiddlers
-were exported as org content.
 
 Therefore I've defined a function ❶ which reads a file content after this has been
-selected. The (temporary) key bindings ❷ allowed me to jump between following folders
+selected. The (temporary) key bindings ❷ allowed me to *jump between* following *folders*
 and insert content quickly:
 
 - ~/cs/priv/repos/brainfck.org/tw5/output/books~
-  - This is where I've exported my book tiddlers along with their correspondig sub-tiddlers.
-     #+begin_sidenote
-     Check out first post for explanations regarding books and their sub-tiddlers.
-     #+end_sidenote
+  - This is where I've exported my book tiddlers along with their correspondig sub-tiddlers (read the [[*Migrate Tiddlywiki to org-roam - Part 1: Export Tiddlers][first post]] for the explanations regarding books and their sub-tiddlers)
 - ~/cs/priv/repos/tiddlywiki-migrator/org_tiddlers~
   - This is where *all* tiddlers got exported to initially
 - ~/cs/priv/repos/roam/org/topics~
   - this is the *root* org-roam folder for topics
 
 **** Add structure template for quotes
+Let's say you have following ORG content
+#+begin_src org
+,* Book title
+,** Notes
+,*** Note 1
+     Some text
+,*** Note 2
+     Another text
+,*** Note 3
+     Some loooooong text
+#+end_src
 
+How can you easily put the content underneath each note (Note 1, Note 2, Note 3) into
+quote blocks? Here is where /macros/ came to my rescue. With my cursor on ~Note 1~ I typed:
+
++ ~C-x (~
+  - ~kmacro-start-macro~
+  - start macro
++ ~g j~
+  - ~outline-forward-same-level~
+  - go to next headline (in the same level)
++ ~j~ (move cursor to next line)
++ ~M-m i p~
+  - ~mark-paragraph~
+  - mark whole paragraph
++ ~C-c C-,~
+  - ~org-insert-structure-template~
+  + wrap marked region into ...
++ ~q~
+  + a quote block
++ ~C-x )~
+  - ~kmacro-end-macro~
+  + end macro sequence
+
+Here is some screencast:
+#+html: {{< gbox src="/posts/img/2022/migrate-tiddlywiki-to-org-roam/macro-edit-notes.gif" title="Using macros for adding block quotes" caption="" pos="left" >}}
+** DONE Book summary: Building a Second Brain                                  :books:pkms:
+CLOSED: [2022-09-27 Tue 20:55]
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2022-book-summary-building-a-second-brain
+:END:
+
+In my previous post I've writen about /knowledge work/ and how its output cannot be measured
+in a linear manner. For knowledge workers *information* is their most valuable capital, yet
+everyone is desperately looking for a system to manage the continous influx of information
+pouring into their brains.
+
+We spend a tremendous amount of time /managing/ huge amounts of information and /searching/
+for the right piece of knowledge. At the same time we are supposed to work at high
+standards (fast and continously) and keep up with emerging technologies.
+
+#+begin_quote
+To remain valuable in our economy, therefore, you must master the art of quickly
+learning complicated things. This task requires deepwork. If you don't cultivate
+this ability, you're likely to fall behind as technology advances.
+-- [[https://brainfck.org/book/deep-work][Deep Work]]
+#+end_quote
+*** Commonplace books
+Dealing with different kinds of input (books, articles, mails, messages etc.) can be
+exhausting and has a direct influence on your attention span. Individualized and
+internalized workflows how to deal with content/information definitely leads to better
+attention control, better productivity, release of cognitive resources.
+
+#+caption: "Building a Second Brain" by Tiago Forte
+[[/posts/img/2022/building-second-brain/building-a-second-brain.png]]
+
+Before we had information overload, the [[https://brainfck.org/book/building-a-second-brain/#commonplace-books][commonplace book]] a diary or a journal of personal
+/reflections/. While it became popular in the /Industrial Revolution/ (18th/19th century) it was
+mainly used by the educated class to understand "a rapidly changing world and their place in
+society".
+
+#+begin_quote
+Your brain is for having ideas, not for holding them
+-- [[https://brainfck.org/book/getting-things-done-the-art-of-stress-free-productivity/][Getting Things Done - The Art of Stress-Free Productivity]]
+#+end_quote
+
+Nowadays the /digital/ version of the commonplace book is the [[https://brainfck.org/book/building-a-second-brain/#commonplace-books][Second Brain]].
+#+begin_sidenote
+Other popular terms: Zettelkasten (slip box in German), memex, braindump or digital garden.
+#+end_sidenote
+It's a combination of a study notebook, personal journal, sketchbook, collection of
+bookmarks etc. You can use it in different *contexts* (such as /work/, /personal/) and its main
+purpose is to *organize* knowledge while allowing you to
+- make ideas concrete
+- reveal new associations between ideas
+- incubate ideas over time
+- sharpen unique perspectives
+- most important: *take* action
+
+*** P.A.R.A. method
+Tiago has developed his own system how to organize information. Information is organized based on how /actionable/ it is and not on its /type/ or /kind/. That's why it's so universal and applicable for almost every profession or field.
+
+[[https://brainfck.org/book/building-a-second-brain/#para][P.A.R.A.]] is more like a /production/ system. You won't be able to always find the /right/ place
+where a note belongs to. The category you initially put a note to, might change depending
+on your current projects and however your thoughts change in /life/. Every piece of
+information can be put into one of following categories:
+
+- *Projects*
+  - current tasks you're actually working on (short-term efforts)
+- *Areas*
+  - Reponsibilities you want to manage over time (long-term efforts)
+- *Resources*
+  - Topics/Interests that might be useful in the future
+  - What topics are you interested in?
+    - Architecture; Interior design; English literature; Beer brewing.
+  - What subjects are you researching?
+    - Habit formation; Notetaking; Project management; Nutrition.
+  - What useful information do you want to be able to reference?
+    - Vacation itineraries; Life goals; Stock photos; Product testimonials.
+  - Hobbies
+  - Passions
+- *Archives*
+  - /Inactive/ items from the categories above
+
+*** Zettelkasten vs P.A.R.A.
+I used to call my knowledge database
+#+begin_sidenote
+Or PKMS (Personal Knowledge Management System)
+#+end_sidenote
+a Zettelkasten
+#+begin_sidenote
+[[https://en.wikipedia.org/wiki/Zettelkasten][Niklas Luhmann]] used one to write his many books. I can definitely recommend "[[https://www.goodreads.com/en/book/show/34507927-how-to-take-smart-notes][How to take notes]]" (Söhnke Ahrens) (german: [[https://brainfck.org/book/das-zettelkasten-prinzip/][Das Zettelkasten-Prinzip]]) for further reading.
+#+end_sidenote
+(engl. slip box). I think the /Zettelkasten/ approach appeals more with /creative writing/ since it allows you to interconnect ideas easily due to the flat hierarchy between notes. /Zettelkasten/ is a note-taking method designed to spark new ideas, whereas /P.A.R.A./ is a way of organizing files and content for a specific project.
+
+Since the /Zettelkasten/ expects you to have links between your /zettels/, you should be able to "browse" your
+thoughts/notes easily while looking for new ideas. This way the /Zettelkasten/ makes it easy to create new
+content (articles, essays, books) and put together thoughts/concepts since you have already done the hard work of summarizing content and creating new links. /P.A.R.A./ instead is more for the lazy ones: It doesn't force you to summarize
+#+begin_sidenote
+Read more about [[https://brainfck.org/t/progressive-summarization/][Progressive Summarization]]
+#+end_sidenote
+your notes until you really need them. While you might collect notes for a specific project you're working on,
+you could reuse these in a different one (as an [[https://brainfck.org/book/building-a-second-brain/#intermediate-packets][intermediate packet]]).
+*** Conclusion
+Around 2019 I came across the [[https://fortelabs.com/blog/para/][P.A.R.A. method]] as I was searching for a system how to organize highlights from different books. Later on I've read about [[https://brainfck.org/book/das-zettelkasten-prinzip/][Zettelkasten]] and implemented it using [[https://tw5.brainfck.org][TiddlyWiki]]. This year I was quite excited when I first saw "[[https://brainfck.org/book/building-a-second-brain/#intermediate-packets][Building a Second Brain]]" on goodreads.
+
+Overall I think it's an awesome resource for everyone starting in the PKMS world. /P.A.R.A./ is easy to apply, universal and applicable for every domain. After reading the book, I as well started to rethink my Tiddlywiki setup (which lead me to [[https://www.orgroam.com/][org-roam]]) and focus more on /projects/: I collect notes, ideas for a specific project and before I do the kick-off I make sure I have everything I need to start and also finish the project.
+
+#+html:{{< notice info >}}
+You can also have a look at my [[https://brainfck.org/book/building-a-second-brain/][literature notes]] at [[https://brainfck.org/book/building-a-second-brain/#intermediate-packets][brainfck.org]]
+#+html:{{< /notice >}}
+
+** DONE Working in part-time                                                   :productivity:
+CLOSED: [2022-09-16 Fri 09:03]
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2022-working-in-part-time
+:END:
+I've recently stumbled over this wired article [1] where the benefits and drawbacks of
+having a 4-day work week were conclued from scientific research and "experiments" done in
+the field.
+
+Seems like there is a momentum recently as more companies (but also governments) around
+the world explore the benefits of the 4-day work week:
+
+#+begin_quote
+𝘓𝘢𝘴𝘵 𝘴𝘶𝘮𝘮𝘦𝘳, 𝘜𝘚 𝘙𝘦𝘱𝘳𝘦𝘴𝘦𝘯𝘵𝘢𝘵𝘪𝘷𝘦 𝘔𝘢𝘳𝘬 𝘛𝘢𝘬𝘢𝘯𝘰 (𝘋-𝘊𝘢𝘭𝘪𝘧𝘰𝘳𝘯𝘪𝘢) 𝘪𝘯𝘵𝘳𝘰𝘥𝘶𝘤𝘦𝘥
+𝘭𝘦𝘨𝘪𝘴𝘭𝘢𝘵𝘪𝘰𝘯 𝘵𝘰 𝘴𝘩𝘳𝘪𝘯𝘬 𝘵𝘩𝘦 𝘸𝘰𝘳𝘬𝘸𝘦𝘦𝘬 𝘵𝘰 32 𝘩𝘰𝘶𝘳𝘴 𝘸𝘪𝘵𝘩𝘰𝘶𝘵 𝘴𝘢𝘤𝘳𝘪𝘧𝘪𝘤𝘪𝘯𝘨 𝘱𝘢𝘺,
+𝘢𝘩𝘦𝘢𝘥 𝘰𝘧 𝘢 𝘵𝘳𝘪𝘢𝘭 𝘰𝘧 𝘵𝘩𝘦 𝘧𝘰𝘶𝘳-𝘥𝘢𝘺 𝘸𝘦𝘦𝘬 𝘪𝘯 𝘵𝘩𝘦 𝘜𝘚 𝘢𝘯𝘥 𝘊𝘢𝘯𝘢𝘥𝘢 𝘪𝘯 𝘈𝘱𝘳𝘪𝘭. 𝘐𝘯
+𝘌𝘶𝘳𝘰𝘱𝘦, 𝘢𝘯 𝘐𝘳𝘪𝘴𝘩 𝘵𝘳𝘪𝘢𝘭 𝘰𝘧 𝘵𝘩𝘦 𝘧𝘰𝘶𝘳-𝘥𝘢𝘺 𝘸𝘦𝘦𝘬 𝘬𝘪𝘤𝘬𝘦𝘥 𝘰𝘧𝘧 𝘵𝘩𝘪𝘴 𝘸𝘦𝘦𝘬, 𝘵𝘰 𝘣𝘦
+𝘧𝘰𝘭𝘭𝘰𝘸𝘦𝘥 𝘣𝘺 𝘰𝘯𝘦 𝘪𝘯 𝘵𝘩𝘦 𝘜𝘒 𝘪𝘯 𝘑𝘶𝘯𝘦. 𝘌𝘪𝘨𝘩𝘵𝘺-𝘴𝘪𝘹 𝘱𝘦𝘳𝘤𝘦𝘯𝘵 𝘰𝘧 𝘐𝘤𝘦𝘭𝘢𝘯𝘥𝘦𝘳𝘴 𝘩𝘢𝘷𝘦
+𝘢𝘭𝘳𝘦𝘢𝘥𝘺 𝘮𝘰𝘷𝘦𝘥 𝘵𝘰 𝘴𝘩𝘰𝘳𝘵𝘦𝘳 𝘩𝘰𝘶𝘳𝘴, 𝘰𝘳 𝘨𝘢𝘪𝘯𝘦𝘥 𝘵𝘩𝘦 𝘳𝘪𝘨𝘩𝘵 𝘵𝘰 𝘯𝘦𝘨𝘰𝘵𝘪𝘢𝘵𝘦 𝘧𝘰𝘳
+𝘵𝘩𝘦𝘮, 𝘢𝘧𝘵𝘦𝘳 𝘢 𝘭𝘢𝘳𝘨𝘦 𝘴𝘵𝘶𝘥𝘺 𝘧𝘰𝘶𝘯𝘥 𝘵𝘩𝘢𝘵 𝘢 𝘴𝘩𝘰𝘳𝘵𝘦𝘳 𝘸𝘰𝘳𝘬𝘸𝘦𝘦𝘬 𝘪𝘮𝘱𝘳𝘰𝘷𝘦𝘥
+𝘸𝘦𝘭𝘭-𝘣𝘦𝘪𝘯𝘨, 𝘴𝘵𝘳𝘦𝘴𝘴, 𝘢𝘯𝘥 𝘣𝘶𝘳𝘯𝘰𝘶𝘵 𝘸𝘪𝘵𝘩𝘰𝘶𝘵 𝘴𝘢𝘤𝘳𝘪𝘧𝘪𝘤𝘪𝘯𝘨 𝘱𝘳𝘰𝘥𝘶𝘤𝘵𝘪𝘷𝘪𝘵𝘺. [1]
+#+end_quote
+
+Wherever part-time was allowed employees saw it as a mixed blessing: While others
+considered it a "godsend" others found it rather stressful to do the same amount of work
+within less time. But reducing work hours while having the same work-load on your plate
+misses the point. Part-time is not only about work-life balance as perceived by the
+majority:
+
+#+begin_quote
+"𝘈𝘯𝘥𝘳𝘦𝘸 𝘉𝘢𝘳𝘯𝘦𝘴, 𝘤𝘰𝘧𝘰𝘶𝘯𝘥𝘦𝘳 𝘰𝘧 𝘵𝘩𝘦 𝘯𝘰𝘯𝘱𝘳𝘰𝘧𝘪𝘵 *4 𝘋𝘢𝘺 𝘞𝘦𝘦𝘬 𝘎𝘭𝘰𝘣𝘢𝘭*, 𝘴𝘢𝘺𝘴 𝘵𝘩𝘦 𝘮𝘦𝘢𝘴𝘶𝘳𝘦 𝘪𝘴 “𝘯𝘰𝘵
+𝘢𝘣𝘰𝘶𝘵 𝘸𝘰𝘳𝘬-𝘭𝘪𝘧𝘦 𝘣𝘢𝘭𝘢𝘯𝘤𝘦. *𝘛𝘩𝘪𝘴 𝘪𝘴 𝘢 𝘷𝘦𝘳𝘺 𝘴𝘦𝘯𝘴𝘪𝘣𝘭𝘦, 𝘳𝘢𝘵𝘪𝘰𝘯𝘢𝘭 𝘣𝘶𝘴𝘪𝘯𝘦𝘴𝘴 𝘱𝘳𝘢𝘤𝘵𝘪𝘤𝘦 𝘵𝘩𝘢𝘵 𝘪𝘮𝘱𝘳𝘰𝘷𝘦𝘴
+𝘺𝘰𝘶𝘳 𝘱𝘳𝘰𝘥𝘶𝘤𝘵𝘪𝘷𝘪𝘵𝘺 𝘢𝘯𝘥 𝘱𝘳𝘰𝘧𝘪𝘵𝘢𝘣𝘪𝘭𝘪𝘵𝘺 𝘣𝘺 𝘨𝘪𝘷𝘪𝘯𝘨 𝘺𝘰𝘶𝘳 𝘴𝘵𝘢𝘧𝘧 𝘮𝘰𝘳𝘦 𝘵𝘪𝘮𝘦 𝘰𝘧𝘧*.” 𝘉𝘢𝘳𝘯𝘦𝘴’
+𝘰𝘳𝘨𝘢𝘯𝘪𝘻𝘢𝘵𝘪𝘰𝘯, 𝘸𝘩𝘪𝘤𝘩 𝘪𝘴 𝘸𝘰𝘳𝘬𝘪𝘯𝘨 𝘸𝘪𝘵𝘩 𝘶𝘯𝘪𝘷𝘦𝘳𝘴𝘪𝘵𝘺 𝘳𝘦𝘴𝘦𝘢𝘳𝘤𝘩𝘦𝘳𝘴 𝘵𝘰 𝘵𝘦𝘴𝘵 𝘵𝘩𝘦 𝘧𝘰𝘶𝘳-𝘥𝘢𝘺 𝘸𝘦𝘦𝘬
+𝘢𝘤𝘳𝘰𝘴𝘴 𝘥𝘪𝘧𝘧𝘦𝘳𝘦𝘯𝘵 𝘪𝘯𝘥𝘶𝘴𝘵𝘳𝘪𝘦𝘴, 𝘱𝘳𝘰𝘮𝘰𝘵𝘦𝘴 𝘵𝘩𝘦 *100/80/100 𝘮𝘰𝘥𝘦𝘭: 100 𝘱𝘦𝘳𝘤𝘦𝘯𝘵 𝘱𝘳𝘰𝘥𝘶𝘤𝘵𝘪𝘷𝘪𝘵𝘺 𝘪𝘯 80
+𝘱𝘦𝘳𝘤𝘦𝘯𝘵 𝘰𝘧 𝘵𝘩𝘦 𝘵𝘪𝘮𝘦 𝘸𝘪𝘵𝘩 100 𝘱𝘦𝘳𝘤𝘦𝘯𝘵 𝘱𝘢𝘺*. 𝘔𝘢𝘯𝘢𝘨𝘦𝘳𝘴’ 𝘣𝘪𝘨𝘨𝘦𝘴𝘵 𝘤𝘰𝘯𝘵𝘳𝘪𝘣𝘶𝘵𝘪𝘰𝘯 𝘵𝘦𝘯𝘥𝘴 𝘵𝘰 𝘣𝘦
+𝘴𝘭𝘢𝘴𝘩𝘪𝘯𝘨 𝘵𝘩𝘦 𝘯𝘶𝘮𝘣𝘦𝘳 𝘢𝘯𝘥 𝘭𝘦𝘯𝘨𝘵𝘩 𝘰𝘧 𝘮𝘦𝘦𝘵𝘪𝘯𝘨𝘴. “𝘊𝘰𝘶𝘭𝘥 𝘵𝘩𝘪𝘴 𝘮𝘦𝘦𝘵𝘪𝘯𝘨 𝘣𝘦 𝘢𝘯 𝘦𝘮𝘢𝘪𝘭?” 𝘸𝘢𝘴 𝘢
+𝘱𝘰𝘱𝘶𝘭𝘢𝘳 𝘳𝘦𝘧𝘳𝘢𝘪𝘯 𝘢𝘮𝘰𝘯𝘨 𝘵𝘩𝘦 𝘦𝘮𝘱𝘭𝘰𝘺𝘦𝘦𝘴 𝘞𝘐𝘙𝘌𝘋 𝘴𝘱𝘰𝘬𝘦 𝘵𝘰" [1]
+#+end_quote
+
+For the same reason I've put together these lines because many friends and (ex-)colleagues
+have reported some aversion towards part-time from their employers. I think employers
+should stop seeing part-time as some exotic type of work. Instead they should embrace
+flexible models and encourage their staff to work less and/or more efficiently.
+
+Knowledge work (as the majority of us in the IT industry deals with) cannot be compared to
+typical "industrial work" with regard to the hours we spend working: Knowledge workers do
+not sit at the assembly lines and are expected to do X "amount of work" within a period of
+time. This is not how the creative process of programming, setting up a new
+infrastructure, come up with a new software design works like. Really "deep" work (a
+concept introduced by Cal Newport [2]) is about tackling hard things and to produce at an
+elite level, in terms of quality and speed.
+
+So it's not only about the time you spend working, but also about the quality of work
+you're delivering. As for the time factor I can definitely say that when you squeeze the
+same amount of work into less time, work (seen as the quality of your results)
+intensifies. Working less - I mean the amount of time you have available to get something
+done - also means you cannot afford spending to much time in meetings, having X coffee
+breaks etc. While I'm still convinced that the social benefits of fiddling around with
+your colleagues, having lunch together, do some chit-chat are essential for a good work
+environment (and for your own well-being), part-time forces me to allocate my time more
+wisely.
+
+#+begin_quote
+"𝘞𝘩𝘦𝘯 𝘸𝘰𝘳𝘬 𝘪𝘴 𝘴𝘲𝘶𝘦𝘦𝘻𝘦𝘥 𝘪𝘯𝘵𝘰 𝘧𝘰𝘶𝘳 𝘥𝘢𝘺𝘴, 𝘵𝘩𝘦 𝘩𝘶𝘮𝘢𝘯 𝘪𝘯𝘵𝘦𝘳𝘢𝘤𝘵𝘪𝘰𝘯𝘴 𝘵𝘩𝘢𝘵 𝘧𝘪𝘭𝘭 𝘵𝘩𝘦 𝘪𝘯𝘵𝘦𝘳𝘴𝘵𝘪𝘵𝘪𝘢𝘭
+𝘵𝘪𝘮𝘦 𝘤𝘢𝘯 𝘴𝘶𝘧𝘧𝘦𝘳. “𝘛𝘩𝘦𝘳𝘦 𝘸𝘢𝘴𝘯’𝘵 𝘵𝘪𝘮𝘦 𝘧𝘰𝘳 𝘣𝘢𝘯𝘵𝘦𝘳,” 𝘴𝘢𝘪𝘥 𝘰𝘯𝘦 𝘦𝘮𝘱𝘭𝘰𝘺𝘦𝘦 𝘸𝘩𝘰𝘴𝘦 𝘴𝘵𝘢𝘳𝘵𝘶𝘱 𝘮𝘢𝘥𝘦 𝘵𝘩𝘦
+𝘴𝘸𝘪𝘵𝘤𝘩. 𝘈𝘯𝘰𝘵𝘩𝘦𝘳 𝘴𝘢𝘪𝘥 𝘵𝘩𝘢𝘵 𝘩𝘦 𝘯𝘰 𝘭𝘰𝘯𝘨𝘦𝘳 𝘩𝘢𝘥 “𝘵𝘪𝘮𝘦 𝘵𝘰 𝘥𝘢𝘺𝘥𝘳𝘦𝘢𝘮 𝘢𝘵 𝘸𝘰𝘳𝘬.”" - [1]
+#+end_quote
+
+While I work 4 days a week and compress lots of talks within less available time, I can
+completely 𝘥𝘦𝘤𝘰𝘮𝘱𝘳𝘦𝘴𝘴 again for the remaining 3 days. This allows me to take care of my
+mental health, exercise more, spend more time with family and recharge my batteries for
+the next week. This is a win-win situation for both parties: I indeed have a work-life
+balance which allows me to focus on the things that matter and prioritize my activies
+effectively.
+
+So part-time is not only about working less. It's more a commitment towards better
+productivity, efficiency and self-care.
+
+
+Links:
+- [1] https://www.wired.com/story/four-day-week-burnout/?utm_brand=wired&utm_social-type=owned&mbid=social_twitter&utm_medium=social&utm_source=twitter
+- [2] https://brainfck.org/book/deep-work/
 ** DONE Migrate Tiddlywiki to org-roam - Part 1: Export Tiddlers               :tiddlywiki:org:pkms:
 CLOSED: [2022-09-03 Sat 22:04]
 :PROPERTIES:
@@ -515,7 +782,7 @@ CLOSED: [2022-09-03 Sat 22:04]
 #+html:{{< notice warning >}}
 In the *first part* of this series I'll outline the main factors why I've decided
 to move my digital garden / braindump / Zettelkasten to [[https://github.com/org-roam/org-roam][org-roam]] and which factors
-have facilitated this decision. In the *2nd part* (still work in progress) I will expand more
+have facilitated this decision. In the [[*Migrate Tiddlywiki to org-roam - Part 2: org-roam and hugo][2nd part]] I will expand more
 how I've built the new [[https://brainfck.org][brainfck.org]] using [[https://gohugo.io/][hugo]], [[https://github.com/kaushalmodi/ox-hugo][ox-hugo]] and [[https://github.com/org-roam/org-roam][org-roam]].
 #+html:{{< /notice >}}
 
