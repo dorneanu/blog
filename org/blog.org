@@ -12,27 +12,32 @@
 #+macro: relref @@hugo:[@@ $1 @@hugo:]({{< relref "$2" >}})@@
 #+macro: titleref @@hugo:{{< titleref "$1" "@@ $2 @@hugo:" >}}@@
 # Unicode callout numbers:  ❶ ❷ ❸ ❹ ❺ ❻ ❼ ❽ ❾ ❿
+# Other symbols: ™
 
 
 * Posts
-** TODO Migrate Tiddlywiki to org-roam - Part 2: org-roam and hugo             :hugo:pkms:tiddlywiki:emacs:org:
+** DONE Migrate Tiddlywiki to org-roam - Part 2: org-roam and hugo             :hugo:pkms:tiddlywiki:emacs:org:
+    CLOSED: [2022-10-04 Tue 21:43]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2022-migrate-tiddlywiki-to-org-roam-part-2
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :series '("Migrate Tiddlywiki to org-roam")
 :END:
 
 #+html:{{< notice warning >}}
-In the [[*Migrate Tiddlywiki to org-roam - Part 1: Export Tiddlers][first part]] of this series I've outlined the main factors why I've decided
-to move my digital garden / braindump / Zettelkasten to [[https://github.com/org-roam/org-roam][org-roam]] and which factors
-have facilitated this decision. In the *2nd part* I will expand more
-how I've built the new [[https://brainfck.org][brainfck.org]] using [[https://gohugo.io/][hugo]], [[https://github.com/kaushalmodi/ox-hugo][ox-hugo]] and [[https://github.com/org-roam/org-roam][org-roam]].
+In the [[*Migrate Tiddlywiki to org-roam - Part 1: Export Tiddlers][first part]] of this series I've outlined the main factors for moving my digital
+garden / braindump / Zettelkasten to [[https://github.com/org-roam/org-roam][org-roam]] and which factors have facilitated this
+decision. In the *2nd part* I will expand more how I've built the new [[https://brainfck.org][brainfck.org]] using
+[[https://gohugo.io/][hugo]], [[https://github.com/kaushalmodi/ox-hugo][ox-hugo]] and [[https://github.com/org-roam/org-roam][org-roam]].
 #+html:{{< /notice >}}
 
-Extracting tiddlers from my Tiddlywiki setup was only the first step towards a Second Brain
-using [[https://www.orgroam.com/][org-roam]]. Since I'm a clear advocate for *public* digital gardens, I didn't want to keep my notes only for my self. Having built several sites with [[https://gohugo.io][hugo]] already, it felt natural to chose it as a publishing system for my new setup.
+Extracting tiddlers from my [[https://tw5.brainfck.org][Tiddlywiki setup]] was only the first step towards a [[https://brainfck.org/book/building-a-second-brain/][Second
+Brain]] using [[https://www.orgroam.com/][org-roam]]. Since I'm a clear advocate for *public* digital gardens, I didn't want
+to keep my notes only for my self. Having built several sites with [[https://gohugo.io][hugo]] already, it felt
+natural to chose it as a publishing system for my new setup.
 
 In the following I will try to emphasize some important challenges I have experienced
-while /migrating/ Tiddlywiki tiddlers to org-roam, /creating/editing /the content and finally /export/ it HTML via ~hugo~.
+while /migrating/ Tiddlywiki tiddlers to org-roam, creating and editing the content and finally
+/export/ it to HTML via ~hugo~.
 
 *** hugo
 As a starting point I have used [[https://github.com/jethrokuan/braindump][Jethro's braindump repository]] especially for the ~Elisp~ part.
@@ -40,7 +45,8 @@ As a starting point I have used [[https://github.com/jethrokuan/braindump][Jethr
 You can also have a look at my [[https://github.com/dorneanu/roam][own repository]].
 #+end_sidenote
 
-I'm a big fan of ~Makefiles~:
+First of all I'm a big fan of ~Makefiles~:
+#+caption: Makefile
 #+begin_src makefile
 export:
 	python build.py
@@ -52,7 +58,7 @@ I use ~python~
 #+begin_sidenote
 I plan to switch to some Makefile only version in the future.
 #+end_sidenote
-for exporting my org roam notes:
+for the export task:
 
 #+caption: build.py
 #+begin_src python
@@ -173,7 +179,10 @@ Each build command consists of ~org2md~ which internally calls ~publish.el~:
       (org-hugo-export-wim-to-md))))       ❷
 #+end_src
 
-The main function ~brainfck/publish~ ❶ basically calls ~org-hugo-export-wim-to-md~ ❷ which will "export the current subtree/all subtrees/current file to a Hugo post". Before doing so some local variables are set and ~org-id-extra-files~ is populated with all available ORG roam file paths. This variable holds all files/paths where ORG should search for IDs.
+The main function ~brainfck/publish~ ❶ basically calls ~org-hugo-export-wim-to-md~ ❷ which
+will "export the current subtree/all subtrees/current file to a Hugo post". Before doing
+so some local variables are set and ~org-id-extra-files~ is populated with all available ORG
+roam file paths. This variable holds all files/paths where ORG should search for IDs.
 
 And because some IDs couldn't be resolved properly
 #+begin_sidenote
@@ -226,7 +235,7 @@ You can see I've set a reference to [[https://brainfck.org/t/ssh][SSH]] which lo
 #+end_src
 
 The question is: For a given node/topic how can we find all nodes containing a link to current node? Well we can parse
-content and actually /search/ for that specific topic. In ~hugo~ you can something like this:
+content and actually /search/ for that specific topic. In ~hugo~ you can do something like this:
 
 #+caption: hugo partial to scan for backlinks for a given page
 #+begin_src go
@@ -286,7 +295,7 @@ func main() {
 [/ssh.md" */>}})]
 #+end_src
 
-Once we have populated the ~backlinks~ slice with a list of pages backlinking to current page
+Once we have populated the ~backlinks~ slice with a list of pages backlinking to the current page
 we can then search inside the page content for exactly the lines containing the backlink:
 
 #+begin_src go
@@ -445,20 +454,32 @@ along with the ~date~ in ~yyyy-mm~ format.
 {{ end }}
 #+end_src
 
-
 #+html: {{< gbox src="/posts/img/2022/migrate-tiddlywiki-to-org-roam/group-books-by-year.png" title="Group books by year and month" caption="I like to have an overview which books I've read each year grouped by the month when I completed. " pos="left" >}}
 
 *** org-roam
+
+#+html:{{< notice info >}}
+As a complete ~org-roam~ novice I've found [[https://www.youtube.com/watch?v=AyhPmypHDEw&ab_channel=SystemCrafters][Getting Started with Org Roam - Build a Second
+Brain in Emacs]] ([[https://systemcrafters.cc/build-a-second-brain-in-emacs/getting-started-with-org-roam/][notes]]) to be a quite good introduction. It will give you enough background
+to get you started with ~org-roam~. For more advanced topics you could also read [[https://systemcrafters.net/build-a-second-brain-in-emacs/5-org-roam-hacks/][5 Org Roam
+Hacks for Better Productivity in Emacs]] or check out my [[https://brainfck.org/t/org-roam][org-roam topic]] for more resources.
+#+html:{{< /notice >}}
+
 By default all org-roam nodes are placed within the *same directory*. However, one big directory
 for all notes didn't resonate with me at all. I came up with following /hierarchy/ inside ~org-roam-directory~:
+#+begin_sidenote
+Check out the org folder inside the [[https://github.com/dorneanu/roam/tree/main/org][roam repository]].
+#+end_sidenote
 - *org/*
   This is the root org-roam directory.
   - *books/*
     - this is where all books (stored as individual ORG files) should be located at
     - I consider these files my /literature/ notes
       #+begin_quote
-      "A literature note is a source reference in a reference manager, optionally with one or more attached notes. The term ‘literature note’ derives from the note cards on which Niklas Luhmann, the prolific sociologist and originator of the Zettelkasten Method, recorded bibliographic references (Ahrens, 18)."
-      -- [[https://zettelkasten.de/posts/concepts-sohnke-ahrens-explained][zettelkasten.de]]
+      "A literature note is a source reference in a reference manager, optionally with one
+      or more attached notes. The term ‘literature note’ derives from the note cards on
+      which Niklas Luhmann, the prolific sociologist and originator of the Zettelkasten
+      Method, recorded bibliographic references (Ahrens, 18)." -- [[https://zettelkasten.de/posts/concepts-sohnke-ahrens-explained][zettelkasten.de]]
       #+end_quote
     - /thoughts/ and /concepts/ found within one book /may/ remain here
       - or at same time I move it to an individual topic
@@ -479,9 +500,8 @@ for all notes didn't resonate with me at all. I came up with following /hierarch
       - can link to concepts inside a [[https://brainfck.org/books][book]]
       - can refer to multiple [[https://brainfck.org/topics][topics]]
 
-#+html:{{< notice info >}}
-As a complete ~org-roam~ novice I've found [[https://www.youtube.com/watch?v=AyhPmypHDEw&ab_channel=SystemCrafters][Getting Started with Org Roam - Build a Second Brain in Emacs]] ([[https://systemcrafters.cc/build-a-second-brain-in-emacs/getting-started-with-org-roam/][notes]]) to be a quite good introduction. It will give you enough background to get you started with ~org-roam~. For more advanced topics you could also read [[https://systemcrafters.net/build-a-second-brain-in-emacs/5-org-roam-hacks/][5 Org Roam Hacks for Better Productivity in Emacs]] or check out my [[https://brainfck.org/t/org-roam][org-roam topic]] for more resources.
-#+html:{{< /notice >}}
+#+html: {{< gbox src="/posts/img/2022/migrate-tiddlywiki-to-org-roam/org-roam-buffer-with-backlinks.png" title="ORG Roam buffer with backlinks" caption="On the left side you can see my notes for the topic DDD. On the right side you see all other notes containing a link (back-reference) to the DDD note." pos="left" >}}
+
 **** Capture templates
 
 For rapid capture ~org-roam~ uses pre-defined capture templates
@@ -546,7 +566,7 @@ and insert content quickly:
   - this is the *root* org-roam folder for topics
 
 **** Add structure template for quotes
-Let's say you have following ORG content
+Let's say you have following ORG content:
 #+begin_src org
 ,* Book title
 ,** Notes
@@ -582,6 +602,16 @@ quote blocks? Here is where /macros/ came to my rescue. With my cursor on ~Note 
 
 Here is some screencast:
 #+html: {{< gbox src="/posts/img/2022/migrate-tiddlywiki-to-org-roam/macro-edit-notes.gif" title="Using macros for adding block quotes" caption="" pos="left" >}}
+*** Conclusion
+In retrospect I think I've spent way to much pretious lifetime for this project - and I'm
+not finished yet. There are still to many empty topics (no content at all) and links
+pointing to nirvana (e.g. links in old Tiddlywiki syntax). However, I think, the effort
+      will pay off in the long run! In fact I already feel more productive as I'm able to quickly
+      search for notes (in books, topics, journals etc.) and create these on-the-fly if not existant.  
+
+      I've definitely improved my Emacs Kung Fu™ and learned even more about its editing
+      features (macros!). I also hope ~org-roam~ will help me produce even more content and
+      prevent me from just [[https://zettelkasten.de/posts/collectors-fallacy/][collecting random notes]].
 ** DONE Book summary: Building a Second Brain                                  :books:pkms:
 CLOSED: [2022-09-27 Tue 20:55]
 :PROPERTIES:

@@ -2,7 +2,7 @@
 title = "Migrate Tiddlywiki to org-roam - Part 1: Export Tiddlers"
 author = ["Victor Dorneanu"]
 date = 2022-09-03T22:04:00+02:00
-lastmod = 2022-09-03T22:04:37+02:00
+lastmod = 2022-09-05T08:12:01+02:00
 tags = ["tiddlywiki", "org"]
 draft = false
 series = ["Migrate Tiddlywiki to org-roam"]
@@ -39,23 +39,27 @@ tiddlers, I soon switched over to the [nodeJS installation](https://tiddlywiki.c
 has better benefits like:
 
 -   you can run the instance in [Docker]({{< relref "2022-tiddlywiki-and-emacs#basic-setup" >}})
-    -   install `tiddlywiki` and its dependencies without messing around with your system
+    -   install `tiddlywiki` and its dependencies **without** messing around with your system
 -   you'll get multiple "flat" files (`.tid` files are in _plain text_)
     -   you can apply `sed`, `awk`, `bash` _foo_ to extract/modify data
     -   even if Tiddlywiki will be discontinued some day, you'll still be able to import your notes in whatever note-taking syntax
 
 {{< gbox src="/posts/img/2022/migrate-tiddlywiki-to-org-roam/brainfck-20220903-tw5.png" title="old brainfck - Now available at https://tw5.brainfck.org" caption="" pos="left" >}}
 
-Among the many packages I've used, [stroll](https://giffmex.org/stroll/stroll.html) has definitely changed the way
-I interacted with Tiddlywiki. It allowed me to _focus_ more on the note-taking process
-by dividing the screen into 2 columns. This allowed me to work on different tiddlers
-simultaneously. Still it took me hours to process my notes and digitize them into Tiddlywiki. I guess the UI kind of slowed me down, mostly because I'm a _keyboard-centric_
-user and don't use the mouse that often. Switching between tiddlers, closing them, creating
-new ones always involved _mouse interaction_.
+Among the many packages I've used, [stroll](https://giffmex.org/stroll/stroll.html) has definitely changed the way I interacted with
+Tiddlywiki. It allowed me to _focus_ more on the note-taking process by dividing the screen
+into 2 columns. This allowed me to work on different tiddlers simultaneously. Still it
+took me hours to process my notes and digitize them into Tiddlywiki. I guess the UI kind
+of slowed me down, mostly because I'm a _keyboard-centric_ user and don't use the mouse that
+often. Switching between tiddlers, closing them, creating new ones always involved _mouse
+interaction_.
 
 {{< gbox src="/posts/img/2022/migrate-tiddlywiki-to-org-roam/tiddlywiki-stroll.png" title="Tiddlywiki using stroll" caption="stroll allowed you to split the screen into multiple columns, backlinks are automatically shown." pos="left" >}}
 
-For the same reason I've been using VIM for more than a decade and since more than 2 years I'm happy to consider myself an [evil](https://www.emacswiki.org/emacs/Evil) Emacs user. It became not only my primary editor, but also my [RSS feeds reader]({{< relref "2022-rss-atom-emacs-and-elfeed" >}}), mail client, YouTube video player, IDE, API client... I basically live in Emacs
+For the same reason I've been using VIM for more than a decade and since more than 2 years
+I'm happy to consider myself an [evil](https://www.emacswiki.org/emacs/Evil) Emacs user. It became not only my primary editor, but
+also my [RSS feeds reader]({{< relref "2022-rss-atom-emacs-and-elfeed" >}}), mail client, YouTube video player, IDE, API client... I
+basically live in Emacs
 {{% sidenote %}}
 Here is my [config.org](https://github.com/dorneanu/dotfiles/blob/master/dot_doom.d/config.org)
 {{% /sidenote %}} and try to avoid as many context switches as possible.
@@ -479,8 +483,9 @@ Basically I wanted to merge every tiddler into one `ORG` file.
 
 {{< figure src="/posts/img/2022/migrate-tiddlywiki-to-org-roam/book-tiddlers.png" caption="<span class=\"figure-number\">Figure 3: </span>Merge every single tiddler related to 1984 into one big ORG file." >}}
 
-Instead of applying some `sed` &amp; `awk` magic, I decided to use Tiddlywikis internal templating system. The [$:/core/templates/static.tiddler.html](http://tw5.brainfck.org/#%24%3A%2Fcore%2Ftemplates%2Fstatic.tiddler.html) template for examples defines how a single tiddler should be exported
-to its corresponding HTML file:
+Instead of applying some `sed` &amp; `awk` magic, I decided to use Tiddlywikis internal templating
+system. The [$:/core/templates/static.tiddler.html](http://tw5.brainfck.org/#%24%3A%2Fcore%2Ftemplates%2Fstatic.tiddler.html) template for examples defines how a
+single tiddler should be exported to its corresponding HTML file:
 
 ```html
 \define tv-wikilink-template() $uri_doubleencoded$.html
