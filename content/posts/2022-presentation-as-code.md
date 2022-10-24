@@ -2,8 +2,8 @@
 title = "Presentation as Code"
 author = ["Victor Dorneanu"]
 date = 2022-01-19T20:28:00+01:00
-lastmod = 2022-01-19T20:46:34+01:00
-tags = ["devops", "productivity", "emacs", "org"]
+lastmod = 2022-10-24T19:57:02+02:00
+tags = ["devops", "productivity", "emacs", "org", "slides"]
 draft = false
 +++
 

@@ -2,7 +2,7 @@
 title = "Migrate Tiddlywiki to org-roam - Part 2: org-roam and hugo"
 author = ["Victor Dorneanu"]
 date = 2022-10-04T21:43:00+02:00
-lastmod = 2022-10-04T21:43:50+02:00
+lastmod = 2022-10-18T22:12:10+02:00
 tags = ["hugo", "pkms", "tiddlywiki", "emacs", "org"]
 draft = false
 series = ["Migrate Tiddlywiki to org-roam"]
