@@ -2,8 +2,8 @@
 title = "Book summary: Digital Minimalism"
 author = ["Victor Dorneanu"]
 date = 2022-05-02T20:48:00+02:00
-lastmod = 2022-08-08T14:17:38+02:00
-tags = ["books", "minimalism"]
+lastmod = 2023-01-25T14:39:40+01:00
+tags = ["books", "minimalism", "summary"]
 draft = false
 +++
 
@@ -26,7 +26,7 @@ technologies while side-stepping what's bad. So called digital minimalists trans
 use innovations from a source of distraction into something that supports their lives well
 lived.
 
-The author lists 3 main [principles](https://brainfck.org/#Digital%20Minimalism%20/%20Philosophy) with regards
+The author lists 3 main [principles](https://tw5.brainfck.org/#Digital%20Minimalism%20/%20Philosophy) with regards
 to "Digital Minimalism":
 
 -   De-clutter your (digital) life because clutter is costly
@@ -45,7 +45,7 @@ to "Digital Minimalism":
 > You cannot expect an app dreamed up in a dorm room, or among the ping-pong tables of a
 > Silicon Valley incubator, to successfully replace the types of rich interactions to which
 > we've painstakingly adapted over millenia. Our society is simply too complex to be
-> outsourced to a social network or reduced to instant messages and emojis. - [Source](https://brainfck.org/#Digital%20Minimalism%20-%20Note%206)
+> outsourced to a social network or reduced to instant messages and emojis. - [Source](https://tw5.brainfck.org/#Digital%20Minimalism%20-%20Note%206)
 
 And because those "rich interactions" are essential to the well-being of our own
 sociality, following recommendations should be embraced:
@@ -69,7 +69,7 @@ sociality, following recommendations should be embraced:
 
 ## Additional resources {#additional-resources}
 
-As always read more about inter-connected topics in my [Zettelkasten](https://brainfck.org/#Zettelkasten)
+As always read more about inter-connected topics in my [Zettelkasten](https://tw5.brainfck.org/#Zettelkasten)
 at [Digital Minimalism](https://brainfck.org/#Digital%20Minimalism).
 
 

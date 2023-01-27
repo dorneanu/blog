@@ -2,8 +2,8 @@
 title = "Book summary: Building a Second Brain"
 author = ["Victor Dorneanu"]
 date = 2022-09-27T20:55:00+02:00
-lastmod = 2022-09-27T21:13:03+02:00
-tags = ["books", "pkms"]
+lastmod = 2023-01-25T14:39:11+01:00
+tags = ["books", "pkms", "summary"]
 draft = false
 +++
 

@@ -2,8 +2,8 @@
 title = "Book summary: The Lonely Century"
 author = ["Victor Dorneanu"]
 date = 2023-01-21T17:06:00+01:00
-lastmod = 2023-01-21T17:06:32+01:00
-tags = ["books", "society"]
+lastmod = 2023-01-25T14:38:44+01:00
+tags = ["books", "society", "summary"]
 draft = false
 +++
 

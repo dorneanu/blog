@@ -2,8 +2,8 @@
 title = "Book summary: Building Microservices (2nd Edition)"
 author = ["Victor Dorneanu"]
 date = 2022-08-10T21:47:00+02:00
-lastmod = 2022-08-10T21:47:36+02:00
-tags = ["books", "microservices", "architecture"]
+lastmod = 2023-01-25T14:39:19+01:00
+tags = ["books", "microservices", "architecture", "summary"]
 draft = false
 +++
 
@@ -19,16 +19,16 @@ modern architectures) that rouse my attention and introduced me to Sam Newman.
 {{% sidenote %}}
 I was reading the (German) [iX Magazin](https://www.heise.de/ix/) about [modern architectures](https://www.heise.de/news/Neues-iX-Developer-Sonderheft-Moderne-Softwarearchitektur-am-Kiosk-erhaeltlich-4874200.html).
 {{% /sidenote %}} At the same time I was surprised to read about the similarities between
-[Hexagonal Architecture](https://brainfck.org/#Hexagonal%20Architecture) and _microservices_. But
-also topics like [DDD](https://brainfck.org/#DDD), [CD](https://brainfck.org/#Continuous%20Delivery%20(CD)),
-[CI](https://brainfck.org/#Continuous%20Integration%20(CI)) are bound together in way that you need
+[Hexagonal Architecture](https://tw5.brainfck.org/#Hexagonal%20Architecture) and _microservices_. But
+also topics like [DDD](https://tw5.brainfck.org/#DDD), [CD](https://tw5.brainfck.org/#Continuous%20Delivery%20(CD)),
+[CI](https://tw5.brainfck.org/#Continuous%20Integration%20(CI)) are bound together in way that you need
 to take a hollistic approach to (building) microservices.
 
 I recommend this book
 {{% sidenote %}}
 Along with Martin Fowlers extensive arcticles on [microservices](https://martinfowler.com/microservices/).
 {{% /sidenote %}} to anyone willing to spend some time (book has ca. 500 pages) learning about
-[Information hiding](https://brainfck.org/#Information%20hiding), [communication between microservices](#ch-dot-4-communication-styles), [proper teams setup](#stream-aligned-teams), role of (IT) [architects](#ch-dot-16-the-evolutionary-architect) and much more. Fair enough the author
+[Information hiding](https://tw5.brainfck.org/#Information%20hiding), [communication between microservices](#ch-dot-4-communication-styles), [proper teams setup](#stream-aligned-teams), role of (IT) [architects](#ch-dot-16-the-evolutionary-architect) and much more. Fair enough the author
 emphasizes multiple time the _complexity_ of decoupling existing services (monoliths) into
 smaller, independent ones (microservices). The book recommendations in each chapter also
 give a great hint where you can enlarge upon a specific topic.
@@ -42,14 +42,14 @@ from the book.
 
 ### Definition {#definition}
 
-> [Microservices](https://brainfck.org/#Microservices) are independently releasable services that are modeled around a business
+> [Microservices](https://tw5.brainfck.org/#Microservices) are independently releasable services that are modeled around a business
 > domain. A service encapsulates functionality and makes it accessible to other services via
 > networks.
 
--   [Microservices](https://brainfck.org/#Microservices) are a type of [SOA](https://brainfck.org/#SOA) architecture
+-   [Microservices](https://tw5.brainfck.org/#Microservices) are a type of [SOA](https://tw5.brainfck.org/#SOA) architecture
     -   service boundaries are important
     -   independent deployability is key
--   [Microservices](https://brainfck.org/#Microservices) embrace the concept of [Information hiding](https://brainfck.org/#Information%20hiding)
+-   [Microservices](https://tw5.brainfck.org/#Microservices) embrace the concept of [Information hiding](https://tw5.brainfck.org/#Information%20hiding)
 {{% sidenote %}}
 Introduced by David Parnas in _Information Distribution Aspects of Design Methodology_
 {{% /sidenote %}}
@@ -63,7 +63,7 @@ Introduced by David Parnas in _Information Distribution Aspects of Design Method
 -   **Modeled around a business domain**
     -   definition of service boundaries (see [DDD](#ddd))
 -   **Owning their own state**
-    -   hide internal state (same as encapsulation in [OOP](https://brainfck.org/#OOP))
+    -   hide internal state (same as encapsulation in [OOP](https://tw5.brainfck.org/#OOP))
     -   clean delineation between internal implementation details and external contract
         -   be backward-compatible
     -   hide database that backs the service
@@ -142,7 +142,7 @@ Introduced by David Parnas in _Information Distribution Aspects of Design Method
 ## Ch. 2: How to model microservices {#ch-dot-2-how-to-model-microservices}
 
 
-### [Information hiding](https://brainfck.org/#Information%20hiding) {#information-hiding}
+### [Information hiding](https://tw5.brainfck.org/#Information%20hiding) {#information-hiding}
 
 -   hide as many details as possible behind a module / microservice boundary
 -   Parnas identified following benefits:
@@ -178,7 +178,7 @@ Introduced by David Parnas in _Information Distribution Aspects of Design Method
 -   still: there is no best way how to organize code
 
 
-### [Types of coupling](https://brainfck.org/#Types%20of%20coupling) {#types-of-coupling}
+### [Types of coupling](https://tw5.brainfck.org/#Types%20of%20coupling) {#types-of-coupling}
 
 
 #### Domain coupling {#domain-coupling}
@@ -206,7 +206,7 @@ Introduced by David Parnas in _Information Distribution Aspects of Design Method
     -   use of shared DB
     -   use of shared memory/filesystem
 -   problem: changes to data can impact multiple microservices at once
--   better solution would be to implement [CRUD](https://brainfck.org/#CRUD) operations and let only 1
+-   better solution would be to implement [CRUD](https://tw5.brainfck.org/#CRUD) operations and let only 1
     microservice handle shared DB operations
 
 
@@ -220,7 +220,7 @@ Introduced by David Parnas in _Information Distribution Aspects of Design Method
 
 ### DDD {#ddd}
 
-[DDD](https://brainfck.org/#DDD) stands for Domain-Driven Design.
+[DDD](https://tw5.brainfck.org/#DDD) stands for Domain-Driven Design.
 
 
 #### Concepts {#concepts}
@@ -260,7 +260,7 @@ Introduced by David Parnas in _Information Distribution Aspects of Design Method
 
     -   a larger organizational boundary
         -   within it explicit responsibilities need to be carried out
-    -   bounded contexts hide implementation details ([Information hiding](https://brainfck.org/#Information%20hiding))
+    -   bounded contexts hide implementation details ([Information hiding](https://tw5.brainfck.org/#Information%20hiding))
     -   bounded contexts contain `1-n` aggregates
         -   some aggregates may be exposed outside the bounded context
         -   others may be hidden internally
@@ -326,7 +326,7 @@ By [Martin Fowler](https://martinfowler.com/bliki/StranglerFigApplication.html)
     -   **synchronous blocking**
     -   **asynchronous blocking**
     -   **request-response**
-    -   [Event-Driven Architecture](https://brainfck.org/#Event-Driven%20Architecture)
+    -   [Event-Driven Architecture](https://tw5.brainfck.org/#Event-Driven%20Architecture)
     -   **Common data**
 
 
@@ -356,15 +356,15 @@ By [Martin Fowler](https://martinfowler.com/bliki/StranglerFigApplication.html)
 
 ### Technology choices {#technology-choices}
 
--   [RPC](https://brainfck.org/#RPC)
+-   [RPC](https://tw5.brainfck.org/#RPC)
     -   SOAP
-    -   [gRPC](https://brainfck.org/#gRPC)
+    -   [gRPC](https://tw5.brainfck.org/#gRPC)
 -   REST
 {{% sidenote %}}
     Book recommendation: [REST in Practice: Hypermedia and Systems Architecture](https://www.goodreads.com/en/book/show/8266727-rest-in-practice) (by Jim Webber, Savas Parastatidis, Ian Robinson)
     {{% /sidenote %}}
 -   GraphQL
-    -   alternative: [BFF](https://brainfck.org/#BFF) (Backend-For Frontend) pattern
+    -   alternative: [BFF](https://tw5.brainfck.org/#BFF) (Backend-For Frontend) pattern
 {{% sidenote %}}
         This [article](https://blog.bitsrc.io/bff-pattern-backend-for-frontend-an-introduction-e4fa965128bf) provides a quite good introduction.
         {{% /sidenote %}} {{< gbox src="/posts/img/2022/building-microservices-2nd-edition/microservices_07-02-2022_12.35_13.jpg" title="Backend for Frontend (BFF)" caption="Define different services for web, mobile, native clients and return only the amount of data needed. " pos="left" >}}
@@ -415,7 +415,7 @@ By [Martin Fowler](https://martinfowler.com/bliki/StranglerFigApplication.html)
 
 ## Ch. 7: Build {#ch-dot-7-build}
 
--   on [Continuous Integration (CI)](https://brainfck.org/#Continuous%20Integration%20(CI))
+-   on [Continuous Integration (CI)](https://tw5.brainfck.org/#Continuous%20Integration%20(CI))
 -   how to organize artifacts
     -   monorepo
     -   multirepo
@@ -424,7 +424,7 @@ By [Martin Fowler](https://martinfowler.com/bliki/StranglerFigApplication.html)
 ## Ch. 8: Deployment {#ch-dot-8-deployment}
 
 
-### [Principles of Microservices Deployment](https://brainfck.org/#Microservices/Deployment) {#principles-of-microservices-deployment}
+### [Principles of Microservices Deployment](https://tw5.brainfck.org/#Microservices/Deployment) {#principles-of-microservices-deployment}
 
 -   **isolated execution**
     -   own computing resources
@@ -444,7 +444,7 @@ By [Martin Fowler](https://martinfowler.com/bliki/StranglerFigApplication.html)
     -   GitOps
         -   brings together desired state management and IaC (Infrastructure as Code)
 -   **progressive delivery**
-    -   implement many of the ideeas in [Accelerate](https://brainfck.org/#Accelerate)
+    -   implement many of the ideeas in [Accelerate](https://tw5.brainfck.org/#Accelerate)
     -   separate deployment from release
     -   feature releases
         -   use as part of trunk-based development
@@ -517,7 +517,7 @@ An alert has to be:
 -   other options
     -   A/B testing
     -   canary releases
-    -   [Chaos engineering](https://brainfck.org/#Chaos%20engineering)
+    -   [Chaos engineering](https://tw5.brainfck.org/#Chaos%20engineering)
     -   parallel runs
     -   smoke tests
 
@@ -608,7 +608,7 @@ Book recommendation: [Team Topologies: Organizing Business and Technology Teams 
 ## Ch. 15: Organizational structures {#ch-dot-15-organizational-structures}
 
 -   [Stream-aligned teams](#stream-aligned-teams)
-    -   concept aligns with loosely-coupled organizations (as in [Accelerate](https://brainfck.org/#Accelerate))
+    -   concept aligns with loosely-coupled organizations (as in [Accelerate](https://tw5.brainfck.org/#Accelerate))
 
 
 ### Conways Law {#conways-law}
