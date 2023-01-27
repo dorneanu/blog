@@ -84,7 +84,98 @@ type Service interface {
 
 
   A package/ might provide a ~repository.go~ which is an interface describing how that specific service
-** DONE Book summary: The Lonely Century                                       :books:society:
+** TODO AWS Lambda baked Cloudformation custom resources in Golang             :golang:aws:serverless:
+*** Resources
+** TODO elfeed, hnread, reddigg
+*** Read hackernews comments
+#+begin_src emacs-lisp
+(defun my/elfeed-hn-show-commments (&optional link)
+  (interactive)
+  (let* ((entry (if (eq major-mode 'elfeed-show-mode)
+                    elfeed-show-entry
+                  (elfeed-search-selected :ignore-region)))
+         (link (if link link (elfeed-entry-link entry))))
+    (setq-local hnreader-view-comments-in-same-window nil)
+    (message "Opening: %s" link)))
+
+(my/elfeed-hn-show-comments "https://news.ycombinator.com/item?id=33259414")
+#+end_src
+*** elfeed, get entry link
+#+Begin_src emacs-lisp
+(defun private/org-elfeed-entry-store-link ()
+  (interactive)
+  (when elfeed-show-entry
+    (let* ((link (elfeed-entry-link elfeed-show-entry))
+           (title (elfeed-entry-title elfeed-show-entry)))
+      (message "Blaasasdkjjh")
+      )))
+#+end_src
+
+*** Copy at point
+#+begin_src emacs-lisp
+(require 'url-util)
+(defun private/org-elfeed-entry-story-link ()
+  "Kill the url at point."
+  (interactive)
+  (setq-local hnreader-view-comments-in-same-window t)
+  (hnreader-comment (url-get-url-at-point)))
+#+end_src
+
+#+RESULTS:
+: private/org-elfeed-entry-story-link
+** DONE Book summary: Four Thousand Weeks                                      :books:society:summary:
+CLOSED: [2023-01-27 Fri 07:05]
+:PROPERTIES:
+:EXPORT_FILE_NAME: 2023-book-summary-four-thousand-weeks
+:END:
+Imagine you'd ask an oracle (like the one in the Matrix movie) how much time
+left you have on this planet before the inevitable takes place - you die.
+Suppose she/he/it
+#+begin_sidenote
+Who knows, maybe some day OpenAI will also answer these kind of questions
+#+end_sidenote
+will tell you at the age of 80 years your life will come to an end.
+
+In my case this means I still have 80 - 34 = 46 years to go. These are ca. 46 x
+52 weeks (per year) = 2392 weeks left. What would you probably do with this
+information and more important will this have an impact on your remaining time?
+
+We use to say "Life is short". But how short?  The human lifespan is
+quite brief, at around 80 years which gives you ca. 4000 thousand weeks. The
+"[[https://www.goodreads.com/book/show/54785515-four-thousand-weeks][Four Thousand Weeks - Time management for mortals]]" book is about our obsession
+with productivity, efficient workloads, life hacks and all the things that
+stress us.
+
+One of the books key message is: The more you try to empty your inbox (I talked
+about this in this [[/2021/09/01/inbox-zero-using-getpocket/][blog post]]) the more you'll get on your plate. In other words:
+The more you try to master your time, the more frustrated and empty you'll feel.
+Why? Because the influx of "things" you want to accomplish will never stop.
+Instead of trying to get everything done, you should focus on the things that
+really matter.
+
+Our relantionship with time is kind of toxic as we not only try to make the most
+of our limited time on Earth but we also see time as a resource rather than a
+concept. We tend to /use/ time, rather then /exist/ in it. According to the German
+philosopher Martin Heidegger human existence is bound to time. To phrase it in a
+more philosophical way: *We are the time we spend on Earth*. And therefore our
+existence is limited.
+
+What should you do about this? Face this limitation, cultivate a deeply meaningful life
+(concept by [[https://www.calnewport.com/][Cal Newport]]) and stop distracting yourself with nonsense. Maybe you also
+finally give up that "when I finally" mentality where specific events have to occur,
+projects have to be finished first before life can begin and you finally do what resonates
+with you. We literally live for the future: We keep track of things we want to visit, we
+perfectly manage our time in order to finish projects, we learn/train for future goals.
+Well, *the present moment is the only one that really exist*. Here, now, in this moment.
+
+In my humble opinion this book is against the "life purpose" mentality taught by many /New
+Age enthuasists/ where life has to have a meaning and every minute should be dedicated to
+something special. In reality (comparing our lifespan with the age of the universe), our
+activities don't really have a significance in the eyes of the universe. Accepting this
+fact will probably release you from the high standards you have set for yourself to make
+your life time on Earth remarkable. Not everybody will become the next Bezos, Einstein or
+Mozart. Spending time with family and friends is a worthy way to spend your 4000 weeks.
+** DONE Book summary: The Lonely Century                                       :books:society:summary:
 CLOSED: [2023-01-21 Sat 17:06]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2023-book-summary-the-lonely-century
@@ -570,43 +661,6 @@ language, be passionate about technology, make yourself familiar with a new clou
 provider, listen to topics, read [[https://brainfck.org/books/][books]]... The goal is to constantly sharpen your /tools/ and
 /skills/ and master any topic to a degree that fits your purposes. Be a /generalist/ but
 /specialize/ in 1-2 topics (I highly recommend {{{zk_book(range,Range)}}}).
-** TODO elfeed, hnread, reddigg
-*** Read hackernews comments
-#+begin_src emacs-lisp
-(defun my/elfeed-hn-show-commments (&optional link)
-  (interactive)
-  (let* ((entry (if (eq major-mode 'elfeed-show-mode)
-                    elfeed-show-entry
-                  (elfeed-search-selected :ignore-region)))
-         (link (if link link (elfeed-entry-link entry))))
-    (setq-local hnreader-view-comments-in-same-window nil)
-    (message "Opening: %s" link)))
-
-(my/elfeed-hn-show-comments "https://news.ycombinator.com/item?id=33259414")
-#+end_src
-*** elfeed, get entry link
-#+begin_src emacs-lisp
-(defun private/org-elfeed-entry-store-link ()
-  (interactive)
-  (when elfeed-show-entry
-    (let* ((link (elfeed-entry-link elfeed-show-entry))
-           (title (elfeed-entry-title elfeed-show-entry)))
-      (message "Blaasasdkjjh")
-      )))
-#+end_src
-
-*** copy at point
-#+begin_src emacs-lisp
-(require 'url-util)
-(defun private/org-elfeed-entry-story-link ()
-  "Kill the url at point."
-  (interactive)
-  (setq-local hnreader-view-comments-in-same-window t)
-  (hnreader-comment (url-get-url-at-point)))
-#+end_src
-
-#+RESULTS:
-: private/org-elfeed-entry-story-link
 ** DONE Hexagonal Architecture in Python                                       :python:architecture:slides:
 CLOSED: [2022-10-24 Mon 20:11]
 :PROPERTIES:
@@ -1243,7 +1297,7 @@ pointing to nirvana (e.g. links in old Tiddlywiki syntax). However, I think, the
       I've definitely improved my Emacs Kung Fu™ and learned even more about its editing
       features (macros!). I also hope ~org-roam~ will help me produce even more content and
       prevent me from just [[https://zettelkasten.de/posts/collectors-fallacy/][collecting random notes]].
-** DONE Book summary: Building a Second Brain                                  :books:pkms:
+** DONE Book summary: Building a Second Brain                                  :books:pkms:summary:
 CLOSED: [2022-09-27 Tue 20:55]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2022-book-summary-building-a-second-brain
@@ -2216,7 +2270,7 @@ And this is the final [[https://brainfck.org/book/1984/][result]].
 I intentionally didn't add content in the ~Notes~ section to the sub-nodes. In the next post
 I'll explain how I managed to quickly review my notes using ~Emacs~ and some ~Elisp~ and add content on the go.
 
-** DONE Book summary: Building Microservices (2nd Edition)                     :books:microservices:architecture:
+** DONE Book summary: Building Microservices (2nd Edition)                     :books:microservices:architecture:summary:
 CLOSED: [2022-08-10 Wed 21:47]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2022-book-summary-building-microservices-2nd-edition
@@ -2254,7 +2308,6 @@ give a great hint where you can enlarge upon a specific topic.
 
 What follows next is an [[https://orgmode.org/][ORG mode]] / outline style collection of notes, thoughts and quotes
 from the book.
-
 
 *** Ch. 1: What are Microservices?
 **** Definition
@@ -2618,7 +2671,7 @@ An alert has to be:
   - help the operator understand what actions need to taken
 - *focussed*
   - draw attention to the most important issues
-***** On the importance of testing                                          :quote:
+***** On the importance of testing                                             :quote:
 #+begin_quote
 "Not testing in production is like not practitioning with the full orchestra because your solo sounded fine at home"
 #+end_quote
@@ -3901,7 +3954,7 @@ improve your daily newsflow and reading habits.
 You can find this blogs RSS feed at [[https://blog.dornea.nu/feed.xml][blog.dornea.nu/feed.xml]]. I've also exported my current RSS subscription
 list to [[https://gist.github.com/dorneanu/c3db1683e68137ff84775e87bd225ae4][this gist]].
 
-** DONE Book summary: Breath - The New Science of a Lost Art                   :books:
+** DONE Book summary: Breath - The New Science of a Lost Art                   :books:summary:
 CLOSED: [2022-05-30 Mon 21:37]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2022-book-summary-breath-the-new-science-of-a-lost-art
@@ -4026,7 +4079,7 @@ for your breathwork journey:
   - health is all about absorbing and transfering electrons in a controlled way
 - [[https://derosemethod.org/][Luiz Sergio Alvarez DeRose]] wrote books about the concepts of {{{zk(Prana,Prana)}}}
 - [[https://www.goodreads.com/author/show/81372.Swami_Rama][Swami Rama]] brought {{{zk(Pranayama,Pranayama)}}} to Western cultures
-** DONE Book summary: Digital Minimalism                                       :books:minimalism:
+** DONE Book summary: Digital Minimalism                                       :books:minimalism:summary:
 CLOSED: [2022-05-02 Mon 20:48]
 :PROPERTIES:
 :EXPORT_FILE_NAME: 2022-book-summary-digital-minimalism
@@ -4198,7 +4251,7 @@ As you know you can always browse [[https://brainfck.org/#Books][my digital book
 year I've read more IT related books than last year. I've especially focussed on
 {{{zk(Software Architecture,Software Architecture)}}}, {{{zk(Golang,Golang)}}} and
 {{{zk(DevSecOps,DevSecOps)}}}.
-**** Clean Architecture                                                      :architecture:
+**** Clean Architecture                                                        :architecture:
 If you write code and don't know [[http://cleancoder.com/products][Uncle Bob]] then you'll have to read this book. Since my
 background is not of software engineering I had to learn a lot about good coding
 principles and how to structure my code properly. Very early in this process I came across
@@ -4226,7 +4279,7 @@ I also recommend [[https://herbertograca.com/2017/11/16/explicit-architecture-01
 An excellent article!
 #+end_sidenote
 
-**** Black Hat Go                                                            :golang:
+**** Black Hat Go                                                              :golang:
 Back at [[/2021/09/15/bye-bye-scout24/][Scout24]] we were mainly using Python for our internal services and tools. But I
 wanted to make my colleagues more aware of Golang's capabilities and introduce this
 language to the team. Instead of some standardized approach (core types, basic control
@@ -4243,7 +4296,7 @@ for you.
 
 **** Accelerate
 About the science of Lean software and DevOps. I wrote an extensive [[/2021/11/24/book-review-accelerate-the-science-of-lean-software-and-devops/][summary in my last blog post]].
-**** Agile Application Security                                              :appsec:
+**** Agile Application Security                                                :appsec:
 I consider this book to be the best one I've read on {{{zk(AppSec,Application Security)}}}
 in the last years. And I'll tell you why: When was the last time that a cool *defensive*
 mechanism/measure/technology (beside the cyber-security branded vendor X products) had a
@@ -4260,7 +4313,7 @@ teams enough time for the implementation of the security measures. And last but 
 Security professionals will also have to adapt to the Agile world. They need to learn to
 accept changes more often, to work faster and manage Security risks in incremental terms.
 And most important: Security needs to become an *enabler* and not a blocker!
-**** Go with the Domain                                                      :ddd:
+**** Go with the Domain                                                        :ddd:
 If you know about [[https://threedots.tech][Three Dots Labs]] already and also have read their blog series on
 [[https://threedots.tech/tags/ddd/][Domain-driven Design with Go]] then you don't necessarily need to read [[https://threedots.tech/go-with-the-domain][this book]]. I think
 the content is quite good and has to be "diggested" over a longer period of time. However,
@@ -6231,7 +6284,7 @@ use ~shell-command-on-region~ with ~xargs -n1 <script>~ as shown in the asciinem
 :EXPORT_HUGO_SECTION: bookmarks
 :EXPORT_HUGO_WEIGHT: auto
 :END:
-** Golang                                                                      :golang:
+** Golang                                                                       :golang:
 :PROPERTIES:
 :EXPORT_FILE_NAME: golang
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true
@@ -6288,7 +6341,7 @@ use ~shell-command-on-region~ with ~xargs -n1 <script>~ as shown in the asciinem
   Inspired by Google's BeyondCorp
   #+end_quote
 
-***** TODO [[https://www.ory.sh/docs/next/ecosystem/projects][ory ecosystem]] :read:
+***** TODO [[https://www.ory.sh/docs/next/ecosystem/projects][ory ecosystem]]   :read:
 *** AWS
 
 - [[https://github.com/awslabs/aws-apigateway-lambda-authorizer-blueprints/blob/master/blueprints/go/main.go][API Gateway Authorizer Blueprint in Golang]]
@@ -6545,7 +6598,7 @@ Great resources:
 *** UI
 - [[https://www.vugu.org/][Vugu]]
   - A modern UI library for Go+WebAssembly
-** Hugo                                                                        :hugo:
+** Hugo                                                                         :hugo:
 :PROPERTIES:
 :EXPORT_FILE_NAME: hugo
 :END:
@@ -6597,7 +6650,7 @@ Some curated list of bookmarks related to ~hugo~.
 :TIMESTAMP: <2021-03-02 Tue>
 :END:
 k
-** Music                                                                       :music:
+** Music                                                                        :music:
 :PROPERTIES:
 :EXPORT_FILE_NAME: music
 :END:
@@ -6646,7 +6699,7 @@ k
 - Forschung
   - [[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6900908/][Possible Effect of Binaural Beat Combined With Autonomous Sensory Meridian Response for Inducing Sleep]]
 
-*** Djembe                                                                    :djembe:
+*** Djembe                                                                      :djembe:
 **** Youtube
 ***** Watch "Hayashi-Mamady duo. Grandmasters Mamady Keita (djembeföla) and Eitetsu Hayashi (taiko soloist)" on YouTube
 
@@ -6701,18 +6754,18 @@ All kind of appsec related simulations/trainings.
 *** CI/CD
 - [[https://www.infoq.com/articles/Continuous-Delivery-Maturity-Model/][The Continuous Delivery Maturity Model]]
 
-** ORG Mode                                                                    :org:
+** ORG Mode                                                                     :org:
 :PROPERTIES:
 :EXPORT_FILE_NAME: org-mode
 :END:
 - [[http://www.howardism.org/Technical/Emacs/literate-programming-tutorial.html][Literate Programming]]
 - [[https://blog.lazkani.io/posts/text-editors/bookmark-with-org-capture/][Bookmark with Org-capture | The DevOps Blog]]
-** Rust                                                                        :rust:
+** Rust                                                                         :rust:
 :PROPERTIES:
 :EXPORT_FILE_NAME: rust
 :END:
 - [[https://academy.kerkour.com/black-hat-rust?][Black Hat Rust]]
-* Notes                                                                         :note:
+* NOTES                                                                         :note:
 :PROPERTIES:
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true :noauthor true :nocomment true :nodate true :nopaging true :noread true
 :EXPORT_HUGO_SECTION: notes
@@ -6754,7 +6807,7 @@ location without the need for a traditional VPN. -- [[https://cloud.google.com/b
 - authorization:
   - ACL engine queryable via RPCs
 
-** AWS                                                                         :aws:
+** AWS                                                                          :aws:
 :PROPERTIES:
 :EXPORT_FILE_NAME: aws
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true
@@ -6825,7 +6878,7 @@ Some currated list of useful ~aws~  CLI commands.
 
 ** Static Code Analysis
 *** Articles
-**** Lessons from building static analysis tools at Google                   :sca:google:
+**** Lessons from building static analysis tools at Google                      :sca:google:
 :PROPERTIES:
 :EXPORT_FILE_NAME: lessons-from-building-static-analysis-tools-at-google
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true
@@ -6889,7 +6942,7 @@ Developers, not tool authors, will determine and act on a tool's perceived false
   - developers need to build trust in the tools
   - If a tool wastes developer time with false positives and low-priority issues, developers will lose faith and ignore results.
 
-**** Scaling Static Analyses at Facebook                                     :sca:facebook:
+**** Scaling Static Analyses at Facebook                                        :sca:facebook:
 :PROPERTIES:
 :EXPORT_FILE_NAME: scaling-static-analyses-at-facebook
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :toc true
@@ -7027,7 +7080,7 @@ The success of the diff time came as no surprise to Fb's devs:
 
 - [[https://blog.pragmaticengineer.com/software-architecture-is-overrated/amp/][Software Architecture is Overrated, Clear and Simple Design is Underrated]]
 
-** emacs                                                                       :emacs:
+** emacs                                                                        :emacs:
 :PROPERTIES:
 :EXPORT_FILE_NAME: emacs
 :END:
@@ -7816,20 +7869,20 @@ name from which they want to read messages.
 :EXPORT_HUGO_SECTION: gists
 :EXPORT_HUGO_WEIGHT: auto
 :END:
-** A JavaScript keylogger using a websocket Golang server                      :golang:
+** A JavaScript keylogger using a websocket Golang server                       :golang:
 :PROPERTIES:
 :EXPORT_FILE_NAME: javascript-keylogger-websocket-golang
 :HUGO_SECTION: gist
 :END:
 
 {{< gist dorneanu 02c9c5bb83e881e7ad2c1e93c7c2fd24 >}}
-** Simple plugin architecture in Python                                        :python:
+** Simple plugin architecture in Python                                         :python:
 :PROPERTIES:
 :EXPORT_FILE_NAME: simple-plugin-architecture-in-python
 :END:
 
 {{< gist dorneanu cce1cd6711969d581873a88e0257e312 >}}
-** List all repos inside an organization using python and github3              :python:github:
+** List all repos inside an organization using python and github3               :python:github:
 :PROPERTIES:
 :EXPORT_FILE_NAME: list-all-repos-inside-an-organization-using-python-and-github3
 :END:
