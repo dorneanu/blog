@@ -192,6 +192,14 @@ div.highlight {
   /* font-family: var(--mono); */
   overflow-x: auto;
   max-width: 640px;
+  z-index: 9999;
+}
+
+div.highlight:hover {
+  display: block;
+  position: relative;
+  max-width: 900px;
+  width: 900px;
 }
 
 code {
@@ -238,6 +246,7 @@ pre {
   white-space: pre;
   overflow-x: auto; /* Enable horizontal scroll bars (only for overflowing code) */
 }
+
 .highlight .chroma .lntable {
   /* border-top: 1px solid var(--theme-color); */
   /* border-bottom: 1px solid var(--theme-color-light); */
