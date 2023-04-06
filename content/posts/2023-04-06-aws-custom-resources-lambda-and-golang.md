@@ -1,7 +1,7 @@
 +++
 title = "AWS Custom resources with Lambda and Golang"
 author = ["Victor Dorneanu"]
-lastmod = 2023-04-06T16:11:12+02:00
+lastmod = 2023-04-06T16:22:13+02:00
 tags = ["aws", "serverless", "cdk", "golang"]
 draft = false
 +++
@@ -69,6 +69,9 @@ parameters based on the event's properties.
 
 This gives you enough flexibility to define _what_ should happen when certain
 events occur. Let's dig into deeper into the specifics.
+
+Of course you can jump right away to the Github repository:
+<figure><a href="https://github.com/dorneanu/aws-custom-resource-golang"><img src=" https://socialify.git.ci/dorneanu/aws-custom-resource-golang/image?description=1&descriptionEditable=gocial%20-%20social%20media%20interactions&font=Source%20Code%20Pro&forks=1&language=1&name=1&owner=1&pattern=Solid&stargazers=1&theme=Light"></a><figcaption> Check out the github repository</figcaption></figure>
 
 
 ## AWS Lambda {#aws-lambda}
