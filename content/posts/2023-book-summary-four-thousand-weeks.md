@@ -2,7 +2,7 @@
 title = "Book summary: Four Thousand Weeks"
 author = ["Victor Dorneanu"]
 date = 2023-01-27T07:05:00+01:00
-lastmod = 2023-01-27T07:05:21+01:00
+lastmod = 2023-02-02T11:01:39+01:00
 tags = ["books", "society", "summary"]
 draft = false
 +++
