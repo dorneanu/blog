@@ -1,11 +1,28 @@
 +++
 title = "Documentation as Code for Cloud"
 author = ["Victor Dorneanu"]
-lastmod = 2023-07-18T08:59:43+02:00
+lastmod = 2023-07-18T09:07:33+02:00
 tags = ["k8s", "architecture", "aws", "microservices"]
 draft = false
 series = ["Documentation as Code for Cloud"]
 +++
+
+## Introduction {#introduction}
+
+As a Security Architect, my role encompasses reviewing existing architectures as
+well as designing brand new ones _from scratch_. The opportunity to apply _Security
+principles_ during the design phase and develop an entirely new infrastructure
+with Security as the core focus is truly exceptional.
+
+**Designing** a secure cloud architecture is not only vital for achieving _scalability_,
+_reliability_, and _compliance with regulations_. It allows businesses to optimize
+their cloud infrastructure while maintaining the highest levels of data
+security.
+
+Being able to **prototype** and **visualize** a draft for the upcoming architecture will
+greatly support making thought-out decisions. In this blog post, I will present
+some technologies and tools that I have come across.
+
 
 ## What to design {#what-to-design}
 
@@ -110,23 +127,6 @@ include `tech`, `devops` and `security`.
 Within each organizational unit, there will be `multiple accounts`. This allows us
 to have different deployment environments such as production (`prod`) and
 development (`dev`).
-
-
-## Introduction {#introduction}
-
-As a Security Architect, my role encompasses reviewing existing architectures as
-well as designing brand new ones _from scratch_. The opportunity to apply _Security
-principles_ during the design phase and develop an entirely new infrastructure
-with Security as the core focus is truly exceptional.
-
-**Designing** a secure cloud architecture is not only vital for achieving _scalability_,
-_reliability_, and _compliance with regulations_. It allows businesses to optimize
-their cloud infrastructure while maintaining the highest levels of data
-security.
-
-Being able to **prototype** and **visualize** a draft for the upcoming architecture will
-greatly support making thought-out decisions. In this blog post, I will present
-some technologies and tools that I have come across.
 
 
 ## Draft using pen &amp; paper {#draft-using-pen-and-paper}
