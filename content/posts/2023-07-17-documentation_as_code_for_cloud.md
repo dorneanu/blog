@@ -1,9 +1,9 @@
 +++
 title = "Documentation as Code for Cloud"
 author = ["Victor Dorneanu"]
-lastmod = 2023-07-17T15:27:29+02:00
+lastmod = 2023-07-18T08:59:43+02:00
 tags = ["k8s", "architecture", "aws", "microservices"]
-draft = true
+draft = false
 series = ["Documentation as Code for Cloud"]
 +++
 
