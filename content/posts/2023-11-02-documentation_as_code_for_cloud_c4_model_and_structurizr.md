@@ -1,7 +1,7 @@
 +++
 title = "Documentation as Code for Cloud - C4 Model & Structurizr"
 author = ["Victor Dorneanu"]
-lastmod = 2023-11-02T20:02:33+01:00
+lastmod = 2023-11-02T21:57:59+01:00
 tags = ["aws", "c4", "architecture", "documentation"]
 draft = false
 series = ["Documentation as Code for Cloud"]
@@ -934,7 +934,7 @@ And this is what you get:
 
 {{< gbox src="/posts/img/2023/documentation-as-code/c4-ilograph.png" title="ilograph with code" caption="ilograph with code" pos="left" >}}
 
-{{< gbox src="/posts/img/2023/documentation-as-code/c4-ilograph.png" title="ilograph without code" caption="ilograph without code" pos="left" >}}
+{{< gbox src="/posts/img/2023/documentation-as-code/c4-ilograph-full.png" title="ilograph without code" caption="ilograph without code" pos="left" >}}
 
 -   👉 Here's the [ilograph code](https://github.com/dorneanu/ripmail/tree/main/docs/ilograph).
 -   👉 Check out [other architecture diagrams](https://www.ilograph.com/architecture-center/index.html) made with ilograph.
