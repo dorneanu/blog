@@ -73,7 +73,7 @@ They're like [tech giants selling tobacco products](https://brainfck.org/#Digita
 
 Don't try to reinvent the wheel. The technology is already there and has worked fine for decades now.
 
-{{< tweet user="danielnemenyi" id="1470385279383089153" >}}
+<!-- {{< tweet user="danielnemenyi" id="1470385279383089153" >}} -->
 
 Also recently there have been lots of [RSS related entries on Hackernews](https://hn.algolia.com/?dateRange=all&page=0&prefix=true&query=RSS&sort=byDate&type=story).
 
