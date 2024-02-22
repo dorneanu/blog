@@ -17,7 +17,7 @@ pygmentsUseClasses = true
 pygmentsCodefences = true
 # pygmentsCodefencesGuessSyntax = true
 DefaultContentLanguage = "en"
-disqusShortname = "dorneanu"
+# disqusShortname = "dorneanu"
 # publishDir = "docs"
 
 copyright="2009-2022 Victor Dorneanu - All rights reserved"
@@ -97,7 +97,7 @@ gists = "/gists/:title"
   relatedPosts = true  # Add a related content section to all single posts page
   code_copy_button = false # Turn on/off the code-copy-button for code-fields
   customCSS = ["css/custom.css", "css/syntax.css"]
- 
+
 
 [Author]
   Name = "blog.dornea.nu"
@@ -161,7 +161,7 @@ pattern = "^.+\\.(html|xml|json)$"
 gzip = true
 
 [outputs]
-home = [ "HTML", "RSS"] 
+home = [ "HTML", "RSS"]
 
 [outputFormats]
 [outputFormats.RSS]
