@@ -610,6 +610,9 @@ pre .language-tcsh::before {
 pre .language-tex::before {
   content: "TeX";
 }
+pre .language-terraform::before {
+  content: "Terraform";
+}
 pre .language-toml::before {
   content: "TOML";
 }
