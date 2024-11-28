@@ -106,6 +106,7 @@ figcaption,
 .table-caption {
   text-align: center;
   text-indent: 0;
+  font-size: small;
   margin-top: 0;
   margin-bottom: 0.5em;
   padding-bottom: 0.5em;
