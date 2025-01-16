@@ -1,8 +1,8 @@
 +++
-title = "Book Summaries: October - September 2024"
+title = "Book Summaries: October - December 2024"
 author = ["Victor Dorneanu"]
 date = 2025-01-16
-lastmod = 2025-01-16T06:58:55+01:00
+lastmod = 2025-01-16T09:04:39+01:00
 tags = ["summary", "books"]
 draft = false
 +++
