@@ -20,7 +20,7 @@ DefaultContentLanguage = "en"
 # disqusShortname = "dorneanu"
 # publishDir = "docs"
 
-copyright="2009-2024 Victor Dorneanu - All rights reserved"
+copyright="2009-2025 Victor Dorneanu - All rights reserved"
 
 [markup]
   [markup.highlight]
