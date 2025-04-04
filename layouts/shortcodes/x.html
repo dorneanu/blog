@@ -1,0 +1,10 @@
+{{/* Replacement for deprecated twitter shortcodes */}}
+{{- $id := .Get 0 -}}
+{{- if not $id -}}
+  {{- $id = .Get "id" -}}
+{{- end -}}
+{{- if not $id -}}
+  {{- $id = .Get "user" -}}
+{{- end -}}
+<blockquote class="twitter-tweet"><a href="https://twitter.com/{{ $id }}"></a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>

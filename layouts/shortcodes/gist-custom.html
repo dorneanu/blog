@@ -1,0 +1,11 @@
+{{/* Replacement for the deprecated gist shortcode */}}
+{{ $gistID := .Get 0 }}
+{{ $username := .Get 1 | default "anonymous" }}
+{{ $file := .Get 2 }}
+
+{{ $gistURL := printf "https://gist.github.com/%s/%s.js" $username $gistID }}
+{{ if $file }}
+  {{ $gistURL = printf "%s?file=%s" $gistURL $file }}
+{{ end }}
+
+<script src="{{ $gistURL }}"></script>
