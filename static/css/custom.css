@@ -114,6 +114,9 @@ figcaption,
 }
 
 /**** SIDENOTES  *****/
+/* Expand the content width */
+.content-width { max-width: 850px; }
+
 /* * Margin notes/sidenotes */
 .sidenote {
   font-family: sans-serif;
@@ -192,7 +195,7 @@ body {
 div.highlight {
   /* font-family: var(--mono); */
   overflow-x: auto;
-  max-width: 640px;
+  max-width: 840px; /* Increased to match the wider content width */
   z-index: 9999;
   transition: margin-right 50ms;
 }
