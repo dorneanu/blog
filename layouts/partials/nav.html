@@ -1,0 +1,53 @@
+<nav class="fixed w-100 bg-white bb b--black-10" id="navbar" style="z-index: 9999;">
+  <div class="content-width center flex flex-wrap justify-between items-center pa3">
+    <!-- Site title/logo -->
+    <div class="flex items-center">
+      <a class="f4 fw6 ttu no-underline dim bg-main-color pv1 ph3 br2 white" id="site-title" href='{{ "" | relURL }}' title="Home">{{ .Site.Title }}</a>
+    </div>
+
+    <!-- Main menu items -->
+    <div class="dn flex-l items-center">
+      {{ with .Site.Menus.main }}
+        {{ range . }}
+          <a class="link dim dark-gray f6 dib ml4 ttu tracked fw5" href='{{.URL}}' title="{{ .Name }}">{{ .Name }}</a>
+        {{ end }}
+      {{ end }}
+    </div>
+
+    <!-- Mobile menu toggle -->
+    <div class="db dn-l">
+      <button class="bg-transparent bn pointer dim" id="menu-toggle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu (hidden by default) -->
+  <div class="dn bg-white w-100 pa3 shadow-1" id="mobile-menu">
+    {{ with .Site.Menus.main }}
+      {{ range . }}
+        <a class="link dim dark-gray f6 db pv2 ttu tracked fw5" href='{{.URL}}' title="{{ .Name }}">{{ .Name }}</a>
+      {{ end }}
+    {{ end }}
+  </div>
+</nav>
+
+<!-- Add space for fixed navbar -->
+<div class="h3"></div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuToggle.addEventListener('click', function() {
+      const expanded = mobileMenu.classList.contains('db');
+      mobileMenu.classList.toggle('db');
+      mobileMenu.classList.toggle('dn');
+    });
+  });
+</script>

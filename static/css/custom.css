@@ -196,7 +196,7 @@ div.highlight {
   /* font-family: var(--mono); */
   overflow-x: auto;
   max-width: 840px; /* Increased to match the wider content width */
-  z-index: 9999;
+  z-index: 1; /* Lowered z-index so it doesn't overlay the navigation */
   transition: margin-right 50ms;
 }
 
