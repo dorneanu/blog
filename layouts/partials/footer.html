@@ -15,26 +15,26 @@
       </p>
     </div>
     
-    <!-- Right column: Links -->
+    <!-- Right columns: Links -->
     <div class="fl w-100 w-50-l pl4-l mt4 mt0-l">
       <div class="cf">
         <!-- Navigation links -->
-        <div class="fl w-50">
+        <div class="fl w-33">
           <p class="mb2 fw6">Navigation</p>
           <ul class="list pl0">
-            <li class="pv1"><a href='http://127.0.0.1:1314/' title="Home" class="link gray dim">Home</a></li>
+            <li class="pv1"><a href='{{ "/" | relURL }}' title="Home" class="link gray dim">Home</a></li>
             <li class="pv1"><a href='http://dornea.nu' title="About" class="link gray dim">About</a></li>
-            <li class="pv1"><a href='http://127.0.0.1:1314/tags' title="Tags" class="link gray dim">Tags</a></li>
+            <li class="pv1"><a href='{{ "/tags" | relURL }}' title="Tags" class="link gray dim">Tags</a></li>
             <li class="pv1"><a href='https://brainfck.org' title="Zettelkasten" class="link gray dim">Zettelkasten</a></li>
           </ul>
         </div>
         
         <!-- Social & RSS -->
-        <div class="fl w-50">
+        <div class="fl w-33">
           <p class="mb2 fw6">Connect</p>
           <ul class="list pl0">
             <li class="pv1">
-              <a href='http://127.0.0.1:1314/feed.xml' title="RSS" class="link gray dim">
+              <a href='{{ "/feed.xml" | relURL }}' title="RSS" class="link gray dim">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="v-mid mr1"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
                 RSS Feed
               </a>
@@ -52,6 +52,16 @@
               </a>
             </li>
           </ul>
+        </div>
+
+        <!-- Support section -->
+        <div class="fl w-33">
+          <p class="mb2 fw6">Support</p>
+          <div class="pv1">
+            <a href="https://www.buymeacoffee.com/dorneanu" target="_blank" class="dib">
+              <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px;">
+            </a>
+          </div>
         </div>
       </div>
     </div>
