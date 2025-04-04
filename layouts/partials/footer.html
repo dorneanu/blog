@@ -1,6 +1,64 @@
-<footer class="content-width mt0 mt5-l mb4 f6 center ph3 gray tc tl-l">
-  <hr class="dn db-l ml0-l gray w3"><br>
-  Powered by <a href="https://gohugo.io/" target="_blank" class="link gray dim">Hugo</a>, based on the <a href="https://github.com/lingxz/er" target="_blank" class="link gray dim">Er</a> theme.
-  {{ with .Site.Copyright }}{{ . }}{{end}}
-  <a href="{{ "feed.xml" | absLangURL }}" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+<footer class="content-width mt5 mb4 center ph3 gray f6">
+  <!-- Top border line -->
+  <div class="bt b--black-10 pv3"></div>
+  
+  <!-- Footer content grid -->
+  <div class="cf">
+    <!-- Left column: About & copyright -->
+    <div class="fl w-100 w-50-l pr4-l">
+      <p class="mb2 fw6">About this blog</p>
+      <p class="mv0 lh-copy">
+        Personal thoughts on programming, productivity, and philosophy. I write about things I'm learning and ideas I find interesting.
+      </p>
+      <p class="mt3 o-70">
+        © {{ now.Format "2006" }} Victor Dorneanu
+      </p>
+    </div>
+    
+    <!-- Right column: Links -->
+    <div class="fl w-100 w-50-l pl4-l mt4 mt0-l">
+      <div class="cf">
+        <!-- Navigation links -->
+        <div class="fl w-50">
+          <p class="mb2 fw6">Navigation</p>
+          <ul class="list pl0">
+            <li class="pv1"><a href='http://127.0.0.1:1314/' title="Home" class="link gray dim">Home</a></li>
+            <li class="pv1"><a href='http://dornea.nu' title="About" class="link gray dim">About</a></li>
+            <li class="pv1"><a href='http://127.0.0.1:1314/tags' title="Tags" class="link gray dim">Tags</a></li>
+            <li class="pv1"><a href='https://brainfck.org' title="Zettelkasten" class="link gray dim">Zettelkasten</a></li>
+          </ul>
+        </div>
+        
+        <!-- Social & RSS -->
+        <div class="fl w-50">
+          <p class="mb2 fw6">Connect</p>
+          <ul class="list pl0">
+            <li class="pv1">
+              <a href='http://127.0.0.1:1314/feed.xml' title="RSS" class="link gray dim">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="v-mid mr1"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+                RSS Feed
+              </a>
+            </li>
+            <li class="pv1">
+              <a href='https://github.com/dorneanu' title="GitHub" class="link gray dim">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="v-mid mr1"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                GitHub
+              </a>
+            </li>
+            <li class="pv1">
+              <a href='https://www.goodreads.com/user/show/121423977-victor-dorneanu' title="Goodreads" class="link gray dim">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="v-mid mr1"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                Goodreads
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Credits line -->
+  <div class="tc mt4 pt3 f7 o-70">
+    Powered by <a href="https://gohugo.io/" target="_blank" class="link gray dim">Hugo</a>, based on the <a href="https://github.com/lingxz/er" target="_blank" class="link gray dim">Er</a> theme.
+  </div>
 </footer>
