@@ -6,8 +6,10 @@ Theme = "er"
 MetaDataFormat =  "yaml"
 CanonifyUrls =  true
 BuildDrafts =  false
-PaginatePath =  "p"
-Paginate = 10
+# Replaced deprecated pagination settings
+[pagination]
+path =  "p"
+pagerSize = 10
 DisablePathToLower =  false
 HasCJKLanguage = true
 PreserveTaxonomyNames = false
@@ -44,8 +46,14 @@ copyright="2009-2025 Victor Dorneanu - All rights reserved"
   unsafe = true
 
 
-[author]
+[Params.Author]
   name="Victor Dorneanu"
+
+[Params.Social]
+  # Add your social media accounts here if needed
+  # facebook = "yourusername"
+  # twitter = "yourusername"
+  # github = "yourusername"
 
 [taxonomies]
   tag = "tags"
@@ -99,8 +107,8 @@ gists = "/gists/:title"
   customCSS = ["css/custom.css", "css/syntax.css"]
 
 
-[Author]
-  Name = "blog.dornea.nu"
+# This was duplicating the author info - removed
+# [Params.Author] is defined above
 
 [[Menu.Main]]
   Name = "Home"
