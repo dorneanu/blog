@@ -1,7 +1,7 @@
 +++
 title = "Add pagefind search to hugo"
 author = ["Victor Dorneanu"]
-lastmod = 2025-04-10T07:00:39+02:00
+lastmod = 2025-04-10T09:11:24+02:00
 tags = ["hugo"]
 draft = false
 +++
@@ -464,5 +464,8 @@ The `package.json` file provides several convenient npm scripts that streamline 
 
 ## Resources {#resources}
 
+-   2025-04-10 ◦ [Hugo Search tools](https://gohugo.io/tools/search/)
+-   2025-04-10 ◦ [Pagefind | Pagefind — Static low-bandwidth search at scale](https://pagefind.app/)
 -   2025-04-10 ◦ [Adding local search to Hugo with Pagefind – jverkamp.com](https://blog.jverkamp.com/2023/09/25/adding-local-search-to-hugo-with-pagefind/)
+    This is where I got the idea with the q parameter (e.g. `/search/q=string`)
 -   2025-04-10 ◦ [Search with Pagefind - michael-le.dev](https://michael-le.dev/posts/pagefind-hugo/)
