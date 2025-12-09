@@ -126,10 +126,15 @@ gists = "/gists/:title"
   URL = "/tags"
   Weight = 6
 [[Menu.Main]]
+  Name = "Archive"
+  Pre = "book"
+  URL = "/archive"
+  Weight = 6
+[[Menu.Main]]
   Name = "RSS"
   Pre = "book"
   URL = "/feed.xml"
-  Weight = 6
+  Weight = 7
 # [[Menu.Main]]
 #   Name = "Bookmarks"
 #   Pre = "book"
