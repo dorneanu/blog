@@ -69,6 +69,8 @@
   
   <!-- Credits line -->
   <div class="tc mt4 pt3 f7 o-70">
-    Powered by <a href="https://gohugo.io/" target="_blank" class="link gray dim">Hugo</a>, based on the <a href="https://github.com/lingxz/er" target="_blank" class="link gray dim">Er</a> theme.
+    Powered by <a href="https://gohugo.io/" target="_blank" class="link gray dim">Hugo {{ hugo.Version }}</a>, based on the <a href="https://github.com/lingxz/er" target="_blank" class="link gray dim">Er</a> theme.
+    <br>
+    <span class="o-50">Last build: {{ now.Format "02 Jan 2006, 15:04 MST" }}</span>
   </div>
 </footer>
