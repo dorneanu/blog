@@ -270,6 +270,29 @@ figcaption,
   font-weight: 400;
 }
 
+/**** HEADING ANCHORS *****/
+.heading-anchor {
+  opacity: 0;
+  margin-left: 0.5rem;
+  font-weight: normal;
+  text-decoration: none;
+  color: #8c6056;
+  transition: opacity 0.2s ease;
+}
+
+h1:hover .heading-anchor,
+h2:hover .heading-anchor,
+h3:hover .heading-anchor,
+h4:hover .heading-anchor,
+h5:hover .heading-anchor,
+h6:hover .heading-anchor {
+  opacity: 1;
+}
+
+.heading-anchor:hover {
+  color: #6a4840;
+}
+
 /**** SIDENOTES  *****/
 /* Expand the content width */
 .content-width { max-width: 850px; }
