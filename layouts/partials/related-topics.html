@@ -1,107 +1,50 @@
+{{ $currentPage := . }}
 {{ $currentTags := .Params.tags }}
 
+{{ if $currentTags }}
+<!-- Find related posts based on shared tags -->
+{{ $related := slice }}
+{{ range .Site.RegularPages }}
+  {{ if and (ne . $currentPage) (.Params.tags) }}
+    {{ $matches := 0 }}
+    {{ range .Params.tags }}
+      {{ if in $currentTags . }}
+        {{ $matches = add $matches 1 }}
+      {{ end }}
+    {{ end }}
+    {{ if gt $matches 0 }}
+      {{ $related = $related | append (dict "Page" . "Matches" $matches) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ if gt (len $related) 0 }}
 <section class="related-topics mt5 mb4">
   <div class="bt b--black-10 pt4">
-    <h3 class="f4 fw6 mb3">Explore Related Topics</h3>
-    
-    <div class="cf">
-      <!-- Books & Reading -->
-      {{ if or (in $currentTags "books") (in $currentTags "summary") }}
-      <div class="fl w-100 w-third-l pr3-l mb3 mb0-l">
-        <div class="pa3 br2 bg-white ba b--black-10 h-100">
-          <h4 class="f5 fw6 mt0 mb2 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-            Books & Reading
-          </h4>
-          <ul class="list pl0 mt0">
-            <li class="pv1"><a href="/tags/summary" class="link dim dark-gray f6">Book Summaries</a></li>
-            <li class="pv1"><a href="/tags/books" class="link dim dark-gray f6">Reviews</a></li>
-            <li class="pv1"><a href="https://www.goodreads.com/user/show/121423977-victor-dorneanu" class="link dim dark-gray f6">My Goodreads</a></li>
-          </ul>
+    <h3 class="f4 fw6 mb3">Related Posts</h3>
+
+    <div class="related-posts-grid">
+      {{ range first 6 (sort $related "Matches" "desc") }}
+        <div class="related-post-card">
+          <a href="{{ .Page.Permalink | relURL }}" class="link">
+            <div class="related-post-title">{{ .Page.Title }}</div>
+            <div class="related-post-date">{{ .Page.Date.Format "02 Jan 2006" }}</div>
+            {{ if .Page.Params.tags }}
+              <div class="related-post-tags">
+                {{ range first 3 .Page.Params.tags }}
+                  <span class="tag-badge">{{ . }}</span>
+                {{ end }}
+              </div>
+            {{ end }}
+          </a>
         </div>
-      </div>
-      {{ end }}
-      
-      <!-- Philosophy -->
-      {{ if or (in $currentTags "philosophy") (in $currentTags "productivity") (in $currentTags "politics") }}
-      <div class="fl w-100 {{ if or (in $currentTags "books") (in $currentTags "summary") }}w-third-l ph2-l{{ else }}w-50-l pr3-l{{ end }} mb3 mb0-l">
-        <div class="pa3 br2 bg-white ba b--black-10 h-100">
-          <h4 class="f5 fw6 mt0 mb2 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-            Deep Thoughts
-          </h4>
-          <ul class="list pl0 mt0">
-            {{ if not (in $currentTags "philosophy") }}<li class="pv1"><a href="/tags/philosophy" class="link dim dark-gray f6">Philosophy</a></li>{{ end }}
-            {{ if not (in $currentTags "productivity") }}<li class="pv1"><a href="/tags/productivity" class="link dim dark-gray f6">Productivity</a></li>{{ end }}
-            {{ if not (in $currentTags "politics") }}<li class="pv1"><a href="/tags/politics" class="link dim dark-gray f6">Politics</a></li>{{ end }}
-          </ul>
-        </div>
-      </div>
-      {{ end }}
-      
-      <!-- Technology -->
-      {{ if or (in $currentTags "coding") (in $currentTags "emacs") (in $currentTags "golang") (in $currentTags "debug") }}
-      <div class="fl w-100 
-        {{ if and (or (in $currentTags "books") (in $currentTags "summary")) 
-                 (or (in $currentTags "philosophy") (in $currentTags "productivity") (in $currentTags "politics")) }}
-          w-third-l pl3-l
-        {{ else if or (in $currentTags "books") (in $currentTags "summary") 
-                    (in $currentTags "philosophy") (in $currentTags "productivity") (in $currentTags "politics") }}
-          w-50-l pl3-l
-        {{ else }}
-          w-100-l
-        {{ end }}">
-        <div class="pa3 br2 bg-white ba b--black-10 h-100">
-          <h4 class="f5 fw6 mt0 mb2 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-            Technology
-          </h4>
-          <ul class="list pl0 mt0">
-            {{ if not (in $currentTags "coding") }}<li class="pv1"><a href="/tags/coding" class="link dim dark-gray f6">Coding</a></li>{{ end }}
-            {{ if not (in $currentTags "emacs") }}<li class="pv1"><a href="/tags/emacs" class="link dim dark-gray f6">Emacs</a></li>{{ end }}
-            {{ if not (in $currentTags "golang") }}<li class="pv1"><a href="/tags/golang" class="link dim dark-gray f6">Golang</a></li>{{ end }}
-            <li class="pv1"><a href="https://brainfck.org" class="link dim dark-gray f6">My Zettelkasten</a></li>
-          </ul>
-        </div>
-      </div>
-      {{ end }}
-      
-      <!-- Default section if no matching tags -->
-      {{ if not (or (in $currentTags "books") (in $currentTags "summary") 
-                   (in $currentTags "philosophy") (in $currentTags "productivity") (in $currentTags "politics")
-                   (in $currentTags "coding") (in $currentTags "emacs") (in $currentTags "golang") (in $currentTags "debug")) }}
-      <div class="fl w-100">
-        <div class="pa3 br2 bg-white ba b--black-10">
-          <h4 class="f5 fw6 mt0 mb2">Explore My Main Topics</h4>
-          <div class="cf">
-            <div class="fl w-third-l pr2">
-              <ul class="list pl0 mt0">
-                <li class="pv1"><a href="/tags/books" class="link dim dark-gray f6">Books & Reading</a></li>
-                <li class="pv1"><a href="/tags/summary" class="link dim dark-gray f6">Book Summaries</a></li>
-              </ul>
-            </div>
-            <div class="fl w-third-l ph2">
-              <ul class="list pl0 mt0">
-                <li class="pv1"><a href="/tags/philosophy" class="link dim dark-gray f6">Philosophy</a></li>
-                <li class="pv1"><a href="/tags/productivity" class="link dim dark-gray f6">Productivity</a></li>
-                <li class="pv1"><a href="/tags/politics" class="link dim dark-gray f6">Politics</a></li>
-              </ul>
-            </div>
-            <div class="fl w-third-l pl2">
-              <ul class="list pl0 mt0">
-                <li class="pv1"><a href="/tags/coding" class="link dim dark-gray f6">Coding</a></li>
-                <li class="pv1"><a href="/tags/emacs" class="link dim dark-gray f6">Emacs</a></li>
-                <li class="pv1"><a href="https://brainfck.org" class="link dim dark-gray f6">My Zettelkasten</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
       {{ end }}
     </div>
-    
+
     <div class="tc mt4">
       <a href="/tags" class="f6 link dim br-pill ph3 pv2 mb2 dib white bg-main-color">Browse All Tags</a>
     </div>
   </div>
 </section>
+{{ end }}
+{{ end }}
