@@ -113,6 +113,26 @@ figcaption,
   font-style: italic;
 }
 
+/**** TAGS GRID *****/
+.tags-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.tag-item a {
+  transition: all 0.2s ease;
+  color: #433a33;
+  text-decoration: none;
+}
+
+.tag-item a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  color: #2c2420;
+}
+
 /**** SIDENOTES  *****/
 /* Expand the content width */
 .content-width { max-width: 850px; }
