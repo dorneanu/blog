@@ -1,0 +1,25 @@
+{{- $src := .Get "src" -}}
+{{- $alt := .Get "alt" | default "Gallery image" -}}
+{{- $title := .Get "title" -}}
+{{- $caption := .Get "caption" -}}
+{{- $descPosition := .Get "pos" | default "bottom" -}}
+{{- $target := .Get "target" | default $src -}}
+
+{{- $galleryName := "gallery" -}}
+{{- with .Parent -}}
+    {{- $galleryName = .Get "name" | default "gallery" -}}
+{{- end -}}
+
+<div class="gallery-item">
+    <a href="{{$src}}"
+       class="glightbox"
+       data-gallery="{{$galleryName}}"
+       data-glightbox="title: {{$title}}; description: {{$caption}}; descPosition: {{$descPosition}}">
+        <img src="{{$target}}"
+             alt="{{$alt}}"
+             style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px; cursor: pointer; transition: opacity 0.2s;">
+        {{- if $title -}}
+        <div style="text-align: center; font-size: 0.8em; padding: 6px; color: #666;">{{$title}}</div>
+        {{- end -}}
+    </a>
+</div>

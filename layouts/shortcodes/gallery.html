@@ -1,0 +1,6 @@
+{{- $name := .Get "name" -}}
+{{- $columns := .Get "columns" | default "3" -}}
+
+<div class="gallery-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0;">
+    {{- .Inner -}}
+</div>
