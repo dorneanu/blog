@@ -5,79 +5,22 @@
 
 {{ $csv := .Get "csv" }}
 {{ $year := .Get "year" | default now.Year }}
-{{ $id := printf "habit-%d" now.Unix }}
+{{ $random := printf "%d%d" now.Unix now.Nanosecond }}
+{{ $id := printf "habit-%s" $random }}
 
 <div class="habit-tracker-simple" id="{{ $id }}">
   <style>
-    #{{ $id }} {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    }
-    #{{ $id }} .habit-section {
-      margin-bottom: 40px;
-    }
-    #{{ $id }} .habit-title {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: #433a33;
-    }
-    #{{ $id }} .stats {
-      display: flex;
-      gap: 20px;
-      margin-bottom: 15px;
-      font-size: 13px;
-      color: #666;
-    }
-    #{{ $id }} .stat-value {
-      font-weight: 600;
-      color: #433a33;
-    }
-    #{{ $id }} .view-toggle {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-    #{{ $id }} .view-btn {
-      padding: 6px 12px;
-      border: 1px solid #d0d0d0;
-      background: white;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 13px;
-      color: #666;
-      transition: all 0.2s;
-    }
-    #{{ $id }} .view-btn:hover {
-      background: #f5f5f5;
-    }
-    #{{ $id }} .view-btn.active {
-      background: #433a33;
-      color: white;
-      border-color: #433a33;
-    }
-    #{{ $id }} .year-view {
-      margin-top: 10px;
-      overflow-x: auto;
-    }
+    /* Grid layouts - can't be replaced with Tachyons */
     #{{ $id }} .year-grid {
       display: grid;
       grid-template-rows: auto repeat(7, 1fr);
       gap: 2px;
-      width: fit-content;
-      min-width: 100%;
+      width: 100%;
     }
     #{{ $id }} .month-labels {
       display: grid;
       grid-auto-flow: column;
       gap: 2px;
-      margin-bottom: 4px;
-    }
-    #{{ $id }} .month-label {
-      font-size: 11px;
-      font-weight: 600;
-      color: #433a33;
-      text-align: left;
-      padding: 2px 4px;
     }
     #{{ $id }} .week-row {
       display: grid;
@@ -85,56 +28,15 @@
       gap: 2px;
       align-items: center;
     }
-    #{{ $id }} .week-row-label {
-      font-size: 9px;
-      color: #999;
-      padding-right: 8px;
-      text-align: right;
-      min-width: 30px;
-    }
-    #{{ $id }} .months-grid {
-      display: grid;
-      gap: 20px;
-      margin-top: 10px;
-    }
     #{{ $id }} .months-grid-expanded {
+      display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
-    #{{ $id }} .month-container {
-      background: #fafafa;
-      padding: 12px;
-      border-radius: 6px;
-    }
-    #{{ $id }} .year-view .month-container {
-      padding: 6px;
-      background: white;
-    }
-    #{{ $id }} .month-header {
-      font-size: 14px;
-      font-weight: 600;
-      color: #433a33;
-      text-align: center;
-      margin-bottom: 8px;
-    }
-    #{{ $id }} .year-view .month-header {
-      font-size: 10px;
-      margin-bottom: 3px;
+      gap: 20px;
     }
     #{{ $id }} .weekday-labels {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       gap: 2px;
-      margin-bottom: 4px;
-    }
-    #{{ $id }} .weekday-label {
-      font-size: 9px;
-      font-weight: 600;
-      color: #999;
-      text-align: center;
-      padding: 2px;
-    }
-    #{{ $id }} .year-view .weekday-labels {
-      display: none;
     }
     #{{ $id }} .calendar-grid {
       display: grid;
@@ -144,23 +46,25 @@
     #{{ $id }} .year-view .calendar-grid {
       gap: 1px;
     }
+    #{{ $id }} .year-view .weekday-labels {
+      display: none;
+    }
+
+    /* Day cell styles */
     #{{ $id }} .day-cell {
       aspect-ratio: 1;
-      border-radius: 2px;
-      background: #ebedf0;
       cursor: pointer;
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
+      border-radius: 2px;
+      background: #ebedf0;
       font-size: 10px;
       color: #666;
     }
     #{{ $id }} .year-view .day-cell {
-      width: 12px;
-      height: 12px;
-      font-size: 8px;
-      border-radius: 2px;
+      font-size: 0;
     }
     #{{ $id }} .day-cell.empty {
       background: transparent;
@@ -178,46 +82,37 @@
       outline: 2px solid #433a33;
       z-index: 10;
     }
-    #{{ $id }} .tooltip {
-      position: absolute;
+
+    /* Button active state */
+    #{{ $id }} .view-btn.active {
       background: #433a33;
       color: white;
-      padding: 8px 12px;
-      border-radius: 4px;
-      font-size: 12px;
+      border-color: #433a33;
+    }
+
+    /* Tooltip */
+    #{{ $id }} .tooltip {
+      position: absolute;
       pointer-events: none;
       z-index: 1000;
       display: none;
       white-space: nowrap;
     }
-    #{{ $id }} .legend {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      margin-top: 20px;
-      font-size: 11px;
-      color: #666;
-    }
-    #{{ $id }} .legend-box {
-      width: 10px;
-      height: 10px;
-      border-radius: 2px;
-    }
   </style>
 
   <div id="{{ $id }}-container"></div>
 
-  <div class="legend">
-    <span>Less</span>
-    <div class="legend-box" style="background: #ebedf0;"></div>
-    <div class="legend-box" style="background: #c6e48b;"></div>
-    <div class="legend-box" style="background: #7bc96f;"></div>
-    <div class="legend-box" style="background: #239a3b;"></div>
-    <div class="legend-box" style="background: #196127;"></div>
+  <div class="flex items-center mt4 f6 mid-gray">
+    <span class="mr2">Less</span>
+    <div class="w1 h1 br1 mr1" style="background: #ebedf0;"></div>
+    <div class="w1 h1 br1 mr1" style="background: #c6e48b;"></div>
+    <div class="w1 h1 br1 mr1" style="background: #7bc96f;"></div>
+    <div class="w1 h1 br1 mr1" style="background: #239a3b;"></div>
+    <div class="w1 h1 br1 mr2" style="background: #196127;"></div>
     <span>More</span>
   </div>
 
-  <div class="tooltip" id="{{ $id }}-tooltip"></div>
+  <div class="tooltip dark-gray bg-white pa2 br2 f6 shadow-3 ba b--moon-gray" id="{{ $id }}-tooltip"></div>
 </div>
 
 <script>
@@ -255,12 +150,12 @@
       });
     })
     .catch(error => {
-      container.innerHTML = `<p style="color: #d32f2f;">Error loading habit data: ${error.message}</p>`;
+      container.innerHTML = `<div class="dark-red pa3 bg-washed-red br2">Error loading habit data: ${error.message}</div>`;
     });
 
   function renderHabit(habitName, habitData) {
     const section = document.createElement('div');
-    section.className = 'habit-section';
+    section.className = 'mb4';
 
     const total = Object.keys(habitData).length;
     const completed = Object.values(habitData).filter(v => v === '1').length;
@@ -269,16 +164,16 @@
     const habitId = habitName.replace(/[^a-z0-9]/gi, '-');
 
     section.innerHTML = `
-      <div class="habit-title">${habitName.charAt(0).toUpperCase() + habitName.slice(1)}</div>
-      <div class="stats">
-        <span><span class="stat-value">${completed}/${total}</span> days</span>
-        <span><span class="stat-value">${rate}%</span> completion</span>
+      <div class="f4 fw6 dark-gray mb2">${habitName.charAt(0).toUpperCase() + habitName.slice(1)}</div>
+      <div class="flex gap3 mb3 f6 mid-gray">
+        <span><span class="fw6 dark-gray">${completed}/${total}</span> days</span>
+        <span class="ml3"><span class="fw6 dark-gray">${rate}%</span> completion</span>
       </div>
-      <div class="view-toggle">
-        <button class="view-btn active" data-view="year">Year View</button>
-        <button class="view-btn" data-view="monthly">Monthly View</button>
+      <div class="flex gap2 mb3">
+        <button class="view-btn active ph3 pv2 ba b--moon-gray bg-white br2 pointer f6 mid-gray" data-view="year">Year View</button>
+        <button class="view-btn ph3 pv2 ba b--moon-gray bg-white br2 pointer f6 mid-gray" data-view="monthly">Monthly View</button>
       </div>
-      <div id="view-container-${habitId}" class="view-container"></div>
+      <div id="view-container-${habitId}"></div>
     `;
 
     container.appendChild(section);
@@ -291,6 +186,16 @@
 
     // Add view toggle functionality
     viewBtns.forEach(btn => {
+      // Add hover effect
+      btn.addEventListener('mouseenter', function() {
+        if (!this.classList.contains('active')) {
+          this.classList.add('bg-near-white');
+        }
+      });
+      btn.addEventListener('mouseleave', function() {
+        this.classList.remove('bg-near-white');
+      });
+
       btn.addEventListener('click', function() {
         viewBtns.forEach(b => b.classList.remove('active'));
         this.classList.add('active');
@@ -316,7 +221,7 @@
 
   function renderYearView(container, habitData) {
     const yearDiv = document.createElement('div');
-    yearDiv.className = 'year-view';
+    yearDiv.className = 'year-view mt2';
 
     const yearGrid = document.createElement('div');
     yearGrid.className = 'year-grid';
@@ -367,7 +272,7 @@
       if (date.getFullYear() === year && date.getMonth() !== currentMonth) {
         currentMonth = date.getMonth();
         const monthSpan = document.createElement('span');
-        monthSpan.className = 'month-label';
+        monthSpan.className = 'f7 fw6 dark-gray tl ph1';
         monthSpan.textContent = monthNames[currentMonth];
         monthSpan.style.gridColumn = `${weekIndex + 1}`;
         monthLabelsRow.appendChild(monthSpan);
@@ -382,7 +287,8 @@
       row.className = 'week-row';
 
       const label = document.createElement('div');
-      label.className = 'week-row-label';
+      label.className = 'f7 silver pr2 tr';
+      label.style.minWidth = '30px';
       label.textContent = dayLabel;
       row.appendChild(label);
 
@@ -397,14 +303,11 @@
 
         if (!isCurrentYear) {
           cell.classList.add('empty');
-          cell.textContent = '';
         } else if (isFuture) {
           cell.classList.add('future');
-          cell.textContent = date.getDate();
         } else {
           const level = value === '1' ? '4' : '0';
           cell.setAttribute('data-level', level);
-          cell.textContent = date.getDate();
         }
 
         cell.setAttribute('data-date', dateStr);
@@ -436,7 +339,7 @@
 
   function renderMonthlyView(container, habitData) {
     const monthsDiv = document.createElement('div');
-    monthsDiv.className = 'months-grid months-grid-expanded';
+    monthsDiv.className = 'months-grid months-grid-expanded mt2';
 
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
                         'July', 'August', 'September', 'October', 'November', 'December'];
@@ -445,19 +348,19 @@
     // Create 12 monthly calendars
     for (let month = 0; month < 12; month++) {
       const monthContainer = document.createElement('div');
-      monthContainer.className = 'month-container';
+      monthContainer.className = 'bg-near-white pa3 br2';
 
       const monthHeader = document.createElement('div');
-      monthHeader.className = 'month-header';
+      monthHeader.className = 'f5 fw6 dark-gray tc mb2';
       monthHeader.textContent = monthNames[month];
       monthContainer.appendChild(monthHeader);
 
       // Add weekday labels
       const weekdayRow = document.createElement('div');
-      weekdayRow.className = 'weekday-labels';
+      weekdayRow.className = 'weekday-labels mb1';
       weekdayLabels.forEach(day => {
         const label = document.createElement('div');
-        label.className = 'weekday-label';
+        label.className = 'f7 fw6 silver tc pa1';
         label.textContent = day;
         weekdayRow.appendChild(label);
       });
