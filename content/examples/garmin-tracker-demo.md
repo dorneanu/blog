@@ -11,18 +11,21 @@ This page demonstrates the Garmin activity tracker shortcode that visualizes you
 
 ### All Activities (Stacked)
 
-{{< garmin-tracker csv="/data/garmin-activities-2025.csv" year="2025" >}}
+{{< garmin-tracker csv="/data/garmin-activities-demo.csv" year="2025" >}}
 
 ### With Tabs (Organized)
 
-{{< garmin-tracker csv="/data/garmin-activities-2025.csv" year="2025" summary="true" >}}
+{{< garmin-tracker csv="/data/garmin-activities-demo.csv" year="2025" summary="true" >}}
 
 {{< tabs >}}
   {{< tab title="Cycling" >}}
-    {{< garmin-tracker csv="/data/garmin-activities-2025.csv" year="2025" activities="Cycling" >}}
+    {{< garmin-tracker csv="/data/garmin-activities-demo.csv" year="2025" activities="Cycling" >}}
   {{< /tab >}}
   {{< tab title="Strength Training" >}}
-    {{< garmin-tracker csv="/data/garmin-activities-2025.csv" year="2025" activities="Strength Training" >}}
+    {{< garmin-tracker csv="/data/garmin-activities-demo.csv" year="2025" activities="Strength Training" >}}
+  {{< /tab >}}
+  {{< tab title="Running" >}}
+    {{< garmin-tracker csv="/data/garmin-activities-demo.csv" year="2025" activities="Running" >}}
   {{< /tab >}}
 {{< /tabs >}}
 
@@ -35,13 +38,13 @@ This page demonstrates the Garmin activity tracker shortcode that visualizes you
 ### Show All Activities (default)
 
 ```
-{{</* garmin-tracker csv="/data/garmin-activities-2025.csv" year="2025" */>}}
+{{</* garmin-tracker csv="/data/garmin-activities-demo.csv" year="2025" */>}}
 ```
 
 ### Show Only Specific Activities
 
 ```
-{{</* garmin-tracker csv="/data/garmin-activities-2025.csv" year="2025" activities="Cycling" */>}}
+{{</* garmin-tracker csv="/data/garmin-activities-demo.csv" year="2025" activities="Cycling" */>}}
 ```
 
 ### Organize Activities in Tabs
@@ -49,17 +52,17 @@ This page demonstrates the Garmin activity tracker shortcode that visualizes you
 For a cleaner UI with multiple activity types, show the summary first, then use the tabs shortcode:
 
 ```
-{{</* garmin-tracker csv="/data/garmin-activities-2025.csv" year="2025" summary="true" */>}}
+{{</* garmin-tracker csv="/data/garmin-activities-demo.csv" year="2025" summary="true" */>}}
 
 {{</* tabs */>}}
   {{</* tab title="Cycling" */>}}
-    {{</* garmin-tracker csv="/data/garmin-activities-2025.csv" year="2025" activities="Cycling" */>}}
+    {{</* garmin-tracker csv="/data/garmin-activities-demo.csv" year="2025" activities="Cycling" */>}}
   {{</* /tab */>}}
   {{</* tab title="Strength Training" */>}}
-    {{</* garmin-tracker csv="/data/garmin-activities-2025.csv" year="2025" activities="Strength Training" */>}}
+    {{</* garmin-tracker csv="/data/garmin-activities-demo.csv" year="2025" activities="Strength Training" */>}}
   {{</* /tab */>}}
   {{</* tab title="Running" */>}}
-    {{</* garmin-tracker csv="/data/garmin-activities-2025.csv" year="2025" activities="Running" */>}}
+    {{</* garmin-tracker csv="/data/garmin-activities-demo.csv" year="2025" activities="Running" */>}}
   {{</* /tab */>}}
 {{</* /tabs */>}}
 ```
