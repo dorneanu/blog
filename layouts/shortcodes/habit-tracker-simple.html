@@ -1,0 +1,522 @@
+{{/*
+  Simple Habit Tracker Shortcode (Lightweight)
+  Usage: {{< habit-tracker-simple csv="data/habits-2025.csv" year="2025" >}}
+*/}}
+
+{{ $csv := .Get "csv" }}
+{{ $year := .Get "year" | default now.Year }}
+{{ $id := printf "habit-%d" now.Unix }}
+
+<div class="habit-tracker-simple" id="{{ $id }}">
+  <style>
+    #{{ $id }} {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+    #{{ $id }} .habit-section {
+      margin-bottom: 40px;
+    }
+    #{{ $id }} .habit-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #433a33;
+    }
+    #{{ $id }} .stats {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 15px;
+      font-size: 13px;
+      color: #666;
+    }
+    #{{ $id }} .stat-value {
+      font-weight: 600;
+      color: #433a33;
+    }
+    #{{ $id }} .view-toggle {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    #{{ $id }} .view-btn {
+      padding: 6px 12px;
+      border: 1px solid #d0d0d0;
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 13px;
+      color: #666;
+      transition: all 0.2s;
+    }
+    #{{ $id }} .view-btn:hover {
+      background: #f5f5f5;
+    }
+    #{{ $id }} .view-btn.active {
+      background: #433a33;
+      color: white;
+      border-color: #433a33;
+    }
+    #{{ $id }} .year-view {
+      margin-top: 10px;
+      overflow-x: auto;
+    }
+    #{{ $id }} .year-grid {
+      display: grid;
+      grid-template-rows: auto repeat(7, 1fr);
+      gap: 2px;
+      width: fit-content;
+      min-width: 100%;
+    }
+    #{{ $id }} .month-labels {
+      display: grid;
+      grid-auto-flow: column;
+      gap: 2px;
+      margin-bottom: 4px;
+    }
+    #{{ $id }} .month-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #433a33;
+      text-align: left;
+      padding: 2px 4px;
+    }
+    #{{ $id }} .week-row {
+      display: grid;
+      grid-auto-flow: column;
+      gap: 2px;
+      align-items: center;
+    }
+    #{{ $id }} .week-row-label {
+      font-size: 9px;
+      color: #999;
+      padding-right: 8px;
+      text-align: right;
+      min-width: 30px;
+    }
+    #{{ $id }} .months-grid {
+      display: grid;
+      gap: 20px;
+      margin-top: 10px;
+    }
+    #{{ $id }} .months-grid-expanded {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    #{{ $id }} .month-container {
+      background: #fafafa;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    #{{ $id }} .year-view .month-container {
+      padding: 6px;
+      background: white;
+    }
+    #{{ $id }} .month-header {
+      font-size: 14px;
+      font-weight: 600;
+      color: #433a33;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    #{{ $id }} .year-view .month-header {
+      font-size: 10px;
+      margin-bottom: 3px;
+    }
+    #{{ $id }} .weekday-labels {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      margin-bottom: 4px;
+    }
+    #{{ $id }} .weekday-label {
+      font-size: 9px;
+      font-weight: 600;
+      color: #999;
+      text-align: center;
+      padding: 2px;
+    }
+    #{{ $id }} .year-view .weekday-labels {
+      display: none;
+    }
+    #{{ $id }} .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+    }
+    #{{ $id }} .year-view .calendar-grid {
+      gap: 1px;
+    }
+    #{{ $id }} .day-cell {
+      aspect-ratio: 1;
+      border-radius: 2px;
+      background: #ebedf0;
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: #666;
+    }
+    #{{ $id }} .year-view .day-cell {
+      width: 12px;
+      height: 12px;
+      font-size: 8px;
+      border-radius: 2px;
+    }
+    #{{ $id }} .day-cell.empty {
+      background: transparent;
+      cursor: default;
+    }
+    #{{ $id }} .day-cell.future {
+      background: #f5f5f5;
+      opacity: 0.5;
+    }
+    #{{ $id }} .day-cell[data-level="1"] { background: #c6e48b; color: #333; }
+    #{{ $id }} .day-cell[data-level="2"] { background: #7bc96f; color: #333; }
+    #{{ $id }} .day-cell[data-level="3"] { background: #239a3b; color: white; }
+    #{{ $id }} .day-cell[data-level="4"] { background: #196127; color: white; }
+    #{{ $id }} .day-cell:not(.empty):hover {
+      outline: 2px solid #433a33;
+      z-index: 10;
+    }
+    #{{ $id }} .tooltip {
+      position: absolute;
+      background: #433a33;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      pointer-events: none;
+      z-index: 1000;
+      display: none;
+      white-space: nowrap;
+    }
+    #{{ $id }} .legend {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 20px;
+      font-size: 11px;
+      color: #666;
+    }
+    #{{ $id }} .legend-box {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+    }
+  </style>
+
+  <div id="{{ $id }}-container"></div>
+
+  <div class="legend">
+    <span>Less</span>
+    <div class="legend-box" style="background: #ebedf0;"></div>
+    <div class="legend-box" style="background: #c6e48b;"></div>
+    <div class="legend-box" style="background: #7bc96f;"></div>
+    <div class="legend-box" style="background: #239a3b;"></div>
+    <div class="legend-box" style="background: #196127;"></div>
+    <span>More</span>
+  </div>
+
+  <div class="tooltip" id="{{ $id }}-tooltip"></div>
+</div>
+
+<script>
+(function() {
+  const csvPath = '{{ $csv }}';
+  const year = parseInt({{ $year }}, 10);
+  const container = document.getElementById('{{ $id }}-container');
+  const tooltip = document.getElementById('{{ $id }}-tooltip');
+
+  fetch(csvPath)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(csvText => {
+      const lines = csvText.trim().split('\n');
+      const headers = lines[0].split(',');
+      const habits = headers.slice(1);
+
+      const data = {};
+      habits.forEach(h => data[h] = {});
+
+      lines.slice(1).forEach(line => {
+        const parts = line.split(',').map(p => p.trim());
+        const date = parts[0];
+        habits.forEach((habit, i) => {
+          data[habit][date] = parts[i + 1];
+        });
+      });
+
+      habits.forEach(habit => {
+        renderHabit(habit, data[habit]);
+      });
+    })
+    .catch(error => {
+      container.innerHTML = `<p style="color: #d32f2f;">Error loading habit data: ${error.message}</p>`;
+    });
+
+  function renderHabit(habitName, habitData) {
+    const section = document.createElement('div');
+    section.className = 'habit-section';
+
+    const total = Object.keys(habitData).length;
+    const completed = Object.values(habitData).filter(v => v === '1').length;
+    const rate = Math.round((completed / total) * 100);
+
+    const habitId = habitName.replace(/[^a-z0-9]/gi, '-');
+
+    section.innerHTML = `
+      <div class="habit-title">${habitName.charAt(0).toUpperCase() + habitName.slice(1)}</div>
+      <div class="stats">
+        <span><span class="stat-value">${completed}/${total}</span> days</span>
+        <span><span class="stat-value">${rate}%</span> completion</span>
+      </div>
+      <div class="view-toggle">
+        <button class="view-btn active" data-view="year">Year View</button>
+        <button class="view-btn" data-view="monthly">Monthly View</button>
+      </div>
+      <div id="view-container-${habitId}" class="view-container"></div>
+    `;
+
+    container.appendChild(section);
+
+    const viewContainer = section.querySelector(`#view-container-${habitId}`);
+    const viewBtns = section.querySelectorAll('.view-btn');
+
+    // Render initial year view
+    renderYearView(viewContainer, habitData);
+
+    // Add view toggle functionality
+    viewBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        viewBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        const view = this.dataset.view;
+        viewContainer.innerHTML = '';
+
+        if (view === 'year') {
+          renderYearView(viewContainer, habitData);
+        } else {
+          renderMonthlyView(viewContainer, habitData);
+        }
+      });
+    });
+  }
+
+  function formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  function renderYearView(container, habitData) {
+    const yearDiv = document.createElement('div');
+    yearDiv.className = 'year-view';
+
+    const yearGrid = document.createElement('div');
+    yearGrid.className = 'year-grid';
+
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const weekdayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+    // Create all dates for the year
+    const startDate = new Date(year, 0, 1);
+    const endDate = new Date(year, 11, 31);
+
+    // Find the first Monday before or on Jan 1
+    const firstMonday = new Date(startDate);
+    const dayOfWeek = firstMonday.getDay();
+    const daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+    firstMonday.setDate(firstMonday.getDate() - daysToMonday);
+
+    // Calculate number of weeks
+    const lastDate = new Date(endDate);
+    const weeks = Math.ceil((lastDate - firstMonday) / (7 * 24 * 60 * 60 * 1000)) + 1;
+
+    // Create array of all days organized by week and day of week
+    // Index 0 = Monday, 1 = Tuesday, ... 6 = Sunday
+    const calendar = Array(7).fill(null).map(() => []);
+    let currentDate = new Date(firstMonday);
+
+    for (let week = 0; week < weeks; week++) {
+      for (let day = 0; day < 7; day++) {
+        const dayOfWeek = currentDate.getDay();
+        // Convert Sunday=0 to Sunday=6, Monday=1 to Monday=0, etc.
+        const calendarIndex = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+        calendar[calendarIndex].push(new Date(currentDate));
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+    }
+
+    // Create month labels row
+    const monthLabelsRow = document.createElement('div');
+    monthLabelsRow.style.display = 'grid';
+    monthLabelsRow.style.gridAutoFlow = 'column';
+    monthLabelsRow.style.gap = '2px';
+    monthLabelsRow.style.marginBottom = '4px';
+    monthLabelsRow.style.marginLeft = '38px';
+
+    let currentMonth = -1;
+    calendar[0].forEach((date, weekIndex) => {
+      if (date.getFullYear() === year && date.getMonth() !== currentMonth) {
+        currentMonth = date.getMonth();
+        const monthSpan = document.createElement('span');
+        monthSpan.className = 'month-label';
+        monthSpan.textContent = monthNames[currentMonth];
+        monthSpan.style.gridColumn = `${weekIndex + 1}`;
+        monthLabelsRow.appendChild(monthSpan);
+      }
+    });
+
+    yearGrid.appendChild(monthLabelsRow);
+
+    // Create rows for each day of week
+    weekdayLabels.forEach((dayLabel, dayIndex) => {
+      const row = document.createElement('div');
+      row.className = 'week-row';
+
+      const label = document.createElement('div');
+      label.className = 'week-row-label';
+      label.textContent = dayLabel;
+      row.appendChild(label);
+
+      calendar[dayIndex].forEach(date => {
+        const dateStr = formatDate(date);
+        const value = habitData[dateStr];
+        const isCurrentYear = date.getFullYear() === year;
+        const isFuture = date > new Date();
+
+        const cell = document.createElement('div');
+        cell.className = 'day-cell';
+
+        if (!isCurrentYear) {
+          cell.classList.add('empty');
+          cell.textContent = '';
+        } else if (isFuture) {
+          cell.classList.add('future');
+          cell.textContent = date.getDate();
+        } else {
+          const level = value === '1' ? '4' : '0';
+          cell.setAttribute('data-level', level);
+          cell.textContent = date.getDate();
+        }
+
+        cell.setAttribute('data-date', dateStr);
+        cell.setAttribute('data-value', value || '0');
+
+        if (isCurrentYear && !isFuture) {
+          cell.addEventListener('mouseenter', function(e) {
+            const status = value === '1' ? '✓ Completed' : '✗ Missed';
+            tooltip.textContent = `${dateStr}: ${status}`;
+            tooltip.style.display = 'block';
+            tooltip.style.left = (e.pageX + 10) + 'px';
+            tooltip.style.top = (e.pageY - 10) + 'px';
+          });
+
+          cell.addEventListener('mouseleave', function() {
+            tooltip.style.display = 'none';
+          });
+        }
+
+        row.appendChild(cell);
+      });
+
+      yearGrid.appendChild(row);
+    });
+
+    yearDiv.appendChild(yearGrid);
+    container.appendChild(yearDiv);
+  }
+
+  function renderMonthlyView(container, habitData) {
+    const monthsDiv = document.createElement('div');
+    monthsDiv.className = 'months-grid months-grid-expanded';
+
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                        'July', 'August', 'September', 'October', 'November', 'December'];
+    const weekdayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+    // Create 12 monthly calendars
+    for (let month = 0; month < 12; month++) {
+      const monthContainer = document.createElement('div');
+      monthContainer.className = 'month-container';
+
+      const monthHeader = document.createElement('div');
+      monthHeader.className = 'month-header';
+      monthHeader.textContent = monthNames[month];
+      monthContainer.appendChild(monthHeader);
+
+      // Add weekday labels
+      const weekdayRow = document.createElement('div');
+      weekdayRow.className = 'weekday-labels';
+      weekdayLabels.forEach(day => {
+        const label = document.createElement('div');
+        label.className = 'weekday-label';
+        label.textContent = day;
+        weekdayRow.appendChild(label);
+      });
+      monthContainer.appendChild(weekdayRow);
+
+      // Create calendar grid
+      const grid = document.createElement('div');
+      grid.className = 'calendar-grid';
+
+      // Get first day of month and number of days
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+      const daysInMonth = lastDay.getDate();
+      const startingDayOfWeek = firstDay.getDay();
+      // Convert to Monday-first (0=Mon, 6=Sun)
+      const startingDayMonFirst = startingDayOfWeek === 0 ? 6 : startingDayOfWeek - 1;
+
+      // Add empty cells for days before month starts
+      for (let i = 0; i < startingDayMonFirst; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'day-cell empty';
+        grid.appendChild(emptyCell);
+      }
+
+      // Add cells for each day of the month
+      for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(year, month, day);
+        const dateStr = formatDate(date);
+        const value = habitData[dateStr];
+        const level = value === '1' ? '4' : '0';
+
+        const cell = document.createElement('div');
+        cell.className = 'day-cell';
+        cell.setAttribute('data-level', level);
+        cell.setAttribute('data-date', dateStr);
+        cell.setAttribute('data-value', value || '0');
+        cell.textContent = day;
+
+        cell.addEventListener('mouseenter', function(e) {
+          const status = value === '1' ? '✓ Completed' : '✗ Missed';
+          tooltip.textContent = `${dateStr}: ${status}`;
+          tooltip.style.display = 'block';
+          tooltip.style.left = (e.pageX + 10) + 'px';
+          tooltip.style.top = (e.pageY - 10) + 'px';
+        });
+
+        cell.addEventListener('mouseleave', function() {
+          tooltip.style.display = 'none';
+        });
+
+        grid.appendChild(cell);
+      }
+
+      monthContainer.appendChild(grid);
+      monthsDiv.appendChild(monthContainer);
+    }
+
+    container.appendChild(monthsDiv);
+  }
+})();
+</script>
+</div>
