@@ -1,0 +1,357 @@
+{{/*
+  Garmin Activity Tracker Shortcode
+  Usage: {{< garmin-tracker csv="data/garmin-activities.csv" year="2025" activities="Cycling,Strength Training" >}}
+
+  Parameters:
+  - csv: Path to CSV file (required)
+  - year: Year to display (default: current year)
+  - activities: Comma-separated list of activity types to show (default: all)
+*/}}
+
+{{ $csv := .Get "csv" }}
+{{ $year := .Get "year" | default now.Year }}
+{{ $activities := .Get "activities" | default "" }}
+{{ $summaryOnly := .Get "summary" | default "" }}
+{{ $random := printf "%d%d" now.Unix now.Nanosecond }}
+{{ $id := printf "garmin-%s" $random }}
+
+<div class="garmin-tracker mv3" id="{{ $id }}">
+  <style>
+    /* Bar chart specific styles - can't be replaced with Tachyons */
+    #{{ $id }} .chart-container {
+      position: relative;
+      height: 220px;
+      padding-top: 25px;
+    }
+    #{{ $id }} .bar-chart {
+      display: flex;
+      align-items: flex-end;
+      height: 100%;
+      gap: 8px;
+      padding: 10px 0;
+    }
+    #{{ $id }} .bar-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      height: 100%;
+    }
+    #{{ $id }} .bar {
+      width: 100%;
+      background: linear-gradient(to top, #e74c3c, #c0392b);
+      border-radius: 4px 4px 0 0;
+      position: relative;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      min-height: 2px;
+    }
+    #{{ $id }} .bar.cycling {
+      background: linear-gradient(to top, #3498db, #2980b9);
+    }
+    #{{ $id }} .bar.strength-training {
+      background: linear-gradient(to top, #e67e22, #d35400);
+    }
+    #{{ $id }} .bar.running {
+      background: linear-gradient(to top, #2ecc71, #27ae60);
+    }
+    #{{ $id }} .bar.walking {
+      background: linear-gradient(to top, #9b59b6, #8e44ad);
+    }
+    #{{ $id }} .bar:hover {
+      opacity: 0.8;
+    }
+    #{{ $id }} .bar-value {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+    }
+    #{{ $id }} .bar-tooltip {
+      position: absolute;
+      top: -35px;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+    }
+    #{{ $id }} .bar:hover .bar-tooltip {
+      opacity: 1;
+    }
+    #{{ $id }} .summary-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+  </style>
+
+  <div id="{{ $id }}-container" class="mid-gray pa3">Loading activity data...</div>
+</div>
+
+<script>
+(function() {
+  const csvPath = '{{ $csv }}';
+  const year = parseInt({{ $year }}, 10);
+  const activitiesFilter = '{{ $activities }}';
+  const summaryOnly = '{{ $summaryOnly }}' === 'true';
+  const allowedActivities = activitiesFilter ? activitiesFilter.split(',').map(a => a.trim()) : [];
+  const container = document.getElementById('{{ $id }}-container');
+
+  fetch(csvPath)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(csvText => {
+      const activities = parseCSV(csvText);
+      const filteredActivities = activities.filter(a => {
+        const activityYear = new Date(a.Date).getFullYear();
+        return activityYear === year;
+      });
+
+      renderDashboard(filteredActivities);
+    })
+    .catch(error => {
+      container.innerHTML = `<div class="dark-red pa3 bg-washed-red br2">Error loading activity data: ${error.message}</div>`;
+    });
+
+  function parseCSV(csvText) {
+    const lines = csvText.trim().split('\n');
+    const headers = lines[0].split(',');
+
+    return lines.slice(1).map(line => {
+      // Handle quoted values with commas
+      const values = [];
+      let currentValue = '';
+      let inQuotes = false;
+
+      for (let char of line) {
+        if (char === '"') {
+          inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+          values.push(currentValue.trim());
+          currentValue = '';
+        } else {
+          currentValue += char;
+        }
+      }
+      values.push(currentValue.trim());
+
+      const activity = {};
+      headers.forEach((header, i) => {
+        activity[header] = values[i] || '';
+      });
+
+      return activity;
+    });
+  }
+
+  function parseTime(timeStr) {
+    // Parse HH:MM:SS format
+    const parts = timeStr.split(':');
+    const hours = parseInt(parts[0], 10);
+    const minutes = parseInt(parts[1], 10);
+    const seconds = parseInt(parts[2], 10);
+    return hours * 60 + minutes + seconds / 60; // Return total minutes
+  }
+
+  function formatTime(minutes) {
+    const hours = Math.floor(minutes / 60);
+    const mins = Math.round(minutes % 60);
+    return `${hours} hrs ${mins} min`;
+  }
+
+  function renderDashboard(activities) {
+    const summary = calculateSummary(activities);
+    const byType = groupByType(activities);
+
+    // Filter activities based on allowed list
+    const filteredTypes = Object.entries(byType).filter(([type, typeActivities]) => {
+      const shouldShow = allowedActivities.length === 0 || allowedActivities.includes(type);
+      return typeActivities.length > 0 && shouldShow;
+    });
+
+    let html = '';
+
+    // If summaryOnly is true, only show summary stats and return
+    if (summaryOnly) {
+      html += '<div class="mb4">';
+      html += '<div class="f5 fw6 dark-gray mb3">Last 12 Months</div>';
+      html += '<div class="summary-stats mb3">';
+      html += `<div class="bg-near-white pa3 br2 tc">
+        <span class="db f2 fw7 dark-gray">${summary.totalActivities}</span>
+        <span class="db f6 mid-gray mt1">Activities</span>
+      </div>`;
+      html += `<div class="bg-near-white pa3 br2 tc">
+        <span class="db f2 fw7 dark-gray">${Math.round(summary.totalDistance)} km</span>
+        <span class="db f6 mid-gray mt1">Distance</span>
+      </div>`;
+      html += `<div class="bg-near-white pa3 br2 tc">
+        <span class="db f2 fw7 dark-gray">${formatTime(summary.totalTime)}</span>
+        <span class="db f6 mid-gray mt1">Time</span>
+      </div>`;
+      html += '</div></div>';
+      container.innerHTML = html;
+      return;
+    }
+
+    // Only show summary stats if no activity filter is specified (showing all activities)
+    if (allowedActivities.length === 0) {
+      html += '<div class="mb4">';
+      html += '<div class="f5 fw6 dark-gray mb3">Last 12 Months</div>';
+      html += '<div class="summary-stats mb3">';
+      html += `<div class="bg-near-white pa3 br2 tc">
+        <span class="db f2 fw7 dark-gray">${summary.totalActivities}</span>
+        <span class="db f6 mid-gray mt1">Activities</span>
+      </div>`;
+      html += `<div class="bg-near-white pa3 br2 tc">
+        <span class="db f2 fw7 dark-gray">${Math.round(summary.totalDistance)} km</span>
+        <span class="db f6 mid-gray mt1">Distance</span>
+      </div>`;
+      html += `<div class="bg-near-white pa3 br2 tc">
+        <span class="db f2 fw7 dark-gray">${formatTime(summary.totalTime)}</span>
+        <span class="db f6 mid-gray mt1">Time</span>
+      </div>`;
+      html += '</div></div>';
+    }
+
+    // Render activity sections
+    filteredTypes.forEach(([type, typeActivities]) => {
+      html += renderActivitySection(type, typeActivities);
+    });
+
+    container.innerHTML = html;
+  }
+
+  function calculateSummary(activities) {
+    let totalDistance = 0;
+    let totalTime = 0;
+    let totalAscent = 0;
+
+    activities.forEach(activity => {
+      const distance = parseFloat(activity.Distance) || 0;
+      const time = parseTime(activity.Time || '00:00:00');
+      const ascent = parseFloat(activity['Total Ascent']) || 0;
+
+      totalDistance += distance;
+      totalTime += time;
+      totalAscent += ascent;
+    });
+
+    return {
+      totalActivities: activities.length,
+      totalDistance,
+      totalTime,
+      totalAscent
+    };
+  }
+
+  function groupByType(activities) {
+    const byType = {};
+
+    activities.forEach(activity => {
+      const type = activity['Activity Type'];
+      if (!byType[type]) {
+        byType[type] = [];
+      }
+      byType[type].push(activity);
+    });
+
+    return byType;
+  }
+
+  function renderActivitySection(type, activities) {
+    const monthlyData = groupByMonth(activities);
+    const stats = calculateSummary(activities);
+
+    const cssClass = type.toLowerCase().replace(/\s+/g, '-');
+
+    let html = '<div class="mb3 bg-white pa3 br2 ba b--moon-gray">';
+    html += '<div class="f4 fw6 dark-gray mb3">' + type + '</div>';
+    html += '<div class="flex gap3 f6 mid-gray mb3">';
+    html += `<span><span class="fw6 dark-gray">${activities.length}</span> activities</span>`;
+
+    if (stats.totalDistance > 0) {
+      html += `<span class="ml3"><span class="fw6 dark-gray">${Math.round(stats.totalDistance)} km</span> distance</span>`;
+    }
+
+    html += `<span class="ml3"><span class="fw6 dark-gray">${formatTime(stats.totalTime)}</span> time</span>`;
+    html += '</div>';
+
+    html += renderBarChart(monthlyData, type);
+    html += '</div>';
+
+    return html;
+  }
+
+  function groupByMonth(activities) {
+    const monthlyData = Array(12).fill(0).map(() => ({
+      distance: 0,
+      time: 0,
+      count: 0
+    }));
+
+    activities.forEach(activity => {
+      const date = new Date(activity.Date);
+      const month = date.getMonth();
+
+      monthlyData[month].distance += parseFloat(activity.Distance) || 0;
+      monthlyData[month].time += parseTime(activity.Time || '00:00:00');
+      monthlyData[month].count += 1;
+    });
+
+    return monthlyData;
+  }
+
+  function renderBarChart(monthlyData, activityType) {
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    // Determine if this activity type has distance or not
+    const totalDistance = monthlyData.reduce((sum, m) => sum + m.distance, 0);
+    const useTime = totalDistance < 1; // Use time for activities with no/minimal distance
+
+    const maxValue = useTime
+      ? Math.max(...monthlyData.map(m => m.time), 1)
+      : Math.max(...monthlyData.map(m => m.distance), 1);
+
+    const cssClass = activityType.toLowerCase().replace(/\s+/g, '-');
+
+    let html = '<div class="chart-container">';
+    html += '<div class="bar-chart">';
+
+    monthlyData.forEach((data, i) => {
+      const value = useTime ? data.time : data.distance;
+      const heightPercent = (value / maxValue) * 100;
+      const displayValue = useTime
+        ? Math.round(data.time)
+        : Math.round(data.distance);
+      const unit = useTime ? 'min' : 'km';
+
+      html += '<div class="bar-group">';
+      html += `<div class="bar ${cssClass}" style="height: ${heightPercent}%">`;
+      if (data.count > 0) {
+        html += `<div class="bar-value f6 fw6 dark-gray">${displayValue} ${unit}</div>`;
+        html += `<div class="bar-tooltip f7 white bg-black-80 ph2 pv1 br2">${data.count} ${data.count === 1 ? 'activity' : 'activities'}</div>`;
+      }
+      html += '</div>';
+      html += '</div>';
+    });
+
+    html += '</div></div>';
+
+    html += '<div class="flex justify-between mt1 f6 silver">';
+    monthNames.forEach(month => {
+      html += `<span>${month}</span>`;
+    });
+    html += '</div>';
+
+    return html;
+  }
+})();
+</script>
