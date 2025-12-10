@@ -15,6 +15,23 @@ Below is a live habit tracker showing real reading tracking data for 2025. The v
 
 {{< habit-tracker-simple csv="/data/reading-2025.csv" year="2025" >}}
 
+## Using Tabs with Multiple Habits
+
+You can organize multiple habit trackers in tabs for a cleaner interface:
+
+```
+{{</* tabs */>}}
+  {{</* tab title="Reading" */>}}
+    {{</* habit-tracker-simple csv="/data/reading-2025.csv" year="2025" */>}}
+  {{</* /tab */>}}
+  {{</* tab title="Exercise" */>}}
+    {{</* habit-tracker-simple csv="/data/exercise-2025.csv" year="2025" */>}}
+  {{</* /tab */>}}
+{{</* /tabs */>}}
+```
+
+This creates a tabbed interface where each habit has its own tab.
+
 ## How It Works
 
 The habit tracker shortcode loads data from a CSV file and creates an interactive annual calendar visualization for each habit. The visualization shows:
