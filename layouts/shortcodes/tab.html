@@ -1,0 +1,18 @@
+{{/*
+  Individual Tab Panel Shortcode
+  Must be used inside {{< tabs >}}
+
+  Parameters:
+  - title: Tab label/title (required)
+
+  Usage:
+    {{< tab title="Reading" >}}
+      Your content here
+    {{< /tab >}}
+*/}}
+
+{{ $title := .Get "title" }}
+
+<div class="tab-panel" data-title="{{ $title }}">
+  {{ .Inner }}
+</div>

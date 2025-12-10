@@ -1,0 +1,90 @@
+{{/*
+  Tabs Container Shortcode
+  Usage:
+    {{< tabs >}}
+      {{< tab title="Reading" >}}
+        Content here...
+      {{< /tab >}}
+      {{< tab title="Exercise" >}}
+        More content...
+      {{< /tab >}}
+    {{< /tabs >}}
+*/}}
+
+{{ $random := printf "%d%d" now.Unix now.Nanosecond }}
+{{ $id := printf "tabs-%s" $random }}
+
+<div class="tabs-container" id="{{ $id }}">
+  <style>
+    #{{ $id }} .tab-btn.active {
+      background: #433a33;
+      color: white;
+      border-color: #433a33;
+    }
+    #{{ $id }} .tab-panel {
+      display: none;
+    }
+    #{{ $id }} .tab-panel.active {
+      display: block;
+    }
+  </style>
+
+  <div class="flex gap2 mb3 bb b--moon-gray">
+    <!-- Tab buttons will be inserted here by JavaScript -->
+  </div>
+
+  <div class="tab-content">
+    {{ .Inner }}
+  </div>
+</div>
+
+<script>
+(function() {
+  const container = document.getElementById('{{ $id }}');
+  const tabContent = container.querySelector('.tab-content');
+  const tabButtons = container.querySelector('.flex.gap2');
+
+  // Find all tab panels
+  const panels = tabContent.querySelectorAll('.tab-panel');
+
+  // Create tab buttons
+  panels.forEach((panel, index) => {
+    const title = panel.dataset.title;
+    const isActive = index === 0 ? 'active' : '';
+
+    if (index === 0) {
+      panel.classList.add('active');
+    }
+
+    const btn = document.createElement('button');
+    btn.className = `tab-btn ${isActive} ph3 pv2 ba b--moon-gray bg-white br2 br--top pointer f6 mid-gray`;
+    btn.textContent = title;
+    btn.dataset.index = index;
+
+    btn.addEventListener('click', function() {
+      const targetIndex = this.dataset.index;
+
+      // Remove active from all
+      container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+
+      // Add active to clicked
+      this.classList.add('active');
+      panels[targetIndex].classList.add('active');
+    });
+
+    // Hover effect
+    btn.addEventListener('mouseenter', function() {
+      if (!this.classList.contains('active')) {
+        this.classList.add('bg-near-white');
+      }
+    });
+    btn.addEventListener('mouseleave', function() {
+      this.classList.remove('bg-near-white');
+    });
+
+    tabButtons.appendChild(btn);
+  });
+})();
+</script>
+</div>
