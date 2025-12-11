@@ -51,6 +51,29 @@ This is **blog.dornea.nu**, a personal blog by Victor Dorneanu built with Hugo s
 - Related posts feature
 - Custom CSS and JavaScript
 
+## Git Submodules
+
+**IMPORTANT**: `themes/er/` is a git submodule (separate repository)
+
+- **DO NOT** commit changes to the main repository that include the `themes/er` submodule
+- If you modify files inside `themes/er/`, commit those changes separately within the submodule directory
+- The submodule has its own git history and should be managed independently
+- When committing main repository changes, always unstage `themes/er` if it appears in `git status`
+
+Example workflow for theme changes:
+```bash
+# Commit changes inside the theme submodule
+cd themes/er
+git add <modified-files>
+git commit -m "fix(theme): description"
+# Note: User will decide whether to push theme changes
+
+# Back to main repository - do NOT stage themes/er
+cd ../..
+git add <other-files>
+git commit -m "fix: description"
+```
+
 ## Git Commit Messages
 
 - Use simple one-line commit messages following conventional commit format
