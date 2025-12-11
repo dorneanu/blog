@@ -80,7 +80,7 @@ gists = "/gists/:title"
   #RevolverMapId = "5b4f2ucxar6"
   Fancybox = true
   # showTagCloud = true
-  # showtoc = true
+  showtoc = true
 
   # For hermit theme
   dateform        = "Jan 2, 2006"
