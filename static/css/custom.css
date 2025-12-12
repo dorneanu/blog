@@ -54,8 +54,20 @@
 /*     content: 'Tip'; */
 /* } */
 
-img {
-  box-shadow: none;
+/* Apply border and shadow only to content images, not icons or other UI elements */
+article .post-content img,
+article figure img {
+  border: 1px solid #e0d5cc;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Explicitly exclude footer images from styling */
+footer img {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
 .img-container {
@@ -63,12 +75,18 @@ img {
 }
 
 .img-container .glightbox img {
-  box-shadow: none;
-  opacity: 0.4;
+  border: 1px solid #d4c5bc;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0.85;
+  transition: all 0.3s ease;
 }
 
 .img-container .glightbox img:hover {
-  opacity: 0.5;
+  opacity: 1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: #c4b5ac;
+  transform: translateY(-2px);
 }
 
 .img-container .glightbox .caption {
@@ -373,9 +391,10 @@ h6:hover .heading-anchor {
     /* https://kennethfriedman.org/thoughts/2019/marginal-notes/ */
     /* display: inline; */ /* not sure if this is required */
     top: -0.8rem; /* start the sidenote display a bit higher than its reference in body */
-    width: 20vw; /* limits the width of the marginal note */
-    margin-left: -23vw; /* sets the distance of sidenote's left margin from the HTML element on right */
+    width: 18vw; /* limits the width of the marginal note */
+    margin-left: -21vw; /* sets the distance of sidenote's left margin from the HTML element on right */
     margin-top: 1rem; /* keep some space between adjacent sidenotes if they get too close */
+    padding: 0.5rem 1rem 0.5rem 0.5rem; /* Add padding for better spacing */
   }
 }
 /* Narrow viewport */
@@ -493,6 +512,7 @@ pre {
   overflow-x: auto; /* Enable horizontal scroll bars (only for overflowing code) */
 }
 
+/* Ensure consistent background color across all code block elements */
 .highlight .chroma .lntable {
   /* border-top: 1px solid var(--theme-color); */
   /* border-bottom: 1px solid var(--theme-color-light); */
