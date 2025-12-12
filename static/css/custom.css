@@ -270,6 +270,64 @@ figcaption,
   font-weight: 400;
 }
 
+/**** LINK VISIBILITY IMPROVEMENTS *****/
+/* Only style links within post content paragraphs, lists, and blockquotes */
+.post-content p a,
+.post-content li a,
+.post-content blockquote a {
+  border-bottom: 1.5px solid var(--main-color) !important;
+  color: var(--main-color) !important;
+}
+
+.post-content p a:hover,
+.post-content li a:hover,
+.post-content blockquote a:hover {
+  border-bottom: 2px solid #6a4840 !important;
+  color: #6a4840 !important;
+}
+
+/**** BOLD TEXT IMPROVEMENTS *****/
+strong, b {
+  font-weight: 700;
+  color: #2d2d2d;
+  background-color: #f5f0ed;
+  padding: 0.1em 0.3em;
+  border-radius: 2px;
+}
+
+/**** ITALIC TEXT IMPROVEMENTS *****/
+em, i {
+  font-style: italic;
+  background-color: #f9f7f5;
+  padding: 0.1em 0.2em;
+  border-radius: 2px;
+}
+
+/**** INLINE CODE IMPROVEMENTS *****/
+p code, li code {
+  background-color: #f5f0ed !important;
+  padding: 0.1em 0.3em !important;
+  border-radius: 2px;
+}
+
+/**** BLOCKQUOTE IMPROVEMENTS *****/
+blockquote {
+  background-color: #f9f7f5 !important;
+  border-left: 4px solid var(--secondary-color) !important;
+  padding: 1rem 1.5rem !important;
+  margin: 1.5rem 0 !important;
+  border-radius: 4px;
+}
+
+blockquote p {
+  color: #4a4a4a !important;
+  margin-bottom: 0.5em !important;
+}
+
+blockquote p:last-child {
+  margin-bottom: 0 !important;
+}
+
 /**** HEADING ANCHORS *****/
 .heading-anchor {
   opacity: 0;
