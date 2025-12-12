@@ -74,6 +74,28 @@ git add <other-files>
 git commit -m "fix: description"
 ```
 
+## Testing and Visual Review
+
+**IMPORTANT**: When making CSS or layout changes, always use the development server and MCP screenshot server to visually verify changes.
+
+### Development Server
+Start the Hugo development server to preview changes:
+```bash
+hugo server
+```
+
+The site will be available at http://localhost:1313 with live reload.
+
+### Visual Testing with MCP
+The repository has the `screenshot` MCP server installed for taking screenshots of rendered pages:
+
+- Use the screenshot MCP tools to capture http://localhost:1313
+- Review visual appearance of CSS changes, layout modifications, and styling updates
+- Take screenshots of specific pages to verify improvements
+- Compare before/after states when making design changes
+
+This allows you to see the actual rendered output, not just the HTML/CSS code.
+
 ## Git Commit Messages
 
 - Use simple one-line commit messages following conventional commit format
