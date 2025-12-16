@@ -291,8 +291,8 @@ figcaption,
 /**** LINK VISIBILITY IMPROVEMENTS *****/
 /* Style all links within post content for consistency */
 .post-content a {
-  border-bottom: 1.5px solid var(--main-color) !important;
-  color: var(--main-color) !important;
+  border-bottom: 1.5px solid #8C6056 !important;
+  color: #8C6056 !important;
   text-decoration: none !important;
 }
 
