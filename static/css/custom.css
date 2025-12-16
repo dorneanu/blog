@@ -290,13 +290,15 @@ figcaption,
 
 /**** LINK VISIBILITY IMPROVEMENTS *****/
 /* Style all links within post content for consistency */
-.post-content a {
+div.post-content a,
+.lh-copy.post-content a {
   border-bottom: 1.5px solid #8C6056 !important;
   color: #8C6056 !important;
   text-decoration: none !important;
 }
 
-.post-content a:hover {
+div.post-content a:hover,
+.lh-copy.post-content a:hover {
   border-bottom: 2px solid #6a4840 !important;
   color: #6a4840 !important;
 }
