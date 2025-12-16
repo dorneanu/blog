@@ -289,19 +289,24 @@ figcaption,
 }
 
 /**** LINK VISIBILITY IMPROVEMENTS *****/
-/* Only style links within post content paragraphs, lists, and blockquotes */
-.post-content p a,
-.post-content li a,
-.post-content blockquote a {
+/* Style all links within post content for consistency */
+.post-content a {
   border-bottom: 1.5px solid var(--main-color) !important;
   color: var(--main-color) !important;
+  text-decoration: none !important;
 }
 
-.post-content p a:hover,
-.post-content li a:hover,
-.post-content blockquote a:hover {
+.post-content a:hover {
   border-bottom: 2px solid #6a4840 !important;
   color: #6a4840 !important;
+}
+
+/* Exclude links that have their own specific styling (cards, buttons, etc) */
+.related-post-card a,
+.archive-item a,
+.list-item a,
+.tag-item a {
+  border-bottom: none !important;
 }
 
 /**** BOLD TEXT IMPROVEMENTS *****/
