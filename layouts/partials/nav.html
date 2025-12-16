@@ -2,7 +2,9 @@
   <div class="content-width center flex flex-wrap justify-between items-center pa3">
     <!-- Site title/logo -->
     <div class="flex items-center">
+      {{ if ne hugo.Environment "development" }}
       <a class="f4 fw6 ttu no-underline dim bg-main-color pv1 ph3 br2 white" id="site-title" href='{{ "" | relURL }}' title="Home">{{ .Site.Title }}</a>
+      {{ end }}
     </div>
 
     <!-- Main menu items -->
