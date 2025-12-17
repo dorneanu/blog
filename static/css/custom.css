@@ -289,16 +289,47 @@ figcaption,
 }
 
 /**** LINK VISIBILITY IMPROVEMENTS *****/
-/* Style all links within post content for consistency */
-div.post-content a,
-.lh-copy.post-content a {
+
+/* Style sidenote links to match post content */
+main .sidenote a,
+main .sidenote a:link,
+main .sidenote a:visited,
+main .sidenote a:any-link,
+main small.sidenote a,
+main small.sidenote a:link,
+main small.sidenote a:visited,
+main small.sidenote a:any-link,
+span.sidenote-number .sidenote a,
+span.sidenote-number .sidenote a:link,
+span.sidenote-number .sidenote a:visited,
+span.sidenote-number .sidenote a:any-link {
   border-bottom: 1.5px solid #8C6056 !important;
   color: #8C6056 !important;
   text-decoration: none !important;
 }
 
-div.post-content a:hover,
-.lh-copy.post-content a:hover {
+main .sidenote a:hover,
+main .sidenote a:active,
+main small.sidenote a:hover,
+main small.sidenote a:active,
+span.sidenote-number .sidenote a:hover,
+span.sidenote-number .sidenote a:active {
+  border-bottom: 2px solid #6a4840 !important;
+  color: #6a4840 !important;
+}
+
+/* Style links only on individual post pages (when post-content div exists) */
+main.content-width:has(.post-content) a,
+main.content-width:has(.post-content) a:link,
+main.content-width:has(.post-content) a:visited,
+main.content-width:has(.post-content) a:any-link {
+  border-bottom: 1.5px solid #8C6056 !important;
+  color: #8C6056 !important;
+  text-decoration: none !important;
+}
+
+main.content-width:has(.post-content) a:hover,
+main.content-width:has(.post-content) a:active {
   border-bottom: 2px solid #6a4840 !important;
   color: #6a4840 !important;
 }
