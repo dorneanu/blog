@@ -96,6 +96,147 @@ The repository has the `screenshot` MCP server installed for taking screenshots 
 
 This allows you to see the actual rendered output, not just the HTML/CSS code.
 
+## CSS Debugging Workflow
+
+**Use this systematic approach for diagnosing and fixing CSS styling issues, especially link color inconsistencies or other visual bugs.**
+
+### 1. Visual Verification & Documentation
+```bash
+# Start development server
+hugo server --port 1313
+
+# Take initial screenshot to document the issue
+mcp_screenshot_take_screenshot(url="http://localhost:1313/path/to/page")
+```
+- Capture visual evidence of the problem
+- Note specific areas where styling is inconsistent
+
+### 2. Programmatic Issue Detection
+Use console debugging to systematically find problematic elements:
+
+```javascript
+// Find all elements with the wrong styling (e.g., blue links when they should be brown)
+const problematicElements = Array.from(document.querySelectorAll('a')).filter(link => {
+  const color = window.getComputedStyle(link).color;
+  return color === 'rgb(0, 0, 238)'; // browser default blue
+});
+
+console.log(`Found ${problematicElements.length} problematic elements`);
+
+// Analyze each element's location and context
+problematicElements.forEach((element, index) => {
+  console.log(`Element ${index + 1}:`);
+  console.log(`  URL: ${element.href}`);
+  console.log(`  Text: ${element.textContent.substring(0, 30)}...`);
+  console.log(`  Current color: ${window.getComputedStyle(element).color}`);
+
+  // Check element's position in DOM hierarchy
+  console.log(`  In post-content: ${element.closest('.post-content') ? 'YES' : 'NO'}`);
+  console.log(`  In main: ${element.closest('main') ? 'YES' : 'NO'}`);
+  console.log(`  In footer: ${element.closest('footer') ? 'YES' : 'NO'}`);
+});
+```
+
+### 3. HTML Structure Analysis
+Investigate the DOM hierarchy to understand why CSS isn't applying:
+
+```javascript
+// Examine parent chain for a specific problematic element
+const element = document.querySelector('problematic-selector');
+let current = element;
+let level = 0;
+while (current && level < 6) {
+  console.log(`Level ${level}: <${current.tagName.toLowerCase()}${current.className ? ' class="' + current.className + '"' : ''}>`);
+  current = current.parentElement;
+  level++;
+}
+```
+
+### 4. CSS Specificity Investigation
+- Check existing CSS selectors in `static/css/custom.css` and `themes/er/static/css/styles.css`
+- Identify why current selectors aren't catching all elements
+- Look for competing rules or insufficient specificity
+
+### 5. Targeted CSS Solutions
+Add CSS with appropriate specificity to cover all cases:
+
+```css
+/* Target multiple selector patterns to ensure comprehensive coverage */
+main .post-content a,           /* Post content links */
+main .sidenote a,              /* Sidenote links */
+main a,                        /* All main area links */
+footer a {                     /* Footer links */
+  color: #8C6056 !important;
+  border-bottom: 1.5px solid #8C6056 !important;
+  text-decoration: none !important;
+}
+
+/* Include all pseudo-classes for comprehensive coverage */
+main a:link,
+main a:visited,
+main a:any-link,
+main a:hover,
+main a:active {
+  /* Same styling rules */
+}
+```
+
+### 6. Iterative Testing & Verification
+After each CSS change, verify programmatically:
+
+```javascript
+// Test if the fix worked
+const stillProblematic = Array.from(document.querySelectorAll('a')).filter(link => {
+  const color = window.getComputedStyle(link).color;
+  return color === 'rgb(0, 0, 238)'; // Still blue?
+});
+
+console.log(`Remaining problematic elements: ${stillProblematic.length}`);
+
+if (stillProblematic.length === 0) {
+  console.log('🎉 SUCCESS! All elements now properly styled!');
+
+  // Spot-check some previously problematic elements
+  const testUrls = ['url1', 'url2'];
+  testUrls.forEach(url => {
+    const element = document.querySelector(`a[href="${url}"]`);
+    if (element) {
+      const color = window.getComputedStyle(element).color;
+      console.log(`✅ ${url}: ${color === 'rgb(140, 96, 86)' ? 'CORRECT' : 'WRONG'}`);
+    }
+  });
+}
+```
+
+### 7. Final Visual Confirmation
+```bash
+# Take final screenshot to confirm visual fix
+mcp_screenshot_take_screenshot(url="http://localhost:1313/path/to/page")
+```
+
+### Key Benefits of This Approach:
+- **Visual Documentation**: Screenshots provide clear before/after evidence
+- **Programmatic Precision**: Console debugging finds exact problematic elements
+- **Systematic Analysis**: Understand root causes rather than guessing
+- **Comprehensive Coverage**: Ensure all edge cases are handled
+- **Verifiable Results**: Confirm fixes work across all scenarios
+
+### Common CSS Issues & Solutions:
+- **Insufficient Specificity**: Add more specific selectors (`main .class a` vs `.class a`)
+- **Missing Pseudo-classes**: Include `:link`, `:visited`, `:any-link` states
+- **Competing Rules**: Use `!important` when necessary to override theme defaults
+- **DOM Structure Variations**: Elements outside expected containers (sidenotes, footers, etc.)
+
+### Example Commit:
+```
+fix(css): Ensure consistent link styling across all page areas
+
+- Add comprehensive selectors for main, footer, and sidenote links
+- Include all pseudo-class states (:link, :visited, :any-link)
+- Increase specificity to override theme defaults
+- Verified 0 remaining blue links with console debugging
+```
+
 ## Git Commit Messages
 
 - Use simple one-line commit messages following conventional commit format
