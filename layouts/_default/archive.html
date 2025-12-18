@@ -8,7 +8,7 @@
       <div class="archive-grid">
         {{ range .Pages }}
           <div class="archive-item">
-            <a href="{{ .Permalink | relURL }}" class="link f5 db pa2 bg-light-gray hover-bg-moon-gray">
+            <a href="{{ .Permalink | relURL }}" class="f5 db pa2 bg-light-gray hover-bg-moon-gray heading-color no-underline">
               <div class="archive-title">{{ .Title }}</div>
               <div class="archive-date">{{ .Date.Format "02 Jan" }}</div>
             </a>

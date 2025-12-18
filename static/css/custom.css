@@ -319,17 +319,18 @@ span.sidenote-number .sidenote a:active {
 }
 
 /* Style links only on individual post pages (when post-content div exists) */
-main.content-width:has(.post-content) a,
-main.content-width:has(.post-content) a:link,
-main.content-width:has(.post-content) a:visited,
-main.content-width:has(.post-content) a:any-link {
+/* But exclude archive, list and tag page links from this styling */
+main.content-width:has(.post-content) a:not(.archive-item a):not(.list-item a):not(.tag-item a):not(.related-post-card a),
+main.content-width:has(.post-content) a:link:not(.archive-item a):not(.list-item a):not(.tag-item a):not(.related-post-card a),
+main.content-width:has(.post-content) a:visited:not(.archive-item a):not(.list-item a):not(.tag-item a):not(.related-post-card a),
+main.content-width:has(.post-content) a:any-link:not(.archive-item a):not(.list-item a):not(.tag-item a):not(.related-post-card a) {
   border-bottom: 1.5px solid #8C6056 !important;
   color: #8C6056 !important;
   text-decoration: none !important;
 }
 
-main.content-width:has(.post-content) a:hover,
-main.content-width:has(.post-content) a:active {
+main.content-width:has(.post-content) a:hover:not(.archive-item a):not(.list-item a):not(.tag-item a):not(.related-post-card a),
+main.content-width:has(.post-content) a:active:not(.archive-item a):not(.list-item a):not(.tag-item a):not(.related-post-card a) {
   border-bottom: 2px solid #6a4840 !important;
   color: #6a4840 !important;
 }
@@ -340,6 +341,14 @@ main.content-width:has(.post-content) a:active {
 .list-item a,
 .tag-item a {
   border-bottom: none !important;
+}
+
+/* Archive page links should use heading color like index page - with higher specificity */
+main .archive-item a,
+main .archive-item a:link,
+main .archive-item a:visited,
+main .archive-item a:any-link {
+  color: var(--heading-text-color) !important;
 }
 
 /**** BOLD TEXT IMPROVEMENTS *****/
