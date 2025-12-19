@@ -320,17 +320,17 @@ span.sidenote-number .sidenote a:active {
 
 /* Style links only on individual post pages (when post-content div exists) */
 /* But exclude archive, list and tag page links from this styling */
-main.content-width:has(.post-content) a:not(.archive-item a):not(.list-item a):not(.tag-item a):not(.related-post-card a),
-main.content-width:has(.post-content) a:link:not(.archive-item a):not(.list-item a):not(.tag-item a):not(.related-post-card a),
-main.content-width:has(.post-content) a:visited:not(.archive-item a):not(.list-item a):not(.tag-item a):not(.related-post-card a),
-main.content-width:has(.post-content) a:any-link:not(.archive-item a):not(.list-item a):not(.tag-item a):not(.related-post-card a) {
+main.content-width:has(.post-content) a:not(.archive-item a):not(.list-item a):not(.tag-item a):not(.related-post-card a):not(.bg-main-color),
+main.content-width:has(.post-content) a:link:not(.archive-item a):not(.list-item a):not(.tag-item a):not(.related-post-card a):not(.bg-main-color),
+main.content-width:has(.post-content) a:visited:not(.archive-item a):not(.list-item a):not(.tag-item a):not(.related-post-card a):not(.bg-main-color),
+main.content-width:has(.post-content) a:any-link:not(.archive-item a):not(.list-item a):not(.tag-item a):not(.related-post-card a):not(.bg-main-color) {
   border-bottom: 1.5px solid #8C6056 !important;
   color: #8C6056 !important;
   text-decoration: none !important;
 }
 
-main.content-width:has(.post-content) a:hover:not(.archive-item a):not(.list-item a):not(.tag-item a):not(.related-post-card a),
-main.content-width:has(.post-content) a:active:not(.archive-item a):not(.list-item a):not(.tag-item a):not(.related-post-card a) {
+main.content-width:has(.post-content) a:hover:not(.archive-item a):not(.list-item a):not(.tag-item a):not(.related-post-card a):not(.bg-main-color),
+main.content-width:has(.post-content) a:active:not(.archive-item a):not(.list-item a):not(.tag-item a):not(.related-post-card a):not(.bg-main-color) {
   border-bottom: 2px solid #6a4840 !important;
   color: #6a4840 !important;
 }
