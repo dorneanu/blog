@@ -249,6 +249,18 @@ Examples:
 - `fix(layout): Correct responsive grid spacing`
 - `chore(deps): Update Hugo version`
 
+## Git Operations Permissions
+
+**CRITICAL**: Never commit or push changes unless explicitly asked by the user.
+
+- **ALWAYS** ask for permission before committing changes
+- **NEVER** automatically commit after making modifications to files
+- **NEVER** push to remote repositories without explicit user approval
+- Wait for user confirmation with phrases like "commit this" or "push these changes"
+- This applies to ALL git operations: commits, pushes, merges, etc.
+
+The user maintains full control over when and what gets committed to the repository.
+
 ## Blog Post Creation Workflow
 
 Claude Code acts as a blogging assistant to reduce friction in creating and publishing posts. When the user wants to create a blog post:
