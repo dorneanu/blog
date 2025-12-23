@@ -1,0 +1,63 @@
+{{ if gt .Paginator.TotalPages 1 }}
+<div class="pagination-container tc db mb4">
+  <nav class="pagination-nav" aria-label="Page navigation">
+    <div class="pagination-links">
+      <!-- Previous page button -->
+      {{ if .Paginator.HasPrev }}
+        <a href="{{ .Paginator.Prev.URL | relURL }}" class="pagination-btn pagination-prev" aria-label="Previous page">
+          ← Previous
+        </a>
+      {{ else }}
+        <span class="pagination-btn pagination-prev pagination-disabled">← Previous</span>
+      {{ end }}
+
+      <!-- Page numbers -->
+      <div class="pagination-numbers">
+        {{ $currentPage := .Paginator.PageNumber }}
+        {{ $totalPages := .Paginator.TotalPages }}
+
+        <!-- Always show first page -->
+        {{ if gt $currentPage 3 }}
+          <a href="{{ .Paginator.First.URL | relURL }}" class="pagination-number">1</a>
+          {{ if gt $currentPage 4 }}
+            <span class="pagination-ellipsis">…</span>
+          {{ end }}
+        {{ end }}
+
+        <!-- Show pages around current page -->
+        {{ range .Paginator.Pagers }}
+          {{ if and (ge .PageNumber (sub $currentPage 2)) (le .PageNumber (add $currentPage 2)) }}
+            {{ if eq .PageNumber $currentPage }}
+              <span class="pagination-number pagination-current" aria-current="page">{{ .PageNumber }}</span>
+            {{ else }}
+              <a href="{{ .URL | relURL }}" class="pagination-number">{{ .PageNumber }}</a>
+            {{ end }}
+          {{ end }}
+        {{ end }}
+
+        <!-- Always show last page -->
+        {{ if lt $currentPage (sub $totalPages 2) }}
+          {{ if lt $currentPage (sub $totalPages 3) }}
+            <span class="pagination-ellipsis">…</span>
+          {{ end }}
+          <a href="{{ .Paginator.Last.URL | relURL }}" class="pagination-number">{{ $totalPages }}</a>
+        {{ end }}
+      </div>
+
+      <!-- Next page button -->
+      {{ if .Paginator.HasNext }}
+        <a href="{{ .Paginator.Next.URL | relURL }}" class="pagination-btn pagination-next" aria-label="Next page">
+          Next →
+        </a>
+      {{ else }}
+        <span class="pagination-btn pagination-next pagination-disabled">Next →</span>
+      {{ end }}
+    </div>
+  </nav>
+</div>
+
+<!-- Keep the fixed back-to-top button separate -->
+<div class="fixed-l bottom-2-l right-2-l mb3 mb0-l">
+{{ partial "back-to-top.html" . }}
+</div>
+{{ end }}

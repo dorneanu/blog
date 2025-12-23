@@ -32,11 +32,11 @@
 {{ partial "table-of-contents" . }}
 
 
-<div class="pagination tc tr-l db fixed-l bottom-2-l right-2-l mb3 mb0-l">
-  {{ partial "back-to-top.html" . }}<br>
-  <p class="mb0 mt2">
-  {{ with .PrevInSection }}{{ if . }}<a href="{{ .Permalink }}">prev</a>{{ end }}{{ end }}
-  {{ with .NextInSection }}{{ if . }}<a href="{{ .Permalink }}">next</a>{{ end }}{{ end }}
-  </p>
+<div class="post-navigation-container fixed-l bottom-2-l right-2-l mb3 mb0-l">
+  {{ partial "back-to-top.html" . }}
+  <div class="post-nav-links">
+    {{ with .PrevInSection }}{{ if . }}<a href="{{ .Permalink }}" class="post-nav-btn">← prev</a>{{ end }}{{ end }}
+    {{ with .NextInSection }}{{ if . }}<a href="{{ .Permalink }}" class="post-nav-btn">next →</a>{{ end }}{{ end }}
+  </div>
 </div>
 {{ end }}
