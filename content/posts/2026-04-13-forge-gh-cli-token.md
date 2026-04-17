@@ -2,10 +2,14 @@
 title = "Using forge with gh CLI token"
 author = ["Victor Dorneanu"]
 date = 2026-04-13
-lastmod = 2026-04-13T19:11:50+02:00
+lastmod = 2026-04-17T10:39:03+02:00
 tags = ["emacs", "github"]
 draft = false
 +++
+
+> **Update 2026-04-17:** A [Reddit comment](https://www.reddit.com/r/emacs/comments/1sl1lex/using_forge_with_gh_cli_token/) pointed out a cleaner approach: instead of advising
+> `ghub--token` directly, you can register a proper `auth-source` backend. This way _any_ package that
+> uses `auth-source` (not just ghub/forge) benefits automatically. Both approaches are documented below.
 
 [Forge](https://github.com/magit/forge) requires a GitHub token stored in `~/.authinfo` or `~/.netrc`. For GitHub Enterprise (e.g.,
 corporate instances), this means:
@@ -78,6 +82,46 @@ lookup if our function returns `nil`.
 `ghub` (Forge's HTTP layer) calls `ghub--token` to resolve credentials. By advising it with
 `:before-until`, we short-circuit the lookup for matching hostnames and return the `gh` CLI token
 directly — no `~/.authinfo` entry needed.
+
+
+## Better alternative: a proper auth-source backend {#better-alternative-a-proper-auth-source-backend}
+
+The approach above works, but it's ghub-specific. A [Reddit commenter](https://www.reddit.com/r/emacs/comments/1sl1lex/using_forge_with_gh_cli_token/) pointed out that Magit
+ultimately resolves tokens via `auth-source-search`, so you can register a custom `auth-source`
+backend instead. This is cleaner because:
+
+-   No monkey-patching of `ghub--token`
+-   Any package using `auth-source` gets the token automatically
+-   Follows the intended extension point of the `auth-source` API
+
+<!--listend-->
+
+```emacs-lisp
+(defun auth-source-backend-gh-parse (entry)
+  (when (string= "gh" entry)
+    (auth-source-backend
+     :source "."
+     :type 'gh
+     :search-function #'auth-source-gh-search)))
+(add-hook 'auth-source-backend-parser-functions #'auth-source-backend-gh-parse)
+
+(cl-defun auth-source-gh-search (&rest spec &allow-other-keys)
+  (when-let* ((host (plist-get spec :host))
+              ((string-match-p "github\\.example\\.corp" (format "%s" host))))
+    (let ((token (string-trim (shell-command-to-string
+                               "gh auth token --hostname github.example.corp"))))
+      (message "Using gh CLI token for %s" host)
+      `(:secret ,token))))
+
+(add-to-list 'auth-sources "gh")
+(auth-source-forget-all-cached)
+```
+
+You can drop this inside your `forge` `use-package` `:config` block, or load it independently — it
+doesn't depend on forge at all.
+
+The old `advice-add` approach still works if you prefer to keep it scoped strictly to ghub. But for a
+new setup, the `auth-source` backend is the right way to go.
 
 
 ## Alternative: consult-gh {#alternative-consult-gh}
