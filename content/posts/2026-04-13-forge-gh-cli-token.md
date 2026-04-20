@@ -2,14 +2,14 @@
 title = "Using forge with gh CLI token"
 author = ["Victor Dorneanu"]
 date = 2026-04-13
-lastmod = 2026-04-17T10:39:03+02:00
+lastmod = 2026-04-20T14:00:16+02:00
 tags = ["emacs", "github"]
 draft = false
 +++
 
-> **Update 2026-04-17:** A [Reddit comment](https://www.reddit.com/r/emacs/comments/1sl1lex/using_forge_with_gh_cli_token/) pointed out a cleaner approach: instead of advising
-> `ghub--token` directly, you can register a proper `auth-source` backend. This way _any_ package that
-> uses `auth-source` (not just ghub/forge) benefits automatically. Both approaches are documented below.
+> **Update 2026-04-17:** A [Reddit comment](https://www.reddit.com/r/emacs/comments/1sl1lex/using_forge_with_gh_cli_token/) pointed out a cleaner approach: instead of advising `ghub--token`
+> directly, you can register a proper `auth-source` backend. This way _any_ package that uses `auth-source`
+> (not just ghub/forge) benefits automatically. Both approaches are documented below.
 
 [Forge](https://github.com/magit/forge) requires a GitHub token stored in `~/.authinfo` or `~/.netrc`. For GitHub Enterprise (e.g.,
 corporate instances), this means:
@@ -108,10 +108,11 @@ backend instead. This is cleaner because:
 (cl-defun auth-source-gh-search (&rest spec &allow-other-keys)
   (when-let* ((host (plist-get spec :host))
               ((string-match-p "github\\.example\\.corp" (format "%s" host))))
-    (let ((token (string-trim (shell-command-to-string
-                               "gh auth token --hostname github.example.corp"))))
+    (let* ((token (string-trim (shell-command-to-string
+                                "gh auth token --hostname github.example.corp")))
+           (user (or (plist-get spec :user) user-login-name)))
       (message "Using gh CLI token for %s" host)
-      `(:secret ,token))))
+      (list (list :host host :user user :secret token)))))
 
 (add-to-list 'auth-sources "gh")
 (auth-source-forget-all-cached)
