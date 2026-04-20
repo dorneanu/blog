@@ -420,121 +420,70 @@ h6:hover .heading-anchor {
 /* Expand the content width */
 .content-width { max-width: 850px; }
 
-/* * Margin notes/sidenotes */
-.sidenote {
-  font-family: sans-serif;
-  font-size: 80%; /* slightly smaller font for sidenote content */
-  font-weight: normal;
-  color: var(--theme-hl1-color);
-  position: relative; /* forces note to be relative its the normal position */
-}
-/* Wide viewport */
-@media (min-width: 1400px) {
-  .sidenote {
-    float: left;
-    clear: left; /* prevent overlapping of sidenotes */
-    text-align: right;
-
-    /* https://kennethfriedman.org/thoughts/2019/marginal-notes/ */
-    /* display: inline; */ /* not sure if this is required */
-    top: -0.8rem; /* start the sidenote display a bit higher than its reference in body */
-    width: 18vw; /* limits the width of the marginal note */
-    margin-left: -21vw; /* sets the distance of sidenote's left margin from the HTML element on right */
-    margin-top: 1rem; /* keep some space between adjacent sidenotes if they get too close */
-    padding: 0.5rem 1rem 0.5rem 0.5rem; /* Add padding for better spacing */
-  }
-}
-/* Narrow viewport */
-/* Interleave the "sidenotes" with the body text on narrow screen */
-@media (max-width: 1400px) {
-  .sidenote {
-    /* As the sidenotes are in the body in narrow viewport, they need to
-           be floated to the left. */
-    float: left;
-    text-align: left;
-
-    display: block;
-    width: 90%; /* Width is set to 100% so that the sidenote when inlined takes up the entire row. */
-    margin: 1rem 0;
-    padding-left: 5%; /* Indentation of the sidenotes inside the body. */
-  }
-}
-
-/* Sidenote counter system */
-/* https://codepen.io/dredmorbius/details/OVmBaZ */
+/* * Sidenotes */
 .post-content {
   counter-reset: sidenote-counter;
 }
 
-.sidenote-number {
+/* .sidenote-ref increments the counter and shows the superscript */
+.sidenote-ref {
   counter-increment: sidenote-counter;
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
+  display: inline;
 }
 
-/* Counter in the main body - superscript number */
-.sidenote-number::after {
-  content: counter(sidenote-counter);
-  vertical-align: super;
+/* .sidenote content — hidden on narrow screens */
+.sidenote {
   font-family: sans-serif;
-  font-size: 0.7em;
-  font-weight: bold;
-  color: var(--theme-body-color);
-  margin-left: 0.1rem;
-  padding: 0.1rem 0.2rem;
-  cursor: pointer;
-  border-radius: 2px;
-  transition: background-color 0.2s ease;
-}
-
-/* Highlight the number when hovering over the sidenote container */
-.sidenote-number:hover::after {
-  background-color: rgba(140, 96, 86, 0.1);
-}
-
-/* Counter before the sidenote in the margin */
-.sidenote::before {
-  content: counter(sidenote-counter) ".";
-  font-size: 0.9em;
-  font-weight: bold;
-  margin-right: 0.3rem;
-  color: var(--theme-body-color);
-}
-
-/* Hide sidenote content by default - only show the number */
-.sidenote-number .sidenote {
+  font-size: 0.8em;
+  font-weight: normal;
+  line-height: 1.4;
+  color: var(--theme-hl1-color);
   display: none;
 }
 
-@media (min-width: 1400px) {
-  .sidenote-number .sidenote {
-    position: absolute;
-    left: -21vw;
-    top: -1rem;
-    width: 18vw;
-    text-align: right;
-    margin: 0;
-    padding: 0.5rem 1rem 0.5rem 0.5rem;
-    float: none;
-    display: block;
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
-    z-index: 10;
-    line-height: 1.4;
-    transform: translateY(-50%);
-  }
-
-  /* Highlight the sidenote when mouse hovers on the sidenote number in body. */
-  .sidenote-number:hover .sidenote {
-    background-color: #ffe496 !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
+.sidenote-ref::after {
+  content: counter(sidenote-counter);
+  vertical-align: super;
+  font-family: sans-serif;
+  font-size: 0.65em;
+  font-weight: bold;
+  color: var(--theme-hl1-color);
+  margin-left: 0.1rem;
 }
 
-@media (max-width: 1400px) {
-  .sidenote-number .sidenote {
-    display: none;
+/* Wide viewport: float sidenote into left margin */
+@media (min-width: 1200px) {
+  .sidenote {
+    display: block;
+    float: left;
+    clear: left;
+    width: 220px;
+    margin-left: -260px;
+    margin-top: 0.1rem;
+    margin-bottom: 0;
+    padding: 0.3rem 0.5rem;
+    text-align: right;
+    border-radius: 4px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    transition: background-color 0.2s ease;
+  }
+
+  .sidenote::before {
+    content: counter(sidenote-counter) ". ";
+    font-weight: bold;
+    color: var(--theme-body-color);
+  }
+
+  /* Highlight sidenote and superscript on hover of either */
+  .sidenote-wrap:hover .sidenote {
+    background-color: #ffe496;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .sidenote-wrap:hover .sidenote-ref::after {
+    background-color: #ffe496;
+    border-radius: 2px;
   }
 }
 
