@@ -51,6 +51,73 @@ This is **blog.dornea.nu**, a personal blog by Victor Dorneanu built with Hugo s
 - Related posts feature
 - Custom CSS and JavaScript
 
+## Loop Habits Data Integration
+
+The blog includes interactive habit tracking visualizations using data from the [Loop Habits](https://github.com/iSoron/uhabits) Android app. This workflow converts Loop Habits CSV exports into blog-compatible data.
+
+### Understanding Loop Habits Data
+
+Loop Habits tracks two types of completions:
+- **`YES_MANUAL`** - Days when you manually logged completing the habit (actual sessions)
+- **`YES_AUTO`** - Days automatically marked as "achieved" after meeting weekly goals (not actual sessions)
+
+For accurate visualization of actual habit sessions, only `YES_MANUAL` entries should be counted.
+
+### Data Conversion Workflow
+
+#### 1. Export Data from Loop Habits
+- In Loop Habits app: Settings → Import/Export → Export to CSV
+- Place the exported `Checkmarks.csv` file in the `tmp/` directory
+
+#### 2. Convert to Blog Format
+Use the provided conversion script to process the data:
+
+```bash
+# Run with default paths
+./scripts/convert-loop-habits.sh
+
+# Or specify custom paths
+./scripts/convert-loop-habits.sh tmp/Checkmarks.csv static/data/habits-2025.csv
+```
+
+The script:
+- Converts all habit columns to binary (0/1) format
+- Only counts `YES_MANUAL` entries (ignoring `YES_AUTO`)
+- Creates clean column names (spaces → underscores, lowercase)
+- Outputs summary statistics for verification
+- Saves to `static/data/habits-2025.csv`
+
+#### 3. Available Habits for Shortcodes
+After conversion, use these habit names in your `habit-tracker-filtered` shortcodes:
+- `meditation`
+- `cold_shower`
+- `pranayama`
+- `reading`
+- `sport`
+- `djembe`
+- `session_20min`
+
+#### 4. Using in Blog Posts
+Add habit trackers to posts using the shortcode:
+
+```hugo
+{{< habit-tracker-filtered csv="/data/habits-2025.csv" year="2025" habit="reading" >}}
+{{< habit-tracker-filtered csv="/data/habits-2025.csv" year="2025" habit="sport" >}}
+{{< habit-tracker-filtered csv="/data/habits-2025.csv" year="2025" habit="meditation" >}}
+```
+
+### File Locations
+- **Script**: `scripts/convert-loop-habits.sh`
+- **Raw data**: `tmp/Checkmarks.csv` (from Loop Habits export)
+- **Converted data**: `static/data/habits-2025.csv` (for blog)
+- **Shortcode template**: `layouts/shortcodes/habit-tracker-filtered.html`
+
+### When to Update
+Re-run the conversion script whenever you:
+- Export new data from Loop Habits
+- Want to refresh the habit visualizations
+- Add new habits to track
+
 ## Git Submodules
 
 **IMPORTANT**: `themes/er/` is a git submodule (separate repository)
