@@ -102,19 +102,56 @@ footer img {
   transform: translate(-50%, -50%);
 }
 
-.notice.info {
-  border-color: #6bf;
-  background-color: rgba(102, 187, 255, 0.1);
+/* Notice panels ({{< notice info|warning|danger >}}). The generic blockquote
+   rule further down uses !important, so these need it too to look different
+   from a plain quote. */
+blockquote.notice {
+  border: 1px solid transparent !important;
+  border-left-width: 4px !important;
+  border-radius: 6px;
+  font-style: normal;
 }
 
-.notice.warning {
-  border-color: #fd6;
-  background-color: rgba(255, 221, 102, 0.1);
+/* Icon in the left gutter; the text is indented to make room for it */
+blockquote.notice {
+  position: relative;
+  padding-left: 3.25rem !important;
 }
 
-.notice.danger {
-  border-color: #f66;
-  background-color: rgba(255, 102, 102, 0.1);
+blockquote.notice::before {
+  position: absolute;
+  left: 1rem;
+  top: 0.9rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  font-style: normal;
+}
+
+blockquote.notice.info::before { content: "💡"; }
+blockquote.notice.warning::before { content: "⚠️"; }
+blockquote.notice.danger::before { content: "🚨"; }
+
+blockquote.notice p {
+  font-style: normal;
+  color: var(--body-text-color) !important;
+}
+
+blockquote.notice.info {
+  border-color: #b9dcf7 !important;
+  border-left-color: #3b8fd4 !important;
+  background-color: #eef6fd !important;
+}
+
+blockquote.notice.warning {
+  border-color: #f3e0a3 !important;
+  border-left-color: #d9a400 !important;
+  background-color: #fdf8e6 !important;
+}
+
+blockquote.notice.danger {
+  border-color: #f3bcbc !important;
+  border-left-color: #d64545 !important;
+  background-color: #fdeeee !important;
 }
 
 /* Center captions */
@@ -1093,4 +1130,11 @@ pre .language-xml::before {
 }
 pre .language-yaml::before {
   content: "YAML";
+}
+
+/* Table of contents: the fixed sidebar was sized for the theme's 650px column.
+   With the 850px column it only fits beside the content from ~1440px up. */
+#contents-list>.toc-list { max-width: 250px; right: 2rem; }
+@media (max-width: 1439px) {
+  #contents-list { display: none; }
 }
